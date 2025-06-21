@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Flame Admin</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .flame-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin: 0;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+        
+        .section h2 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 18px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #545b62;
+        }
+        
+        button.danger {
+            background: #dc3545;
+        }
+        
+        button.danger:hover {
+            background: #c82333;
+        }
+        
+        .verse-list {
+            margin-top: 20px;
+        }
+        
+        .verse-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        
+        .verse-info {
+            flex: 1;
+        }
+        
+        .verse-reference {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        
+        .verse-translation {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+        }
+        
+        .verse-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .verse-actions button {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .alert.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+        
+        .preview-verse {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .preview-reference {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="flame-icon">🔥</div>
+            <h1>Daily Flame Admin</h1>
+            <p class="subtitle">Manage your daily Bible verses</p>
+        </div>
+        
+        <div id="alerts"></div>
+        
+        <div class="section">
+            <h2>Add New Verse</h2>
+            <form id="addVerseForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="verseReference">Bible Reference</label>
+                        <input type="text" id="verseReference" placeholder="e.g., John 3:16, Psalms 23:1-3" required>
+                        <small style="color: #6c757d; font-size: 12px;">Examples: John 3:16, Romans 8:28, Psalms 23:1-6</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="bibleTranslation">Translation</label>
+                        <select id="bibleTranslation" required>
+                            <option value="">Select Translation</option>
+                            <option value="KJV">KJV - King James Version</option>
+                            <option value="WEB">WEB - World English Bible</option>
+                            <option value="WEB_BRITISH">WEB British - World English Bible (British)</option>
+                            <option value="WEB_UPDATED">WEB Updated - World English Bible (Updated)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" id="previewBtn" class="secondary">Preview Verse</button>
+                    <button type="submit">Add to Collection</button>
+                </div>
+                <div id="versePreview" style="display: none;"></div>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>Current Verse Collection</h2>
+            <div id="verseList" class="loading">Loading verses...</div>
+        </div>
+        
+        <div class="section">
+            <h2>Actions</h2>
+            <button type="button" id="testVerseBtn" class="secondary">Test Today's Verse</button>
+            <button type="button" id="clearStorageBtn" class="danger">Reset Daily Status</button>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
