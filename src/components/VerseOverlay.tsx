@@ -329,7 +329,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           /* Sign In Button - Only visible when not authenticated */
           <button
             onClick={() => setShowSignIn(true)}
-            className="px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white border-opacity-30"
+            className="df-glassmorphism-element px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white border-opacity-30"
           >
             Sign In
           </button>
@@ -338,7 +338,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           <div className="relative profile-dropdown">
             <button
               onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-              className="flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white border-opacity-30"
+              className="df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white border-opacity-30"
             >
               {getUserAvatar(user) ? (
                 <img
@@ -359,7 +359,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
             {/* Dropdown Menu */}
             {showProfileDropdown && (
-              <div className="absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20">
+              <div className="df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20">
                 <div className="px-3 py-2 border-b border-white border-opacity-20 mb-2">
                   <p className="text-white text-sm font-medium">{user.displayName || 'User'}</p>
                   <p className="text-white text-opacity-70 text-xs">{user.email}</p>
@@ -419,7 +419,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       {/* Sign-In Modal */}
       {showSignIn && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white text-lg font-semibold">Sign In</h3>
               <button
@@ -436,7 +436,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                 disabled={authLoading}
               />
               <PasswordInput
@@ -549,7 +549,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       {/* Sign-Up Modal */}
       {showSignUp && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white text-lg font-semibold">Create Account</h3>
               <button
@@ -567,7 +567,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="First Name"
-                  className="w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                   disabled={authLoading}
                 />
                 <input
@@ -575,7 +575,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Last Name"
-                  className="w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                   disabled={authLoading}
                 />
               </div>
@@ -584,7 +584,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                 disabled={authLoading}
               />
               <PasswordInput
@@ -673,7 +673,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       {/* Email Verification Modal */}
       {showEmailVerification && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
             <div className="text-center">
               <div className="mb-4">
                 <svg className="w-16 h-16 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -717,7 +717,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
         {/* Admin Controls - Only visible to authenticated admins */}
         {user && isAdmin && (
-          <div className="mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm">
+          <div className="df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm">
             <h3 className="text-white text-lg font-semibold mb-4 flex items-center gap-2">
               <span>⚙️</span>
               Admin: Set Daily Verse
@@ -730,12 +730,12 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                   value={adminReference}
                   onChange={(e) => setAdminReference(e.target.value)}
                   placeholder="e.g., John 3:16, Psalms 23:1-3"
-                  className="flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                 />
                 <select
                   value={adminTranslation}
                   onChange={(e) => setAdminTranslation(e.target.value as BibleTranslation)}
-                  className="px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                  className="df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                 >
                   <option value="KJV" className="text-black">KJV</option>
                   <option value="WEB" className="text-black">WEB</option>

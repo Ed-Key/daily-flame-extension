@@ -11,7 +11,7 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
     // Add global function to reset verse (for testing)
     (window as any).resetDailyFlame = function() {
         // If overlay already exists, just clear storage and return
-        const existingOverlay = document.getElementById('daily-flame-overlay');
+        const existingOverlay = document.getElementById('daily-flame-extension-root');
         if (existingOverlay) {
             console.log('Daily Flame: Overlay already exists, not recreating');
             // Just clear storage to allow showing again
@@ -89,7 +89,7 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
     }
     
     async function createVerseOverlay() {
-        if (document.getElementById('daily-flame-overlay')) {
+        if (document.getElementById('daily-flame-extension-root')) {
             return;
         }
         
@@ -123,9 +123,9 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
     }
     
     function renderOverlay(verse: VerseData) {
-        // Create container for React app
+        // Create high-specificity container for CSS isolation
         const overlayContainer = document.createElement('div');
-        overlayContainer.id = 'daily-flame-overlay';
+        overlayContainer.id = 'daily-flame-extension-root';
         
         // Apply initial styles to ensure proper isolation
         overlayContainer.style.cssText = `
@@ -138,6 +138,11 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
             pointer-events: auto !important;
         `;
         
+        // Create inner container for React app
+        const reactContainer = document.createElement('div');
+        reactContainer.id = 'daily-flame-overlay';
+        overlayContainer.appendChild(reactContainer);
+        
         // Add the overlay container to the page
         document.body.appendChild(overlayContainer);
         
@@ -145,7 +150,7 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
         document.body.style.overflow = 'hidden';
         
         // Create React root
-        const root = createRoot(overlayContainer);
+        const root = createRoot(reactContainer);
         
         // Error boundary component
         class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean}> {
@@ -207,7 +212,7 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
     
     function dismissOverlay() {
         try {
-            const overlay = document.getElementById('daily-flame-overlay');
+            const overlay = document.getElementById('daily-flame-extension-root');
             if (overlay) {
                 console.log('Daily Flame: Dismissing verse overlay');
                 
