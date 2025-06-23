@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Flame Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Daily Flame Extension Test Page</h1>
+        <p>This is a test page to verify the Daily Flame Chrome extension is working properly.</p>
+        <p>If the extension is installed and working, you should see a full-screen Bible verse overlay when you first visit this page (unless it has already been shown today).</p>
+        <p>The overlay should have:</p>
+        <ul>
+            <li>Black background covering the entire page</li>
+            <li>Centered white verse text</li>
+            <li>Italic verse reference below the text</li>
+            <li>Large white "Done" button</li>
+            <li>Simple grey "Sign In" button in the top-right corner</li>
+            <li>If signed in as admin: Profile button should be properly positioned in top-right corner</li>
+            <li>If signed in as admin: Profile dropdown menu should appear aligned correctly when clicked</li>
+            <li>If signed in as admin: "Admin: Set Daily Verse" section should have clean layout without unwanted border lines</li>
+            <li>No stray border lines or visual artifacts should be visible</li>
+        </ul>
+        <button class="test-button" onclick="if(window.resetDailyFlame) window.resetDailyFlame(); else alert('Extension not loaded or resetDailyFlame function not available');">
+            Test Extension (Reset Daily Verse)
+        </button>
+        <p><em>Note: Click the button above to force-show the verse overlay for testing.</em></p>
+    </div>
+</body>
+</html>
