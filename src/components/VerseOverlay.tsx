@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { VerseOverlayProps, BIBLE_VERSIONS, BibleTranslation, VerseData } from '../types';
 import { VerseService } from '../services/verse-service';
 import { useAuth } from './AuthContext';
@@ -13,6 +15,11 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = useAuth();
   const { showToast } = useToast();
   const doneButtonRef = useRef<HTMLButtonElement>(null);
+  
+  // GSAP animation refs
+  const verseTextRef = useRef<HTMLParagraphElement>(null);
+  const verseReferenceRef = useRef<HTMLParagraphElement>(null);
+  const verseContentRef = useRef<HTMLDivElement>(null);
   
   // Debug logging
   useEffect(() => {
@@ -86,6 +93,105 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [showProfileDropdown]);
+
+  // GSAP Animation Setup
+  useGSAP(() => {
+    console.log('GSAP useGSAP hook running');
+    
+    // Split verse text into words for word-by-word animation
+    if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && verseContentRef.current) {
+      console.log('All refs are available, setting up animation');
+      
+      // Ensure parent container is visible
+      gsap.set(verseContentRef.current, {
+        opacity: 1
+      });
+      
+      // Set initial states for animation elements
+      // Don't hide verseTextRef since we're animating the words inside it
+      gsap.set([verseReferenceRef.current, doneButtonRef.current], {
+        opacity: 0,
+        y: 30,
+        scale: 0.95
+      });
+      
+      // Make sure the verse text container is visible
+      gsap.set(verseTextRef.current, {
+        opacity: 1
+      });
+      
+      const verseWords = verse.text.split(' ');
+      const wordSpans = verseWords.map((word, index) => 
+        `<span class="verse-word">${word}</span>`
+      ).join('');
+      
+      verseTextRef.current.innerHTML = `"${wordSpans}"`;
+    
+      // Get all word spans for animation
+      const wordElements = verseTextRef.current.querySelectorAll('.verse-word');
+      console.log('Found word elements:', wordElements.length);
+      
+      if (wordElements.length > 0) {
+        // Set initial state for word elements
+        gsap.set(wordElements, {
+          opacity: 0,
+          y: 20,
+          display: 'inline-block'
+        });
+        
+        // Create timeline for smooth verse reveal
+        const tl = gsap.timeline({ 
+          delay: 0.3,
+          onStart: () => {
+            console.log('GSAP timeline started');
+          },
+          onComplete: () => {
+            console.log('GSAP timeline completed');
+          }
+        });
+        
+        // Animate words one by one with stagger
+        tl.to(wordElements, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.08, // 80ms delay between each word
+          clearProps: "all" // Clear inline styles after animation
+        })
+        // Then animate verse reference
+        .to(verseReferenceRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          clearProps: "all"
+        }, "-=0.4") // Start before words finish
+        // Finally animate done button
+        .to(doneButtonRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          clearProps: "all"
+        }, "-=0.2"); // Start before reference finishes
+        
+        // Force play the timeline
+        tl.play();
+      } else {
+        console.error('No word elements found to animate');
+      }
+    } else {
+      console.error('One or more refs are null:', {
+        verseText: !!verseTextRef.current,
+        verseReference: !!verseReferenceRef.current,
+        doneButton: !!doneButtonRef.current
+      });
+    }
+
+  }, { dependencies: [verse.text, verse.reference], scope: verseContentRef });
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     // Disable keyboard dismissal to prevent accidental dismissal when testing admin features
@@ -713,7 +819,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         </div>
       )}
 
-      <div className="verse-content">
+      <div ref={verseContentRef} className="verse-content">
 
         {/* Admin Controls - Only visible to authenticated admins */}
         {user && isAdmin && (
@@ -772,10 +878,10 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         )}
 
         <div className="mb-10">
-          <p className="verse-text">
+          <p ref={verseTextRef} className="verse-text">
             "{verse.text}"
           </p>
-          <p className="verse-reference">
+          <p ref={verseReferenceRef} className="verse-reference">
             {verse.reference}
           </p>
         </div>
