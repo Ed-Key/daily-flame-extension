@@ -6,7 +6,6 @@ import { VerseService } from '../services/verse-service';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
 import PasswordInput from './PasswordInput';
-import '../styles/globals.css';
 
 const VerseOverlay: React.FC<VerseOverlayProps> = ({ 
   verse, 
@@ -119,7 +118,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         opacity: 0,
         y: 30,
         scale: 0.95,
-        visibility: 'visible'
+        visibility: 'visible',
+        display: 'block'
       });
       
       // Keep the verse text container hidden initially
@@ -201,7 +201,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           scale: 1,
           duration: 0.8,
           ease: "power2.out",
-          clearProps: "opacity,transform,y,scale"
+          clearProps: "opacity,transform,y,scale,display"
         }, "-=0.4") // Start before closing quote finishes
         // Finally animate done button
         .to(doneButtonRef.current, {
@@ -210,7 +210,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           scale: 1,
           duration: 0.6,
           ease: "back.out(1.7)",
-          clearProps: "opacity,transform,y,scale"
+          clearProps: "opacity,transform,y,scale,display"
         }, "-=0.2"); // Start before reference finishes
         
         // Force play the timeline
@@ -913,10 +913,10 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         )}
 
         <div className="mb-10">
-          <p ref={verseTextRef} className="verse-text" style={{ opacity: 0 }}>
+          <p ref={verseTextRef} className="verse-text">
             "{verse.text}"
           </p>
-          <p ref={verseReferenceRef} className="verse-reference" style={{ opacity: 0 }}>
+          <p ref={verseReferenceRef} className="verse-reference">
             {verse.reference}
           </p>
         </div>
@@ -925,7 +925,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           className="verse-done-btn"
           onClick={onDismiss}
           type="button"
-          style={{ opacity: 0 }}
         >
           Done
         </button>

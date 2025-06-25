@@ -83,7 +83,7 @@ export const getShadowDomStyles = (): string => {
       line-height: 28px !important;
       margin-bottom: 40px !important;
       font-style: italic !important;
-      opacity: 0.9 !important;
+      opacity: 0.9;
       font-weight: normal !important;
       color: white !important;
     }
@@ -782,6 +782,55 @@ export const getShadowDomStyles = (): string => {
     
     .modal-content::-webkit-scrollbar-thumb:hover {
       background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* CSS Custom Properties for glassmorphism */
+    :host {
+      --df-bg-white-10: rgba(255, 255, 255, 0.1);
+      --df-bg-white-20: rgba(255, 255, 255, 0.2);
+      --df-bg-white-30: rgba(255, 255, 255, 0.3);
+      --df-backdrop-blur-sm: blur(4px);
+      --df-backdrop-blur-md: blur(12px);
+      --df-border-white-20: rgba(255, 255, 255, 0.2);
+      --df-border-white-30: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      .verse-content {
+        max-width: 90% !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+      
+      .verse-text {
+        font-size: 24px !important;
+        line-height: 32px !important;
+      }
+      
+      .verse-reference {
+        font-size: 16px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 12px 32px !important;
+        font-size: 16px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .verse-text {
+        font-size: 18px !important;
+      }
+      
+      .verse-reference {
+        font-size: 14px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+      }
     }
   `;
 };

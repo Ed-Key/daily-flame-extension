@@ -53158,15 +53158,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var _gsap_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @gsap/react */ "./node_modules/@gsap/react/src/index.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types */ "./src/types/index.ts");
 /* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/verse-service */ "./src/services/verse-service.ts");
 /* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AuthContext */ "./src/components/AuthContext.tsx");
 /* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ToastContext */ "./src/components/ToastContext.tsx");
 /* harmony import */ var _PasswordInput__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PasswordInput */ "./src/components/PasswordInput.tsx");
-/* harmony import */ var _styles_globals_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../styles/globals.css */ "./src/styles/globals.css");
-
 
 
 
@@ -53255,20 +53253,21 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
-            gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(verseContentRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseContentRef.current, {
                 opacity: 1,
                 visibility: 'visible'
             });
             // Set initial states for animation elements
             // Don't hide verseTextRef since we're animating the words inside it
-            gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set([verseReferenceRef.current, doneButtonRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([verseReferenceRef.current, doneButtonRef.current], {
                 opacity: 0,
                 y: 30,
                 scale: 0.95,
-                visibility: 'visible'
+                visibility: 'visible',
+                display: 'block'
             });
             // Keep the verse text container hidden initially
-            gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(verseTextRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseTextRef.current, {
                 opacity: 0,
                 visibility: 'visible'
             });
@@ -53286,17 +53285,17 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
             if (wordElements.length > 0 && openingQuote && closingQuote) {
                 // Set initial state for all animated elements
-                gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set([wordElements, openingQuote, closingQuote], {
+                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([wordElements, openingQuote, closingQuote], {
                     opacity: 0,
                     y: 20,
                     display: 'inline-block'
                 });
                 // Now make the container visible after all elements are hidden
-                gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(verseTextRef.current, {
+                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseTextRef.current, {
                     opacity: 1
                 });
                 // Create timeline for smooth verse reveal
-                const tl = gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.timeline({
+                const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
                     delay: 0.3,
                     onStart: () => {
                         console.log('GSAP timeline started');
@@ -53337,7 +53336,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     scale: 1,
                     duration: 0.8,
                     ease: "power2.out",
-                    clearProps: "opacity,transform,y,scale"
+                    clearProps: "opacity,transform,y,scale,display"
                 }, "-=0.4") // Start before closing quote finishes
                     // Finally animate done button
                     .to(doneButtonRef.current, {
@@ -53346,7 +53345,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     scale: 1,
                     duration: 0.6,
                     ease: "back.out(1.7)",
-                    clearProps: "opacity,transform,y,scale"
+                    clearProps: "opacity,transform,y,scale,display"
                 }, "-=0.2"); // Start before reference finishes
                 // Force play the timeline
                 tl.play();
@@ -53600,7 +53599,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                         }, className: "w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors", children: "Resend Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                             setShowEmailVerification(false);
                                             switchToSignIn();
-                                        }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" })] })] }) }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", style: { opacity: 0 }, children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { ref: verseReferenceRef, className: "verse-reference", style: { opacity: 0 }, children: verse.reference })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-done-btn", onClick: onDismiss, type: "button", style: { opacity: 0 }, children: "Done" })] })] }));
+                                        }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" })] })] }) }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { ref: verseReferenceRef, className: "verse-reference", children: verse.reference })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-done-btn", onClick: onDismiss, type: "button", children: "Done" })] })] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseOverlay);
 
