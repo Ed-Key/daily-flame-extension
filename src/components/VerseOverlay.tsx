@@ -10,7 +10,8 @@ import '../styles/globals.css';
 
 const VerseOverlay: React.FC<VerseOverlayProps> = ({ 
   verse, 
-  onDismiss
+  onDismiss,
+  shadowRoot
 }) => {
   const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = useAuth();
   const { showToast } = useToast();
@@ -64,8 +65,11 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     // Prevent scrolling on the body
     document.body.style.overflow = 'hidden';
 
+    // Get the event target (shadowRoot or document)
+    const eventTarget = shadowRoot || document;
+
     // Click outside handler for profile dropdown
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: Event) => {
       if (showProfileDropdown) {
         const target = event.target as Element;
         if (!target.closest('.profile-dropdown')) {
@@ -75,24 +79,25 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     };
 
     // Keyboard shortcut for clearing auth tokens (Ctrl+Shift+C)
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.shiftKey && event.key === 'C') {
-        event.preventDefault();
+    const handleKeyDown = (event: Event) => {
+      const keyboardEvent = event as KeyboardEvent;
+      if (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && keyboardEvent.key === 'C') {
+        keyboardEvent.preventDefault();
         handleClearAuthTokens();
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
+    eventTarget.addEventListener('click', handleClickOutside);
+    eventTarget.addEventListener('keydown', handleKeyDown);
 
     // Cleanup function
     return () => {
       document.body.style.overflow = '';
       clearTimeout(timer);
-      document.removeEventListener('click', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
+      eventTarget.removeEventListener('click', handleClickOutside);
+      eventTarget.removeEventListener('keydown', handleKeyDown);
     };
-  }, [showProfileDropdown]);
+  }, [showProfileDropdown, shadowRoot]);
 
   // GSAP Animation Setup
   useGSAP(() => {
@@ -104,7 +109,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       
       // Ensure parent container is visible
       gsap.set(verseContentRef.current, {
-        opacity: 1
+        opacity: 1,
+        visibility: 'visible'
       });
       
       // Set initial states for animation elements
@@ -112,31 +118,44 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       gsap.set([verseReferenceRef.current, doneButtonRef.current], {
         opacity: 0,
         y: 30,
-        scale: 0.95
+        scale: 0.95,
+        visibility: 'visible'
       });
       
-      // Make sure the verse text container is visible
+      // Keep the verse text container hidden initially
       gsap.set(verseTextRef.current, {
-        opacity: 1
+        opacity: 0,
+        visibility: 'visible'
       });
       
       const verseWords = verse.text.split(' ');
       const wordSpans = verseWords.map((word, index) => 
         `<span class="verse-word">${word}</span>`
-      ).join('');
+      ).join(' ');
       
-      verseTextRef.current.innerHTML = `"${wordSpans}"`;
+      verseTextRef.current.innerHTML = `<span class="verse-quote opening-quote">"</span>${wordSpans}<span class="verse-quote closing-quote">"</span>`;
     
-      // Get all word spans for animation
-      const wordElements = verseTextRef.current.querySelectorAll('.verse-word');
-      console.log('Found word elements:', wordElements.length);
+      // Get all animated elements
+      const wordElements = verseContentRef.current.querySelectorAll('.verse-word');
+      const openingQuote = verseContentRef.current.querySelector('.opening-quote');
+      const closingQuote = verseContentRef.current.querySelector('.closing-quote');
+      console.log('Found elements:', {
+        words: wordElements.length,
+        openingQuote: !!openingQuote,
+        closingQuote: !!closingQuote
+      });
       
-      if (wordElements.length > 0) {
-        // Set initial state for word elements
-        gsap.set(wordElements, {
+      if (wordElements.length > 0 && openingQuote && closingQuote) {
+        // Set initial state for all animated elements
+        gsap.set([wordElements, openingQuote, closingQuote], {
           opacity: 0,
           y: 20,
           display: 'inline-block'
+        });
+        
+        // Now make the container visible after all elements are hidden
+        gsap.set(verseTextRef.current, {
+          opacity: 1
         });
         
         // Create timeline for smooth verse reveal
@@ -150,15 +169,31 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           }
         });
         
-        // Animate words one by one with stagger
-        tl.to(wordElements, {
+        // Animate opening quote first
+        tl.to(openingQuote, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          clearProps: "opacity,transform,y,display"
+        })
+        // Then animate words one by one with stagger
+        .to(wordElements, {
           opacity: 1,
           y: 0,
           duration: 0.6,
           ease: "power2.out",
           stagger: 0.08, // 80ms delay between each word
-          clearProps: "all" // Clear inline styles after animation
-        })
+          clearProps: "opacity,transform,y,display"
+        }, "-=0.3") // Start slightly before opening quote finishes
+        // Animate closing quote after last word
+        .to(closingQuote, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          clearProps: "opacity,transform,y,display"
+        }, "-=0.2") // Start just before last word finishes
         // Then animate verse reference
         .to(verseReferenceRef.current, {
           opacity: 1,
@@ -166,8 +201,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           scale: 1,
           duration: 0.8,
           ease: "power2.out",
-          clearProps: "all"
-        }, "-=0.4") // Start before words finish
+          clearProps: "opacity,transform,y,scale"
+        }, "-=0.4") // Start before closing quote finishes
         // Finally animate done button
         .to(doneButtonRef.current, {
           opacity: 1,
@@ -175,7 +210,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           scale: 1,
           duration: 0.6,
           ease: "back.out(1.7)",
-          clearProps: "all"
+          clearProps: "opacity,transform,y,scale"
         }, "-=0.2"); // Start before reference finishes
         
         // Force play the timeline
@@ -525,12 +560,12 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       {/* Sign-In Modal */}
       {showSignIn && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white text-lg font-semibold">Sign In</h3>
               <button
                 onClick={() => setShowSignIn(false)}
-                className="text-white hover:text-gray-300 text-xl"
+                className="modal-close-btn"
               >
                 ×
               </button>
@@ -655,12 +690,12 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       {/* Sign-Up Modal */}
       {showSignUp && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white text-lg font-semibold">Create Account</h3>
               <button
                 onClick={() => setShowSignUp(false)}
-                className="text-white hover:text-gray-300 text-xl"
+                className="modal-close-btn"
               >
                 ×
               </button>
@@ -779,7 +814,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       {/* Email Verification Modal */}
       {showEmailVerification && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
             <div className="text-center">
               <div className="mb-4">
                 <svg className="w-16 h-16 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -878,10 +913,10 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         )}
 
         <div className="mb-10">
-          <p ref={verseTextRef} className="verse-text">
+          <p ref={verseTextRef} className="verse-text" style={{ opacity: 0 }}>
             "{verse.text}"
           </p>
-          <p ref={verseReferenceRef} className="verse-reference">
+          <p ref={verseReferenceRef} className="verse-reference" style={{ opacity: 0 }}>
             {verse.reference}
           </p>
         </div>
@@ -890,6 +925,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           className="verse-done-btn"
           onClick={onDismiss}
           type="button"
+          style={{ opacity: 0 }}
         >
           Done
         </button>

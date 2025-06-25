@@ -4,6 +4,7 @@ import VerseOverlay from '../components/VerseOverlay';
 import { AuthProvider } from '../components/AuthContext';
 import { ToastProvider } from '../components/ToastContext';
 import { VerseData, ChromeMessage, ChromeResponse } from '../types';
+import { getShadowDomStyles } from '../styles/shadow-dom-styles';
 
 (function() {
     'use strict';
@@ -138,18 +139,26 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
             pointer-events: auto !important;
         `;
         
-        // Create inner container for React app
+        // Add the overlay container to the page first
+        document.body.appendChild(overlayContainer);
+        
+        // Create Shadow DOM for true style encapsulation
+        const shadowRoot = overlayContainer.attachShadow({ mode: 'open' });
+        
+        // Create a style element for Shadow DOM styles
+        const shadowStyles = document.createElement('style');
+        shadowStyles.textContent = getShadowDomStyles();
+        shadowRoot.appendChild(shadowStyles);
+        
+        // Create inner container for React app inside Shadow DOM
         const reactContainer = document.createElement('div');
         reactContainer.id = 'daily-flame-overlay';
-        overlayContainer.appendChild(reactContainer);
-        
-        // Add the overlay container to the page
-        document.body.appendChild(overlayContainer);
+        shadowRoot.appendChild(reactContainer);
         
         // Prevent scrolling on the body
         document.body.style.overflow = 'hidden';
         
-        // Create React root
+        // Create React root inside Shadow DOM
         const root = createRoot(reactContainer);
         
         // Error boundary component
@@ -200,7 +209,8 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
                     children: React.createElement(AuthProvider, { 
                         children: React.createElement(VerseOverlay, {
                             verse,
-                            onDismiss: handleDismiss
+                            onDismiss: handleDismiss,
+                            shadowRoot
                         })
                     })
                 })

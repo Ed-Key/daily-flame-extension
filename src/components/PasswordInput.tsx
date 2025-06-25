@@ -39,7 +39,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       <button
         type="button"
         onClick={togglePasswordVisibility}
-        className={`absolute right-3 top-1/2 transform -translate-y-0.5 text-white text-opacity-70 hover:text-opacity-100 transition-colors ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+        className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-70 hover:text-opacity-100 transition-colors ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
         disabled={disabled}
       >
         {showPassword ? (

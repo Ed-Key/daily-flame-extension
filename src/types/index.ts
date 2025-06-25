@@ -49,6 +49,7 @@ export interface ChromeResponse {
 export interface VerseOverlayProps {
   verse: VerseData;
   onDismiss: () => void;
+  shadowRoot?: ShadowRoot;
 }
 
 export interface UserModalProps {

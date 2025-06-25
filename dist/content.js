@@ -16334,6 +16334,15 @@ video {
     display: inline-block;
     margin-right: 0.25em;
   }
+.verse-quote {
+    display: inline-block;
+  }
+.opening-quote {
+    margin-right: 0.15em;
+  }
+.closing-quote {
+    margin-left: -0.1em;
+  }
 .verse-reference {
   margin-bottom: 2.5rem;
   font-size: 1.125rem;
@@ -16411,6 +16420,12 @@ video {
       transform: translateY(0);
     }
   }
+.pointer-events-none {
+  pointer-events: none;
+}
+.pointer-events-auto {
+  pointer-events: auto;
+}
 .visible {
   visibility: visible;
 }
@@ -16429,8 +16444,17 @@ video {
 .inset-0 {
   inset: 0px;
 }
+.bottom-4 {
+  bottom: 1rem;
+}
+.left-4 {
+  left: 1rem;
+}
 .right-0 {
   right: 0px;
+}
+.right-20 {
+  right: 5rem;
 }
 .right-3 {
   right: 0.75rem;
@@ -16441,11 +16465,17 @@ video {
 .top-0 {
   top: 0px;
 }
+.top-1 {
+  top: 0.25rem;
+}
 .top-1\\/2 {
   top: 50%;
 }
 .top-12 {
   top: 3rem;
+}
+.top-20 {
+  top: 5rem;
 }
 .top-4 {
   top: 1rem;
@@ -16459,6 +16489,9 @@ video {
 .z-50 {
   z-index: 50;
 }
+.m-0 {
+  margin: 0px;
+}
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -16470,6 +16503,9 @@ video {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
 }
 .mb-10 {
   margin-bottom: 2.5rem;
@@ -16483,11 +16519,17 @@ video {
 .mb-4 {
   margin-bottom: 1rem;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
 .mb-6 {
   margin-bottom: 1.5rem;
 }
 .mb-8 {
   margin-bottom: 2rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -16513,11 +16555,11 @@ video {
 .inline-block {
   display: inline-block;
 }
-.inline {
-  display: inline;
-}
 .flex {
   display: flex;
+}
+.inline-flex {
+  display: inline-flex;
 }
 .grid {
   display: grid;
@@ -16537,6 +16579,9 @@ video {
 .h-6 {
   height: 1.5rem;
 }
+.h-8 {
+  height: 2rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -16555,14 +16600,23 @@ video {
 .w-64 {
   width: 16rem;
 }
+.w-8 {
+  width: 2rem;
+}
 .w-80 {
   width: 20rem;
 }
 .w-full {
   width: 100%;
 }
+.max-w-2xl {
+  max-width: 42rem;
+}
 .max-w-4xl {
   max-width: 56rem;
+}
+.max-w-lg {
+  max-width: 32rem;
 }
 .max-w-md {
   max-width: 28rem;
@@ -16573,8 +16627,20 @@ video {
 .flex-1 {
   flex: 1 1 0%;
 }
-.-translate-y-0\\.5 {
-  --tw-translate-y: -0.125rem;
+.-translate-x-2 {
+  --tw-translate-x: -0.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-0 {
+  --tw-translate-y: -0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-1 {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-1\\/2 {
+  --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .translate-x-0 {
@@ -16585,8 +16651,25 @@ video {
   --tw-translate-x: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.translate-y-0 {
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-95 {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.cursor-default {
+  cursor: default;
 }
 .cursor-not-allowed {
   cursor: not-allowed;
@@ -16594,20 +16677,39 @@ video {
 .cursor-pointer {
   cursor: pointer;
 }
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.select-text {
+  -webkit-user-select: text;
+     -moz-user-select: text;
+          user-select: text;
+}
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.items-start {
+  align-items: flex-start;
+}
 .items-center {
   align-items: center;
+}
+.justify-end {
+  justify-content: flex-end;
 }
 .justify-center {
   justify-content: center;
 }
 .justify-between {
   justify-content: space-between;
+}
+.gap-1 {
+  gap: 0.25rem;
 }
 .gap-2 {
   gap: 0.5rem;
@@ -16638,6 +16740,21 @@ video {
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
+.overflow-auto {
+  overflow: auto;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-visible {
+  overflow: visible;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
 .rounded {
   border-radius: 0.25rem;
 }
@@ -16650,21 +16767,44 @@ video {
 .rounded-md {
   border-radius: 0.375rem;
 }
+.rounded-xl {
+  border-radius: 0.75rem;
+}
 .border {
   border-width: 1px;
+}
+.border-2 {
+  border-width: 2px;
 }
 .border-b {
   border-bottom-width: 1px;
 }
+.border-l {
+  border-left-width: 1px;
+}
+.border-r {
+  border-right-width: 1px;
+}
 .border-t {
   border-top-width: 1px;
+}
+.border-solid {
+  border-style: solid;
 }
 .border-none {
   border-style: none;
 }
+.border-blue-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(147 197 253 / var(--tw-border-opacity, 1));
+}
 .border-blue-400 {
   --tw-border-opacity: 1;
   border-color: rgb(96 165 250 / var(--tw-border-opacity, 1));
+}
+.border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
 }
 .border-gray-200 {
   --tw-border-opacity: 1;
@@ -16678,9 +16818,21 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
 }
+.border-gray-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(55 65 81 / var(--tw-border-opacity, 1));
+}
+.border-green-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(134 239 172 / var(--tw-border-opacity, 1));
+}
 .border-green-400 {
   --tw-border-opacity: 1;
   border-color: rgb(74 222 128 / var(--tw-border-opacity, 1));
+}
+.border-green-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity, 1));
 }
 .border-red-300 {
   --tw-border-opacity: 1;
@@ -16689,6 +16841,13 @@ video {
 .border-red-400 {
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
+}
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+.border-transparent {
+  border-color: transparent;
 }
 .border-white {
   --tw-border-opacity: 1;
@@ -16701,6 +16860,9 @@ video {
 .border-yellow-400 {
   --tw-border-opacity: 1;
   border-color: rgb(250 204 21 / var(--tw-border-opacity, 1));
+}
+.border-opacity-10 {
+  --tw-border-opacity: 0.1;
 }
 .border-opacity-20 {
   --tw-border-opacity: 0.2;
@@ -16718,9 +16880,33 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
+.bg-blue-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+}
+.bg-blue-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity, 1));
+}
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
 .bg-blue-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+}
+.bg-blue-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
 }
 .bg-gray-50 {
   --tw-bg-opacity: 1;
@@ -16730,6 +16916,30 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));
 }
+.bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+}
+.bg-green-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+}
+.bg-green-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
+}
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+}
 .bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));
@@ -16737,6 +16947,10 @@ video {
 .bg-red-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+.bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
 }
 .bg-red-500 {
   --tw-bg-opacity: 1;
@@ -16771,8 +16985,14 @@ video {
 .bg-opacity-20 {
   --tw-bg-opacity: 0.2;
 }
+.bg-opacity-30 {
+  --tw-bg-opacity: 0.3;
+}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+.bg-opacity-70 {
+  --tw-bg-opacity: 0.7;
 }
 .bg-opacity-90 {
   --tw-bg-opacity: 0.9;
@@ -16789,11 +17009,18 @@ video {
 .p-4 {
   padding: 1rem;
 }
+.p-5 {
+  padding: 1.25rem;
+}
 .p-6 {
   padding: 1.5rem;
 }
 .p-8 {
   padding: 2rem;
+}
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 .px-2 {
   padding-left: 0.5rem;
@@ -16811,6 +17038,10 @@ video {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -16827,12 +17058,22 @@ video {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+.pb-3 {
+  padding-bottom: 0.75rem;
+}
 .pr-10 {
   padding-right: 2.5rem;
+}
+.pr-8 {
+  padding-right: 2rem;
 }
 .pt-2 {
   padding-top: 0.5rem;
@@ -16842,6 +17083,9 @@ video {
 }
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -16858,6 +17102,10 @@ video {
 .text-8xl {
   font-size: 6rem;
   line-height: 1;
+}
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 .text-lg {
   font-size: 1.125rem;
@@ -16884,11 +17132,17 @@ video {
 .font-medium {
   font-weight: 500;
 }
+.font-normal {
+  font-weight: 400;
+}
 .font-semibold {
   font-weight: 600;
 }
 .italic {
   font-style: italic;
+}
+.leading-6 {
+  line-height: 1.5rem;
 }
 .leading-relaxed {
   line-height: 1.625;
@@ -16897,13 +17151,37 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
+.text-blue-200 {
+  --tw-text-opacity: 1;
+  color: rgb(191 219 254 / var(--tw-text-opacity, 1));
+}
 .text-blue-300 {
   --tw-text-opacity: 1;
   color: rgb(147 197 253 / var(--tw-text-opacity, 1));
 }
+.text-blue-400 {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity, 1));
+}
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
 .text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+.text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity, 1));
+}
+.text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
 .text-gray-500 {
   --tw-text-opacity: 1;
@@ -16921,13 +17199,25 @@ video {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity, 1));
 }
+.text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
 .text-green-200 {
   --tw-text-opacity: 1;
   color: rgb(187 247 208 / var(--tw-text-opacity, 1));
 }
+.text-green-300 {
+  --tw-text-opacity: 1;
+  color: rgb(134 239 172 / var(--tw-text-opacity, 1));
+}
 .text-green-400 {
   --tw-text-opacity: 1;
   color: rgb(74 222 128 / var(--tw-text-opacity, 1));
+}
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity, 1));
 }
 .text-inherit {
   color: inherit;
@@ -16939,6 +17229,14 @@ video {
 .text-red-300 {
   --tw-text-opacity: 1;
   color: rgb(252 165 165 / var(--tw-text-opacity, 1));
+}
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity, 1));
+}
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 .text-red-700 {
   --tw-text-opacity: 1;
@@ -16962,8 +17260,15 @@ video {
 .text-opacity-75 {
   --tw-text-opacity: 0.75;
 }
+.text-opacity-90 {
+  --tw-text-opacity: 0.9;
+}
 .underline {
   text-decoration-line: underline;
+}
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .placeholder-white::-moz-placeholder {
   --tw-placeholder-opacity: 1;
@@ -16991,9 +17296,25 @@ video {
 .opacity-70 {
   opacity: 0.7;
 }
+.opacity-75 {
+  opacity: 0.75;
+}
+.opacity-90 {
+  opacity: 0.9;
+}
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .shadow-sm {
@@ -17001,12 +17322,33 @@ video {
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
+.outline {
+  outline-style: solid;
+}
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.grayscale {
+  --tw-grayscale: grayscale(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-blur-lg {
+  --tw-backdrop-blur: blur(16px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 .backdrop-blur-md {
   --tw-backdrop-blur: blur(12px);
@@ -17018,6 +17360,17 @@ video {
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
+.backdrop-filter {
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -17028,8 +17381,42 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-100 {
+  transition-duration: 100ms;
+}
+.duration-150 {
+  transition-duration: 150ms;
+}
+.duration-200 {
+  transition-duration: 200ms;
+}
 .duration-300 {
   transition-duration: 300ms;
+}
+.duration-500 {
+  transition-duration: 500ms;
+}
+.duration-75 {
+  transition-duration: 75ms;
+}
+.ease-in {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 /* Mobile responsive styles */
@@ -17173,11 +17560,6 @@ video {
   color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
-.hover\\:text-gray-300:hover {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
-}
-
 .hover\\:text-gray-700:hover {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity, 1));
@@ -17244,7 +17626,7 @@ video {
   .md\\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}`, "",{"version":3,"sources":["webpack://./src/styles/globals.css"],"names":[],"mappings":"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AAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;AAAnB;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","sourcesContent":["@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n@layer components {\n  .verse-overlay {\n    @apply fixed inset-0 bg-black flex items-center justify-center z-[999999] p-5;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;\n  }\n\n  .verse-content {\n    @apply max-w-2xl text-center text-white;\n  }\n\n  .verse-text {\n    @apply text-2xl leading-relaxed mb-5 font-light;\n    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  }\n\n  .verse-word {\n    display: inline-block;\n    margin-right: 0.25em;\n  }\n\n  .verse-reference {\n    @apply text-lg mb-10 italic opacity-90 font-normal;\n  }\n\n  .verse-done-btn {\n    @apply bg-white text-black border-none py-4 px-10 text-lg font-semibold rounded-lg cursor-pointer transition-all duration-200 min-w-[120px];\n    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);\n  }\n\n  .verse-done-btn:hover {\n    @apply bg-gray-100 transform -translate-y-0.5;\n    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);\n  }\n\n  .verse-done-btn:active {\n    @apply transform translate-y-0;\n    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);\n  }\n\n  .verse-done-btn:focus {\n    @apply outline-none;\n    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);\n  }\n\n  .modal-overlay {\n    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000000] p-4;\n  }\n\n  .modal-content {\n    @apply bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto;\n  }\n\n  @keyframes fadeIn {\n    from {\n      opacity: 0;\n      transform: translateY(20px);\n    }\n    to {\n      opacity: 1;\n      transform: translateY(0);\n    }\n  }\n}\n\n/* Mobile responsive styles */\n@media (max-width: 768px) {\n  .verse-content {\n    @apply max-w-[90%] px-2.5;\n  }\n  \n  .verse-text {\n    @apply text-xl leading-6;\n  }\n  \n  .verse-reference {\n    @apply text-base;\n  }\n  \n  .verse-done-btn {\n    @apply py-3 px-8 text-base;\n  }\n}\n\n@media (max-width: 480px) {\n  .verse-text {\n    @apply text-lg;\n  }\n  \n  .verse-reference {\n    @apply text-sm;\n  }\n  \n  .verse-done-btn {\n    @apply py-2.5 px-6 text-sm;\n  }\n}\n\n/* Daily Flame CSS Isolation - Maximum Specificity */\n/* Uses exact values from compiled Tailwind to preserve appearance */\n#daily-flame-extension-root {\n  /* CSS Custom Properties with exact Tailwind values */\n  --df-bg-white-10: rgba(255, 255, 255, 0.1);\n  --df-bg-white-20: rgba(255, 255, 255, 0.2);\n  --df-bg-white-30: rgba(255, 255, 255, 0.3);\n  --df-backdrop-blur-sm: blur(4px);\n  --df-backdrop-blur-md: blur(12px);\n  --df-border-white-20: rgba(255, 255, 255, 0.2);\n  --df-border-white-30: rgba(255, 255, 255, 0.3);\n}\n\n/* Glassmorphism elements with maximum specificity */\n#daily-flame-extension-root .df-glassmorphism-element {\n  background-color: var(--df-bg-white-20) !important;\n  backdrop-filter: var(--df-backdrop-blur-sm) !important;\n  border-color: var(--df-border-white-30) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-element:hover {\n  background-color: var(--df-bg-white-30) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-modal {\n  background-color: var(--df-bg-white-10) !important;\n  backdrop-filter: var(--df-backdrop-blur-md) !important;\n  border-color: var(--df-border-white-20) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-input {\n  background-color: var(--df-bg-white-20) !important;\n  border-color: var(--df-border-white-30) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-dropdown {\n  background-color: var(--df-bg-white-10) !important;\n  backdrop-filter: var(--df-backdrop-blur-md) !important;\n  border-color: var(--df-border-white-20) !important;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles/globals.css"],"names":[],"mappings":"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AA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA,gBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,yBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,0BAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;AAAnB;EAAA,eAAmB;EAAnB,eAAmB;EAAnB;AAAmB;AAAnB;EAAA,iBAAmB;EAAnB,iBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,yBAAmB;KAAnB,sBAAmB;UAAnB;AAAmB;AAAnB;EAAA,yBAAmB;KAAnB,sBAAmB;UAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,uBAAmB;EAAnB,8DAAmB;EAAnB;AAAmB;AAAnB;EAAA,uBAAmB;EAAnB,+DAAmB;EAAnB;AAAmB;AAAnB;EAAA,uBAAmB;EAAnB,4DAAmB;EAAnB;AAAmB;AAAnB;EAAA,uBAAmB;EAAnB,4DAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA,sBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AAAnB;EAAA;AAAmB;AA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","sourcesContent":["@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n@layer components {\n  .verse-overlay {\n    @apply fixed inset-0 bg-black flex items-center justify-center z-[999999] p-5;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;\n  }\n\n  .verse-content {\n    @apply max-w-2xl text-center text-white;\n  }\n\n  .verse-text {\n    @apply text-2xl leading-relaxed mb-5 font-light;\n    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);\n  }\n\n  .verse-word {\n    display: inline-block;\n    margin-right: 0.25em;\n  }\n\n  .verse-quote {\n    display: inline-block;\n  }\n\n  .opening-quote {\n    margin-right: 0.15em;\n  }\n\n  .closing-quote {\n    margin-left: -0.1em;\n  }\n\n  .verse-reference {\n    @apply text-lg mb-10 italic opacity-90 font-normal;\n  }\n\n  .verse-done-btn {\n    @apply bg-white text-black border-none py-4 px-10 text-lg font-semibold rounded-lg cursor-pointer transition-all duration-200 min-w-[120px];\n    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);\n  }\n\n  .verse-done-btn:hover {\n    @apply bg-gray-100 transform -translate-y-0.5;\n    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);\n  }\n\n  .verse-done-btn:active {\n    @apply transform translate-y-0;\n    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);\n  }\n\n  .verse-done-btn:focus {\n    @apply outline-none;\n    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);\n  }\n\n  .modal-overlay {\n    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000000] p-4;\n  }\n\n  .modal-content {\n    @apply bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto;\n  }\n\n  @keyframes fadeIn {\n    from {\n      opacity: 0;\n      transform: translateY(20px);\n    }\n    to {\n      opacity: 1;\n      transform: translateY(0);\n    }\n  }\n}\n\n/* Mobile responsive styles */\n@media (max-width: 768px) {\n  .verse-content {\n    @apply max-w-[90%] px-2.5;\n  }\n  \n  .verse-text {\n    @apply text-xl leading-6;\n  }\n  \n  .verse-reference {\n    @apply text-base;\n  }\n  \n  .verse-done-btn {\n    @apply py-3 px-8 text-base;\n  }\n}\n\n@media (max-width: 480px) {\n  .verse-text {\n    @apply text-lg;\n  }\n  \n  .verse-reference {\n    @apply text-sm;\n  }\n  \n  .verse-done-btn {\n    @apply py-2.5 px-6 text-sm;\n  }\n}\n\n/* Daily Flame CSS Isolation - Maximum Specificity */\n/* Uses exact values from compiled Tailwind to preserve appearance */\n#daily-flame-extension-root {\n  /* CSS Custom Properties with exact Tailwind values */\n  --df-bg-white-10: rgba(255, 255, 255, 0.1);\n  --df-bg-white-20: rgba(255, 255, 255, 0.2);\n  --df-bg-white-30: rgba(255, 255, 255, 0.3);\n  --df-backdrop-blur-sm: blur(4px);\n  --df-backdrop-blur-md: blur(12px);\n  --df-border-white-20: rgba(255, 255, 255, 0.2);\n  --df-border-white-30: rgba(255, 255, 255, 0.3);\n}\n\n/* Glassmorphism elements with maximum specificity */\n#daily-flame-extension-root .df-glassmorphism-element {\n  background-color: var(--df-bg-white-20) !important;\n  backdrop-filter: var(--df-backdrop-blur-sm) !important;\n  border-color: var(--df-border-white-30) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-element:hover {\n  background-color: var(--df-bg-white-30) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-modal {\n  background-color: var(--df-bg-white-10) !important;\n  backdrop-filter: var(--df-backdrop-blur-md) !important;\n  border-color: var(--df-border-white-20) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-input {\n  background-color: var(--df-bg-white-20) !important;\n  border-color: var(--df-border-white-30) !important;\n}\n\n#daily-flame-extension-root .df-glassmorphism-dropdown {\n  background-color: var(--df-bg-white-10) !important;\n  backdrop-filter: var(--df-backdrop-blur-md) !important;\n  border-color: var(--df-border-white-20) !important;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -52642,7 +53024,7 @@ const PasswordInput = ({ value, onChange, placeholder, disabled = false, classNa
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative w-full", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: showPassword ? 'text' : 'password', value: value, onChange: (e) => onChange(e.target.value), placeholder: placeholder, className: `df-glassmorphism-input w-full pr-10 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 ${error ? 'border-red-400 border-opacity-70' : ''} ${className}`, disabled: disabled, name: name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "button", onClick: togglePasswordVisibility, className: `absolute right-3 top-1/2 transform -translate-y-0.5 text-white text-opacity-70 hover:text-opacity-100 transition-colors ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`, disabled: disabled, children: showPassword ? (
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative w-full", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: showPassword ? 'text' : 'password', value: value, onChange: (e) => onChange(e.target.value), placeholder: placeholder, className: `df-glassmorphism-input w-full pr-10 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 ${error ? 'border-red-400 border-opacity-70' : ''} ${className}`, disabled: disabled, name: name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "button", onClick: togglePasswordVisibility, className: `absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-70 hover:text-opacity-100 transition-colors ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`, disabled: disabled, children: showPassword ? (
                 // Eye slash icon (hide password)
                 (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-5 h-5", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" }) })) : (
                 // Eye icon (show password)
@@ -52794,7 +53176,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const VerseOverlay = ({ verse, onDismiss }) => {
+const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_5__.useAuth)();
     const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_6__.useToast)();
     const doneButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
@@ -52837,6 +53219,8 @@ const VerseOverlay = ({ verse, onDismiss }) => {
         }, 100);
         // Prevent scrolling on the body
         document.body.style.overflow = 'hidden';
+        // Get the event target (shadowRoot or document)
+        const eventTarget = shadowRoot || document;
         // Click outside handler for profile dropdown
         const handleClickOutside = (event) => {
             if (showProfileDropdown) {
@@ -52848,21 +53232,22 @@ const VerseOverlay = ({ verse, onDismiss }) => {
         };
         // Keyboard shortcut for clearing auth tokens (Ctrl+Shift+C)
         const handleKeyDown = (event) => {
-            if (event.ctrlKey && event.shiftKey && event.key === 'C') {
-                event.preventDefault();
+            const keyboardEvent = event;
+            if (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && keyboardEvent.key === 'C') {
+                keyboardEvent.preventDefault();
                 handleClearAuthTokens();
             }
         };
-        document.addEventListener('click', handleClickOutside);
-        document.addEventListener('keydown', handleKeyDown);
+        eventTarget.addEventListener('click', handleClickOutside);
+        eventTarget.addEventListener('keydown', handleKeyDown);
         // Cleanup function
         return () => {
             document.body.style.overflow = '';
             clearTimeout(timer);
-            document.removeEventListener('click', handleClickOutside);
-            document.removeEventListener('keydown', handleKeyDown);
+            eventTarget.removeEventListener('click', handleClickOutside);
+            eventTarget.removeEventListener('keydown', handleKeyDown);
         };
-    }, [showProfileDropdown]);
+    }, [showProfileDropdown, shadowRoot]);
     // GSAP Animation Setup
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
         console.log('GSAP useGSAP hook running');
@@ -52871,31 +53256,44 @@ const VerseOverlay = ({ verse, onDismiss }) => {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
             gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(verseContentRef.current, {
-                opacity: 1
+                opacity: 1,
+                visibility: 'visible'
             });
             // Set initial states for animation elements
             // Don't hide verseTextRef since we're animating the words inside it
             gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set([verseReferenceRef.current, doneButtonRef.current], {
                 opacity: 0,
                 y: 30,
-                scale: 0.95
+                scale: 0.95,
+                visibility: 'visible'
             });
-            // Make sure the verse text container is visible
+            // Keep the verse text container hidden initially
             gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(verseTextRef.current, {
-                opacity: 1
+                opacity: 0,
+                visibility: 'visible'
             });
             const verseWords = verse.text.split(' ');
-            const wordSpans = verseWords.map((word, index) => `<span class="verse-word">${word}</span>`).join('');
-            verseTextRef.current.innerHTML = `"${wordSpans}"`;
-            // Get all word spans for animation
-            const wordElements = verseTextRef.current.querySelectorAll('.verse-word');
-            console.log('Found word elements:', wordElements.length);
-            if (wordElements.length > 0) {
-                // Set initial state for word elements
-                gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(wordElements, {
+            const wordSpans = verseWords.map((word, index) => `<span class="verse-word">${word}</span>`).join(' ');
+            verseTextRef.current.innerHTML = `<span class="verse-quote opening-quote">"</span>${wordSpans}<span class="verse-quote closing-quote">"</span>`;
+            // Get all animated elements
+            const wordElements = verseContentRef.current.querySelectorAll('.verse-word');
+            const openingQuote = verseContentRef.current.querySelector('.opening-quote');
+            const closingQuote = verseContentRef.current.querySelector('.closing-quote');
+            console.log('Found elements:', {
+                words: wordElements.length,
+                openingQuote: !!openingQuote,
+                closingQuote: !!closingQuote
+            });
+            if (wordElements.length > 0 && openingQuote && closingQuote) {
+                // Set initial state for all animated elements
+                gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set([wordElements, openingQuote, closingQuote], {
                     opacity: 0,
                     y: 20,
                     display: 'inline-block'
+                });
+                // Now make the container visible after all elements are hidden
+                gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.set(verseTextRef.current, {
+                    opacity: 1
                 });
                 // Create timeline for smooth verse reveal
                 const tl = gsap__WEBPACK_IMPORTED_MODULE_9__.gsap.timeline({
@@ -52907,15 +53305,31 @@ const VerseOverlay = ({ verse, onDismiss }) => {
                         console.log('GSAP timeline completed');
                     }
                 });
-                // Animate words one by one with stagger
-                tl.to(wordElements, {
+                // Animate opening quote first
+                tl.to(openingQuote, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    clearProps: "opacity,transform,y,display"
+                })
+                    // Then animate words one by one with stagger
+                    .to(wordElements, {
                     opacity: 1,
                     y: 0,
                     duration: 0.6,
                     ease: "power2.out",
                     stagger: 0.08, // 80ms delay between each word
-                    clearProps: "all" // Clear inline styles after animation
-                })
+                    clearProps: "opacity,transform,y,display"
+                }, "-=0.3") // Start slightly before opening quote finishes
+                    // Animate closing quote after last word
+                    .to(closingQuote, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    clearProps: "opacity,transform,y,display"
+                }, "-=0.2") // Start just before last word finishes
                     // Then animate verse reference
                     .to(verseReferenceRef.current, {
                     opacity: 1,
@@ -52923,8 +53337,8 @@ const VerseOverlay = ({ verse, onDismiss }) => {
                     scale: 1,
                     duration: 0.8,
                     ease: "power2.out",
-                    clearProps: "all"
-                }, "-=0.4") // Start before words finish
+                    clearProps: "opacity,transform,y,scale"
+                }, "-=0.4") // Start before closing quote finishes
                     // Finally animate done button
                     .to(doneButtonRef.current, {
                     opacity: 1,
@@ -52932,7 +53346,7 @@ const VerseOverlay = ({ verse, onDismiss }) => {
                     scale: 1,
                     duration: 0.6,
                     ease: "back.out(1.7)",
-                    clearProps: "all"
+                    clearProps: "opacity,transform,y,scale"
                 }, "-=0.2"); // Start before reference finishes
                 // Force play the timeline
                 tl.play();
@@ -53175,7 +53589,7 @@ const VerseOverlay = ({ verse, onDismiss }) => {
                                             console.error('Error sending verification email:', error);
                                             showToast('Failed to send verification email. Please try again.', 'error');
                                         }
-                                    }, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleClearAuthTokens, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", title: "Clear auth tokens to test with different Google accounts", children: "Clear Auth Tokens" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] })) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignIn(false), className: "text-white hover:text-gray-300 text-xl", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: handleSignIn, className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "email", value: email, onChange: (e) => setEmail(e.target.value), placeholder: "Email", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PasswordInput__WEBPACK_IMPORTED_MODULE_7__["default"], { value: password, onChange: setPassword, placeholder: "Password", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "checkbox", id: "rememberMe", checked: rememberMe, onChange: (e) => setRememberMe(e.target.checked), className: "mr-2 rounded", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "rememberMe", className: "text-white text-sm", children: "Remember me" })] }), authError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-3 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: authError === 'VERIFICATION_REQUIRED' ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "mb-2 text-red-200 text-sm", children: "Please verify your email before signing in. Check your inbox for a verification link." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-red-200 text-sm", children: ["Didn't receive an email?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleResendVerification, disabled: authLoading, className: `text-blue-300 underline bg-transparent border-none text-inherit font-medium p-0 ${authLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`, children: authLoading ? 'Sending...' : 'Resend verification link here' })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "mt-2 text-red-200 text-opacity-75 text-xs", children: "Make sure to check your spam folder. Emails can take a few minutes to arrive." })] })) : (authError) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: authLoading, className: `w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-blue-600 text-white ${authLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-700 cursor-pointer'}`, children: authLoading ? 'Signing in...' : 'Sign In' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: handleGoogleSignIn, disabled: authLoading, className: `w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-white bg-opacity-20 text-white flex items-center justify-center gap-2 ${authLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-30 cursor-pointer'}`, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign in with Google"] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Don't have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: switchToSignUp, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign up" })] }) })] }) })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Create Account" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignUp(false), className: "text-white hover:text-gray-300 text-xl", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: handleSignUp, className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "grid grid-cols-2 gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: firstName, onChange: (e) => setFirstName(e.target.value), placeholder: "First Name", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: lastName, onChange: (e) => setLastName(e.target.value), placeholder: "Last Name", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "email", value: email, onChange: (e) => setEmail(e.target.value), placeholder: "Email", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PasswordInput__WEBPACK_IMPORTED_MODULE_7__["default"], { value: password, onChange: setPassword, placeholder: "Password", disabled: authLoading, error: passwordError, name: "password" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { onBlur: handleConfirmPasswordBlur, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PasswordInput__WEBPACK_IMPORTED_MODULE_7__["default"], { value: confirmPassword, onChange: setConfirmPassword, placeholder: "Confirm Password", disabled: authLoading, error: confirmPasswordError, name: "confirmPassword" }) }), authError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: authError })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: authLoading, className: "w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors", children: authLoading ? 'Creating Account...' : 'Create Account' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: handleGoogleSignIn, disabled: authLoading, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors flex items-center justify-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign up with Google"] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Already have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: switchToSignIn, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign in" })] }) })] }) })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm mb-4", children: "We've sent a verification link to your email address. Please click the link to verify your account before signing in." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: async () => {
+                                    }, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleClearAuthTokens, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", title: "Clear auth tokens to test with different Google accounts", children: "Clear Auth Tokens" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] })) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignIn(false), className: "modal-close-btn", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: handleSignIn, className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "email", value: email, onChange: (e) => setEmail(e.target.value), placeholder: "Email", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PasswordInput__WEBPACK_IMPORTED_MODULE_7__["default"], { value: password, onChange: setPassword, placeholder: "Password", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "checkbox", id: "rememberMe", checked: rememberMe, onChange: (e) => setRememberMe(e.target.checked), className: "mr-2 rounded", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "rememberMe", className: "text-white text-sm", children: "Remember me" })] }), authError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-3 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: authError === 'VERIFICATION_REQUIRED' ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "mb-2 text-red-200 text-sm", children: "Please verify your email before signing in. Check your inbox for a verification link." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-red-200 text-sm", children: ["Didn't receive an email?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleResendVerification, disabled: authLoading, className: `text-blue-300 underline bg-transparent border-none text-inherit font-medium p-0 ${authLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`, children: authLoading ? 'Sending...' : 'Resend verification link here' })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "mt-2 text-red-200 text-opacity-75 text-xs", children: "Make sure to check your spam folder. Emails can take a few minutes to arrive." })] })) : (authError) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: authLoading, className: `w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-blue-600 text-white ${authLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-700 cursor-pointer'}`, children: authLoading ? 'Signing in...' : 'Sign In' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: handleGoogleSignIn, disabled: authLoading, className: `w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-white bg-opacity-20 text-white flex items-center justify-center gap-2 ${authLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-30 cursor-pointer'}`, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign in with Google"] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Don't have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: switchToSignUp, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign up" })] }) })] }) })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Create Account" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignUp(false), className: "modal-close-btn", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: handleSignUp, className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "grid grid-cols-2 gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: firstName, onChange: (e) => setFirstName(e.target.value), placeholder: "First Name", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: lastName, onChange: (e) => setLastName(e.target.value), placeholder: "Last Name", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "email", value: email, onChange: (e) => setEmail(e.target.value), placeholder: "Email", className: "df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", disabled: authLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PasswordInput__WEBPACK_IMPORTED_MODULE_7__["default"], { value: password, onChange: setPassword, placeholder: "Password", disabled: authLoading, error: passwordError, name: "password" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { onBlur: handleConfirmPasswordBlur, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PasswordInput__WEBPACK_IMPORTED_MODULE_7__["default"], { value: confirmPassword, onChange: setConfirmPassword, placeholder: "Confirm Password", disabled: authLoading, error: confirmPasswordError, name: "confirmPassword" }) }), authError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: authError })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: authLoading, className: "w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors", children: authLoading ? 'Creating Account...' : 'Create Account' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: handleGoogleSignIn, disabled: authLoading, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors flex items-center justify-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign up with Google"] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Already have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: switchToSignIn, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign in" })] }) })] }) })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm mb-4", children: "We've sent a verification link to your email address. Please click the link to verify your account before signing in." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: async () => {
                                             try {
                                                 await sendVerificationEmail();
                                                 showToast('Verification email resent!', 'success');
@@ -53186,7 +53600,7 @@ const VerseOverlay = ({ verse, onDismiss }) => {
                                         }, className: "w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors", children: "Resend Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                             setShowEmailVerification(false);
                                             switchToSignIn();
-                                        }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" })] })] }) }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { ref: verseReferenceRef, className: "verse-reference", children: verse.reference })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-done-btn", onClick: onDismiss, type: "button", children: "Done" })] })] }));
+                                        }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" })] })] }) }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", style: { opacity: 0 }, children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { ref: verseReferenceRef, className: "verse-reference", style: { opacity: 0 }, children: verse.reference })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-done-btn", onClick: onDismiss, type: "button", style: { opacity: 0 }, children: "Done" })] })] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseOverlay);
 
@@ -53490,6 +53904,807 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./src/styles/shadow-dom-styles.ts":
+/*!*****************************************!*\
+  !*** ./src/styles/shadow-dom-styles.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getShadowDomStyles: () => (/* binding */ getShadowDomStyles)
+/* harmony export */ });
+// Complete styles for Shadow DOM encapsulation
+const getShadowDomStyles = () => {
+    return `
+    /* CSS Reset for Shadow DOM */
+    :host {
+      all: initial;
+      display: block !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.5 !important;
+      color: white !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    
+    /* Main overlay container */
+    .verse-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background-color: black !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 999999 !important;
+      padding: 20px !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    
+    /* Verse content container */
+    .verse-content {
+      max-width: 672px !important;
+      width: 100% !important;
+      text-align: center !important;
+      color: white !important;
+      position: relative !important;
+    }
+    
+    /* Verse text styles */
+    .verse-text {
+      font-size: 28px !important;
+      line-height: 40px !important;
+      margin-bottom: 20px !important;
+      font-weight: 300 !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+      color: white !important;
+    }
+    
+    .verse-word {
+      display: inline-block !important;
+      margin-right: 0.25em !important;
+    }
+    
+    .verse-quote {
+      display: inline-block !important;
+      font-size: inherit !important;
+      color: inherit !important;
+    }
+    
+    .opening-quote {
+      margin-right: 0.15em !important;
+    }
+    
+    .closing-quote {
+      margin-left: -0.1em !important;
+    }
+    
+    /* Verse reference */
+    .verse-reference {
+      font-size: 20px !important;
+      line-height: 28px !important;
+      margin-bottom: 40px !important;
+      font-style: italic !important;
+      opacity: 0.9 !important;
+      font-weight: normal !important;
+      color: white !important;
+    }
+    
+    /* Done button */
+    .verse-done-btn {
+      background-color: white !important;
+      color: black !important;
+      border: none !important;
+      padding: 16px 40px !important;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      min-width: 120px !important;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2) !important;
+      display: inline-block !important;
+      text-align: center !important;
+      line-height: 1 !important;
+      outline: none !important;
+    }
+    
+    .verse-done-btn:hover {
+      background-color: #f3f4f6 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .verse-done-btn:active {
+      transform: translateY(0) !important;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    .verse-done-btn:focus {
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 1000000 !important;
+      padding: 16px !important;
+    }
+    
+    .modal-content {
+      background-color: white !important;
+      border-radius: 8px !important;
+      padding: 24px !important;
+      max-width: 448px !important;
+      width: 100% !important;
+      max-height: 90vh !important;
+      overflow-y: auto !important;
+    }
+    
+    /* Form elements - only apply default styles if not using glassmorphism */
+    input[type="text"]:not(.df-glassmorphism-input),
+    input[type="email"]:not(.df-glassmorphism-input),
+    input[type="password"]:not(.df-glassmorphism-input) {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      width: 100% !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      outline: none !important;
+      transition: all 0.15s !important;
+    }
+    
+    /* Glassmorphism input specific styles */
+    .df-glassmorphism-input {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      width: 100% !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      outline: none !important;
+      transition: all 0.15s !important;
+    }
+    
+    .df-glassmorphism-input::placeholder {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    .df-glassmorphism-input:focus {
+      outline: none !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5) !important;
+      background-color: rgba(255, 255, 255, 0.25) !important;
+    }
+    
+    input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      margin-right: 8px !important;
+      cursor: pointer !important;
+      accent-color: #3b82f6 !important;
+    }
+    
+    button {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      cursor: pointer !important;
+      transition: all 0.15s !important;
+      background-color: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      color: inherit !important;
+    }
+    
+    /* Button with specific styles should override the defaults */
+    button[class*="bg-"],
+    button[class*="px-"],
+    button[class*="py-"],
+    button[class*="rounded"] {
+      background-color: initial;
+      border: initial;
+      padding: initial;
+    }
+    
+    select {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      outline: none !important;
+      cursor: pointer !important;
+    }
+    
+    /* Glassmorphism effects */
+    .df-glassmorphism-element {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .df-glassmorphism-element:hover {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .df-glassmorphism-modal {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+    }
+    
+    .df-glassmorphism-input {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .df-glassmorphism-dropdown {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Modal close button styles */
+    .modal-close-btn {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      font-size: 24px !important;
+      line-height: 1 !important;
+      color: white !important;
+      opacity: 0.8 !important;
+      background: transparent !important;
+      border: none !important;
+      cursor: pointer !important;
+      padding: 4px !important;
+      transition: opacity 0.2s !important;
+    }
+    
+    .modal-close-btn:hover {
+      opacity: 1 !important;
+    }
+    
+    /* Toast notification styles */
+    .toast-container {
+      position: fixed !important;
+      top: 20px !important;
+      right: 20px !important;
+      z-index: 2000000 !important;
+      pointer-events: none !important;
+    }
+    
+    .toast {
+      background-color: #333 !important;
+      color: white !important;
+      padding: 16px 24px !important;
+      border-radius: 8px !important;
+      margin-bottom: 10px !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      min-width: 300px !important;
+      max-width: 500px !important;
+      pointer-events: auto !important;
+      animation: slideIn 0.3s ease-out !important;
+    }
+    
+    .toast.success {
+      background-color: #10b981 !important;
+    }
+    
+    .toast.error {
+      background-color: #ef4444 !important;
+    }
+    
+    .toast.info {
+      background-color: #3b82f6 !important;
+    }
+    
+    .toast.warning {
+      background-color: #f59e0b !important;
+    }
+    
+    /* Support for Toast component positioning */
+    .space-y-2 > * + * { margin-top: 8px !important; }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Utility classes */
+    .fixed { position: fixed !important; }
+    .absolute { position: absolute !important; }
+    .relative { position: relative !important; }
+    .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
+    .top-0 { top: 0 !important; }
+    .top-4 { top: 16px !important; }
+    .top-12 { top: 48px !important; }
+    .top-20 { top: 80px !important; }
+    .top-1\\/2 { top: 50% !important; }
+    .right-0 { right: 0 !important; }
+    .right-3 { right: 12px !important; }
+    .right-4 { right: 16px !important; }
+    .right-20 { right: 80px !important; }
+    .bottom-4 { bottom: 16px !important; }
+    .left-4 { left: 16px !important; }
+    .z-10 { z-index: 10 !important; }
+    .z-20 { z-index: 20 !important; }
+    .z-50 { z-index: 50 !important; }
+    .z-\\[999999\\] { z-index: 999999 !important; }
+    .z-\\[1000000\\] { z-index: 1000000 !important; }
+    .z-\\[2000000\\] { z-index: 2000000 !important; }
+    
+    .flex { display: flex !important; }
+    .inline-block { display: inline-block !important; }
+    .inline-flex { display: inline-flex !important; }
+    .grid { display: grid !important; }
+    .hidden { display: none !important; }
+    .block { display: block !important; }
+    
+    .items-center { align-items: center !important; }
+    .items-start { align-items: flex-start !important; }
+    .justify-center { justify-content: center !important; }
+    .justify-between { justify-content: space-between !important; }
+    .justify-end { justify-content: flex-end !important; }
+    .gap-1 { gap: 4px !important; }
+    .gap-2 { gap: 8px !important; }
+    .gap-3 { gap: 12px !important; }
+    .gap-4 { gap: 16px !important; }
+    .space-y-2 > * + * { margin-top: 8px !important; }
+    .space-y-4 > * + * { margin-top: 16px !important; }
+    
+    .w-full { width: 100% !important; }
+    .w-4 { width: 16px !important; }
+    .w-5 { width: 20px !important; }
+    .w-6 { width: 24px !important; }
+    .w-8 { width: 32px !important; }
+    .w-64 { width: 256px !important; }
+    .w-80 { width: 320px !important; }
+    .max-w-sm { max-width: 384px !important; }
+    .max-w-md { max-width: 448px !important; }
+    .max-w-lg { max-width: 512px !important; }
+    .max-w-2xl { max-width: 672px !important; }
+    .min-w-\\[120px\\] { min-width: 120px !important; }
+    .min-w-\\[300px\\] { min-width: 300px !important; }
+    .max-w-\\[90\\%\\] { max-width: 90% !important; }
+    .max-w-\\[500px\\] { max-width: 500px !important; }
+    
+    .h-4 { height: 16px !important; }
+    .h-5 { height: 20px !important; }
+    .h-6 { height: 24px !important; }
+    .h-8 { height: 32px !important; }
+    .max-h-\\[90vh\\] { max-height: 90vh !important; }
+    
+    .p-0 { padding: 0 !important; }
+    .p-2 { padding: 8px !important; }
+    .p-3 { padding: 12px !important; }
+    .p-4 { padding: 16px !important; }
+    .p-5 { padding: 20px !important; }
+    .p-6 { padding: 24px !important; }
+    .px-2 { padding-left: 8px !important; padding-right: 8px !important; }
+    .px-3 { padding-left: 12px !important; padding-right: 12px !important; }
+    .px-4 { padding-left: 16px !important; padding-right: 16px !important; }
+    .px-6 { padding-left: 24px !important; padding-right: 24px !important; }
+    .px-8 { padding-left: 32px !important; padding-right: 32px !important; }
+    .px-10 { padding-left: 40px !important; padding-right: 40px !important; }
+    .py-1 { padding-top: 4px !important; padding-bottom: 4px !important; }
+    .py-2 { padding-top: 8px !important; padding-bottom: 8px !important; }
+    .py-2\\.5 { padding-top: 10px !important; padding-bottom: 10px !important; }
+    .py-3 { padding-top: 12px !important; padding-bottom: 12px !important; }
+    .py-4 { padding-top: 16px !important; padding-bottom: 16px !important; }
+    .pt-2 { padding-top: 8px !important; }
+    .pb-3 { padding-bottom: 12px !important; }
+    .pr-8 { padding-right: 32px !important; }
+    .pr-10 { padding-right: 40px !important; }
+    
+    .m-0 { margin: 0 !important; }
+    .mt-1 { margin-top: 4px !important; }
+    .mt-2 { margin-top: 8px !important; }
+    .mt-4 { margin-top: 16px !important; }
+    .mb-1 { margin-bottom: 4px !important; }
+    .mb-2 { margin-bottom: 8px !important; }
+    .mb-4 { margin-bottom: 16px !important; }
+    .mb-5 { margin-bottom: 20px !important; }
+    .mb-10 { margin-bottom: 40px !important; }
+    .mr-2 { margin-right: 8px !important; }
+    .ml-2 { margin-left: 8px !important; }
+    .ml-3 { margin-left: 12px !important; }
+    
+    .text-center { text-align: center !important; }
+    .text-left { text-align: left !important; }
+    .text-right { text-align: right !important; }
+    .text-xs { font-size: 12px !important; line-height: 16px !important; }
+    .text-sm { font-size: 14px !important; line-height: 20px !important; }
+    .text-base { font-size: 16px !important; line-height: 24px !important; }
+    .text-lg { font-size: 18px !important; line-height: 28px !important; }
+    .text-xl { font-size: 20px !important; line-height: 28px !important; }
+    .text-2xl { font-size: 24px !important; line-height: 32px !important; }
+    .leading-6 { line-height: 24px !important; }
+    .leading-relaxed { line-height: 1.625 !important; }
+    
+    .font-light { font-weight: 300 !important; }
+    .font-normal { font-weight: 400 !important; }
+    .font-medium { font-weight: 500 !important; }
+    .font-semibold { font-weight: 600 !important; }
+    .font-bold { font-weight: 700 !important; }
+    .italic { font-style: italic !important; }
+    .underline { text-decoration: underline !important; }
+    
+    .text-white { color: white !important; }
+    .text-black { color: black !important; }
+    .text-gray-100 { color: #f3f4f6 !important; }
+    .text-gray-300 { color: #d1d5db !important; }
+    .text-gray-400 { color: #9ca3af !important; }
+    .text-gray-500 { color: #6b7280 !important; }
+    .text-gray-600 { color: #4b5563 !important; }
+    .text-gray-700 { color: #374151 !important; }
+    .text-blue-200 { color: #bfdbfe !important; }
+    .text-blue-300 { color: #93c5fd !important; }
+    .text-blue-400 { color: #60a5fa !important; }
+    .text-blue-500 { color: #3b82f6 !important; }
+    .text-blue-600 { color: #2563eb !important; }
+    .text-red-200 { color: #fecaca !important; }
+    .text-red-300 { color: #fca5a5 !important; }
+    .text-red-400 { color: #f87171 !important; }
+    .text-red-500 { color: #ef4444 !important; }
+    .text-green-200 { color: #bbf7d0 !important; }
+    .text-green-300 { color: #86efac !important; }
+    .text-green-400 { color: #4ade80 !important; }
+    .text-green-500 { color: #22c55e !important; }
+    .text-inherit { color: inherit !important; }
+    
+    .bg-transparent { background-color: transparent !important; }
+    .bg-black { background-color: black !important; }
+    .bg-white { background-color: white !important; }
+    .bg-gray-50 { background-color: #f9fafb !important; }
+    .bg-gray-100 { background-color: #f3f4f6 !important; }
+    .bg-gray-200 { background-color: #e5e7eb !important; }
+    .bg-gray-700 { background-color: #374151 !important; }
+    .bg-gray-800 { background-color: #1f2937 !important; }
+    .bg-gray-900 { background-color: #111827 !important; }
+    .bg-blue-50 { background-color: #eff6ff !important; }
+    .bg-blue-100 { background-color: #dbeafe !important; }
+    .bg-blue-500 { background-color: #3b82f6 !important; }
+    .bg-blue-600 { background-color: #2563eb !important; }
+    .bg-blue-700 { background-color: #1d4ed8 !important; }
+    .bg-red-50 { background-color: #fef2f2 !important; }
+    .bg-red-100 { background-color: #fee2e2 !important; }
+    .bg-red-500 { background-color: #ef4444 !important; }
+    .bg-red-600 { background-color: #dc2626 !important; }
+    .bg-green-50 { background-color: #f0fdf4 !important; }
+    .bg-green-100 { background-color: #dcfce7 !important; }
+    .bg-green-500 { background-color: #22c55e !important; }
+    .bg-green-600 { background-color: #16a34a !important; }
+    .bg-gray-600 { background-color: #4b5563 !important; }
+    
+    .bg-opacity-10 { background-color: rgba(255, 255, 255, 0.1) !important; }
+    .bg-opacity-20 { background-color: rgba(255, 255, 255, 0.2) !important; }
+    .bg-opacity-30 { background-color: rgba(255, 255, 255, 0.3) !important; }
+    .bg-opacity-50 { background-color: rgba(255, 255, 255, 0.5) !important; }
+    .bg-opacity-70 { background-color: rgba(255, 255, 255, 0.7) !important; }
+    
+    .bg-white.bg-opacity-10 { background-color: rgba(255, 255, 255, 0.1) !important; }
+    .bg-white.bg-opacity-20 { background-color: rgba(255, 255, 255, 0.2) !important; }
+    .bg-white.bg-opacity-30 { background-color: rgba(255, 255, 255, 0.3) !important; }
+    .bg-black.bg-opacity-50 { background-color: rgba(0, 0, 0, 0.5) !important; }
+    .bg-red-500.bg-opacity-20 { background-color: rgba(239, 68, 68, 0.2) !important; }
+    .bg-green-600.bg-opacity-20 { background-color: rgba(22, 163, 74, 0.2) !important; }
+    .bg-blue-500.bg-opacity-20 { background-color: rgba(59, 130, 246, 0.2) !important; }
+    
+    .bg-red-600.bg-opacity-90 { background-color: rgba(220, 38, 38, 0.9) !important; }
+    .bg-green-600.bg-opacity-90 { background-color: rgba(22, 163, 74, 0.9) !important; }
+    .bg-blue-600.bg-opacity-90 { background-color: rgba(37, 99, 235, 0.9) !important; }
+    .bg-gray-600.bg-opacity-90 { background-color: rgba(75, 85, 99, 0.9) !important; }
+    
+    .bg-opacity-90 { --tw-bg-opacity: 0.9 !important; }
+    
+    .text-opacity-70 { color: rgba(255, 255, 255, 0.7) !important; }
+    .text-opacity-75 { color: rgba(255, 255, 255, 0.75) !important; }
+    .text-opacity-90 { color: rgba(255, 255, 255, 0.9) !important; }
+    
+    .text-white.text-opacity-70 { color: rgba(255, 255, 255, 0.7) !important; }
+    .text-white.text-opacity-75 { color: rgba(255, 255, 255, 0.75) !important; }
+    .text-red-200.text-opacity-75 { color: rgba(254, 202, 202, 0.75) !important; }
+    
+    .border { border-width: 1px !important; }
+    .border-2 { border-width: 2px !important; }
+    .border-t { border-top-width: 1px !important; }
+    .border-b { border-bottom-width: 1px !important; }
+    .border-l { border-left-width: 1px !important; }
+    .border-r { border-right-width: 1px !important; }
+    .border-none { border: none !important; }
+    .border-solid { border-style: solid !important; }
+    
+    .border-transparent { border-color: transparent !important; }
+    .border-white { border-color: white !important; }
+    .border-gray-200 { border-color: #e5e7eb !important; }
+    .border-gray-300 { border-color: #d1d5db !important; }
+    .border-gray-400 { border-color: #9ca3af !important; }
+    .border-gray-700 { border-color: #374151 !important; }
+    .border-blue-300 { border-color: #93c5fd !important; }
+    .border-blue-400 { border-color: #60a5fa !important; }
+    .border-blue-500 { border-color: #3b82f6 !important; }
+    .border-red-300 { border-color: #fca5a5 !important; }
+    .border-red-400 { border-color: #f87171 !important; }
+    .border-red-500 { border-color: #ef4444 !important; }
+    .border-green-300 { border-color: #86efac !important; }
+    .border-green-400 { border-color: #4ade80 !important; }
+    .border-green-500 { border-color: #22c55e !important; }
+    .border-gray-400 { border-color: #9ca3af !important; }
+    
+    .border-opacity-10 { --tw-border-opacity: 0.1 !important; }
+    .border-opacity-20 { --tw-border-opacity: 0.2 !important; }
+    .border-opacity-30 { --tw-border-opacity: 0.3 !important; }
+    .border-opacity-50 { --tw-border-opacity: 0.5 !important; }
+    
+    .border-white.border-opacity-20 { border-color: rgba(255, 255, 255, 0.2) !important; }
+    .border-white.border-opacity-30 { border-color: rgba(255, 255, 255, 0.3) !important; }
+    .border-red-400.border-opacity-50 { border-color: rgba(248, 113, 113, 0.5) !important; }
+    .border-green-400.border-opacity-50 { border-color: rgba(74, 222, 128, 0.5) !important; }
+    .border-blue-400.border-opacity-50 { border-color: rgba(96, 165, 250, 0.5) !important; }
+    
+    .rounded { border-radius: 4px !important; }
+    .rounded-md { border-radius: 6px !important; }
+    .rounded-lg { border-radius: 8px !important; }
+    .rounded-xl { border-radius: 12px !important; }
+    .rounded-full { border-radius: 9999px !important; }
+    
+    .shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important; }
+    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important; }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+    .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; }
+    
+    /* Backdrop blur utilities */
+    .backdrop-blur-sm { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
+    .backdrop-blur-md { backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; }
+    .backdrop-blur-lg { backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; }
+    
+    .opacity-0 { opacity: 0 !important; }
+    .opacity-50 { opacity: 0.5 !important; }
+    .opacity-70 { opacity: 0.7 !important; }
+    .opacity-75 { opacity: 0.75 !important; }
+    .opacity-90 { opacity: 0.9 !important; }
+    .opacity-100 { opacity: 1 !important; }
+    
+    .cursor-default { cursor: default !important; }
+    .cursor-pointer { cursor: pointer !important; }
+    .cursor-not-allowed { cursor: not-allowed !important; }
+    
+    .select-none { user-select: none !important; }
+    .select-text { user-select: text !important; }
+    
+    .outline-none { outline: none !important; }
+    .outline { outline-style: solid !important; }
+    
+    .overflow-auto { overflow: auto !important; }
+    .overflow-hidden { overflow: hidden !important; }
+    .overflow-visible { overflow: visible !important; }
+    .overflow-y-auto { overflow-y: auto !important; }
+    .overflow-x-hidden { overflow-x: hidden !important; }
+    
+    .pointer-events-none { pointer-events: none !important; }
+    .pointer-events-auto { pointer-events: auto !important; }
+    
+    .transition { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform !important; transition-duration: 150ms !important; }
+    .transition-all { transition-property: all !important; transition-duration: 150ms !important; }
+    .transition-colors { transition-property: background-color, border-color, color, fill, stroke !important; transition-duration: 150ms !important; }
+    .transition-opacity { transition-property: opacity !important; transition-duration: 150ms !important; }
+    .transition-transform { transition-property: transform !important; transition-duration: 150ms !important; }
+    .duration-75 { transition-duration: 75ms !important; }
+    .duration-100 { transition-duration: 100ms !important; }
+    .duration-150 { transition-duration: 150ms !important; }
+    .duration-200 { transition-duration: 200ms !important; }
+    .duration-300 { transition-duration: 300ms !important; }
+    .duration-500 { transition-duration: 500ms !important; }
+    .ease-in { transition-timing-function: cubic-bezier(0.4, 0, 1, 1) !important; }
+    .ease-out { transition-timing-function: cubic-bezier(0, 0, 0.2, 1) !important; }
+    .ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important; }
+    
+    .transform { transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)) !important; }
+    .-translate-y-0\\.5 { --tw-translate-y: -2px !important; }
+    .-translate-y-1\\/2 { --tw-translate-y: -50% !important; }
+    .translate-y-0 { --tw-translate-y: 0 !important; }
+    .translate-x-0 { --tw-translate-x: 0 !important; }
+    .-translate-x-2 { --tw-translate-x: -8px !important; }
+    .translate-x-full { --tw-translate-x: 100% !important; }
+    .scale-95 { --tw-scale-x: 0.95 !important; --tw-scale-y: 0.95 !important; }
+    .scale-100 { --tw-scale-x: 1 !important; --tw-scale-y: 1 !important; }
+    
+    /* Hover states */
+    .hover\\:bg-gray-50:hover { background-color: #f9fafb !important; }
+    .hover\\:bg-gray-100:hover { background-color: #f3f4f6 !important; }
+    .hover\\:bg-gray-200:hover { background-color: #e5e7eb !important; }
+    .hover\\:bg-gray-700:hover { background-color: #374151 !important; }
+    .hover\\:bg-blue-600:hover { background-color: #2563eb !important; }
+    .hover\\:bg-blue-700:hover { background-color: #1d4ed8 !important; }
+    .hover\\:bg-red-600:hover { background-color: #dc2626 !important; }
+    .hover\\:bg-green-600:hover { background-color: #16a34a !important; }
+    .hover\\:bg-opacity-10:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
+    .hover\\:bg-opacity-20:hover { background-color: rgba(255, 255, 255, 0.2) !important; }
+    .hover\\:bg-opacity-30:hover { background-color: rgba(255, 255, 255, 0.3) !important; }
+    .hover\\:text-gray-300:hover { color: #d1d5db !important; }
+    .hover\\:text-gray-400:hover { color: #9ca3af !important; }
+    .hover\\:text-gray-600:hover { color: #4b5563 !important; }
+    .hover\\:text-gray-900:hover { color: #111827 !important; }
+    .hover\\:text-blue-200:hover { color: #bfdbfe !important; }
+    .hover\\:text-blue-400:hover { color: #60a5fa !important; }
+    .hover\\:text-blue-600:hover { color: #2563eb !important; }
+    .hover\\:text-red-600:hover { color: #dc2626 !important; }
+    .hover\\:text-gray-200:hover { color: #e5e7eb !important; }
+    .hover\\:underline:hover { text-decoration: underline !important; }
+    .hover\\:no-underline:hover { text-decoration: none !important; }
+    .hover\\:opacity-80:hover { opacity: 0.8 !important; }
+    .hover\\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+    
+    /* Focus states */
+    .focus\\:outline-none:focus { outline: none !important; }
+    .focus\\:ring-2:focus { box-shadow: 0 0 0 2px !important; }
+    .focus\\:ring-4:focus { box-shadow: 0 0 0 4px !important; }
+    .focus\\:ring-white:focus { --tw-ring-color: white !important; }
+    .focus\\:ring-blue-300:focus { --tw-ring-color: #93c5fd !important; }
+    .focus\\:ring-blue-500:focus { --tw-ring-color: #3b82f6 !important; }
+    .focus\\:ring-opacity-50:focus { --tw-ring-opacity: 0.5 !important; }
+    .focus\\:border-blue-500:focus { border-color: #3b82f6 !important; }
+    
+    /* Active states */
+    .active\\:bg-gray-100:active { background-color: #f3f4f6 !important; }
+    .active\\:bg-gray-200:active { background-color: #e5e7eb !important; }
+    .active\\:bg-blue-700:active { background-color: #1d4ed8 !important; }
+    
+    /* Disabled states */
+    .disabled\\:opacity-50:disabled { opacity: 0.5 !important; }
+    .disabled\\:cursor-not-allowed:disabled { cursor: not-allowed !important; }
+    
+    /* Group hover states */
+    .group:hover .group-hover\\:text-gray-900 { color: #111827 !important; }
+    .group:hover .group-hover\\:opacity-100 { opacity: 1 !important; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .verse-content {
+        max-width: 90% !important;
+        padding: 0 10px !important;
+      }
+      
+      .verse-text {
+        font-size: 24px !important;
+        line-height: 32px !important;
+      }
+      
+      .verse-reference {
+        font-size: 18px !important;
+        line-height: 24px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 12px 32px !important;
+        font-size: 16px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .verse-text {
+        font-size: 20px !important;
+        line-height: 28px !important;
+      }
+      
+      .verse-reference {
+        font-size: 16px !important;
+        line-height: 20px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+      }
+    }
+    
+    /* Animation classes */
+    .animate-slideIn { animation: slideIn 0.3s ease-out !important; }
+    .animate-fadeIn { animation: fadeIn 0.3s ease-out !important; }
+    
+    /* Link styles - prevent background on links */
+    a {
+      background-color: transparent !important;
+      text-decoration: none !important;
+    }
+    
+    /* Ensure proper link button styling */
+    a.underline {
+      text-decoration: underline !important;
+    }
+    
+    /* Modal link button styles */
+    .df-glassmorphism-modal button.text-blue-300,
+    .df-glassmorphism-modal a.text-blue-300 {
+      background-color: transparent !important;
+      color: #93c5fd !important;
+    }
+    
+    /* SVG icon styles */
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      fill: currentColor;
+    }
+    
+    /* Scrollbar styles for modal */
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .modal-content::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+    
+    .modal-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+    
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  `;
+};
+
+
+/***/ }),
+
 /***/ "./src/types/index.ts":
 /*!****************************!*\
   !*** ./src/types/index.ts ***!
@@ -53621,6 +54836,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_VerseOverlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/VerseOverlay */ "./src/components/VerseOverlay.tsx");
 /* harmony import */ var _components_AuthContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/AuthContext */ "./src/components/AuthContext.tsx");
 /* harmony import */ var _components_ToastContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/ToastContext */ "./src/components/ToastContext.tsx");
+/* harmony import */ var _styles_shadow_dom_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/shadow-dom-styles */ "./src/styles/shadow-dom-styles.ts");
+
 
 
 
@@ -53744,15 +54961,21 @@ __webpack_require__.r(__webpack_exports__);
             z-index: 999999 !important;
             pointer-events: auto !important;
         `;
-        // Create inner container for React app
+        // Add the overlay container to the page first
+        document.body.appendChild(overlayContainer);
+        // Create Shadow DOM for true style encapsulation
+        const shadowRoot = overlayContainer.attachShadow({ mode: 'open' });
+        // Create a style element for Shadow DOM styles
+        const shadowStyles = document.createElement('style');
+        shadowStyles.textContent = (0,_styles_shadow_dom_styles__WEBPACK_IMPORTED_MODULE_5__.getShadowDomStyles)();
+        shadowRoot.appendChild(shadowStyles);
+        // Create inner container for React app inside Shadow DOM
         const reactContainer = document.createElement('div');
         reactContainer.id = 'daily-flame-overlay';
-        overlayContainer.appendChild(reactContainer);
-        // Add the overlay container to the page
-        document.body.appendChild(overlayContainer);
+        shadowRoot.appendChild(reactContainer);
         // Prevent scrolling on the body
         document.body.style.overflow = 'hidden';
-        // Create React root
+        // Create React root inside Shadow DOM
         const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(reactContainer);
         // Error boundary component
         class ErrorBoundary extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
@@ -53796,7 +55019,8 @@ __webpack_require__.r(__webpack_exports__);
                     children: react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_AuthContext__WEBPACK_IMPORTED_MODULE_3__.AuthProvider, {
                         children: react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_VerseOverlay__WEBPACK_IMPORTED_MODULE_2__["default"], {
                             verse,
-                            onDismiss: handleDismiss
+                            onDismiss: handleDismiss,
+                            shadowRoot
                         })
                     })
                 })
