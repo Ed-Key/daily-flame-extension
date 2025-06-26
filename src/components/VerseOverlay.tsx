@@ -17,14 +17,54 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const doneButtonRef = useRef<HTMLButtonElement>(null);
   
   // GSAP animation refs
+  const overlayRef = useRef<HTMLDivElement>(null);
   const verseTextRef = useRef<HTMLParagraphElement>(null);
   const verseReferenceRef = useRef<HTMLParagraphElement>(null);
   const verseContentRef = useRef<HTMLDivElement>(null);
+  const entranceDirectionRef = useRef<'left' | 'right'>('left');
   
   // Debug logging
   useEffect(() => {
     console.log('VerseOverlay: Auth state changed', { user, isAdmin });
   }, [user, isAdmin]);
+  
+  // Custom dismiss handler with exit animation
+  const handleAnimatedDismiss = () => {
+    if (overlayRef.current) {
+      // Create exit animation timeline
+      const tl = gsap.timeline({
+        onComplete: () => {
+          onDismiss(); // Call the original dismiss function after animation
+        }
+      });
+      
+      // Scale down body
+      if (document.body) {
+        tl.to(document.body, {
+          scale: 0.92,
+          duration: 0.4,
+          ease: "power2.inOut"
+        });
+      }
+      
+      // Slide out the overlay in opposite direction
+      const exitDirection = entranceDirectionRef.current === 'left' ? 'right' : 'left';
+      tl.to(overlayRef.current, {
+        xPercent: exitDirection === 'left' ? -100 : 100,
+        duration: 0.6,
+        ease: "power3.in"
+      }, "-=0.3")
+      
+      // Reset body scale after overlay is gone
+      .to(document.body, {
+        scale: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      }, "-=0.1");
+    } else {
+      onDismiss(); // Fallback if ref not available
+    }
+  };
   
   // Admin verse controls state
   const [adminReference, setAdminReference] = useState('');
@@ -98,7 +138,52 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     };
   }, [showProfileDropdown, shadowRoot]);
 
-  // GSAP Animation Setup
+  // GSAP Overlay Entrance Animation
+  useGSAP(() => {
+    if (overlayRef.current) {
+      // Randomly choose direction and store it for exit animation
+      const direction = Math.random() > 0.5 ? 'left' : 'right';
+      entranceDirectionRef.current = direction;
+      
+      // Set initial states
+      gsap.set(overlayRef.current, {
+        xPercent: direction === 'left' ? -100 : 100,
+        opacity: 1
+      });
+      
+      // Create animation timeline
+      const tl = gsap.timeline({
+        onComplete: () => {
+          console.log('Overlay entrance animation completed');
+        }
+      });
+      
+      // Always add scale effect to body
+      if (document.body) {
+        tl.to(document.body, {
+          scale: 0.92,
+          duration: 0.6,
+          ease: "power2.inOut"
+        });
+      }
+      
+      // Slide in the black overlay
+      tl.to(overlayRef.current, {
+        xPercent: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      }, "-=0.5")
+      
+      // Reset body scale
+      .to(document.body, {
+        scale: 1,
+        duration: 0.4,
+        ease: "power2.out"
+      }, "-=0.2");
+    }
+  }, []);
+
+  // GSAP Verse Animation Setup
   useGSAP(() => {
     console.log('GSAP useGSAP hook running');
     
@@ -160,7 +245,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         
         // Create timeline for smooth verse reveal
         const tl = gsap.timeline({ 
-          delay: 0.3,
+          delay: 0.9, // Delayed to start after overlay entrance animation
           onStart: () => {
             console.log('GSAP timeline started');
           },
@@ -459,6 +544,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
   return (
     <div 
+      ref={overlayRef}
       className="verse-overlay"
       onKeyDown={handleKeyDown}
       onClick={handleOverlayClick}
@@ -817,8 +903,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
             <div className="text-center">
               <div className="mb-4">
-                <svg className="w-16 h-16 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg className="w-16 h-16 mx-auto text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
               </div>
               <h3 className="text-white text-lg font-semibold mb-2">Check Your Email</h3>
@@ -923,7 +1009,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         <button
           ref={doneButtonRef}
           className="verse-done-btn"
-          onClick={onDismiss}
+          onClick={handleAnimatedDismiss}
           type="button"
         >
           Done

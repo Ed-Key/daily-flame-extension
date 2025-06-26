@@ -48,9 +48,20 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     <ToastContext.Provider value={value}>
       {children}
       {/* Render toasts */}
-      <div className="fixed top-0 right-0 z-50 space-y-2 p-4">
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        zIndex: 50,
+        padding: '16px',
+        pointerEvents: 'none',
+      }}>
         {toasts.map((toast, index) => (
-          <div key={toast.id} style={{ top: `${index * 80}px` }} className="relative">
+          <div key={toast.id} style={{ 
+            position: 'relative',
+            marginTop: index > 0 ? '8px' : '0',
+            pointerEvents: 'auto',
+          }}>
             <Toast
               message={toast.message}
               type={toast.type}

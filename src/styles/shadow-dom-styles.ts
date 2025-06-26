@@ -37,6 +37,7 @@ export const getShadowDomStyles = (): string => {
       padding: 20px !important;
       width: 100% !important;
       height: 100% !important;
+      overflow: hidden !important;
     }
     
     /* Verse content container */
