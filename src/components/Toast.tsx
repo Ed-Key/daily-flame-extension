@@ -28,7 +28,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 4000, onClose }
       position: 'fixed',
       top: '16px',
       right: '16px',
-      zIndex: 50,
+      zIndex: 2000000,
       padding: '12px 16px',
       borderRadius: '8px',
       boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',

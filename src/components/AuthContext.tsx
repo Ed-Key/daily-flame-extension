@@ -189,12 +189,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('AuthContext: Starting Google Sign-In via background script');
       
       // Send message to background script to handle Google authentication
-      const response = await new Promise<any>((resolve) => {
-        chrome.runtime.sendMessage({ action: 'googleSignIn' }, resolve);
+      const response = await new Promise<any>((resolve, reject) => {
+        // Set a timeout to prevent hanging if user cancels OAuth
+        const timeout = setTimeout(() => {
+          reject(new Error('Google sign-in timed out. Please try again.'));
+        }, 30000); // 30 second timeout
+        
+        chrome.runtime.sendMessage({ action: 'googleSignIn' }, (response) => {
+          clearTimeout(timeout);
+          
+          // Check for Chrome runtime errors (e.g., extension context invalidated)
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message || 'Failed to communicate with extension'));
+            return;
+          }
+          
+          resolve(response);
+        });
       });
       
-      if (!response.success) {
-        throw new Error(response.error || 'Google sign-in failed');
+      if (!response || !response.success) {
+        throw new Error(response?.error || 'Google sign-in failed');
       }
       
       const token = response.token;

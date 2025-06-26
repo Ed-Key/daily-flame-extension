@@ -833,5 +833,118 @@ export const getShadowDomStyles = (): string => {
         font-size: 14px !important;
       }
     }
+
+    /* Auth Form Styles */
+    .auth-form-group {
+      margin-bottom: 16px !important;
+    }
+
+    .auth-label {
+      display: block !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      color: white !important;
+      margin-bottom: 4px !important;
+    }
+
+    .auth-input-wrapper {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .auth-input-icon {
+      position: absolute !important;
+      left: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+    }
+
+    .auth-input {
+      width: 100% !important;
+      padding: 8px 12px !important;
+      padding-left: 40px !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      border-radius: 6px !important;
+      outline: none !important;
+      transition: all 0.15s !important;
+    }
+
+    .auth-input::placeholder {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .auth-input:focus {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .auth-input-error {
+      border-color: #f87171 !important;
+    }
+
+    .auth-input-error:focus {
+      border-color: #f87171 !important;
+      box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.3) !important;
+    }
+
+    .auth-error-message {
+      display: block !important;
+      margin-top: 4px !important;
+      font-size: 12px !important;
+      color: #fca5a5 !important;
+    }
+
+    .auth-error-banner {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+      padding: 12px !important;
+      background-color: rgba(239, 68, 68, 0.2) !important;
+      border: 1px solid rgba(248, 113, 113, 0.5) !important;
+      border-radius: 6px !important;
+      color: #fecaca !important;
+      font-size: 14px !important;
+    }
+
+    .password-input-wrapper {
+      position: relative !important;
+    }
+
+    .password-toggle {
+      position: absolute !important;
+      right: 8px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      padding: 4px !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      background: transparent !important;
+      border: none !important;
+      cursor: pointer !important;
+      transition: color 0.15s !important;
+    }
+
+    .password-toggle:hover {
+      color: white !important;
+    }
+
+    .password-strength {
+      margin-top: 4px !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+    }
+
+    /* Grid utilities for form layouts */
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
   `;
 };

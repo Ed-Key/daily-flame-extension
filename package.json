@@ -19,7 +19,8 @@
     "firebase": "^11.9.1",
     "gsap": "^3.13.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.58.1"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.326",

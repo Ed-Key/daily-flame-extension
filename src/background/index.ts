@@ -1,9 +1,20 @@
 import { VerseService } from '../services/verse-service';
 import { ChromeMessage, ChromeResponse } from '../types';
 
+// Detect if running on Microsoft Edge
+function isEdgeBrowser(): boolean {
+  return navigator.userAgent.includes('Edg/');
+}
+
 // Google Sign-In handler using chrome.identity API
 async function handleGoogleSignIn(): Promise<{ token: string; userInfo: any }> {
   console.log('Background: Starting Google Sign-In process');
+  
+  // Check if we're on Edge, which doesn't support getAuthToken
+  if (isEdgeBrowser()) {
+    console.log('Background: Detected Microsoft Edge, using launchWebAuthFlow');
+    return handleGoogleSignInWithWebAuthFlow();
+  }
   
   return new Promise((resolve, reject) => {
     // Force account selection by using 'any' account parameter
@@ -47,9 +58,85 @@ async function handleGoogleSignIn(): Promise<{ token: string; userInfo: any }> {
   });
 }
 
+// Alternative Google Sign-In for Edge using launchWebAuthFlow
+async function handleGoogleSignInWithWebAuthFlow(): Promise<{ token: string; userInfo: any }> {
+  console.log('Background: Using launchWebAuthFlow for Edge compatibility');
+  
+  const manifest = chrome.runtime.getManifest();
+  const clientId = manifest.oauth2?.client_id;
+  
+  if (!clientId) {
+    throw new Error('OAuth2 client ID not found in manifest');
+  }
+  
+  // Generate redirect URI for the extension
+  const redirectUri = chrome.identity.getRedirectURL();
+  console.log('Background: Redirect URI:', redirectUri);
+  
+  // Build the OAuth2 URL
+  const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+  authUrl.searchParams.set('client_id', clientId);
+  authUrl.searchParams.set('response_type', 'token');
+  authUrl.searchParams.set('redirect_uri', redirectUri);
+  authUrl.searchParams.set('scope', 'openid email profile');
+  authUrl.searchParams.set('prompt', 'select_account'); // Force account selection
+  
+  return new Promise((resolve, reject) => {
+    chrome.identity.launchWebAuthFlow(
+      {
+        url: authUrl.toString(),
+        interactive: true
+      },
+      async (responseUrl) => {
+        if (chrome.runtime.lastError || !responseUrl) {
+          console.error('Background: Web auth flow failed', chrome.runtime.lastError);
+          reject(new Error(chrome.runtime.lastError?.message || 'Authentication failed'));
+          return;
+        }
+        
+        // Extract access token from the response URL
+        const url = new URL(responseUrl);
+        const params = new URLSearchParams(url.hash.substring(1)); // Remove the # character
+        const accessToken = params.get('access_token');
+        
+        if (!accessToken) {
+          reject(new Error('No access token in response'));
+          return;
+        }
+        
+        console.log('Background: Access token obtained via web auth flow');
+        
+        // Fetch user info
+        try {
+          const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`);
+          
+          if (!userInfoResponse.ok) {
+            console.warn('Background: Failed to fetch user info');
+            resolve({ token: accessToken, userInfo: null });
+            return;
+          }
+          
+          const userInfo = await userInfoResponse.json();
+          console.log('Background: User info fetched successfully');
+          resolve({ token: accessToken, userInfo });
+        } catch (error) {
+          console.warn('Background: Error fetching user info:', error);
+          resolve({ token: accessToken, userInfo: null });
+        }
+      }
+    );
+  });
+}
+
 // Clear all cached auth tokens for testing different accounts
 async function clearAuthTokens(): Promise<void> {
   console.log('Background: Clearing all cached auth tokens');
+  
+  // Edge doesn't support these methods, so just resolve immediately
+  if (isEdgeBrowser()) {
+    console.log('Background: Edge browser detected, no cached tokens to clear');
+    return Promise.resolve();
+  }
   
   return new Promise((resolve, reject) => {
     // First, try to get current token to revoke it
@@ -79,6 +166,27 @@ async function clearAuthTokens(): Promise<void> {
 
 // Handle messages from content script and other parts of the extension
 chrome.runtime.onMessage.addListener((request: ChromeMessage, sender, sendResponse) => {
+    if (request.action === 'injectVerseApp') {
+        // Inject the verse app script into the current tab
+        if (!sender.tab?.id) {
+            sendResponse({ success: false, error: 'No tab ID found' });
+            return;
+        }
+        
+        chrome.scripting.executeScript({
+            target: { tabId: sender.tab.id },
+            files: ['verse-app.js']
+        }).then(() => {
+            console.log('Background: Verse app injected successfully');
+            sendResponse({ success: true });
+        }).catch(error => {
+            console.error('Background: Failed to inject verse app:', error);
+            sendResponse({ success: false, error: error.message });
+        });
+        
+        return true; // Keep message channel open for async response
+    }
+    
     if (request.action === 'getVerseShownDate') {
         const today = new Date().toISOString().split("T")[0];
         chrome.storage.local.get("verseShownDate", ({ verseShownDate }) => {
@@ -194,24 +302,41 @@ chrome.action.onClicked.addListener((tab) => {
         return;
     }
 
-    // For restricted URLs, open a new tab with a regular website
-    const skipSites = ["chrome://", "chrome-extension://", "moz-extension://", "extensions", "about:", "file://"];
+    // For restricted URLs and OAuth pages, open a new tab with a regular website
+    const skipSites = [
+        "chrome://", 
+        "chrome-extension://", 
+        "moz-extension://", 
+        "extensions", 
+        "about:", 
+        "file://",
+        // OAuth and authentication URLs
+        "accounts.google.com",
+        "oauth2.googleapis.com",
+        "auth.firebase.com",
+        "identitytoolkit.googleapis.com",
+        "securetoken.googleapis.com",
+        // Microsoft Edge identity redirect
+        "login.microsoftonline.com",
+        "login.live.com"
+    ];
     if (skipSites.some(site => tab.url!.includes(site))) {
-        console.log('Background: Cannot inject into restricted URL, opening new tab:', tab.url);
+        console.log('Background: Cannot inject into restricted/auth URL, opening new tab:', tab.url);
         chrome.tabs.create({ url: 'https://www.google.com' }, (newTab) => {
             if (newTab.id) {
-                // Wait a moment for the tab to load, then show verse overlay
+                // Wait a moment for the tab to load, then inject verse app
                 setTimeout(() => {
-                    chrome.scripting.executeScript({
-                        target: { tabId: newTab.id! },
-                        func: () => {
-                            // Clear storage and show verse overlay
-                            if (typeof (window as any).resetDailyFlame === 'function') {
-                                (window as any).resetDailyFlame();
-                            }
-                        }
-                    }).catch((error) => {
-                        console.error('Background: Error injecting script in new tab:', error);
+                    // Clear storage first
+                    chrome.storage.local.remove(['verseShownDate'], () => {
+                        // Then inject the verse app
+                        chrome.scripting.executeScript({
+                            target: { tabId: newTab.id! },
+                            files: ['verse-app.js']
+                        }).then(() => {
+                            console.log('Background: Verse app injected in new tab');
+                        }).catch((error) => {
+                            console.error('Background: Error injecting verse app in new tab:', error);
+                        });
                     });
                 }, 1500);
             }
@@ -220,17 +345,17 @@ chrome.action.onClicked.addListener((tab) => {
     }
 
     try {
-        // For regular URLs, inject content script to show verse overlay
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: () => {
-                // Always show verse overlay first when icon is clicked (clear storage to force show)
-                if (typeof (window as any).resetDailyFlame === 'function') {
-                    (window as any).resetDailyFlame();
-                }
-            }
-        }).catch((error) => {
-            console.error('Background: Error injecting script:', error);
+        // First clear the storage to force show
+        chrome.storage.local.remove(['verseShownDate'], () => {
+            // Then inject the verse app directly
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id! },
+                files: ['verse-app.js']
+            }).then(() => {
+                console.log('Background: Verse app injected via icon click');
+            }).catch((error) => {
+                console.error('Background: Error injecting verse app:', error);
+            });
         });
     } catch (error) {
         console.error('Background: Failed to execute script on tab:', tab.url, error);

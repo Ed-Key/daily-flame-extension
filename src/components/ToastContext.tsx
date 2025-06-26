@@ -52,7 +52,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
         position: 'fixed',
         top: 0,
         right: 0,
-        zIndex: 50,
+        zIndex: 2000000,
         padding: '16px',
         pointerEvents: 'none',
       }}>
