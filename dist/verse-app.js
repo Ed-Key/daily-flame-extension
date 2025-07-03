@@ -54576,6 +54576,7 @@ const renderContextVerses = ({ chapterContent, currentVerseNumber, contextTransl
         return [];
     // Check if we should use KJV formatting (each verse as separate paragraph)
     const useKJVFormatting = contextTranslation === 'KJV' || contextTranslation === 'ASV';
+    const useESVFormatting = contextTranslation === 'ESV';
     // Parse content and render verses with paragraph support
     const paragraphs = [];
     let currentParagraph = [];
@@ -54677,6 +54678,72 @@ const renderContextVerses = ({ chapterContent, currentVerseNumber, contextTransl
     };
     // Debug logging
     console.log('Chapter content structure:', chapterContent);
+    // For ESV, wrap content in a container with chapter number
+    if (useESVFormatting && chapterContent.chapterNumber) {
+        const esvContent = [];
+        chapterContent.content.forEach((section, sectionIndex) => {
+            // Handle headings
+            if (section.type === 'tag' && section.name === 'heading') {
+                const headingText = section.items?.[0]?.text || '';
+                if (headingText) {
+                    esvContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "esv-heading", children: headingText }, `heading-${sectionIndex}`));
+                }
+            }
+            // Handle paragraphs
+            else if (section.type === 'tag' && section.name === 'para') {
+                const paragraphElements = [];
+                let currentVerseContent = [];
+                let currentVerseNum = '';
+                section.items?.forEach((item, itemIndex) => {
+                    if (item.type === 'tag' && item.name === 'verse') {
+                        // Add previous verse content if any
+                        if (currentVerseNum && currentVerseContent.length > 0) {
+                            const verseNumber = parseInt(currentVerseNum);
+                            const isHighlighted = verseNumber === currentVerseNumber;
+                            paragraphElements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: currentVerseNum }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: currentVerseContent })] }, `verse-${currentVerseNum}`));
+                        }
+                        // Start new verse
+                        currentVerseNum = item.attrs?.number || '';
+                        currentVerseContent = [];
+                    }
+                    else if (item.type === 'text') {
+                        currentVerseContent.push(item.text);
+                    }
+                    else if (item.type === 'tag' && item.name === 'char') {
+                        // Handle special character styles (words of Jesus, etc.)
+                        const style = item.attrs?.style;
+                        const text = item.items?.[0]?.text || '';
+                        if (style === 'wj') {
+                            currentVerseContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: text }, `wj-${itemIndex}`));
+                        }
+                        else if (style === 'add') {
+                            currentVerseContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translator-addition", children: text }, `add-${itemIndex}`));
+                        }
+                        else if (style === 'nd') {
+                            currentVerseContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "divine-name", children: text }, `nd-${itemIndex}`));
+                        }
+                        else {
+                            currentVerseContent.push(text);
+                        }
+                    }
+                });
+                // Add the last verse
+                if (currentVerseNum && currentVerseContent.length > 0) {
+                    const verseNumber = parseInt(currentVerseNum);
+                    const isHighlighted = verseNumber === currentVerseNumber;
+                    paragraphElements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: currentVerseNum }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: currentVerseContent })] }, `verse-${currentVerseNum}`));
+                }
+                if (paragraphElements.length > 0) {
+                    esvContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph esv-format", children: paragraphElements }, `para-${sectionIndex}`));
+                }
+            }
+        });
+        // Wrap in ESV container with chapter number floated
+        return [
+            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "esv-content", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-number", children: chapterContent.chapterNumber }), esvContent] }) }, "esv-chapter")
+        ];
+    }
+    // Original code for non-ESV translations
     chapterContent.content.forEach((section) => {
         // Each section is a paragraph with a style
         if (section.type === 'tag' && section.name === 'para') {
@@ -55280,7 +55347,7 @@ class ESVService {
     // Get chapter with HTML format for red letter support
     static async getChapterWithRedLetters(chapterReference) {
         try {
-            const url = `${this.BASE_URL}/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=true&include-audio-link=false`;
+            const url = `${this.BASE_URL}/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=true&include-verse-numbers=true&include-audio-link=false`;
             const response = await fetch(url, {
                 headers: {
                     'Authorization': `Token ${this.API_KEY}`
@@ -55296,63 +55363,107 @@ class ESVService {
             // Parse HTML to extract verses with red letter support
             const parser = new DOMParser();
             const doc = parser.parseFromString(data.passages[0], 'text/html');
-            const verses = [];
-            // Find all verse numbers
-            const verseNums = doc.querySelectorAll('.verse-num');
-            verseNums.forEach((verseNumElement) => {
-                const verseNum = verseNumElement.textContent?.replace(/\s/g, '') || '';
-                // Get all text nodes and elements until the next verse number
-                const content = [];
-                let node = verseNumElement.nextSibling;
-                while (node && !(node instanceof Element && node.classList?.contains('verse-num'))) {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        const text = node.textContent?.trim();
-                        if (text) {
-                            content.push({
+            const items = [];
+            let chapterNumber = '';
+            // Process all paragraphs and headings in order
+            const elements = doc.querySelectorAll('p, h3');
+            elements.forEach((element) => {
+                if (element.tagName === 'H3') {
+                    // Add heading
+                    items.push({
+                        type: 'tag',
+                        name: 'heading',
+                        attrs: { level: '3' },
+                        items: [{
                                 type: 'text',
-                                text: text
-                            });
-                        }
+                                text: element.textContent?.trim() || ''
+                            }]
+                    });
+                }
+                else if (element.tagName === 'P') {
+                    // Skip the ESV copyright paragraph
+                    if (element.querySelector('a.copyright')) {
+                        return;
                     }
-                    else if (node instanceof Element && node.classList?.contains('woc')) {
-                        // Words of Christ
-                        content.push({
-                            type: 'tag',
-                            name: 'char',
-                            attrs: { style: 'wj' },
-                            items: [{
+                    // Create a paragraph container
+                    const paragraphItems = [];
+                    // Process all nodes within the paragraph
+                    const processNode = (node) => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            const text = node.textContent || '';
+                            if (text.trim()) {
+                                paragraphItems.push({
                                     type: 'text',
-                                    text: node.textContent || ''
-                                }]
+                                    text: text
+                                });
+                            }
+                        }
+                        else if (node instanceof Element) {
+                            if (node.classList.contains('chapter-num')) {
+                                // Extract chapter number for display
+                                const match = node.textContent?.match(/(\d+):/);
+                                if (match) {
+                                    chapterNumber = match[1];
+                                }
+                                // Add verse marker - extract just the verse number after the colon
+                                const verseNum = node.textContent?.split(':')[1]?.trim() || '1';
+                                if (verseNum) {
+                                    paragraphItems.push({
+                                        type: 'tag',
+                                        name: 'verse',
+                                        attrs: { number: verseNum }
+                                    });
+                                }
+                            }
+                            else if (node.classList.contains('verse-num')) {
+                                // Add verse marker
+                                const verseNum = node.textContent?.replace(/[^\d]/g, '') || '';
+                                if (verseNum) {
+                                    paragraphItems.push({
+                                        type: 'tag',
+                                        name: 'verse',
+                                        attrs: { number: verseNum }
+                                    });
+                                }
+                            }
+                            else if (node.classList.contains('woc')) {
+                                // Words of Christ
+                                paragraphItems.push({
+                                    type: 'tag',
+                                    name: 'char',
+                                    attrs: { style: 'wj' },
+                                    items: [{
+                                            type: 'text',
+                                            text: node.textContent || ''
+                                        }]
+                                });
+                            }
+                            else {
+                                // Process child nodes
+                                node.childNodes.forEach(child => processNode(child));
+                            }
+                        }
+                    };
+                    // Process all child nodes of the paragraph
+                    element.childNodes.forEach(node => processNode(node));
+                    // Add paragraph if it has content
+                    if (paragraphItems.length > 0) {
+                        items.push({
+                            type: 'tag',
+                            name: 'para',
+                            attrs: { style: 'p' },
+                            items: paragraphItems
                         });
                     }
-                    node = node.nextSibling;
-                }
-                if (verseNum && content.length > 0) {
-                    verses.push({
-                        type: 'tag',
-                        name: 'verse',
-                        attrs: { number: verseNum.replace(/[^\d]/g, '') },
-                        items: []
-                    });
-                    // Add content items
-                    content.forEach(item => {
-                        if (item.type === 'text' || item.type === 'tag') {
-                            verses.push(item);
-                        }
-                    });
                 }
             });
             // Return in a format similar to scripture.api.bible
             return {
                 id: chapterReference,
                 reference: data.canonical,
-                content: [{
-                        type: 'tag',
-                        name: 'para',
-                        items: verses
-                    }],
-                verseCount: verseNums.length
+                content: items,
+                chapterNumber: chapterNumber,
+                verseCount: doc.querySelectorAll('.verse-num, .chapter-num').length
             };
         }
         catch (error) {
@@ -57276,6 +57387,118 @@ const getShadowDomStyles = () => {
     .context-back-btn:hover {
       background-color: rgba(255, 255, 255, 0.2) !important;
       transform: translateX(-2px) !important;
+    }
+
+    /* ESV-specific formatting */
+    .esv-chapter-container {
+      position: relative !important;
+      margin-top: 20px !important;
+    }
+
+    .esv-chapter-number {
+      float: left !important;
+      font-size: 72px !important;
+      line-height: 0.8 !important;
+      font-weight: 300 !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      margin-right: 20px !important;
+      margin-top: -8px !important;
+      margin-bottom: -10px !important;
+      padding-right: 5px !important;
+    }
+
+    .esv-content {
+      display: block !important;
+    }
+    
+    /* First paragraph in ESV needs special handling */
+    .esv-content .context-paragraph:first-of-type {
+      /* Text will wrap around the floated chapter number */
+    }
+
+    /* ESV section headings */
+    .esv-heading {
+      font-style: italic !important;
+      font-size: 20px !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      margin: 24px 0 16px 0 !important;
+      font-weight: 400 !important;
+      clear: left !important; /* Clear the floated chapter number */
+      text-indent: 0 !important; /* No indent for headings */
+      text-align: left !important; /* Left align headings */
+    }
+
+    .esv-heading:first-child {
+      margin-top: 0 !important;
+    }
+
+    /* ESV paragraph formatting */
+    .context-paragraph.esv-format {
+      text-align: left !important;
+      text-indent: 2em !important;
+      margin-bottom: 16px !important;
+      line-height: 1.8 !important;
+    }
+    
+    /* First paragraph should not be indented (it has the chapter number) */
+    .esv-content .context-paragraph.esv-format:first-of-type {
+      text-indent: 0 !important;
+    }
+
+    /* ESV verse numbers - smaller superscript */
+    .esv-format .context-verse-number {
+      font-size: 0.65em !important;
+      vertical-align: super !important;
+      font-weight: 400 !important;
+      margin-right: 3px !important;
+      opacity: 0.8 !important;
+    }
+    
+    /* First verse in ESV format - hide the "1" since it's part of chapter number */
+    .esv-format .context-paragraph:first-of-type .context-verse-number:first-child {
+      display: none !important;
+    }
+
+    /* Remove ESV format from KJV-style verses */
+    .context-paragraph.kjv-verse.esv-format {
+      text-align: left !important;
+    }
+
+    /* Mobile adjustments for ESV */
+    @media (max-width: 768px) {
+      .esv-chapter-number {
+        font-size: 56px !important;
+        margin-right: 16px !important;
+        margin-top: -6px !important;
+        margin-bottom: -8px !important;
+        padding-right: 4px !important;
+      }
+
+      .esv-heading {
+        font-size: 18px !important;
+      }
+      
+      .context-paragraph.esv-format {
+        text-indent: 1.5em !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .esv-chapter-number {
+        font-size: 48px !important;
+        margin-right: 12px !important;
+        margin-top: -4px !important;
+        margin-bottom: -6px !important;
+        padding-right: 3px !important;
+      }
+
+      .esv-heading {
+        font-size: 16px !important;
+      }
+      
+      .context-paragraph.esv-format {
+        text-indent: 1.2em !important;
+      }
     }
 
   `;

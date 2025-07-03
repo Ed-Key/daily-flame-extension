@@ -112,7 +112,7 @@ export class ESVService {
   // Get chapter with HTML format for red letter support
   static async getChapterWithRedLetters(chapterReference: string): Promise<any> {
     try {
-      const url = `${this.BASE_URL}/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=true&include-audio-link=false`;
+      const url = `${this.BASE_URL}/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=true&include-verse-numbers=true&include-audio-link=false`;
       
       const response = await fetch(url, {
         headers: {
@@ -134,57 +134,99 @@ export class ESVService {
       const parser = new DOMParser();
       const doc = parser.parseFromString(data.passages[0], 'text/html');
       
-      const verses: any[] = [];
+      const items: any[] = [];
+      let chapterNumber = '';
       
-      // Find all verse numbers
-      const verseNums = doc.querySelectorAll('.verse-num');
+      // Process all paragraphs and headings in order
+      const elements = doc.querySelectorAll('p, h3');
       
-      verseNums.forEach((verseNumElement) => {
-        const verseNum = verseNumElement.textContent?.replace(/\s/g, '') || '';
-        
-        // Get all text nodes and elements until the next verse number
-        const content: any[] = [];
-        let node = verseNumElement.nextSibling;
-        
-        while (node && !(node instanceof Element && node.classList?.contains('verse-num'))) {
-          if (node.nodeType === Node.TEXT_NODE) {
-            const text = node.textContent?.trim();
-            if (text) {
-              content.push({
-                type: 'text',
-                text: text
-              });
-            }
-          } else if (node instanceof Element && node.classList?.contains('woc')) {
-            // Words of Christ
-            content.push({
-              type: 'tag',
-              name: 'char',
-              attrs: { style: 'wj' },
-              items: [{
-                type: 'text',
-                text: node.textContent || ''
-              }]
-            });
+      elements.forEach((element) => {
+        if (element.tagName === 'H3') {
+          // Add heading
+          items.push({
+            type: 'tag',
+            name: 'heading',
+            attrs: { level: '3' },
+            items: [{
+              type: 'text',
+              text: element.textContent?.trim() || ''
+            }]
+          });
+        } else if (element.tagName === 'P') {
+          // Skip the ESV copyright paragraph
+          if (element.querySelector('a.copyright')) {
+            return;
           }
           
-          node = node.nextSibling;
-        }
-        
-        if (verseNum && content.length > 0) {
-          verses.push({
-            type: 'tag',
-            name: 'verse',
-            attrs: { number: verseNum.replace(/[^\d]/g, '') },
-            items: []
-          });
+          // Create a paragraph container
+          const paragraphItems: any[] = [];
           
-          // Add content items
-          content.forEach(item => {
-            if (item.type === 'text' || item.type === 'tag') {
-              verses.push(item);
+          // Process all nodes within the paragraph
+          const processNode = (node: Node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const text = node.textContent || '';
+              if (text.trim()) {
+                paragraphItems.push({
+                  type: 'text',
+                  text: text
+                });
+              }
+            } else if (node instanceof Element) {
+              if (node.classList.contains('chapter-num')) {
+                // Extract chapter number for display
+                const match = node.textContent?.match(/(\d+):/);
+                if (match) {
+                  chapterNumber = match[1];
+                }
+                // Add verse marker - extract just the verse number after the colon
+                const verseNum = node.textContent?.split(':')[1]?.trim() || '1';
+                if (verseNum) {
+                  paragraphItems.push({
+                    type: 'tag',
+                    name: 'verse',
+                    attrs: { number: verseNum }
+                  });
+                }
+              } else if (node.classList.contains('verse-num')) {
+                // Add verse marker
+                const verseNum = node.textContent?.replace(/[^\d]/g, '') || '';
+                if (verseNum) {
+                  paragraphItems.push({
+                    type: 'tag',
+                    name: 'verse',
+                    attrs: { number: verseNum }
+                  });
+                }
+              } else if (node.classList.contains('woc')) {
+                // Words of Christ
+                paragraphItems.push({
+                  type: 'tag',
+                  name: 'char',
+                  attrs: { style: 'wj' },
+                  items: [{
+                    type: 'text',
+                    text: node.textContent || ''
+                  }]
+                });
+              } else {
+                // Process child nodes
+                node.childNodes.forEach(child => processNode(child));
+              }
             }
-          });
+          };
+          
+          // Process all child nodes of the paragraph
+          element.childNodes.forEach(node => processNode(node));
+          
+          // Add paragraph if it has content
+          if (paragraphItems.length > 0) {
+            items.push({
+              type: 'tag',
+              name: 'para',
+              attrs: { style: 'p' },
+              items: paragraphItems
+            });
+          }
         }
       });
       
@@ -192,12 +234,9 @@ export class ESVService {
       return {
         id: chapterReference,
         reference: data.canonical,
-        content: [{
-          type: 'tag',
-          name: 'para',
-          items: verses
-        }],
-        verseCount: verseNums.length
+        content: items,
+        chapterNumber: chapterNumber,
+        verseCount: doc.querySelectorAll('.verse-num, .chapter-num').length
       };
       
     } catch (error) {

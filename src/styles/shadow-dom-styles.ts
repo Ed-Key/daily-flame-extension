@@ -1602,5 +1602,117 @@ export const getShadowDomStyles = (): string => {
       transform: translateX(-2px) !important;
     }
 
+    /* ESV-specific formatting */
+    .esv-chapter-container {
+      position: relative !important;
+      margin-top: 20px !important;
+    }
+
+    .esv-chapter-number {
+      float: left !important;
+      font-size: 72px !important;
+      line-height: 0.8 !important;
+      font-weight: 300 !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      margin-right: 20px !important;
+      margin-top: -8px !important;
+      margin-bottom: -10px !important;
+      padding-right: 5px !important;
+    }
+
+    .esv-content {
+      display: block !important;
+    }
+    
+    /* First paragraph in ESV needs special handling */
+    .esv-content .context-paragraph:first-of-type {
+      /* Text will wrap around the floated chapter number */
+    }
+
+    /* ESV section headings */
+    .esv-heading {
+      font-style: italic !important;
+      font-size: 20px !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      margin: 24px 0 16px 0 !important;
+      font-weight: 400 !important;
+      clear: left !important; /* Clear the floated chapter number */
+      text-indent: 0 !important; /* No indent for headings */
+      text-align: left !important; /* Left align headings */
+    }
+
+    .esv-heading:first-child {
+      margin-top: 0 !important;
+    }
+
+    /* ESV paragraph formatting */
+    .context-paragraph.esv-format {
+      text-align: left !important;
+      text-indent: 2em !important;
+      margin-bottom: 16px !important;
+      line-height: 1.8 !important;
+    }
+    
+    /* First paragraph should not be indented (it has the chapter number) */
+    .esv-content .context-paragraph.esv-format:first-of-type {
+      text-indent: 0 !important;
+    }
+
+    /* ESV verse numbers - smaller superscript */
+    .esv-format .context-verse-number {
+      font-size: 0.65em !important;
+      vertical-align: super !important;
+      font-weight: 400 !important;
+      margin-right: 3px !important;
+      opacity: 0.8 !important;
+    }
+    
+    /* First verse in ESV format - hide the "1" since it's part of chapter number */
+    .esv-format .context-paragraph:first-of-type .context-verse-number:first-child {
+      display: none !important;
+    }
+
+    /* Remove ESV format from KJV-style verses */
+    .context-paragraph.kjv-verse.esv-format {
+      text-align: left !important;
+    }
+
+    /* Mobile adjustments for ESV */
+    @media (max-width: 768px) {
+      .esv-chapter-number {
+        font-size: 56px !important;
+        margin-right: 16px !important;
+        margin-top: -6px !important;
+        margin-bottom: -8px !important;
+        padding-right: 4px !important;
+      }
+
+      .esv-heading {
+        font-size: 18px !important;
+      }
+      
+      .context-paragraph.esv-format {
+        text-indent: 1.5em !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .esv-chapter-number {
+        font-size: 48px !important;
+        margin-right: 12px !important;
+        margin-top: -4px !important;
+        margin-bottom: -6px !important;
+        padding-right: 3px !important;
+      }
+
+      .esv-heading {
+        font-size: 16px !important;
+      }
+      
+      .context-paragraph.esv-format {
+        text-indent: 1.2em !important;
+      }
+    }
+
   `;
 };

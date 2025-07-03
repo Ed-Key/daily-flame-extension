@@ -15,6 +15,7 @@ export const renderContextVerses = ({
 
   // Check if we should use KJV formatting (each verse as separate paragraph)
   const useKJVFormatting = contextTranslation === 'KJV' || contextTranslation === 'ASV';
+  const useESVFormatting = contextTranslation === 'ESV';
 
   // Parse content and render verses with paragraph support
   const paragraphs: React.JSX.Element[] = [];
@@ -147,6 +148,106 @@ export const renderContextVerses = ({
   // Debug logging
   console.log('Chapter content structure:', chapterContent);
   
+  // For ESV, wrap content in a container with chapter number
+  if (useESVFormatting && chapterContent.chapterNumber) {
+    const esvContent: React.JSX.Element[] = [];
+    
+    chapterContent.content.forEach((section: any, sectionIndex: number) => {
+      // Handle headings
+      if (section.type === 'tag' && section.name === 'heading') {
+        const headingText = section.items?.[0]?.text || '';
+        if (headingText) {
+          esvContent.push(
+            <h3 key={`heading-${sectionIndex}`} className="esv-heading">
+              {headingText}
+            </h3>
+          );
+        }
+      }
+      // Handle paragraphs
+      else if (section.type === 'tag' && section.name === 'para') {
+        const paragraphElements: React.JSX.Element[] = [];
+        let currentVerseContent: React.ReactNode[] = [];
+        let currentVerseNum = '';
+        
+        section.items?.forEach((item: any, itemIndex: number) => {
+          if (item.type === 'tag' && item.name === 'verse') {
+            // Add previous verse content if any
+            if (currentVerseNum && currentVerseContent.length > 0) {
+              const verseNumber = parseInt(currentVerseNum);
+              const isHighlighted = verseNumber === currentVerseNumber;
+              
+              paragraphElements.push(
+                <span key={`verse-${currentVerseNum}`} className={isHighlighted ? 'highlighted-verse' : ''}>
+                  <sup className="context-verse-number">{currentVerseNum}</sup>
+                  <span className="verse-text-content">{currentVerseContent}</span>
+                </span>
+              );
+            }
+            
+            // Start new verse
+            currentVerseNum = item.attrs?.number || '';
+            currentVerseContent = [];
+          } else if (item.type === 'text') {
+            currentVerseContent.push(item.text);
+          } else if (item.type === 'tag' && item.name === 'char') {
+            // Handle special character styles (words of Jesus, etc.)
+            const style = item.attrs?.style;
+            const text = item.items?.[0]?.text || '';
+            
+            if (style === 'wj') {
+              currentVerseContent.push(
+                <span key={`wj-${itemIndex}`} className="words-of-jesus">{text}</span>
+              );
+            } else if (style === 'add') {
+              currentVerseContent.push(
+                <span key={`add-${itemIndex}`} className="translator-addition">{text}</span>
+              );
+            } else if (style === 'nd') {
+              currentVerseContent.push(
+                <span key={`nd-${itemIndex}`} className="divine-name">{text}</span>
+              );
+            } else {
+              currentVerseContent.push(text);
+            }
+          }
+        });
+        
+        // Add the last verse
+        if (currentVerseNum && currentVerseContent.length > 0) {
+          const verseNumber = parseInt(currentVerseNum);
+          const isHighlighted = verseNumber === currentVerseNumber;
+          
+          paragraphElements.push(
+            <span key={`verse-${currentVerseNum}`} className={isHighlighted ? 'highlighted-verse' : ''}>
+              <sup className="context-verse-number">{currentVerseNum}</sup>
+              <span className="verse-text-content">{currentVerseContent}</span>
+            </span>
+          );
+        }
+        
+        if (paragraphElements.length > 0) {
+          esvContent.push(
+            <p key={`para-${sectionIndex}`} className="context-paragraph esv-format">
+              {paragraphElements}
+            </p>
+          );
+        }
+      }
+    });
+    
+    // Wrap in ESV container with chapter number floated
+    return [
+      <div key="esv-chapter" className="esv-chapter-container">
+        <div className="esv-content">
+          <div className="esv-chapter-number">{chapterContent.chapterNumber}</div>
+          {esvContent}
+        </div>
+      </div>
+    ];
+  }
+  
+  // Original code for non-ESV translations
   chapterContent.content.forEach((section: any) => {
     // Each section is a paragraph with a style
     if (section.type === 'tag' && section.name === 'para') {
