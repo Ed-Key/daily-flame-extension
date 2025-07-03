@@ -1,4 +1,4 @@
-# .claude\settings.local.json
+# .claude/settings.local.json
 
 ```json
 {
@@ -11,7 +11,9 @@
       "Bash(npm run build:*)",
       "Bash(npm run lint)",
       "Bash(grep:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "WebFetch(domain:docs.plasmo.com)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }
@@ -67,7 +69,8 @@ src/
 ├── types/
 │   └── index.ts                 # TypeScript definitions
 └── styles/
-    └── globals.css              # Tailwind CSS with custom animations
+    ├── globals.css              # Tailwind CSS for standalone pages
+    └── shadow-dom-styles.ts     # Complete CSS for Shadow DOM isolation
 \`\`\`
 
 ### ⚙️ Current Working Features
@@ -94,7 +97,7 @@ src/
 - Profile dropdown with user info and admin badges
 - Remember me functionality
 - Comprehensive error handling with user-friendly messages
-- **CSS isolation system** with maximum specificity to prevent host page conflicts
+- **Shadow DOM implementation** for complete CSS isolation preventing host page conflicts
 - Smooth animations and transitions throughout
 
 **Admin Features:**
@@ -106,11 +109,19 @@ src/
 
 **Chrome Extension Integration:**
 - Background service worker handling Google OAuth via `chrome.identity` API
-- Content script injection for verse overlay display
+- Content script with Shadow DOM for isolated verse overlay display
 - Message passing between background and content scripts
 - New tab override with React-based landing page
+- Complete style encapsulation preventing interference with host websites
 
 ### 🔧 Technical Implementation Details
+
+**Shadow DOM Implementation:**
+- Complete CSS isolation using Shadow DOM in content script
+- All styles contained within shadow-dom-styles.ts
+- Prevents any CSS leakage to or from host websites
+- React app rendered inside Shadow DOM container
+- Event handling properly scoped within Shadow boundary
 
 **Authentication Flow:**
 - Email/Password: Standard Firebase auth with email verification blocking
@@ -141,11 +152,16 @@ src/
 **GSAP Animation System:**
 - Professional word-by-word verse reveal animation using GSAP v3.13.0
 - React integration with `@gsap/react` hooks for proper lifecycle management
-- Staggered text animation (80ms delay between words) with `power2.out` easing
-- Sequential animation timeline: words → reference → button with strategic overlaps
+- Enhanced animation sequence:
+  1. Opening quotation mark appears first
+  2. Words animate with stagger effect (80ms delay between words)
+  3. Closing quotation mark appears after last word
+  4. Verse reference fades and scales in
+  5. Done button bounces in with elastic effect
+- Sequential animation timeline with strategic overlaps for smooth flow
 - Elastic button entrance with `back.out(1.7)` bounce effect
 - Animation scoping and dependency tracking for verse content changes
-- Proper opacity handling to ensure text visibility during animations
+- Proper opacity handling to ensure all elements animate from invisible to visible
 
 ### 🎯 Current Status
 
@@ -154,6 +170,8 @@ The codebase has been fully migrated from vanilla JavaScript to React + TypeScri
 **Key Files:**
 - `src/components/VerseOverlay.tsx` - Main component with verse display, auth modals, and GSAP animations
 - `src/components/AuthContext.tsx` - Firebase authentication logic and state
+- `src/content/index.ts` - Shadow DOM implementation and React app injection
+- `src/styles/shadow-dom-styles.ts` - Complete CSS isolation for content script
 - `src/background/index.ts` - Google OAuth handling and extension messaging
 - `src/admin/index.tsx` - Standalone admin portal
 - `manifest.json` - Extension configuration with Firebase permissions
@@ -165,15 +183,18 @@ The codebase has been fully migrated from vanilla JavaScript to React + TypeScri
 - ✅ Admin role management
 - ✅ Comprehensive error handling
 - ✅ Modern UI patterns with accessibility
-- ✅ CSS isolation system preventing host page conflicts
-- ✅ Professional GSAP animations with word-by-word verse reveals
-- ✅ Proper animation visibility handling
+- ✅ Shadow DOM implementation for complete CSS isolation
+- ✅ Professional GSAP animations with enhanced verse reveal sequence
+- ✅ Animated quotation marks and proper visibility handling for all elements
 
 **Recent Updates:**
-- Fixed GSAP animation visibility issue where verse text wasn't displaying
-- Added explicit opacity handling for parent containers during animations
-- Improved email verification flow with inline resend functionality
-- Enhanced error messages for better user experience
+- Implemented complete Shadow DOM isolation to prevent CSS conflicts with host websites
+- Enhanced GSAP animation sequence to include animated quotation marks
+- Fixed verse reference animation by removing CSS !important conflicts
+- Removed global CSS imports from content script to prevent style leakage
+- Added comprehensive CSS to shadow-dom-styles.ts for complete encapsulation
+- Fixed password input eye icon positioning within Shadow DOM
+- Improved animation visibility handling for all elements
 
 **Known Issues:**
 - Email verification emails may experience delivery delays with certain providers
@@ -312,38 +333,6 @@ The codebase has been fully migrated from vanilla JavaScript to React + TypeScri
 
 ```
 
-# image copy 2.png
-
-This is a binary file of the type: Image
-
-# image copy 3.png
-
-This is a binary file of the type: Image
-
-# image copy 4.png
-
-This is a binary file of the type: Image
-
-# image copy 5.png
-
-This is a binary file of the type: Image
-
-# image copy 6.png
-
-This is a binary file of the type: Image
-
-# image copy 7.png
-
-This is a binary file of the type: Image
-
-# image copy 8.png
-
-This is a binary file of the type: Image
-
-# image copy.png
-
-This is a binary file of the type: Image
-
 # image.png
 
 This is a binary file of the type: Image
@@ -403,13 +392,302 @@ This is a binary file of the type: Image
     "16": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E🔥%3C/text%3E%3C/svg%3E",
     "48": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='36' font-size='36'%3E🔥%3C/text%3E%3C/svg%3E",
     "128": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ctext y='96' font-size='96'%3E🔥%3C/text%3E%3C/svg%3E"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
 ```
 
 # newtab.png
 
 This is a binary file of the type: Image
+
+# OAUTH_SECURITY_ANALYSIS.md
+
+```md
+# OAuth Security Analysis - Daily Flame Chrome Extension
+
+## Executive Summary
+
+This document provides a comprehensive security analysis of the Daily Flame Chrome Extension's OAuth implementation, focusing on Google Sign-In integration, security best practices, and user experience improvements.
+
+---
+
+## 🔍 Current Implementation Review
+
+### Strengths
+
+1. **Chrome Identity API Integration**
+   - ✅ Uses `chrome.identity.getAuthToken()` for secure OAuth flow
+   - ✅ Fallback to `launchWebAuthFlow()` for Edge compatibility
+   - ✅ Forces account selection with `account: { id: 'any' }`
+
+2. **Firebase Authentication**
+   - ✅ Proper integration with Firebase Auth
+   - ✅ User state management via `onAuthStateChanged`
+   - ✅ Token management handled by Firebase SDK
+
+3. **Security Features**
+   - ✅ Email verification enforcement (except admin accounts)
+   - ✅ Secure token exchange through Chrome APIs
+   - ✅ No client-side storage of sensitive credentials
+
+### Current Flow Analysis
+
+\`\`\`mermaid
+graph TD
+    A[User Clicks Sign In] --> B{Browser Type?}
+    B -->|Chrome| C[chrome.identity.getAuthToken]
+    B -->|Edge| D[chrome.identity.launchWebAuthFlow]
+    C --> E[Get Access Token]
+    D --> E
+    E --> F[Fetch User Info from Google]
+    F --> G[Send to Content Script]
+    G --> H[Firebase signInWithCredential]
+    H --> I[User Authenticated]
+\`\`\`
+
+---
+
+## 🛡️ Security Improvements
+
+### 1. **Remove Email/Password Authentication**
+Since you want Google-only authentication, removing email/password reduces:
+- Password security concerns
+- Email verification complexity
+- Attack surface area
+
+**Implementation Steps:**
+- Remove `signInWithEmailAndPassword` and `createUserWithEmailAndPassword`
+- Remove password input components
+- Simplify auth flow to Google-only
+
+### 2. **Security Headers (CSP)**
+Security headers protect against various attacks:
+
+\`\`\`javascript
+// manifest.json - Current CSP
+"content_security_policy": {
+  "extension_pages": "script-src 'self'; object-src 'self'"
+}
+\`\`\`
+
+**Recommended additions:**
+\`\`\`javascript
+"content_security_policy": {
+  "extension_pages": "script-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.googleusercontent.com data:; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com"
+}
+\`\`\`
+
+### 3. **Token Security**
+- ✅ Current: Tokens handled by Chrome Identity API
+- ⚠️ Improvement: Add token refresh logic
+- ⚠️ Improvement: Clear tokens on sign-out
+
+### 4. **State Management Security**
+\`\`\`javascript
+// Add to AuthContext.tsx
+const clearAuthTokens = async () => {
+  // Clear Chrome identity tokens
+  if (chrome.identity && chrome.identity.clearAllCachedAuthTokens) {
+    await chrome.identity.clearAllCachedAuthTokens();
+  }
+  // Clear Firebase session
+  await firebaseSignOut(auth);
+};
+\`\`\`
+
+---
+
+## 🚨 Common User Issues & Solutions
+
+### Issue 1: "Sign in with Google" Not Working
+**Symptoms:**
+- Button clicks but nothing happens
+- Popup blocked
+- Silent failures
+
+**Solutions:**
+\`\`\`javascript
+// Add better error handling
+try {
+  const result = await handleGoogleSignIn();
+} catch (error) {
+  if (error.message.includes('User interaction required')) {
+    showToast('Please allow popups for sign in', 'warning');
+  } else if (error.message.includes('Network')) {
+    showToast('Check your internet connection', 'error');
+  } else {
+    showToast('Sign in failed. Please try again.', 'error');
+  }
+}
+\`\`\`
+
+### Issue 2: Edge Browser Compatibility
+**Current Implementation:** ✅ Already handled with `launchWebAuthFlow` fallback
+
+### Issue 3: Account Selection Loop
+**Problem:** User can't switch Google accounts
+**Solution:** Current implementation correctly uses `prompt: 'select_account'`
+
+### Issue 4: Token Expiration
+**Problem:** User stays signed in but API calls fail
+**Solution:**
+\`\`\`javascript
+// Add token refresh logic
+const refreshToken = async () => {
+  try {
+    const newToken = await chrome.identity.getAuthToken({ 
+      interactive: false 
+    });
+    return newToken;
+  } catch (error) {
+    // Token refresh failed, require re-authentication
+    await signOut();
+    throw new Error('Session expired. Please sign in again.');
+  }
+};
+\`\`\`
+
+---
+
+## 📋 Implementation Recommendations
+
+### 1. Simplify to Google-Only Auth
+
+**Remove these files/components:**
+- `FormPasswordInput.tsx`
+- Email/password related code in `AuthContext.tsx`
+- Sign-up form (merge with sign-in)
+
+**Update `SignInForm.tsx`:**
+\`\`\`jsx
+// Simplified Google-only sign in
+export const SignInForm = ({ onClose }) => {
+  return (
+    <div className="auth-modal">
+      <h2>Sign in to Daily Flame</h2>
+      <button onClick={handleGoogleSignIn} className="google-signin-btn">
+        <GoogleIcon />
+        Continue with Google
+      </button>
+      <p className="privacy-note">
+        We only use your Google account for authentication.
+        No personal data is stored.
+      </p>
+    </div>
+  );
+};
+\`\`\`
+
+### 2. Enhanced Error Handling
+
+\`\`\`javascript
+// Better error messages for users
+const ERROR_MESSAGES = {
+  'auth/popup-blocked': 'Please allow popups to sign in with Google',
+  'auth/network-request-failed': 'Network error. Check your connection.',
+  'auth/cancelled-popup-request': 'Sign in was cancelled',
+  'auth/popup-closed-by-user': 'Sign in window was closed',
+  'EDGE_NOT_SUPPORTED': 'Please use Chrome for the best experience',
+};
+\`\`\`
+
+### 3. User Experience Improvements
+
+1. **Loading States**
+   \`\`\`jsx
+   // Show loading spinner during auth
+   {isAuthenticating && <LoadingSpinner message="Signing you in..." />}
+   \`\`\`
+
+2. **Clear Success/Error Feedback**
+   \`\`\`jsx
+   // Use your toast system
+   showToast('Welcome back!', 'success');
+   \`\`\`
+
+3. **Persistent Sessions**
+   - Firebase already handles this
+   - Consider adding "Remember me" for 30-day sessions
+
+### 4. Privacy & Transparency
+
+Add clear messaging about:
+- What data is accessed (email, name, profile photo)
+- What is stored (only authentication tokens)
+- How to revoke access
+
+---
+
+## 🔐 About Security Headers
+
+**What are they?**
+HTTP headers that tell browsers how to behave when handling your site's content.
+
+**Key Headers for Extensions:**
+1. **Content-Security-Policy (CSP)**: Prevents XSS attacks
+2. **X-Frame-Options**: Prevents clickjacking
+3. **Strict-Transport-Security**: Forces HTTPS
+
+**For Chrome Extensions:**
+- Set in `manifest.json` not HTTP headers
+- More restrictive than web apps
+- Protects against malicious scripts
+
+---
+
+## 🔍 About Penetration Testing
+
+**What is it?**
+- Professional security testing
+- Simulates real attacks safely
+- Identifies vulnerabilities before hackers do
+
+**Will it break your system?**
+- No, it's done carefully
+- Read-only testing first
+- Any modifications are controlled
+- You get a report of findings
+
+**For Chrome Extensions:**
+- Test OAuth flow security
+- Check for token leakage
+- Verify CSP effectiveness
+- Test error handling
+
+---
+
+## ✅ Action Items
+
+1. **Immediate:**
+   - [ ] Remove email/password authentication code
+   - [ ] Update UI to Google-only sign in
+   - [ ] Add better error messages
+
+2. **Short-term:**
+   - [ ] Implement token refresh logic
+   - [ ] Add loading states
+   - [ ] Update privacy messaging
+
+3. **Long-term:**
+   - [ ] Consider OAuth 2.0 PKCE flow
+   - [ ] Add analytics for auth failures
+   - [ ] Regular security audits
+
+---
+
+## 📚 Resources
+
+- [Chrome Identity API Docs](https://developer.chrome.com/docs/extensions/reference/identity/)
+- [Firebase Auth Best Practices](https://firebase.google.com/docs/auth/web/manage-users)
+- [OAuth 2.0 Security Best Practices](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics)
+- [Chrome Extension Security](https://developer.chrome.com/docs/extensions/mv3/security/)
+```
 
 # package.json
 
@@ -435,7 +713,8 @@ This is a binary file of the type: Image
     "firebase": "^11.9.1",
     "gsap": "^3.13.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.58.1"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.326",
@@ -471,7 +750,11 @@ module.exports = {
 }
 ```
 
-# src\admin\index.tsx
+# regular.png
+
+This is a binary file of the type: Image
+
+# src/admin/index.tsx
 
 ```tsx
 import React, { useState } from 'react';
@@ -814,15 +1097,26 @@ if (container) {
 }
 ```
 
-# src\background\index.ts
+# src/background/index.ts
 
 ```ts
 import { VerseService } from '../services/verse-service';
 import { ChromeMessage, ChromeResponse } from '../types';
 
+// Detect if running on Microsoft Edge
+function isEdgeBrowser(): boolean {
+  return navigator.userAgent.includes('Edg/');
+}
+
 // Google Sign-In handler using chrome.identity API
 async function handleGoogleSignIn(): Promise<{ token: string; userInfo: any }> {
   console.log('Background: Starting Google Sign-In process');
+  
+  // Check if we're on Edge, which doesn't support getAuthToken
+  if (isEdgeBrowser()) {
+    console.log('Background: Detected Microsoft Edge, using launchWebAuthFlow');
+    return handleGoogleSignInWithWebAuthFlow();
+  }
   
   return new Promise((resolve, reject) => {
     // Force account selection by using 'any' account parameter
@@ -866,9 +1160,85 @@ async function handleGoogleSignIn(): Promise<{ token: string; userInfo: any }> {
   });
 }
 
+// Alternative Google Sign-In for Edge using launchWebAuthFlow
+async function handleGoogleSignInWithWebAuthFlow(): Promise<{ token: string; userInfo: any }> {
+  console.log('Background: Using launchWebAuthFlow for Edge compatibility');
+  
+  const manifest = chrome.runtime.getManifest();
+  const clientId = manifest.oauth2?.client_id;
+  
+  if (!clientId) {
+    throw new Error('OAuth2 client ID not found in manifest');
+  }
+  
+  // Generate redirect URI for the extension
+  const redirectUri = chrome.identity.getRedirectURL();
+  console.log('Background: Redirect URI:', redirectUri);
+  
+  // Build the OAuth2 URL
+  const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+  authUrl.searchParams.set('client_id', clientId);
+  authUrl.searchParams.set('response_type', 'token');
+  authUrl.searchParams.set('redirect_uri', redirectUri);
+  authUrl.searchParams.set('scope', 'openid email profile');
+  authUrl.searchParams.set('prompt', 'select_account'); // Force account selection
+  
+  return new Promise((resolve, reject) => {
+    chrome.identity.launchWebAuthFlow(
+      {
+        url: authUrl.toString(),
+        interactive: true
+      },
+      async (responseUrl) => {
+        if (chrome.runtime.lastError || !responseUrl) {
+          console.error('Background: Web auth flow failed', chrome.runtime.lastError);
+          reject(new Error(chrome.runtime.lastError?.message || 'Authentication failed'));
+          return;
+        }
+        
+        // Extract access token from the response URL
+        const url = new URL(responseUrl);
+        const params = new URLSearchParams(url.hash.substring(1)); // Remove the # character
+        const accessToken = params.get('access_token');
+        
+        if (!accessToken) {
+          reject(new Error('No access token in response'));
+          return;
+        }
+        
+        console.log('Background: Access token obtained via web auth flow');
+        
+        // Fetch user info
+        try {
+          const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`);
+          
+          if (!userInfoResponse.ok) {
+            console.warn('Background: Failed to fetch user info');
+            resolve({ token: accessToken, userInfo: null });
+            return;
+          }
+          
+          const userInfo = await userInfoResponse.json();
+          console.log('Background: User info fetched successfully');
+          resolve({ token: accessToken, userInfo });
+        } catch (error) {
+          console.warn('Background: Error fetching user info:', error);
+          resolve({ token: accessToken, userInfo: null });
+        }
+      }
+    );
+  });
+}
+
 // Clear all cached auth tokens for testing different accounts
 async function clearAuthTokens(): Promise<void> {
   console.log('Background: Clearing all cached auth tokens');
+  
+  // Edge doesn't support these methods, so just resolve immediately
+  if (isEdgeBrowser()) {
+    console.log('Background: Edge browser detected, no cached tokens to clear');
+    return Promise.resolve();
+  }
   
   return new Promise((resolve, reject) => {
     // First, try to get current token to revoke it
@@ -898,6 +1268,27 @@ async function clearAuthTokens(): Promise<void> {
 
 // Handle messages from content script and other parts of the extension
 chrome.runtime.onMessage.addListener((request: ChromeMessage, sender, sendResponse) => {
+    if (request.action === 'injectVerseApp') {
+        // Inject the verse app script into the current tab
+        if (!sender.tab?.id) {
+            sendResponse({ success: false, error: 'No tab ID found' });
+            return;
+        }
+        
+        chrome.scripting.executeScript({
+            target: { tabId: sender.tab.id },
+            files: ['verse-app.js']
+        }).then(() => {
+            console.log('Background: Verse app injected successfully');
+            sendResponse({ success: true });
+        }).catch(error => {
+            console.error('Background: Failed to inject verse app:', error);
+            sendResponse({ success: false, error: error.message });
+        });
+        
+        return true; // Keep message channel open for async response
+    }
+    
     if (request.action === 'getVerseShownDate') {
         const today = new Date().toISOString().split("T")[0];
         chrome.storage.local.get("verseShownDate", ({ verseShownDate }) => {
@@ -1013,24 +1404,41 @@ chrome.action.onClicked.addListener((tab) => {
         return;
     }
 
-    // For restricted URLs, open a new tab with a regular website
-    const skipSites = ["chrome://", "chrome-extension://", "moz-extension://", "extensions", "about:", "file://"];
+    // For restricted URLs and OAuth pages, open a new tab with a regular website
+    const skipSites = [
+        "chrome://", 
+        "chrome-extension://", 
+        "moz-extension://", 
+        "extensions", 
+        "about:", 
+        "file://",
+        // OAuth and authentication URLs
+        "accounts.google.com",
+        "oauth2.googleapis.com",
+        "auth.firebase.com",
+        "identitytoolkit.googleapis.com",
+        "securetoken.googleapis.com",
+        // Microsoft Edge identity redirect
+        "login.microsoftonline.com",
+        "login.live.com"
+    ];
     if (skipSites.some(site => tab.url!.includes(site))) {
-        console.log('Background: Cannot inject into restricted URL, opening new tab:', tab.url);
+        console.log('Background: Cannot inject into restricted/auth URL, opening new tab:', tab.url);
         chrome.tabs.create({ url: 'https://www.google.com' }, (newTab) => {
             if (newTab.id) {
-                // Wait a moment for the tab to load, then show verse overlay
+                // Wait a moment for the tab to load, then inject verse app
                 setTimeout(() => {
-                    chrome.scripting.executeScript({
-                        target: { tabId: newTab.id! },
-                        func: () => {
-                            // Clear storage and show verse overlay
-                            if (typeof (window as any).resetDailyFlame === 'function') {
-                                (window as any).resetDailyFlame();
-                            }
-                        }
-                    }).catch((error) => {
-                        console.error('Background: Error injecting script in new tab:', error);
+                    // Clear storage first
+                    chrome.storage.local.remove(['verseShownDate'], () => {
+                        // Then inject the verse app
+                        chrome.scripting.executeScript({
+                            target: { tabId: newTab.id! },
+                            files: ['verse-app.js']
+                        }).then(() => {
+                            console.log('Background: Verse app injected in new tab');
+                        }).catch((error) => {
+                            console.error('Background: Error injecting verse app in new tab:', error);
+                        });
                     });
                 }, 1500);
             }
@@ -1039,17 +1447,17 @@ chrome.action.onClicked.addListener((tab) => {
     }
 
     try {
-        // For regular URLs, inject content script to show verse overlay
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: () => {
-                // Always show verse overlay first when icon is clicked (clear storage to force show)
-                if (typeof (window as any).resetDailyFlame === 'function') {
-                    (window as any).resetDailyFlame();
-                }
-            }
-        }).catch((error) => {
-            console.error('Background: Error injecting script:', error);
+        // First clear the storage to force show
+        chrome.storage.local.remove(['verseShownDate'], () => {
+            // Then inject the verse app directly
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id! },
+                files: ['verse-app.js']
+            }).then(() => {
+                console.log('Background: Verse app injected via icon click');
+            }).catch((error) => {
+                console.error('Background: Error injecting verse app:', error);
+            });
         });
     } catch (error) {
         console.error('Background: Failed to execute script on tab:', tab.url, error);
@@ -1061,7 +1469,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 ```
 
-# src\components\AdminModal.tsx
+# src/components/AdminModal.tsx
 
 ```tsx
 import React, { useState } from 'react';
@@ -1383,7 +1791,7 @@ const AdminModal: React.FC<AdminModalProps> = ({ isOpen, onClose }) => {
 export default AdminModal;
 ```
 
-# src\components\AuthContext.tsx
+# src/components/AuthContext.tsx
 
 ```tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -1577,12 +1985,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('AuthContext: Starting Google Sign-In via background script');
       
       // Send message to background script to handle Google authentication
-      const response = await new Promise<any>((resolve) => {
-        chrome.runtime.sendMessage({ action: 'googleSignIn' }, resolve);
+      const response = await new Promise<any>((resolve, reject) => {
+        // Set a timeout to prevent hanging if user cancels OAuth
+        const timeout = setTimeout(() => {
+          reject(new Error('Google sign-in timed out. Please try again.'));
+        }, 30000); // 30 second timeout
+        
+        chrome.runtime.sendMessage({ action: 'googleSignIn' }, (response) => {
+          clearTimeout(timeout);
+          
+          // Check for Chrome runtime errors (e.g., extension context invalidated)
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message || 'Failed to communicate with extension'));
+            return;
+          }
+          
+          resolve(response);
+        });
       });
       
-      if (!response.success) {
-        throw new Error(response.error || 'Google sign-in failed');
+      if (!response || !response.success) {
+        throw new Error(response?.error || 'Google sign-in failed');
       }
       
       const token = response.token;
@@ -1701,7 +2124,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 };
 ```
 
-# src\components\AuthModal.tsx
+# src/components/AuthModal.tsx
 
 ```tsx
 import React, { useState } from 'react';
@@ -1874,7 +2297,637 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuccess })
 export default AuthModal;
 ```
 
-# src\components\PasswordInput.tsx
+# src/components/forms/FormError.tsx
+
+```tsx
+import React from 'react';
+
+interface FormErrorProps {
+  message?: string;
+}
+
+export const FormError: React.FC<FormErrorProps> = ({ message }) => {
+  if (!message) return null;
+
+  return (
+    <div className="auth-error-banner">
+      <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>{message}</span>
+    </div>
+  );
+};
+```
+
+# src/components/forms/FormInput.tsx
+
+```tsx
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+
+interface FormInputProps {
+  name: string;
+  type?: string;
+  label: string;
+  placeholder?: string;
+  icon?: React.ReactNode;
+  validation?: Record<string, any>;
+  autoComplete?: string;
+}
+
+export const FormInput: React.FC<FormInputProps> = ({
+  name,
+  type = 'text',
+  label,
+  placeholder,
+  icon,
+  validation = {},
+  autoComplete
+}) => {
+  const { register, formState: { errors } } = useFormContext();
+  const error = errors[name] as any;
+
+  return (
+    <div className="auth-form-group">
+      <label htmlFor={name} className="auth-label">
+        {label}
+      </label>
+      <div className="auth-input-wrapper">
+        {icon && <span className="auth-input-icon">{icon}</span>}
+        <input
+          {...register(name, validation)}
+          id={name}
+          type={type}
+          className={`auth-input ${error ? 'auth-input-error' : ''}`}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+        />
+      </div>
+      {error && (
+        <span className="auth-error-message">
+          {typeof error === 'string' ? error : (error.message || `${label} is required`)}
+        </span>
+      )}
+    </div>
+  );
+};
+```
+
+# src/components/forms/FormPasswordInput.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+
+interface FormPasswordInputProps {
+  name: string;
+  label: string;
+  placeholder?: string;
+  validation?: Record<string, any>;
+  autoComplete?: string;
+  showStrengthIndicator?: boolean;
+}
+
+export const FormPasswordInput: React.FC<FormPasswordInputProps> = ({
+  name,
+  label,
+  placeholder,
+  validation = {},
+  autoComplete,
+  showStrengthIndicator = false
+}) => {
+  const { register, formState: { errors }, watch } = useFormContext();
+  const [showPassword, setShowPassword] = useState(false);
+  const error = errors[name] as any;
+  const password = watch(name);
+
+  const getPasswordStrength = (pwd: string): { strength: string; color: string } => {
+    if (!pwd) return { strength: '', color: '' };
+    
+    let strength = 0;
+    if (pwd.length >= 8) strength++;
+    if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) strength++;
+    if (/\d/.test(pwd)) strength++;
+    if (/[^A-Za-z0-9]/.test(pwd)) strength++;
+
+    if (strength < 2) return { strength: 'Weak', color: '#ef4444' };
+    if (strength < 3) return { strength: 'Fair', color: '#f59e0b' };
+    if (strength < 4) return { strength: 'Good', color: '#3b82f6' };
+    return { strength: 'Strong', color: '#10b981' };
+  };
+
+  const { strength, color } = showStrengthIndicator ? getPasswordStrength(password) : { strength: '', color: '' };
+
+  return (
+    <div className="auth-form-group">
+      <label htmlFor={name} className="auth-label">
+        {label}
+      </label>
+      <div className="auth-input-wrapper password-input-wrapper">
+        <input
+          {...register(name, validation)}
+          id={name}
+          type={showPassword ? 'text' : 'password'}
+          className={`auth-input ${error ? 'auth-input-error' : ''}`}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+        />
+        <button
+          type="button"
+          className="password-toggle"
+          onClick={() => setShowPassword(!showPassword)}
+          tabIndex={-1}
+        >
+          {showPassword ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
+              <line x1="1" y1="1" x2="23" y2="23" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          )}
+        </button>
+      </div>
+      {error && (
+        <span className="auth-error-message">
+          {typeof error === 'string' ? error : (error.message || `${label} is required`)}
+        </span>
+      )}
+      {showStrengthIndicator && password && (
+        <div className="password-strength">
+          <span style={{ color }}>{strength}</span>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+# src/components/forms/index.ts
+
+```ts
+export { FormInput } from './FormInput';
+export { FormPasswordInput } from './FormPasswordInput';
+export { FormError } from './FormError';
+export { SignInForm } from './SignInForm';
+export { SignUpForm } from './SignUpForm';
+export { VerificationReminder } from './VerificationReminder';
+```
+
+# src/components/forms/SignInForm.tsx
+
+```tsx
+import React from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import { FormInput } from './FormInput';
+import { FormPasswordInput } from './FormPasswordInput';
+import { FormError } from './FormError';
+import { useAuthForm } from '../../hooks/useAuthForm';
+
+interface SignInFormProps {
+  onClose: () => void;
+  onSwitchToSignUp: () => void;
+  onVerificationRequired: (email: string) => void;
+}
+
+interface SignInFormData {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}
+
+export const SignInForm: React.FC<SignInFormProps> = ({
+  onClose,
+  onSwitchToSignUp,
+  onVerificationRequired
+}) => {
+  const methods = useForm<SignInFormData>({
+    defaultValues: {
+      email: '',
+      password: '',
+      rememberMe: false
+    }
+  });
+
+  const { handleSignIn, handleGoogleSignIn, isLoading } = useAuthForm();
+  const [error, setError] = React.useState<string | null>(null);
+
+  const onSubmit = async (data: SignInFormData) => {
+    setError(null);
+    const result = await handleSignIn(data);
+    
+    if (result.success) {
+      onClose();
+    } else if (result.verificationRequired) {
+      onVerificationRequired(result.userEmail!);
+    } else {
+      setError(result.error || 'Failed to sign in');
+    }
+  };
+
+  const onGoogleSignIn = async () => {
+    setError(null);
+    const result = await handleGoogleSignIn();
+    
+    if (result.success) {
+      onClose();
+    } else {
+      setError(result.error || 'Failed to sign in with Google');
+    }
+  };
+
+  return (
+    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
+      <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-white text-lg font-semibold">Sign In</h3>
+          <button
+            onClick={onClose}
+            className="modal-close-btn"
+          >
+            ×
+          </button>
+        </div>
+
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
+            <FormInput
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Enter your email"
+              validation={{
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address'
+                }
+              }}
+              autoComplete="email"
+            />
+
+            <FormPasswordInput
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+              validation={{
+                required: 'Password is required'
+              }}
+              autoComplete="current-password"
+            />
+            
+            {/* Remember Me Checkbox */}
+            <div className="flex items-center">
+              <input
+                {...methods.register('rememberMe')}
+                type="checkbox"
+                id="rememberMe"
+                className="mr-2 rounded"
+                disabled={isLoading}
+              />
+              <label htmlFor="rememberMe" className="text-white text-sm">
+                Remember me
+              </label>
+            </div>
+            
+            <FormError message={error || undefined} />
+            
+            <div className="space-y-2">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={`w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-blue-600 text-white ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-700 cursor-pointer'}`}
+              >
+                {isLoading ? 'Signing in...' : 'Sign In'}
+              </button>
+              <button
+                type="button"
+                onClick={onGoogleSignIn}
+                disabled={isLoading}
+                className={`w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-white bg-opacity-20 text-white flex items-center justify-center gap-2 ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-30 cursor-pointer'}`}
+              >
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    fill="#4285F4"
+                  />
+                  <path
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    fill="#34A853"
+                  />
+                  <path
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    fill="#FBBC05"
+                  />
+                  <path
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    fill="#EA4335"
+                  />
+                </svg>
+                Sign in with Google
+              </button>
+            </div>
+          </form>
+        </FormProvider>
+        
+        {/* Sign-up link */}
+        <div className="mt-4 text-center">
+          <p className="text-white text-sm">
+            Don't have an account?{' '}
+            <button
+              onClick={onSwitchToSignUp}
+              className="text-blue-300 hover:text-blue-200 underline"
+            >
+              Sign up
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+# src/components/forms/SignUpForm.tsx
+
+```tsx
+import React from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import { FormInput } from './FormInput';
+import { FormPasswordInput } from './FormPasswordInput';
+import { FormError } from './FormError';
+import { useAuthForm } from '../../hooks/useAuthForm';
+
+interface SignUpFormProps {
+  onClose: () => void;
+  onSwitchToSignIn: () => void;
+  onSuccess: () => void;
+}
+
+interface SignUpFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export const SignUpForm: React.FC<SignUpFormProps> = ({
+  onClose,
+  onSwitchToSignIn,
+  onSuccess
+}) => {
+  const methods = useForm<SignUpFormData>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  });
+
+  const { handleSignUp, handleGoogleSignIn, isLoading } = useAuthForm();
+  const [error, setError] = React.useState<string | null>(null);
+
+  const onSubmit = async (data: SignUpFormData) => {
+    setError(null);
+    const result = await handleSignUp(data);
+    
+    if (result.success) {
+      onSuccess();
+    } else {
+      setError(result.error || 'Failed to create account');
+    }
+  };
+
+  const onGoogleSignIn = async () => {
+    setError(null);
+    const result = await handleGoogleSignIn();
+    
+    if (result.success) {
+      onClose();
+    } else {
+      setError(result.error || 'Failed to sign up with Google');
+    }
+  };
+
+  const password = methods.watch('password');
+
+  return (
+    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
+      <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-white text-lg font-semibold">Create Account</h3>
+          <button
+            onClick={onClose}
+            className="modal-close-btn"
+          >
+            ×
+          </button>
+        </div>
+
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <FormInput
+                name="firstName"
+                label="First Name"
+                placeholder="First Name"
+                validation={{
+                  required: 'First name is required',
+                  minLength: {
+                    value: 2,
+                    message: 'First name must be at least 2 characters'
+                  }
+                }}
+              />
+              <FormInput
+                name="lastName"
+                label="Last Name"
+                placeholder="Last Name"
+                validation={{
+                  required: 'Last name is required',
+                  minLength: {
+                    value: 2,
+                    message: 'Last name must be at least 2 characters'
+                  }
+                }}
+              />
+            </div>
+
+            <FormInput
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Enter your email"
+              validation={{
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address'
+                }
+              }}
+              autoComplete="email"
+            />
+
+            <FormPasswordInput
+              name="password"
+              label="Password"
+              placeholder="Create a password"
+              validation={{
+                required: 'Password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Password must be at least 6 characters'
+                }
+              }}
+              autoComplete="new-password"
+              showStrengthIndicator
+            />
+
+            <FormPasswordInput
+              name="confirmPassword"
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              validation={{
+                required: 'Please confirm your password',
+                validate: (value: string) => 
+                  value === password || 'Passwords do not match'
+              }}
+              autoComplete="new-password"
+            />
+            
+            <FormError message={error || undefined} />
+            
+            <div className="space-y-2">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-white hover:bg-gray-100 disabled:bg-gray-500 text-black py-2 px-4 rounded transition-colors"
+              >
+                {isLoading ? 'Creating Account...' : 'Create Account'}
+              </button>
+              <button
+                type="button"
+                onClick={onGoogleSignIn}
+                disabled={isLoading}
+                className="w-full bg-white bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors flex items-center justify-center gap-2"
+              >
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    fill="#4285F4"
+                  />
+                  <path
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    fill="#34A853"
+                  />
+                  <path
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    fill="#FBBC05"
+                  />
+                  <path
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    fill="#EA4335"
+                  />
+                </svg>
+                Sign up with Google
+              </button>
+            </div>
+          </form>
+        </FormProvider>
+        
+        {/* Sign-in link */}
+        <div className="mt-4 text-center">
+          <p className="text-white text-sm">
+            Already have an account?{' '}
+            <button
+              onClick={onSwitchToSignIn}
+              className="text-blue-300 hover:text-blue-200 underline"
+            >
+              Sign in
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+# src/components/forms/VerificationReminder.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { useAuth } from '../AuthContext';
+import { useToast } from '../ToastContext';
+
+interface VerificationReminderProps {
+  userEmail: string;
+  onClose: () => void;
+}
+
+export const VerificationReminder: React.FC<VerificationReminderProps> = ({
+  userEmail,
+  onClose
+}) => {
+  const { sendVerificationEmail } = useAuth();
+  const { showToast } = useToast();
+  const [isResending, setIsResending] = useState(false);
+
+  const handleResendVerification = async () => {
+    setIsResending(true);
+    try {
+      await sendVerificationEmail();
+      showToast('Verification email sent! Please check your inbox.', 'success');
+    } catch (error: any) {
+      showToast(error.message || 'Failed to send verification email', 'error');
+    } finally {
+      setIsResending(false);
+    }
+  };
+
+  return (
+    <div className="p-3 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm">
+      <div>
+        <p className="mb-2 text-red-200 text-sm">
+          Please verify your email before signing in. Check your inbox for a verification link.
+        </p>
+        <p className="text-red-200 text-sm">
+          Didn't receive an email?{' '}
+          <button
+            onClick={handleResendVerification}
+            disabled={isResending}
+            className={`text-blue-300 underline bg-transparent border-none text-inherit font-medium p-0 ${isResending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+          >
+            {isResending ? 'Sending...' : 'Resend verification link here'}
+          </button>
+        </p>
+        <p className="mt-2 text-red-200 text-opacity-75 text-xs">
+          Make sure to check your spam folder. Emails can take a few minutes to arrive.
+        </p>
+      </div>
+    </div>
+  );
+};
+```
+
+# src/components/PasswordInput.tsx
 
 ```tsx
 import React, { useState } from 'react';
@@ -1918,7 +2971,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       <button
         type="button"
         onClick={togglePasswordVisibility}
-        className={`absolute right-3 top-1/2 transform -translate-y-0.5 text-white text-opacity-70 hover:text-opacity-100 transition-colors ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+        className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-white text-opacity-70 hover:text-opacity-100 transition-colors ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
         disabled={disabled}
       >
         {showPassword ? (
@@ -1959,7 +3012,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
 export default PasswordInput;
 ```
 
-# src\components\Toast.tsx
+# src/components/Toast.tsx
 
 ```tsx
 import React, { useEffect, useState } from 'react';
@@ -1987,42 +3040,74 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 4000, onClose }
     return () => clearTimeout(timer);
   }, [duration, onClose]);
 
-  const getToastStyles = () => {
-    const baseStyles = "fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg border backdrop-blur-sm transition-all duration-300 max-w-sm";
-    
-    if (!isVisible) {
-      return `${baseStyles} translate-x-full opacity-0`;
-    }
+  const getToastStyles = (): React.CSSProperties => {
+    const baseStyles: React.CSSProperties = {
+      position: 'fixed',
+      top: '16px',
+      right: '16px',
+      zIndex: 2000000,
+      padding: '12px 16px',
+      borderRadius: '8px',
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      border: '1px solid',
+      backdropFilter: 'blur(4px)',
+      transition: 'all 300ms ease-in-out',
+      maxWidth: '384px',
+      transform: isVisible ? 'translateX(0)' : 'translateX(100%)',
+      opacity: isVisible ? 1 : 0,
+    };
 
     switch (type) {
       case 'success':
-        return `${baseStyles} bg-green-600 bg-opacity-90 border-green-400 text-white translate-x-0 opacity-100`;
+        return {
+          ...baseStyles,
+          backgroundColor: 'rgba(34, 197, 94, 0.9)',
+          borderColor: 'rgba(74, 222, 128, 1)',
+          color: 'white',
+        };
       case 'error':
-        return `${baseStyles} bg-red-600 bg-opacity-90 border-red-400 text-white translate-x-0 opacity-100`;
+        return {
+          ...baseStyles,
+          backgroundColor: 'rgba(239, 68, 68, 0.9)',
+          borderColor: 'rgba(248, 113, 113, 1)',
+          color: 'white',
+        };
       case 'info':
-        return `${baseStyles} bg-blue-600 bg-opacity-90 border-blue-400 text-white translate-x-0 opacity-100`;
+        return {
+          ...baseStyles,
+          backgroundColor: 'rgba(59, 130, 246, 0.9)',
+          borderColor: 'rgba(96, 165, 250, 1)',
+          color: 'white',
+        };
       default:
-        return `${baseStyles} bg-gray-600 bg-opacity-90 border-gray-400 text-white translate-x-0 opacity-100`;
+        return {
+          ...baseStyles,
+          backgroundColor: 'rgba(107, 114, 128, 0.9)',
+          borderColor: 'rgba(156, 163, 175, 1)',
+          color: 'white',
+        };
     }
   };
 
   const getIcon = () => {
+    const iconStyle = { width: '20px', height: '20px', marginRight: '8px', flexShrink: 0 };
+    
     switch (type) {
       case 'success':
         return (
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <svg style={iconStyle} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>
         );
       case 'error':
         return (
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <svg style={iconStyle} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
           </svg>
         );
       case 'info':
         return (
-          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <svg style={iconStyle} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
         );
@@ -2032,18 +3117,31 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 4000, onClose }
   };
 
   return (
-    <div className={getToastStyles()}>
-      <div className="flex items-center">
+    <div style={getToastStyles()}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         {getIcon()}
-        <span className="text-sm font-medium">{message}</span>
+        <span style={{ fontSize: '14px', fontWeight: '500', flex: 1 }}>{message}</span>
         <button
           onClick={() => {
             setIsVisible(false);
             setTimeout(onClose, 300);
           }}
-          className="ml-3 text-white hover:text-gray-200"
+          style={{
+            marginLeft: '12px',
+            color: 'white',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '4px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'opacity 200ms',
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
         >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <svg style={{ width: '16px', height: '16px' }} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
         </button>
@@ -2055,7 +3153,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 4000, onClose }
 export default Toast;
 ```
 
-# src\components\ToastContext.tsx
+# src/components/ToastContext.tsx
 
 ```tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
@@ -2108,9 +3206,20 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     <ToastContext.Provider value={value}>
       {children}
       {/* Render toasts */}
-      <div className="fixed top-0 right-0 z-50 space-y-2 p-4">
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        zIndex: 2000000,
+        padding: '16px',
+        pointerEvents: 'none',
+      }}>
         {toasts.map((toast, index) => (
-          <div key={toast.id} style={{ top: `${index * 80}px` }} className="relative">
+          <div key={toast.id} style={{ 
+            position: 'relative',
+            marginTop: index > 0 ? '8px' : '0',
+            pointerEvents: 'auto',
+          }}>
             <Toast
               message={toast.message}
               type={toast.type}
@@ -2125,7 +3234,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 };
 ```
 
-# src\components\VerseOverlay.tsx
+# src/components/VerseOverlay.tsx
 
 ```tsx
 import React, { useEffect, useRef, useState } from 'react';
@@ -2136,25 +3245,57 @@ import { VerseService } from '../services/verse-service';
 import { useAuth } from './AuthContext';
 import { useToast } from './ToastContext';
 import PasswordInput from './PasswordInput';
-import '../styles/globals.css';
+import { SignInForm, SignUpForm, VerificationReminder } from './forms';
 
 const VerseOverlay: React.FC<VerseOverlayProps> = ({ 
   verse, 
-  onDismiss
+  onDismiss,
+  shadowRoot
 }) => {
   const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = useAuth();
   const { showToast } = useToast();
   const doneButtonRef = useRef<HTMLButtonElement>(null);
   
   // GSAP animation refs
+  const overlayRef = useRef<HTMLDivElement>(null);
   const verseTextRef = useRef<HTMLParagraphElement>(null);
   const verseReferenceRef = useRef<HTMLParagraphElement>(null);
   const verseContentRef = useRef<HTMLDivElement>(null);
+  const entranceDirectionRef = useRef<'left' | 'right'>('left');
   
   // Debug logging
   useEffect(() => {
     console.log('VerseOverlay: Auth state changed', { user, isAdmin });
   }, [user, isAdmin]);
+  
+  // Custom dismiss handler with exit animation
+  const handleAnimatedDismiss = () => {
+    if (overlayRef.current) {
+      // Create exit animation timeline
+      const tl = gsap.timeline({
+        onComplete: () => {
+          onDismiss(); // Call the original dismiss function after animation
+        }
+      });
+      
+      // Stage 1: Scale down to small size
+      tl.to(overlayRef.current, {
+        scale: 0.85,  // Match the entrance scale
+        duration: 0.4,
+        ease: "power2.in"
+      })
+      
+      // Stage 2: Slide out in opposite direction while staying small
+      .to(overlayRef.current, {
+        xPercent: entranceDirectionRef.current === 'left' ? 100 : -100,  // Exit opposite to entrance
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.in"
+      }, "-=0.1");  // Start slightly before scale completes
+    } else {
+      onDismiss(); // Fallback if ref not available
+    }
+  };
   
   // Admin verse controls state
   const [adminReference, setAdminReference] = useState('');
@@ -2167,23 +3308,11 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
-  
-  // Form fields
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  
-  // Form validation and state
-  const [authLoading, setAuthLoading] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
+  const [verificationEmail, setVerificationEmail] = useState<string | null>(null);
   
   // Profile dropdown state
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  
 
   useEffect(() => {
     // Focus the done button after a short delay
@@ -2194,8 +3323,11 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     // Prevent scrolling on the body
     document.body.style.overflow = 'hidden';
 
+    // Get the event target (shadowRoot or document)
+    const eventTarget = shadowRoot || document;
+
     // Click outside handler for profile dropdown
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: Event) => {
       if (showProfileDropdown) {
         const target = event.target as Element;
         if (!target.closest('.profile-dropdown')) {
@@ -2205,73 +3337,136 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     };
 
     // Keyboard shortcut for clearing auth tokens (Ctrl+Shift+C)
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.shiftKey && event.key === 'C') {
-        event.preventDefault();
+    const handleKeyDown = (event: Event) => {
+      const keyboardEvent = event as KeyboardEvent;
+      if (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && keyboardEvent.key === 'C') {
+        keyboardEvent.preventDefault();
         handleClearAuthTokens();
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
+    eventTarget.addEventListener('click', handleClickOutside);
+    eventTarget.addEventListener('keydown', handleKeyDown);
 
     // Cleanup function
     return () => {
       document.body.style.overflow = '';
       clearTimeout(timer);
-      document.removeEventListener('click', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
+      eventTarget.removeEventListener('click', handleClickOutside);
+      eventTarget.removeEventListener('keydown', handleKeyDown);
     };
-  }, [showProfileDropdown]);
+  }, [showProfileDropdown, shadowRoot]);
 
-  // GSAP Animation Setup
+  // GSAP Overlay Entrance Animation
+  useGSAP(() => {
+    if (overlayRef.current) {
+      // Randomly choose direction and store it for exit animation
+      const direction = Math.random() > 0.5 ? 'left' : 'right';
+      entranceDirectionRef.current = direction;
+      
+      // Set initial states - start small and off-screen
+      gsap.set(overlayRef.current, {
+        xPercent: direction === 'left' ? -100 : 100,
+        scale: 0.85,  // Start at 70% scale
+        opacity: 0
+      });
+      
+      // Create animation timeline
+      const tl = gsap.timeline({
+        onComplete: () => {
+          console.log('Overlay entrance animation completed');
+        }
+      });
+      
+      // Stage 1: Slide in from side while staying small
+      tl.to(overlayRef.current, {
+        xPercent: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power2.out"
+      })
+      
+      // Stage 2: Scale up to full size once centered
+      .to(overlayRef.current, {
+        scale: 1,
+        duration: 0.5,
+        ease: "back.out(1.2)"  // Slight overshoot for dramatic effect
+      }, "-=0.1");  // Start slightly before slide completes
+    }
+  }, []);
+
+  // GSAP Verse Animation Setup
   useGSAP(() => {
     console.log('GSAP useGSAP hook running');
     
-    // Split verse text into words for word-by-word animation
+    // Split verse text into letters for letter-by-letter animation
     if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && verseContentRef.current) {
       console.log('All refs are available, setting up animation');
       
       // Ensure parent container is visible
       gsap.set(verseContentRef.current, {
-        opacity: 1
+        opacity: 1,
+        visibility: 'visible'
       });
       
       // Set initial states for animation elements
-      // Don't hide verseTextRef since we're animating the words inside it
       gsap.set([verseReferenceRef.current, doneButtonRef.current], {
         opacity: 0,
         y: 30,
-        scale: 0.95
+        scale: 0.95,
+        visibility: 'visible',
+        display: 'block'
       });
       
-      // Make sure the verse text container is visible
+      // Keep the verse text container hidden initially
       gsap.set(verseTextRef.current, {
-        opacity: 1
+        opacity: 0,
+        visibility: 'visible'
       });
       
-      const verseWords = verse.text.split(' ');
-      const wordSpans = verseWords.map((word, index) => 
-        `<span class="verse-word">${word}</span>`
-      ).join('');
+      // Split text into letters, preserving spaces
+      const verseLetters = verse.text.split('');
+      const letterSpans = verseLetters.map((letter, index) => {
+        if (letter === ' ') {
+          return ' '; // Preserve spaces without wrapping
+        }
+        return `<span class="verse-letter">${letter}</span>`;
+      }).join('');
       
-      verseTextRef.current.innerHTML = `"${wordSpans}"`;
+      verseTextRef.current.innerHTML = `<span class="verse-quote opening-quote">"</span>${letterSpans}<span class="verse-quote closing-quote">"</span>`;
     
-      // Get all word spans for animation
-      const wordElements = verseTextRef.current.querySelectorAll('.verse-word');
-      console.log('Found word elements:', wordElements.length);
+      // Get all animated elements
+      const letterElements = verseContentRef.current.querySelectorAll('.verse-letter');
+      const openingQuote = verseContentRef.current.querySelector('.opening-quote');
+      const closingQuote = verseContentRef.current.querySelector('.closing-quote');
+      console.log('Found elements:', {
+        letters: letterElements.length,
+        openingQuote: !!openingQuote,
+        closingQuote: !!closingQuote
+      });
       
-      if (wordElements.length > 0) {
-        // Set initial state for word elements
-        gsap.set(wordElements, {
+      if (letterElements.length > 0 && openingQuote && closingQuote) {
+        // Set initial state for quotes
+        gsap.set([openingQuote, closingQuote], {
           opacity: 0,
-          y: 20,
           display: 'inline-block'
+        });
+        
+        // Set initial state for letters with minimal glow
+        gsap.set(letterElements, {
+          opacity: 0,
+          display: 'inline-block',
+          textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+        });
+        
+        // Now make the container visible after all elements are hidden
+        gsap.set(verseTextRef.current, {
+          opacity: 1
         });
         
         // Create timeline for smooth verse reveal
         const tl = gsap.timeline({ 
-          delay: 0.3,
+          delay: 0.9, // Delayed to start after overlay entrance animation
           onStart: () => {
             console.log('GSAP timeline started');
           },
@@ -2280,15 +3475,51 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           }
         });
         
-        // Animate words one by one with stagger
-        tl.to(wordElements, {
+        // Animate opening quote first with glow
+        tl.fromTo(openingQuote, {
+          opacity: 0,
+          textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+        }, {
           opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          stagger: 0.08, // 80ms delay between each word
-          clearProps: "all" // Clear inline styles after animation
+          textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
+          duration: 0.5,
+          ease: "power2.out"
         })
+        .to(openingQuote, {
+          textShadow: "0px 0px 0px rgba(255,255,255,0)",
+          duration: 0.3,
+          ease: "power2.out"
+        }, "-=0.1");
+        
+        // Animate letters with staggered parallel execution matching CodePen
+        tl.to(letterElements, {
+          keyframes: [
+            { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
+            { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 }, // 66% of 0.7
+            { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.077 }, // 77% - 66% = 11%
+            { opacity: 0.7, textShadow: "0px 0px 20px rgba(255,255,255,0.0)", duration: 0.161 } // 100% - 77% = 23%
+          ],
+          duration: 0.7,
+          ease: "none", // Linear to match CSS animation
+          stagger: 0.05 // 50ms delay between each letter start
+        }, "-=0.3");
+        
+        // Animate closing quote with glow
+        tl.fromTo(closingQuote, {
+          opacity: 0,
+          textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+        }, {
+          opacity: 1,
+          textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
+          duration: 0.5,
+          ease: "power2.out"
+        }, "-=0.2")
+        .to(closingQuote, {
+          textShadow: "0px 0px 0px rgba(255,255,255,0)",
+          duration: 0.3,
+          ease: "power2.out"
+        }, "-=0.1")
+        
         // Then animate verse reference
         .to(verseReferenceRef.current, {
           opacity: 1,
@@ -2296,8 +3527,23 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           scale: 1,
           duration: 0.8,
           ease: "power2.out",
-          clearProps: "all"
-        }, "-=0.4") // Start before words finish
+          clearProps: "opacity,transform,y,scale,display"
+        }, "-=0.4")
+        
+        // Add final whole sentence glow effect - gradual build-up
+        .to([letterElements, openingQuote, closingQuote], {
+          opacity: 1,
+          textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
+          duration: 1.2,  // Slower, more gradual glow build-up
+          ease: "power2.inOut"
+        }, "+=0.3") // Wait after reference settles before starting glow
+        // .to([letterElements, openingQuote, closingQuote], {
+        //   opacity: 0.7,
+        //   textShadow: "0px 0px 0px rgba(255,255,255,0)",
+        //   duration: 0.3,
+        //   ease: "power2.out"
+        // }, "+=1") // Hold the glow for 0.4 seconds before fading
+        
         // Finally animate done button
         .to(doneButtonRef.current, {
           opacity: 1,
@@ -2305,13 +3551,13 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           scale: 1,
           duration: 0.6,
           ease: "back.out(1.7)",
-          clearProps: "all"
-        }, "-=0.2"); // Start before reference finishes
+          clearProps: "opacity,transform,y,scale,display"
+        }, "-=0.4");
         
         // Force play the timeline
         tl.play();
       } else {
-        console.error('No word elements found to animate');
+        console.error('No letter elements found to animate');
       }
     } else {
       console.error('One or more refs are null:', {
@@ -2353,134 +3599,27 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     }
   };
 
-  const validatePassword = (password: string): string | null => {
-    if (!password) return 'Password is required';
-    if (password.length < 6) return 'Password must be at least 6 characters';
-    return null;
-  };
-
-  const validateConfirmPassword = (password: string, confirmPassword: string): string | null => {
-    if (!confirmPassword) return 'Please confirm your password';
-    if (password !== confirmPassword) return 'Passwords do not match';
-    return null;
-  };
-
-  const handlePasswordBlur = () => {
-    setPasswordError(validatePassword(password));
-  };
-
-  const handleConfirmPasswordBlur = () => {
-    setConfirmPasswordError(validateConfirmPassword(password, confirmPassword));
-  };
-
-  const clearForm = () => {
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setRememberMe(false);
-    setAuthError(null);
-    setPasswordError(null);
-    setConfirmPasswordError(null);
-  };
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setAuthError('Please enter both email and password');
-      return;
-    }
-
-    setAuthLoading(true);
-    setAuthError(null);
-
-    try {
-      await signIn(email, password);
-      clearForm();
-      setShowSignIn(false);
-      showToast('Successfully signed in!', 'success');
-    } catch (err: any) {
-      // Check if this is a verification error
-      if (err.isVerificationError) {
-        setAuthError('VERIFICATION_REQUIRED');
-      } else {
-        setAuthError(err.message || 'Failed to sign in');
-      }
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    setAuthLoading(true);
-    setAuthError(null);
-
-    try {
-      await signInWithGoogle();
-      setAuthError(null);
-      setShowSignIn(false);
-      setShowSignUp(false);
-    } catch (err: any) {
-      setAuthError(err.message || 'Failed to sign in with Google');
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate all fields
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
-      setAuthError('Please fill in all fields');
-      return;
-    }
-
-    const passwordValidation = validatePassword(password);
-    const confirmPasswordValidation = validateConfirmPassword(password, confirmPassword);
-
-    if (passwordValidation) {
-      setPasswordError(passwordValidation);
-      return;
-    }
-
-    if (confirmPasswordValidation) {
-      setConfirmPasswordError(confirmPasswordValidation);
-      return;
-    }
-
-    setAuthLoading(true);
-    setAuthError(null);
-    setPasswordError(null);
-    setConfirmPasswordError(null);
-
-    try {
-      // TODO: Update signUp to accept first/last name
-      await signUp(email, password, firstName, lastName);
-      clearForm();
-      setShowSignUp(false);
-      setShowEmailVerification(true);
-      showToast('Account created! Please check your email for verification.', 'success');
-    } catch (err: any) {
-      setAuthError(err.message || 'Failed to create account');
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
   const switchToSignUp = () => {
     setShowSignIn(false);
     setShowSignUp(true);
     setShowEmailVerification(false);
-    clearForm();
   };
 
   const switchToSignIn = () => {
     setShowSignUp(false);
     setShowSignIn(true);
     setShowEmailVerification(false);
-    clearForm();
+  };
+
+  const handleVerificationRequired = (email: string) => {
+    setVerificationEmail(email);
+    setShowSignIn(false);
+    setShowEmailVerification(true);
+  };
+
+  const handleSignUpSuccess = () => {
+    setShowSignUp(false);
+    setShowEmailVerification(true);
   };
 
   const handleLogout = async () => {
@@ -2529,36 +3668,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     return null;
   };
 
-  const handleResendVerification = async () => {
-    try {
-      setAuthLoading(true);
-      
-      // First, sign the user back in temporarily to send verification email
-      await signIn(email, password);
-      
-      // Now send the verification email
-      await sendVerificationEmail();
-      
-      // Sign them back out
-      await signOut();
-      
-      showToast('Verification email sent! Please check your inbox and spam folder.', 'success');
-      setAuthError(null);
-    } catch (error: any) {
-      console.error('Resend verification error:', error);
-      showToast('Failed to resend verification email. Please try again.', 'error');
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
   return (
     <div 
+      ref={overlayRef}
       className="verse-overlay"
       onKeyDown={handleKeyDown}
       onClick={handleOverlayClick}
       tabIndex={0}
     >
+
       {/* Top-Right Controls */}
       <div className="absolute top-4 right-4">
         {!user ? (
@@ -2654,286 +3772,43 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
       {/* Sign-In Modal */}
       {showSignIn && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white text-lg font-semibold">Sign In</h3>
-              <button
-                onClick={() => setShowSignIn(false)}
-                className="text-white hover:text-gray-300 text-xl"
-              >
-                ×
-              </button>
-            </div>
-
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-                disabled={authLoading}
-              />
-              <PasswordInput
-                value={password}
-                onChange={setPassword}
-                placeholder="Password"
-                disabled={authLoading}
-              />
-              
-              {/* Remember Me Checkbox */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="rememberMe"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="mr-2 rounded"
-                  disabled={authLoading}
-                />
-                <label htmlFor="rememberMe" className="text-white text-sm">
-                  Remember me
-                </label>
-              </div>
-              
-              {authError && (
-                <div className="p-3 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm">
-                  {authError === 'VERIFICATION_REQUIRED' ? (
-                    <div>
-                      <p className="mb-2 text-red-200 text-sm">
-                        Please verify your email before signing in. Check your inbox for a verification link.
-                      </p>
-                      <p className="text-red-200 text-sm">
-                        Didn't receive an email?{' '}
-                        <button
-                          onClick={handleResendVerification}
-                          disabled={authLoading}
-                          className={`text-blue-300 underline bg-transparent border-none text-inherit font-medium p-0 ${authLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                        >
-                          {authLoading ? 'Sending...' : 'Resend verification link here'}
-                        </button>
-                      </p>
-                      <p className="mt-2 text-red-200 text-opacity-75 text-xs">
-                        Make sure to check your spam folder. Emails can take a few minutes to arrive.
-                      </p>
-                    </div>
-                  ) : (
-                    authError
-                  )}
-                </div>
-              )}
-              
-              <div className="space-y-2">
-                <button
-                  type="submit"
-                  disabled={authLoading}
-                  className={`w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-blue-600 text-white ${authLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-700 cursor-pointer'}`}
-                >
-                  {authLoading ? 'Signing in...' : 'Sign In'}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleGoogleSignIn}
-                  disabled={authLoading}
-                  className={`w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-white bg-opacity-20 text-white flex items-center justify-center gap-2 ${authLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-30 cursor-pointer'}`}
-                >
-                  <svg
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                      fill="#4285F4"
-                    />
-                    <path
-                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                      fill="#34A853"
-                    />
-                    <path
-                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                      fill="#FBBC05"
-                    />
-                    <path
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                      fill="#EA4335"
-                    />
-                  </svg>
-                  Sign in with Google
-                </button>
-              </div>
-            </form>
-            
-            {/* Sign-up link */}
-            <div className="mt-4 text-center">
-              <p className="text-white text-sm">
-                Don't have an account?{' '}
-                <button
-                  onClick={switchToSignUp}
-                  className="text-blue-300 hover:text-blue-200 underline"
-                >
-                  Sign up
-                </button>
-              </p>
-            </div>
-          </div>
-        </div>
+        <SignInForm
+          onClose={() => setShowSignIn(false)}
+          onSwitchToSignUp={switchToSignUp}
+          onVerificationRequired={handleVerificationRequired}
+        />
       )}
 
       {/* Sign-Up Modal */}
       {showSignUp && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white text-lg font-semibold">Create Account</h3>
-              <button
-                onClick={() => setShowSignUp(false)}
-                className="text-white hover:text-gray-300 text-xl"
-              >
-                ×
-              </button>
-            </div>
-
-            <form onSubmit={handleSignUp} className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="First Name"
-                  className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-                  disabled={authLoading}
-                />
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last Name"
-                  className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-                  disabled={authLoading}
-                />
-              </div>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                className="df-glassmorphism-input w-full px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-                disabled={authLoading}
-              />
-              <PasswordInput
-                value={password}
-                onChange={setPassword}
-                placeholder="Password"
-                disabled={authLoading}
-                error={passwordError}
-                name="password"
-              />
-              <div onBlur={handleConfirmPasswordBlur}>
-                <PasswordInput
-                  value={confirmPassword}
-                  onChange={setConfirmPassword}
-                  placeholder="Confirm Password"
-                  disabled={authLoading}
-                  error={confirmPasswordError}
-                  name="confirmPassword"
-                />
-              </div>
-              
-              {authError && (
-                <div className="p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm">
-                  {authError}
-                </div>
-              )}
-              
-              <div className="space-y-2">
-                <button
-                  type="submit"
-                  disabled={authLoading}
-                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors"
-                >
-                  {authLoading ? 'Creating Account...' : 'Create Account'}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleGoogleSignIn}
-                  disabled={authLoading}
-                  className="w-full bg-white bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors flex items-center justify-center gap-2"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                      fill="#4285F4"
-                    />
-                    <path
-                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                      fill="#34A853"
-                    />
-                    <path
-                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                      fill="#FBBC05"
-                    />
-                    <path
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                      fill="#EA4335"
-                    />
-                  </svg>
-                  Sign up with Google
-                </button>
-              </div>
-            </form>
-            
-            {/* Sign-in link */}
-            <div className="mt-4 text-center">
-              <p className="text-white text-sm">
-                Already have an account?{' '}
-                <button
-                  onClick={switchToSignIn}
-                  className="text-blue-300 hover:text-blue-200 underline"
-                >
-                  Sign in
-                </button>
-              </p>
-            </div>
-          </div>
-        </div>
+        <SignUpForm
+          onClose={() => setShowSignUp(false)}
+          onSwitchToSignIn={switchToSignIn}
+          onSuccess={handleSignUpSuccess}
+        />
       )}
 
       {/* Email Verification Modal */}
       {showEmailVerification && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm">
+          <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
             <div className="text-center">
               <div className="mb-4">
-                <svg className="w-16 h-16 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg className="w-16 h-16 mx-auto text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
               </div>
               <h3 className="text-white text-lg font-semibold mb-2">Check Your Email</h3>
               <p className="text-white text-sm mb-4">
-                We've sent a verification link to your email address. Please click the link to verify your account before signing in.
+                We've sent a verification link to {verificationEmail || 'your email address'}. Please click the link to verify your account before signing in.
               </p>
-              <div className="space-y-2">
-                <button
-                  onClick={async () => {
-                    try {
-                      await sendVerificationEmail();
-                      showToast('Verification email resent!', 'success');
-                    } catch (error) {
-                      showToast('Failed to resend email. Please try again.', 'error');
-                    }
-                  }}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors"
-                >
-                  Resend Email
-                </button>
+              {verificationEmail && (
+                <VerificationReminder
+                  userEmail={verificationEmail}
+                  onClose={() => {}}
+                />
+              )}
+              <div className="space-y-2 mt-4">
                 <button
                   onClick={() => {
                     setShowEmailVerification(false);
@@ -3018,7 +3893,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         <button
           ref={doneButtonRef}
           className="verse-done-btn"
-          onClick={onDismiss}
+          onClick={handleAnimatedDismiss}
           type="button"
         >
           Done
@@ -3033,7 +3908,7 @@ export default VerseOverlay;
 
 ```
 
-# src\content\index.ts
+# src/content/index.ts
 
 ```ts
 import React from 'react';
@@ -3042,6 +3917,7 @@ import VerseOverlay from '../components/VerseOverlay';
 import { AuthProvider } from '../components/AuthContext';
 import { ToastProvider } from '../components/ToastContext';
 import { VerseData, ChromeMessage, ChromeResponse } from '../types';
+import { getShadowDomStyles } from '../styles/shadow-dom-styles';
 
 (function() {
     'use strict';
@@ -3176,18 +4052,26 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
             pointer-events: auto !important;
         `;
         
-        // Create inner container for React app
+        // Add the overlay container to the page first
+        document.body.appendChild(overlayContainer);
+        
+        // Create Shadow DOM for true style encapsulation
+        const shadowRoot = overlayContainer.attachShadow({ mode: 'open' });
+        
+        // Create a style element for Shadow DOM styles
+        const shadowStyles = document.createElement('style');
+        shadowStyles.textContent = getShadowDomStyles();
+        shadowRoot.appendChild(shadowStyles);
+        
+        // Create inner container for React app inside Shadow DOM
         const reactContainer = document.createElement('div');
         reactContainer.id = 'daily-flame-overlay';
-        overlayContainer.appendChild(reactContainer);
-        
-        // Add the overlay container to the page
-        document.body.appendChild(overlayContainer);
+        shadowRoot.appendChild(reactContainer);
         
         // Prevent scrolling on the body
         document.body.style.overflow = 'hidden';
         
-        // Create React root
+        // Create React root inside Shadow DOM
         const root = createRoot(reactContainer);
         
         // Error boundary component
@@ -3238,7 +4122,8 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
                     children: React.createElement(AuthProvider, { 
                         children: React.createElement(VerseOverlay, {
                             verse,
-                            onDismiss: handleDismiss
+                            onDismiss: handleDismiss,
+                            shadowRoot
                         })
                     })
                 })
@@ -3285,144 +4170,389 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
 })();
 ```
 
-# src\newtab\index.tsx
+# src/content/monitor.ts
 
-```tsx
-import React, { useEffect, useState } from 'react';
+```ts
+// Minimal monitor script - only checks if verse should be shown
+// No heavy imports - just Chrome API calls
+
+console.log('Daily Flame: Monitor initialized');
+
+async function checkAndLoadVerse() {
+  try {
+    // Check if verse was already shown today
+    const result = await chrome.storage.local.get(['verseShownDate']);
+    const today = new Date().toISOString().split("T")[0];
+    
+    if (result.verseShownDate === today) {
+      console.log('Daily Flame: Verse already shown today');
+      return; // Exit early - no need to load anything
+    }
+    
+    // Check if we're on a restricted URL or OAuth page
+    const skipSites = [
+      "chrome://", 
+      "chrome-extension://", 
+      "moz-extension://", 
+      "extensions", 
+      "about:", 
+      "file://",
+      // OAuth and authentication URLs
+      "accounts.google.com",
+      "oauth2.googleapis.com", 
+      "auth.firebase.com",
+      "identitytoolkit.googleapis.com",
+      "securetoken.googleapis.com",
+      // Microsoft Edge identity redirect
+      "login.microsoftonline.com",
+      "login.live.com"
+    ];
+    
+    if (skipSites.some(site => window.location.href.includes(site))) {
+      console.log('Daily Flame: Skipping restricted/auth URL:', window.location.href);
+      return;
+    }
+    
+    console.log('Daily Flame: Loading verse module...');
+    
+    // Send message to background script to inject verse app
+    chrome.runtime.sendMessage({ action: 'injectVerseApp' }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error('Daily Flame: Failed to inject verse app:', chrome.runtime.lastError);
+        return;
+      }
+      
+      if (response && response.success) {
+        console.log('Daily Flame: Verse app injected successfully');
+        // The injected script will handle initialization
+      } else {
+        console.error('Daily Flame: Failed to inject verse app:', response?.error || 'Unknown error');
+      }
+    });
+    
+  } catch (error) {
+    console.error('Daily Flame: Error in monitor script:', error);
+  }
+}
+
+// Check on page load
+checkAndLoadVerse();
+
+// Global function to reset and show verse (for extension icon clicks)
+(window as any).resetDailyFlame = async function() {
+  console.log('Daily Flame: Manual reset triggered');
+  
+  try {
+    // Clear the storage to force showing verse
+    await chrome.storage.local.remove(['verseShownDate']);
+    
+    // Send message to background script to inject verse app
+    chrome.runtime.sendMessage({ action: 'injectVerseApp' }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error('Daily Flame: Failed to inject verse app:', chrome.runtime.lastError);
+        return;
+      }
+      
+      if (response && response.success) {
+        console.log('Daily Flame: Verse app injected after reset');
+      } else {
+        console.error('Daily Flame: Failed to inject verse app:', response?.error || 'Unknown error');
+      }
+    });
+  } catch (error) {
+    console.error('Daily Flame: Error during reset:', error);
+  }
+};
+```
+
+# src/content/verse-app.ts
+
+```ts
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import VerseOverlay from '../components/VerseOverlay';
 import { AuthProvider } from '../components/AuthContext';
 import { ToastProvider } from '../components/ToastContext';
 import { VerseData, ChromeMessage, ChromeResponse } from '../types';
-import '../styles/globals.css';
+import { getShadowDomStyles } from '../styles/shadow-dom-styles';
 
-const NewTabPage: React.FC = () => {
-  const [showVerseOverlay, setShowVerseOverlay] = useState(false);
-  const [verse, setVerse] = useState<VerseData | null>(null);
-
-  useEffect(() => {
-    // Check if we should show the verse overlay
-    checkAndShowVerse();
-  }, []);
-
-  const checkAndShowVerse = async () => {
+// Initialize the verse overlay when this script is injected
+async function initVerseOverlay() {
+    console.log('Daily Flame: Verse app module loaded');
+    
+    // Check if overlay already exists
+    if (document.getElementById('daily-flame-extension-root')) {
+        console.log('Daily Flame: Overlay already exists');
+        return;
+    }
+    
     try {
-      // Check if verse should be shown today
-      const response = await sendMessage({ action: 'getVerseShownDate' });
-      
-      if (response && response.shouldShow) {
-        console.log('New Tab: Should show verse overlay');
-        
-        // Get today's verse
+        // Get today's verse from the background script
         const verseResponse = await sendMessage({ action: 'getDailyVerse' });
         
-        if (verseResponse.success) {
-          setVerse(verseResponse.verse);
-          setShowVerseOverlay(true);
-        } else {
-          // Fallback verse if API fails
-          const fallbackVerse: VerseData = {
-            text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, to give you hope and a future.",
-            reference: "Jeremiah 29:11",
-            bibleId: "de4e12af7f28f599-02"
-          };
-          setVerse(fallbackVerse);
-          setShowVerseOverlay(true);
+        if (!verseResponse.success) {
+            // Fallback to hardcoded verse if API fails
+            const fallbackVerse: VerseData = {
+                text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, to give you hope and a future.",
+                reference: "Jeremiah 29:11",
+                bibleId: "de4e12af7f28f599-02"
+            };
+            renderOverlay(fallbackVerse);
+            return;
         }
-      } else {
-        console.log('New Tab: Verse already shown today or not needed');
-        // If no verse needed, redirect to default new tab immediately
-        redirectToDefaultNewTab();
-      }
+        
+        renderOverlay(verseResponse.verse);
+        
     } catch (error) {
-      console.error('New Tab: Error checking verse status:', error);
-      // On error, just redirect to default new tab
-      redirectToDefaultNewTab();
+        console.error('Daily Flame: Error creating overlay:', error);
+        // Still show overlay with fallback verse
+        const fallbackVerse: VerseData = {
+            text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
+            reference: "Proverbs 3:5-6",
+            bibleId: "de4e12af7f28f599-02"
+        };
+        renderOverlay(fallbackVerse);
     }
-  };
-
-  const handleDismissVerse = async () => {
-    try {
-      // Mark verse as shown for today
-      await sendMessage({ action: 'setVerseShownDate' });
-      console.log('New Tab: Verse dismissed for today');
-      
-      // Redirect back to default new tab page
-      redirectToDefaultNewTab();
-    } catch (error) {
-      console.error('New Tab: Error dismissing verse:', error);
-      // Still redirect even if there's an error
-      redirectToDefaultNewTab();
-    }
-  };
-
-  const redirectToDefaultNewTab = () => {
-    // Navigate to chrome's default new tab page
-    window.location.href = 'chrome://newtab/';
-  };
-
-  const sendMessage = (message: ChromeMessage): Promise<ChromeResponse> => {
-    return new Promise((resolve) => {
-      chrome.runtime.sendMessage(message, resolve);
-    });
-  };
-
-  // If no verse overlay is needed, show loading state while redirecting
-  if (!showVerseOverlay && !verse) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-8xl mb-4">🔥</div>
-          <h1 className="text-2xl font-light text-gray-600 mb-2">Daily Flame</h1>
-          <p className="text-gray-500 text-sm">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      {/* Verse Overlay */}
-      {showVerseOverlay && verse && (
-        <ToastProvider>
-          <AuthProvider>
-            <VerseOverlay 
-              verse={verse} 
-              onDismiss={handleDismissVerse}
-            />
-          </AuthProvider>
-        </ToastProvider>
-      )}
-    </>
-  );
-};
-
-// Initialize the React app
-const container = document.getElementById('newtab-root');
-if (container) {
-  const root = createRoot(container);
-  root.render(<NewTabPage />);
 }
+
+function renderOverlay(verse: VerseData) {
+    // Create high-specificity container for CSS isolation
+    const overlayContainer = document.createElement('div');
+    overlayContainer.id = 'daily-flame-extension-root';
+    
+    // Apply initial styles to ensure proper isolation
+    overlayContainer.style.cssText = `
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 999999 !important;
+        pointer-events: auto !important;
+    `;
+    
+    // Add the overlay container to the page first
+    document.body.appendChild(overlayContainer);
+    
+    // Create Shadow DOM for true style encapsulation
+    const shadowRoot = overlayContainer.attachShadow({ mode: 'open' });
+    
+    // Create a style element for Shadow DOM styles
+    const shadowStyles = document.createElement('style');
+    shadowStyles.textContent = getShadowDomStyles();
+    shadowRoot.appendChild(shadowStyles);
+    
+    // Create inner container for React app inside Shadow DOM
+    const reactContainer = document.createElement('div');
+    reactContainer.id = 'daily-flame-overlay';
+    shadowRoot.appendChild(reactContainer);
+    
+    // Prevent scrolling on the body
+    document.body.style.overflow = 'hidden';
+    
+    // Create React root inside Shadow DOM
+    const root = createRoot(reactContainer);
+    
+    // Error boundary component
+    class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean}> {
+        constructor(props: {children: React.ReactNode}) {
+            super(props);
+            this.state = { hasError: false };
+        }
+        
+        static getDerivedStateFromError() {
+            return { hasError: true };
+        }
+        
+        componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+            console.error('Daily Flame: React error caught:', error, errorInfo);
+        }
+        
+        render() {
+            if (this.state.hasError) {
+                return React.createElement('div', {
+                    style: { 
+                        position: 'fixed', 
+                        top: 0, 
+                        left: 0, 
+                        right: 0, 
+                        bottom: 0, 
+                        backgroundColor: 'rgba(0,0,0,0.9)', 
+                        color: 'white', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        zIndex: 999999
+                    }
+                }, 'Daily Flame encountered an error. Please refresh the page.');
+            }
+            
+            return this.props.children;
+        }
+    }
+    
+    const OverlayApp = () => {
+        const handleDismiss = () => {
+            dismissOverlay();
+        };
+        
+        return React.createElement(ErrorBoundary, { 
+            children: React.createElement(ToastProvider, { 
+                children: React.createElement(AuthProvider, { 
+                    children: React.createElement(VerseOverlay, {
+                        verse,
+                        onDismiss: handleDismiss,
+                        shadowRoot
+                    })
+                })
+            })
+        });
+    };
+    
+    root.render(React.createElement(OverlayApp));
+}
+
+function dismissOverlay() {
+    try {
+        const overlay = document.getElementById('daily-flame-extension-root');
+        if (overlay) {
+            console.log('Daily Flame: Dismissing verse overlay');
+            
+            // Clean up styles first
+            document.body.style.overflow = '';
+            
+            // Remove overlay with a small delay to allow React cleanup
+            setTimeout(() => {
+                overlay.remove();
+            }, 100);
+            
+            // Save to storage that verse was shown today
+            chrome.runtime.sendMessage({ action: 'setVerseShownDate' }, (response: ChromeResponse) => {
+                if (chrome.runtime.lastError) {
+                    console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
+                } else if (response && response.success) {
+                    console.log('Daily Flame: Verse dismissed for today');
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Daily Flame: Error dismissing overlay:', error);
+    }
+}
+
+function sendMessage(message: ChromeMessage): Promise<ChromeResponse> {
+    return new Promise((resolve) => {
+        chrome.runtime.sendMessage(message, resolve);
+    });
+}
+
+// Initialize the verse overlay when this script is injected
+initVerseOverlay();
 ```
 
-# src\newtab\newtab.html
+# src/hooks/useAuthForm.ts
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Flame</title>
-</head>
-<body>
-    <div id="newtab-root"></div>
-    <script src="newtab.js"></script>
-</body>
-</html>
+```ts
+import { useState } from 'react';
+import { useAuth } from '../components/AuthContext';
+import { useToast } from '../components/ToastContext';
+
+interface AuthFormData {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+  confirmPassword?: string;
+  rememberMe?: boolean;
+}
+
+interface AuthResult {
+  success: boolean;
+  error?: string;
+  verificationRequired?: boolean;
+  userEmail?: string;
+}
+
+export const useAuthForm = () => {
+  const { signIn, signUp, signInWithGoogle } = useAuth();
+  const { showToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async (data: AuthFormData): Promise<AuthResult> => {
+    setIsLoading(true);
+    try {
+      await signIn(data.email, data.password);
+      showToast('Successfully signed in!', 'success');
+      return { success: true };
+    } catch (error: any) {
+      // Check if this is a verification error
+      if (error.isVerificationError) {
+        return { 
+          success: false, 
+          verificationRequired: true,
+          userEmail: error.userEmail 
+        };
+      }
+      return { success: false, error: error.message || 'Failed to sign in' };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSignUp = async (data: AuthFormData): Promise<AuthResult> => {
+    setIsLoading(true);
+    try {
+      await signUp(data.email, data.password, data.firstName, data.lastName);
+      
+      // Show success message - user needs to verify email
+      showToast(
+        'Account created! Please check your email to verify your account.',
+        'success'
+      );
+      
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, error: error.message || 'Failed to create account' };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async (): Promise<AuthResult> => {
+    setIsLoading(true);
+    try {
+      await signInWithGoogle();
+      showToast('Successfully signed in with Google!', 'success');
+      return { success: true };
+    } catch (error: any) {
+      // Handle specific Google sign-in errors
+      if (error.message?.includes('popup')) {
+        return { 
+          success: false, 
+          error: 'Pop-up was blocked. Please allow pop-ups for this site.' 
+        };
+      } else if (error.message?.includes('cancelled')) {
+        return { 
+          success: false, 
+          error: 'Sign-in was cancelled.' 
+        };
+      }
+      return { success: false, error: error.message || 'Google sign-in failed' };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return {
+    handleSignIn,
+    handleSignUp,
+    handleGoogleSignIn,
+    isLoading
+  };
+};
 ```
 
-# src\services\firebase-config.ts
+# src/services/firebase-config.ts
 
 ```ts
 import { initializeApp } from 'firebase/app';
@@ -3446,7 +4576,7 @@ export const auth = getAuth(app);
 export default app;
 ```
 
-# src\services\verse-service.ts
+# src/services/verse-service.ts
 
 ```ts
 import {
@@ -3683,7 +4813,7 @@ export class VerseService {
 }
 ```
 
-# src\styles\globals.css
+# src/styles/globals.css
 
 ```css
 @tailwind base;
@@ -3708,6 +4838,18 @@ export class VerseService {
   .verse-word {
     display: inline-block;
     margin-right: 0.25em;
+  }
+
+  .verse-quote {
+    display: inline-block;
+  }
+
+  .opening-quote {
+    margin-right: 0.15em;
+  }
+
+  .closing-quote {
+    margin-left: -0.1em;
   }
 
   .verse-reference {
@@ -3829,7 +4971,1222 @@ export class VerseService {
 }
 ```
 
-# src\types\index.ts
+# src/styles/shadow-dom-styles.ts
+
+```ts
+// Complete styles for Shadow DOM encapsulation
+export const getShadowDomStyles = (): string => {
+  return `
+    /* CSS Reset for Shadow DOM */
+    :host {
+      all: initial;
+      display: block !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.5 !important;
+      color: white !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    
+    /* Main overlay container */
+    .verse-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background-color: black !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 999999 !important;
+      padding: 20px !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+    
+    /* Verse content container */
+    .verse-content {
+      max-width: 672px !important;
+      width: 100% !important;
+      text-align: center !important;
+      color: white !important;
+      position: relative !important;
+    }
+    
+    /* Verse text styles */
+    .verse-text {
+      font-size: 28px !important;
+      line-height: 40px !important;
+      margin-bottom: 20px !important;
+      font-weight: 300 !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+      color: white !important;
+    }
+    
+    .verse-word {
+      display: inline-block !important;
+      margin-right: 0.25em !important;
+    }
+    
+    .verse-quote {
+      display: inline-block !important;
+      font-size: inherit !important;
+      color: inherit !important;
+    }
+    
+    .opening-quote {
+      margin-right: 0.15em !important;
+    }
+    
+    .closing-quote {
+      margin-left: -0.1em !important;
+    }
+    
+    /* Verse reference */
+    .verse-reference {
+      font-size: 20px !important;
+      line-height: 28px !important;
+      margin-bottom: 40px !important;
+      font-style: italic !important;
+      opacity: 0.9;
+      font-weight: normal !important;
+      color: white !important;
+    }
+    
+    /* Done button */
+    .verse-done-btn {
+      background-color: white !important;
+      color: black !important;
+      border: none !important;
+      padding: 16px 40px !important;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      min-width: 120px !important;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2) !important;
+      display: inline-block !important;
+      text-align: center !important;
+      line-height: 1 !important;
+      outline: none !important;
+    }
+    
+    .verse-done-btn:hover {
+      background-color: #f3f4f6 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .verse-done-btn:active {
+      transform: translateY(0) !important;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    .verse-done-btn:focus {
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 1000000 !important;
+      padding: 16px !important;
+    }
+    
+    .modal-content {
+      background-color: white !important;
+      border-radius: 8px !important;
+      padding: 24px !important;
+      max-width: 448px !important;
+      width: 100% !important;
+      max-height: 90vh !important;
+      overflow-y: auto !important;
+    }
+
+    /* Glassmorphism modal styles */
+    .df-glassmorphism-modal {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 4px 20px 0 rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Modal close button */
+    .modal-close-btn {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      width: 32px !important;
+      height: 32px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 50% !important;
+      color: white !important;
+      font-size: 24px !important;
+      line-height: 1 !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      outline: none !important;
+    }
+
+    .modal-close-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      transform: scale(1.1) !important;
+    }
+
+    .modal-close-btn:active {
+      transform: scale(0.95) !important;
+    }
+    
+    /* Form elements - only apply default styles if not using glassmorphism */
+    input[type="text"]:not(.df-glassmorphism-input),
+    input[type="email"]:not(.df-glassmorphism-input),
+    input[type="password"]:not(.df-glassmorphism-input) {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      width: 100% !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      outline: none !important;
+      transition: all 0.15s !important;
+    }
+    
+    /* Glassmorphism input specific styles */
+    .df-glassmorphism-input {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      width: 100% !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      outline: none !important;
+      transition: all 0.15s !important;
+    }
+    
+    .df-glassmorphism-input::placeholder {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    .df-glassmorphism-input:focus {
+      outline: none !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5) !important;
+      background-color: rgba(255, 255, 255, 0.25) !important;
+    }
+    
+    input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      margin-right: 8px !important;
+      cursor: pointer !important;
+      accent-color: #3b82f6 !important;
+    }
+    
+    button {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      cursor: pointer !important;
+      transition: all 0.15s !important;
+      background-color: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      color: inherit !important;
+    }
+    
+    /* Button with specific styles should override the defaults */
+    button[class*="bg-"],
+    button[class*="px-"],
+    button[class*="py-"],
+    button[class*="rounded"] {
+      background-color: initial;
+      border: initial;
+      padding: initial;
+    }
+    
+    select {
+      font-family: inherit !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      outline: none !important;
+      cursor: pointer !important;
+    }
+    
+    /* Glassmorphism effects */
+    .df-glassmorphism-element {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .df-glassmorphism-element:hover {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .df-glassmorphism-modal {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+    }
+    
+    .df-glassmorphism-input {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .df-glassmorphism-dropdown {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Modal close button styles */
+    .modal-close-btn {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      font-size: 24px !important;
+      line-height: 1 !important;
+      color: white !important;
+      opacity: 0.8 !important;
+      background: transparent !important;
+      border: none !important;
+      cursor: pointer !important;
+      padding: 4px !important;
+      transition: opacity 0.2s !important;
+    }
+    
+    .modal-close-btn:hover {
+      opacity: 1 !important;
+    }
+    
+    /* Toast notification styles */
+    .toast-container {
+      position: fixed !important;
+      top: 20px !important;
+      right: 20px !important;
+      z-index: 2000000 !important;
+      pointer-events: none !important;
+    }
+    
+    .toast {
+      background-color: #333 !important;
+      color: white !important;
+      padding: 16px 24px !important;
+      border-radius: 8px !important;
+      margin-bottom: 10px !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      min-width: 300px !important;
+      max-width: 500px !important;
+      pointer-events: auto !important;
+      animation: slideIn 0.3s ease-out !important;
+    }
+    
+    .toast.success {
+      background-color: #10b981 !important;
+    }
+    
+    .toast.error {
+      background-color: #ef4444 !important;
+    }
+    
+    .toast.info {
+      background-color: #3b82f6 !important;
+    }
+    
+    .toast.warning {
+      background-color: #f59e0b !important;
+    }
+    
+    /* Support for Toast component positioning */
+    .space-y-2 > * + * { margin-top: 8px !important; }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Utility classes */
+    .fixed { position: fixed !important; }
+    .absolute { position: absolute !important; }
+    .relative { position: relative !important; }
+    .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
+    .top-0 { top: 0 !important; }
+    .top-4 { top: 16px !important; }
+    .top-12 { top: 48px !important; }
+    .top-20 { top: 80px !important; }
+    .top-1\\/2 { top: 50% !important; }
+    .right-0 { right: 0 !important; }
+    .right-3 { right: 12px !important; }
+    .right-4 { right: 16px !important; }
+    .right-20 { right: 80px !important; }
+    .bottom-4 { bottom: 16px !important; }
+    .left-4 { left: 16px !important; }
+    .z-10 { z-index: 10 !important; }
+    .z-20 { z-index: 20 !important; }
+    .z-50 { z-index: 50 !important; }
+    .z-\\[999999\\] { z-index: 999999 !important; }
+    .z-\\[1000000\\] { z-index: 1000000 !important; }
+    .z-\\[2000000\\] { z-index: 2000000 !important; }
+    
+    .flex { display: flex !important; }
+    .inline-block { display: inline-block !important; }
+    .inline-flex { display: inline-flex !important; }
+    .grid { display: grid !important; }
+    .hidden { display: none !important; }
+    .block { display: block !important; }
+    
+    .items-center { align-items: center !important; }
+    .items-start { align-items: flex-start !important; }
+    .justify-center { justify-content: center !important; }
+    .justify-between { justify-content: space-between !important; }
+    .justify-end { justify-content: flex-end !important; }
+    .gap-1 { gap: 4px !important; }
+    .gap-2 { gap: 8px !important; }
+    .gap-3 { gap: 12px !important; }
+    .gap-4 { gap: 16px !important; }
+    .space-y-2 > * + * { margin-top: 8px !important; }
+    .space-y-4 > * + * { margin-top: 16px !important; }
+    
+    .w-full { width: 100% !important; }
+    .w-4 { width: 16px !important; }
+    .w-5 { width: 20px !important; }
+    .w-6 { width: 24px !important; }
+    .w-8 { width: 32px !important; }
+    .w-64 { width: 256px !important; }
+    .w-80 { width: 320px !important; }
+    .max-w-sm { max-width: 384px !important; }
+    .max-w-md { max-width: 448px !important; }
+    .max-w-lg { max-width: 512px !important; }
+    .max-w-2xl { max-width: 672px !important; }
+    .min-w-\\[120px\\] { min-width: 120px !important; }
+    .min-w-\\[300px\\] { min-width: 300px !important; }
+    .max-w-\\[90\\%\\] { max-width: 90% !important; }
+    .max-w-\\[500px\\] { max-width: 500px !important; }
+    
+    .h-4 { height: 16px !important; }
+    .h-5 { height: 20px !important; }
+    .h-6 { height: 24px !important; }
+    .h-8 { height: 32px !important; }
+    .max-h-\\[90vh\\] { max-height: 90vh !important; }
+    
+    .p-0 { padding: 0 !important; }
+    .p-2 { padding: 8px !important; }
+    .p-3 { padding: 12px !important; }
+    .p-4 { padding: 16px !important; }
+    .p-5 { padding: 20px !important; }
+    .p-6 { padding: 24px !important; }
+    .px-2 { padding-left: 8px !important; padding-right: 8px !important; }
+    .px-3 { padding-left: 12px !important; padding-right: 12px !important; }
+    .px-4 { padding-left: 16px !important; padding-right: 16px !important; }
+    .px-6 { padding-left: 24px !important; padding-right: 24px !important; }
+    .px-8 { padding-left: 32px !important; padding-right: 32px !important; }
+    .px-10 { padding-left: 40px !important; padding-right: 40px !important; }
+    .py-1 { padding-top: 4px !important; padding-bottom: 4px !important; }
+    .py-2 { padding-top: 8px !important; padding-bottom: 8px !important; }
+    .py-2\\.5 { padding-top: 10px !important; padding-bottom: 10px !important; }
+    .py-3 { padding-top: 12px !important; padding-bottom: 12px !important; }
+    .py-4 { padding-top: 16px !important; padding-bottom: 16px !important; }
+    .pt-2 { padding-top: 8px !important; }
+    .pb-3 { padding-bottom: 12px !important; }
+    .pr-8 { padding-right: 32px !important; }
+    .pr-10 { padding-right: 40px !important; }
+    
+    .m-0 { margin: 0 !important; }
+    .mt-1 { margin-top: 4px !important; }
+    .mt-2 { margin-top: 8px !important; }
+    .mt-4 { margin-top: 16px !important; }
+    .mb-1 { margin-bottom: 4px !important; }
+    .mb-2 { margin-bottom: 8px !important; }
+    .mb-4 { margin-bottom: 16px !important; }
+    .mb-5 { margin-bottom: 20px !important; }
+    .mb-10 { margin-bottom: 40px !important; }
+    .mr-2 { margin-right: 8px !important; }
+    .ml-2 { margin-left: 8px !important; }
+    .ml-3 { margin-left: 12px !important; }
+    
+    .text-center { text-align: center !important; }
+    .text-left { text-align: left !important; }
+    .text-right { text-align: right !important; }
+    .text-xs { font-size: 12px !important; line-height: 16px !important; }
+    .text-sm { font-size: 14px !important; line-height: 20px !important; }
+    .text-base { font-size: 16px !important; line-height: 24px !important; }
+    .text-lg { font-size: 18px !important; line-height: 28px !important; }
+    .text-xl { font-size: 20px !important; line-height: 28px !important; }
+    .text-2xl { font-size: 24px !important; line-height: 32px !important; }
+    .leading-6 { line-height: 24px !important; }
+    .leading-relaxed { line-height: 1.625 !important; }
+    
+    .font-light { font-weight: 300 !important; }
+    .font-normal { font-weight: 400 !important; }
+    .font-medium { font-weight: 500 !important; }
+    .font-semibold { font-weight: 600 !important; }
+    .font-bold { font-weight: 700 !important; }
+    .italic { font-style: italic !important; }
+    .underline { text-decoration: underline !important; }
+    
+    .text-white { color: white !important; }
+    .text-black { color: black !important; }
+    .text-gray-100 { color: #f3f4f6 !important; }
+    .text-gray-300 { color: #d1d5db !important; }
+    .text-gray-400 { color: #9ca3af !important; }
+    .text-gray-500 { color: #6b7280 !important; }
+    .text-gray-600 { color: #4b5563 !important; }
+    .text-gray-700 { color: #374151 !important; }
+    .text-blue-200 { color: #bfdbfe !important; }
+    .text-blue-300 { color: #93c5fd !important; }
+    .text-blue-400 { color: #60a5fa !important; }
+    .text-blue-500 { color: #3b82f6 !important; }
+    .text-blue-600 { color: #2563eb !important; }
+    .text-red-200 { color: #fecaca !important; }
+    .text-red-300 { color: #fca5a5 !important; }
+    .text-red-400 { color: #f87171 !important; }
+    .text-red-500 { color: #ef4444 !important; }
+    .text-green-200 { color: #bbf7d0 !important; }
+    .text-green-300 { color: #86efac !important; }
+    .text-green-400 { color: #4ade80 !important; }
+    .text-green-500 { color: #22c55e !important; }
+    .text-inherit { color: inherit !important; }
+    
+    .bg-transparent { background-color: transparent !important; }
+    .bg-black { background-color: black !important; }
+    .bg-white { background-color: white !important; }
+    .bg-gray-50 { background-color: #f9fafb !important; }
+    .bg-gray-100 { background-color: #f3f4f6 !important; }
+    .bg-gray-200 { background-color: #e5e7eb !important; }
+    .bg-gray-700 { background-color: #374151 !important; }
+    .bg-gray-800 { background-color: #1f2937 !important; }
+    .bg-gray-900 { background-color: #111827 !important; }
+    .bg-blue-50 { background-color: #eff6ff !important; }
+    .bg-blue-100 { background-color: #dbeafe !important; }
+    .bg-blue-500 { background-color: #3b82f6 !important; }
+    .bg-blue-600 { background-color: #2563eb !important; }
+    .bg-blue-700 { background-color: #1d4ed8 !important; }
+    .bg-red-50 { background-color: #fef2f2 !important; }
+    .bg-red-100 { background-color: #fee2e2 !important; }
+    .bg-red-500 { background-color: #ef4444 !important; }
+    .bg-red-600 { background-color: #dc2626 !important; }
+    .bg-green-50 { background-color: #f0fdf4 !important; }
+    .bg-green-100 { background-color: #dcfce7 !important; }
+    .bg-green-500 { background-color: #22c55e !important; }
+    .bg-green-600 { background-color: #16a34a !important; }
+    .bg-gray-600 { background-color: #4b5563 !important; }
+    
+    .bg-opacity-10 { background-color: rgba(255, 255, 255, 0.1) !important; }
+    .bg-opacity-20 { background-color: rgba(255, 255, 255, 0.2) !important; }
+    .bg-opacity-30 { background-color: rgba(255, 255, 255, 0.3) !important; }
+    .bg-opacity-50 { background-color: rgba(255, 255, 255, 0.5) !important; }
+    .bg-opacity-70 { background-color: rgba(255, 255, 255, 0.7) !important; }
+    
+    .bg-white.bg-opacity-10 { background-color: rgba(255, 255, 255, 0.1) !important; }
+    .bg-white.bg-opacity-20 { background-color: rgba(255, 255, 255, 0.2) !important; }
+    .bg-white.bg-opacity-30 { background-color: rgba(255, 255, 255, 0.3) !important; }
+    .bg-black.bg-opacity-50 { background-color: rgba(0, 0, 0, 0.5) !important; }
+    .bg-red-500.bg-opacity-20 { background-color: rgba(239, 68, 68, 0.2) !important; }
+    .bg-green-600.bg-opacity-20 { background-color: rgba(22, 163, 74, 0.2) !important; }
+    .bg-blue-500.bg-opacity-20 { background-color: rgba(59, 130, 246, 0.2) !important; }
+    
+    .bg-red-600.bg-opacity-90 { background-color: rgba(220, 38, 38, 0.9) !important; }
+    .bg-green-600.bg-opacity-90 { background-color: rgba(22, 163, 74, 0.9) !important; }
+    .bg-blue-600.bg-opacity-90 { background-color: rgba(37, 99, 235, 0.9) !important; }
+    .bg-gray-600.bg-opacity-90 { background-color: rgba(75, 85, 99, 0.9) !important; }
+    
+    .bg-opacity-90 { --tw-bg-opacity: 0.9 !important; }
+    
+    .text-opacity-70 { color: rgba(255, 255, 255, 0.7) !important; }
+    .text-opacity-75 { color: rgba(255, 255, 255, 0.75) !important; }
+    .text-opacity-90 { color: rgba(255, 255, 255, 0.9) !important; }
+    
+    .text-white.text-opacity-70 { color: rgba(255, 255, 255, 0.7) !important; }
+    .text-white.text-opacity-75 { color: rgba(255, 255, 255, 0.75) !important; }
+    .text-red-200.text-opacity-75 { color: rgba(254, 202, 202, 0.75) !important; }
+    
+    .border { border-width: 1px !important; }
+    .border-2 { border-width: 2px !important; }
+    .border-t { border-top-width: 1px !important; }
+    .border-b { border-bottom-width: 1px !important; }
+    .border-l { border-left-width: 1px !important; }
+    .border-r { border-right-width: 1px !important; }
+    .border-none { border: none !important; }
+    .border-solid { border-style: solid !important; }
+    
+    .border-transparent { border-color: transparent !important; }
+    .border-white { border-color: white !important; }
+    .border-gray-200 { border-color: #e5e7eb !important; }
+    .border-gray-300 { border-color: #d1d5db !important; }
+    .border-gray-400 { border-color: #9ca3af !important; }
+    .border-gray-700 { border-color: #374151 !important; }
+    .border-blue-300 { border-color: #93c5fd !important; }
+    .border-blue-400 { border-color: #60a5fa !important; }
+    .border-blue-500 { border-color: #3b82f6 !important; }
+    .border-red-300 { border-color: #fca5a5 !important; }
+    .border-red-400 { border-color: #f87171 !important; }
+    .border-red-500 { border-color: #ef4444 !important; }
+    .border-green-300 { border-color: #86efac !important; }
+    .border-green-400 { border-color: #4ade80 !important; }
+    .border-green-500 { border-color: #22c55e !important; }
+    .border-gray-400 { border-color: #9ca3af !important; }
+    
+    .border-opacity-10 { --tw-border-opacity: 0.1 !important; }
+    .border-opacity-20 { --tw-border-opacity: 0.2 !important; }
+    .border-opacity-30 { --tw-border-opacity: 0.3 !important; }
+    .border-opacity-50 { --tw-border-opacity: 0.5 !important; }
+    
+    .border-white.border-opacity-20 { border-color: rgba(255, 255, 255, 0.2) !important; }
+    .border-white.border-opacity-30 { border-color: rgba(255, 255, 255, 0.3) !important; }
+    .border-red-400.border-opacity-50 { border-color: rgba(248, 113, 113, 0.5) !important; }
+    .border-green-400.border-opacity-50 { border-color: rgba(74, 222, 128, 0.5) !important; }
+    .border-blue-400.border-opacity-50 { border-color: rgba(96, 165, 250, 0.5) !important; }
+    
+    .rounded { border-radius: 4px !important; }
+    .rounded-md { border-radius: 6px !important; }
+    .rounded-lg { border-radius: 8px !important; }
+    .rounded-xl { border-radius: 12px !important; }
+    .rounded-full { border-radius: 9999px !important; }
+    
+    .shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important; }
+    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important; }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+    .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; }
+    
+    /* Backdrop blur utilities */
+    .backdrop-blur-sm { backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
+    .backdrop-blur-md { backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; }
+    .backdrop-blur-lg { backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; }
+    
+    .opacity-0 { opacity: 0 !important; }
+    .opacity-50 { opacity: 0.5 !important; }
+    .opacity-70 { opacity: 0.7 !important; }
+    .opacity-75 { opacity: 0.75 !important; }
+    .opacity-90 { opacity: 0.9 !important; }
+    .opacity-100 { opacity: 1 !important; }
+    
+    .cursor-default { cursor: default !important; }
+    .cursor-pointer { cursor: pointer !important; }
+    .cursor-not-allowed { cursor: not-allowed !important; }
+    
+    .select-none { user-select: none !important; }
+    .select-text { user-select: text !important; }
+    
+    .outline-none { outline: none !important; }
+    .outline { outline-style: solid !important; }
+    
+    .overflow-auto { overflow: auto !important; }
+    .overflow-hidden { overflow: hidden !important; }
+    .overflow-visible { overflow: visible !important; }
+    .overflow-y-auto { overflow-y: auto !important; }
+    .overflow-x-hidden { overflow-x: hidden !important; }
+    
+    .pointer-events-none { pointer-events: none !important; }
+    .pointer-events-auto { pointer-events: auto !important; }
+    
+    .transition { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform !important; transition-duration: 150ms !important; }
+    .transition-all { transition-property: all !important; transition-duration: 150ms !important; }
+    .transition-colors { transition-property: background-color, border-color, color, fill, stroke !important; transition-duration: 150ms !important; }
+    .transition-opacity { transition-property: opacity !important; transition-duration: 150ms !important; }
+    .transition-transform { transition-property: transform !important; transition-duration: 150ms !important; }
+    .duration-75 { transition-duration: 75ms !important; }
+    .duration-100 { transition-duration: 100ms !important; }
+    .duration-150 { transition-duration: 150ms !important; }
+    .duration-200 { transition-duration: 200ms !important; }
+    .duration-300 { transition-duration: 300ms !important; }
+    .duration-500 { transition-duration: 500ms !important; }
+    .ease-in { transition-timing-function: cubic-bezier(0.4, 0, 1, 1) !important; }
+    .ease-out { transition-timing-function: cubic-bezier(0, 0, 0.2, 1) !important; }
+    .ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important; }
+    
+    .transform { transform: translateX(var(--tw-translate-x, 0)) translateY(var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1)) !important; }
+    .-translate-y-0\\.5 { --tw-translate-y: -2px !important; }
+    .-translate-y-1\\/2 { --tw-translate-y: -50% !important; }
+    .translate-y-0 { --tw-translate-y: 0 !important; }
+    .translate-x-0 { --tw-translate-x: 0 !important; }
+    .-translate-x-2 { --tw-translate-x: -8px !important; }
+    .translate-x-full { --tw-translate-x: 100% !important; }
+    .scale-95 { --tw-scale-x: 0.95 !important; --tw-scale-y: 0.95 !important; }
+    .scale-100 { --tw-scale-x: 1 !important; --tw-scale-y: 1 !important; }
+    
+    /* Hover states */
+    .hover\\:bg-gray-50:hover { background-color: #f9fafb !important; }
+    .hover\\:bg-gray-100:hover { background-color: #f3f4f6 !important; }
+    .hover\\:bg-gray-200:hover { background-color: #e5e7eb !important; }
+    .hover\\:bg-gray-700:hover { background-color: #374151 !important; }
+    .hover\\:bg-blue-600:hover { background-color: #2563eb !important; }
+    .hover\\:bg-blue-700:hover { background-color: #1d4ed8 !important; }
+    .hover\\:bg-red-600:hover { background-color: #dc2626 !important; }
+    .hover\\:bg-green-600:hover { background-color: #16a34a !important; }
+    .hover\\:bg-opacity-10:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
+    .hover\\:bg-opacity-20:hover { background-color: rgba(255, 255, 255, 0.2) !important; }
+    .hover\\:bg-opacity-30:hover { background-color: rgba(255, 255, 255, 0.3) !important; }
+    .hover\\:text-gray-300:hover { color: #d1d5db !important; }
+    .hover\\:text-gray-400:hover { color: #9ca3af !important; }
+    .hover\\:text-gray-600:hover { color: #4b5563 !important; }
+    .hover\\:text-gray-900:hover { color: #111827 !important; }
+    .hover\\:text-blue-200:hover { color: #bfdbfe !important; }
+    .hover\\:text-blue-400:hover { color: #60a5fa !important; }
+    .hover\\:text-blue-600:hover { color: #2563eb !important; }
+    .hover\\:text-red-600:hover { color: #dc2626 !important; }
+    .hover\\:text-gray-200:hover { color: #e5e7eb !important; }
+    .hover\\:underline:hover { text-decoration: underline !important; }
+    .hover\\:no-underline:hover { text-decoration: none !important; }
+    .hover\\:opacity-80:hover { opacity: 0.8 !important; }
+    .hover\\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+    
+    /* Focus states */
+    .focus\\:outline-none:focus { outline: none !important; }
+    .focus\\:ring-2:focus { box-shadow: 0 0 0 2px !important; }
+    .focus\\:ring-4:focus { box-shadow: 0 0 0 4px !important; }
+    .focus\\:ring-white:focus { --tw-ring-color: white !important; }
+    .focus\\:ring-blue-300:focus { --tw-ring-color: #93c5fd !important; }
+    .focus\\:ring-blue-500:focus { --tw-ring-color: #3b82f6 !important; }
+    .focus\\:ring-opacity-50:focus { --tw-ring-opacity: 0.5 !important; }
+    .focus\\:border-blue-500:focus { border-color: #3b82f6 !important; }
+    
+    /* Active states */
+    .active\\:bg-gray-100:active { background-color: #f3f4f6 !important; }
+    .active\\:bg-gray-200:active { background-color: #e5e7eb !important; }
+    .active\\:bg-blue-700:active { background-color: #1d4ed8 !important; }
+    
+    /* Disabled states */
+    .disabled\\:opacity-50:disabled { opacity: 0.5 !important; }
+    .disabled\\:cursor-not-allowed:disabled { cursor: not-allowed !important; }
+    
+    /* Group hover states */
+    .group:hover .group-hover\\:text-gray-900 { color: #111827 !important; }
+    .group:hover .group-hover\\:opacity-100 { opacity: 1 !important; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .verse-content {
+        max-width: 90% !important;
+        padding: 0 10px !important;
+      }
+      
+      .verse-text {
+        font-size: 24px !important;
+        line-height: 32px !important;
+      }
+      
+      .verse-reference {
+        font-size: 18px !important;
+        line-height: 24px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 12px 32px !important;
+        font-size: 16px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .verse-text {
+        font-size: 20px !important;
+        line-height: 28px !important;
+      }
+      
+      .verse-reference {
+        font-size: 16px !important;
+        line-height: 20px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+      }
+    }
+    
+    /* Animation classes */
+    .animate-slideIn { animation: slideIn 0.3s ease-out !important; }
+    .animate-fadeIn { animation: fadeIn 0.3s ease-out !important; }
+    
+    /* Link styles - prevent background on links */
+    a {
+      background-color: transparent !important;
+      text-decoration: none !important;
+    }
+    
+    /* Ensure proper link button styling */
+    a.underline {
+      text-decoration: underline !important;
+    }
+    
+    /* Modal link button styles */
+    .df-glassmorphism-modal button.text-blue-300,
+    .df-glassmorphism-modal a.text-blue-300 {
+      background-color: transparent !important;
+      color: #93c5fd !important;
+    }
+    
+    /* SVG icon styles */
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      fill: currentColor;
+    }
+    
+    /* Scrollbar styles for modal */
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .modal-content::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+    
+    .modal-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+    
+    .modal-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* CSS Custom Properties for glassmorphism */
+    :host {
+      --df-bg-white-10: rgba(255, 255, 255, 0.1);
+      --df-bg-white-20: rgba(255, 255, 255, 0.2);
+      --df-bg-white-30: rgba(255, 255, 255, 0.3);
+      --df-backdrop-blur-sm: blur(4px);
+      --df-backdrop-blur-md: blur(12px);
+      --df-border-white-20: rgba(255, 255, 255, 0.2);
+      --df-border-white-30: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      .verse-content {
+        max-width: 90% !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+      
+      .verse-text {
+        font-size: 24px !important;
+        line-height: 32px !important;
+      }
+      
+      .verse-reference {
+        font-size: 16px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 12px 32px !important;
+        font-size: 16px !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .verse-text {
+        font-size: 18px !important;
+      }
+      
+      .verse-reference {
+        font-size: 14px !important;
+      }
+      
+      .verse-done-btn {
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+      }
+    }
+
+    /* Auth Form Styles */
+    .auth-form-group {
+      margin-bottom: 16px !important;
+    }
+
+    .auth-label {
+      display: block !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      color: white !important;
+      margin-bottom: 4px !important;
+    }
+
+    .auth-input-wrapper {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    /* Icon class - commented out since we're not using icons anymore
+    .auth-input-icon {
+      position: absolute !important;
+      left: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+    } */
+
+    .auth-input {
+      width: 100% !important;
+      padding: 8px 12px !important;
+      font-size: 16px !important;
+      line-height: 24px !important;
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      border-radius: 6px !important;
+      outline: none !important;
+      transition: all 0.15s !important;
+    }
+
+    /* Special padding for password inputs with eye toggle */
+    .password-input-wrapper .auth-input {
+      padding-right: 40px !important;
+    }
+
+    .auth-input::placeholder {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .auth-input:focus {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .auth-input-error {
+      border-color: #f87171 !important;
+    }
+
+    .auth-input-error:focus {
+      border-color: #f87171 !important;
+      box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.3) !important;
+    }
+
+    .auth-error-message {
+      display: block !important;
+      margin-top: 4px !important;
+      font-size: 12px !important;
+      color: #fca5a5 !important;
+    }
+
+    .auth-error-banner {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+      padding: 12px !important;
+      background-color: rgba(239, 68, 68, 0.2) !important;
+      border: 1px solid rgba(248, 113, 113, 0.5) !important;
+      border-radius: 6px !important;
+      color: #fecaca !important;
+      font-size: 14px !important;
+    }
+
+    .password-input-wrapper {
+      position: relative !important;
+    }
+
+    .password-toggle {
+      position: absolute !important;
+      right: 8px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      padding: 4px !important;
+      color: rgba(255, 255, 255, 0.9) !important;
+      background: transparent !important;
+      border: none !important;
+      cursor: pointer !important;
+      transition: color 0.15s !important;
+      z-index: 2 !important;
+    }
+
+    .password-toggle:hover {
+      color: white !important;
+    }
+
+    .password-strength {
+      margin-top: 4px !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+    }
+
+    /* Tailwind utility classes */
+    .grid {
+      display: grid !important;
+    }
+
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .gap-3 {
+      gap: 12px !important;
+    }
+
+    .space-y-4 > * + * {
+      margin-top: 16px !important;
+    }
+
+    .space-y-2 > * + * {
+      margin-top: 8px !important;
+    }
+
+    .flex {
+      display: flex !important;
+    }
+
+    .items-center {
+      align-items: center !important;
+    }
+
+    .justify-center {
+      justify-content: center !important;
+    }
+
+    .justify-between {
+      justify-content: space-between !important;
+    }
+
+    .gap-2 {
+      gap: 8px !important;
+    }
+
+    .relative {
+      position: relative !important;
+    }
+
+    .absolute {
+      position: absolute !important;
+    }
+
+    .inset-0 {
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+    }
+
+    .z-10 {
+      z-index: 10 !important;
+    }
+
+    .w-full {
+      width: 100% !important;
+    }
+
+    .w-80 {
+      width: 320px !important;
+    }
+
+    .max-w-sm {
+      max-width: 384px !important;
+    }
+
+    .text-center {
+      text-align: center !important;
+    }
+
+    .text-sm {
+      font-size: 14px !important;
+      line-height: 20px !important;
+    }
+
+    .text-lg {
+      font-size: 18px !important;
+      line-height: 28px !important;
+    }
+
+    .font-semibold {
+      font-weight: 600 !important;
+    }
+
+    .text-white {
+      color: white !important;
+    }
+
+    .text-blue-300 {
+      color: #93c5fd !important;
+    }
+
+    .text-blue-200 {
+      color: #bfdbfe !important;
+    }
+
+    .underline {
+      text-decoration: underline !important;
+    }
+
+    .mt-4 {
+      margin-top: 16px !important;
+    }
+
+    .mb-4 {
+      margin-bottom: 16px !important;
+    }
+
+    .p-6 {
+      padding: 24px !important;
+    }
+
+    .py-2 {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+
+    .px-4 {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+
+    .rounded {
+      border-radius: 4px !important;
+    }
+
+    .rounded-lg {
+      border-radius: 8px !important;
+    }
+
+    .border {
+      border-width: 1px !important;
+    }
+
+    .border-white {
+      border-color: white !important;
+    }
+
+    .border-opacity-20 {
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .bg-black {
+      background-color: black !important;
+    }
+
+    .bg-white {
+      background-color: white !important;
+    }
+
+    .bg-opacity-10 {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .bg-opacity-20 {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .bg-opacity-30 {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .bg-opacity-50 {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .bg-green-600 {
+      background-color: #059669 !important;
+    }
+
+    .bg-green-700 {
+      background-color: #047857 !important;
+    }
+
+    .bg-gray-500 {
+      background-color: #6b7280 !important;
+    }
+
+    .backdrop-blur-md {
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    .hover\\:bg-green-700:hover {
+      background-color: #047857 !important;
+    }
+
+    .hover\\:bg-opacity-30:hover {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .hover\\:text-blue-200:hover {
+      color: #bfdbfe !important;
+    }
+
+    .disabled\\:bg-gray-500:disabled {
+      background-color: #6b7280 !important;
+    }
+
+    .transition-colors {
+      transition-property: background-color, border-color, color, fill, stroke !important;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transition-duration: 150ms !important;
+    }
+
+    .w-5 {
+      width: 20px !important;
+    }
+
+    .h-5 {
+      height: 20px !important;
+    }
+
+  `;
+};
+```
+
+# src/types/index.ts
 
 ```ts
 // Bible API types
@@ -3883,6 +6240,7 @@ export interface ChromeResponse {
 export interface VerseOverlayProps {
   verse: VerseData;
   onDismiss: () => void;
+  shadowRoot?: ShadowRoot;
 }
 
 export interface UserModalProps {
@@ -4065,14 +6423,31 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    content: './src/content/index.ts',
+    content: './src/content/monitor.ts',
+    'verse-app': './src/content/verse-app.ts',
     background: './src/background/index.ts',
-    newtab: './src/newtab/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
+    chunkFilename: '[name].[contenthash].chunk.js',
     clean: true,
+    publicPath: '',
+  },
+  optimization: {
+    splitChunks: {
+      chunks(chunk) {
+        // Don't split verse-app - we want it as a single bundle
+        return chunk.name !== 'verse-app';
+      },
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          priority: 10,
+        },
+      },
+    },
   },
   module: {
     rules: [
@@ -4105,14 +6480,13 @@ module.exports = {
         },
       ],
     }),
-    new HtmlWebpackPlugin({
-      template: './src/newtab/newtab.html',
-      filename: 'newtab.html',
-      chunks: ['newtab'],
-    }),
   ],
   mode: 'development',
   devtool: 'cheap-module-source-map',
 };
 ```
+
+# youtube.png
+
+This is a binary file of the type: Image
 

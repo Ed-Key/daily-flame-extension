@@ -48,7 +48,7 @@ export interface ChromeResponse {
 // Component props types
 export interface VerseOverlayProps {
   verse: VerseData;
-  onDismiss: () => void;
+  onDismiss: (permanent?: boolean) => void;
   shadowRoot?: ShadowRoot;
 }
 
@@ -90,6 +90,8 @@ export interface AuthContextType {
 // Bible translation mappings
 export const BIBLE_VERSIONS = {
   'KJV': 'de4e12af7f28f599-02',
+  'ASV': '06125adad2d5898a-01',
+  'ESV': 'ESV', // Special case - uses different API
   'WEB': '9879dbb7cfe39e4d-04', 
   'WEB_BRITISH': '7142879509583d59-04',
   'WEB_UPDATED': '72f4e6dc683324df-03'

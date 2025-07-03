@@ -53715,6 +53715,10 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_5__.useAuth)();
     const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_6__.useToast)();
     const doneButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const moreButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const leftLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const rightLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     // GSAP animation refs
     const overlayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const verseTextRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
@@ -53725,23 +53729,29 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         console.log('VerseOverlay: Auth state changed', { user, isAdmin });
     }, [user, isAdmin]);
-    // Custom dismiss handler with exit animation
+    // Custom dismiss handler with exit animation (marks as done for the day)
     const handleAnimatedDismiss = () => {
-        if (overlayRef.current) {
+        if (modalRef.current && overlayRef.current) {
             // Create exit animation timeline
             const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
                 onComplete: () => {
-                    onDismiss(); // Call the original dismiss function after animation
+                    onDismiss(true); // Pass true for permanent dismissal (Done button)
                 }
             });
-            // Stage 1: Scale down to small size
+            // Remove backdrop blur
             tl.to(overlayRef.current, {
+                className: 'verse-overlay', // Remove backdrop-blur class
+                duration: 0.2,
+                ease: "power2.in"
+            })
+                // Stage 1: Scale down modal to small size
+                .to(modalRef.current, {
                 scale: 0.85, // Match the entrance scale
                 duration: 0.4,
                 ease: "power2.in"
-            })
-                // Stage 2: Slide out in opposite direction while staying small
-                .to(overlayRef.current, {
+            }, "-=0.1")
+                // Stage 2: Slide modal out in opposite direction while staying small
+                .to(modalRef.current, {
                 xPercent: entranceDirectionRef.current === 'left' ? 100 : -100, // Exit opposite to entrance
                 opacity: 0,
                 duration: 0.5,
@@ -53749,7 +53759,83 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             }, "-=0.1"); // Start slightly before scale completes
         }
         else {
-            onDismiss(); // Fallback if ref not available
+            onDismiss(true); // Fallback if ref not available - treat as permanent
+        }
+    };
+    // Handle scroll for context fade effect
+    const handleContextScroll = () => {
+        if (contextContainerRef.current && fadeOverlayRef.current) {
+            const scrollHeight = contextContainerRef.current.scrollHeight;
+            const scrollTop = contextContainerRef.current.scrollTop;
+            const clientHeight = contextContainerRef.current.clientHeight;
+            const scrollBottom = scrollHeight - scrollTop - clientHeight;
+            console.log('Scroll debug:', {
+                scrollHeight,
+                scrollTop,
+                clientHeight,
+                scrollBottom,
+                shouldHide: scrollBottom <= 5
+            });
+            // If we're within 5 pixels of the bottom, hide the fade
+            if (scrollBottom <= 5) {
+                fadeOverlayRef.current.classList.add('hidden');
+            }
+            else {
+                fadeOverlayRef.current.classList.remove('hidden');
+            }
+        }
+    };
+    // Handle More button click
+    const handleMoreClick = async () => {
+        // Animate modal expansion
+        if (modalRef.current) {
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(modalRef.current, {
+                maxHeight: '90vh',
+                duration: 0.4,
+                ease: "power2.out",
+                onComplete: () => {
+                    modalRef.current?.classList.add('verse-modal-expanded');
+                }
+            });
+        }
+        setShowContext(true);
+        setContextLoading(true);
+        // Set initial translation based on current verse
+        const translationKey = Object.entries(_types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS).find(([_, id]) => id === verse.bibleId)?.[0] || 'KJV';
+        setContextTranslation(translationKey);
+        try {
+            // Extract book and chapter from verse reference (e.g., "John 3:16" -> "John 3")
+            const chapterMatch = verse.reference.match(/^(.+?)\s+(\d+):/);
+            if (chapterMatch) {
+                const book = chapterMatch[1];
+                const chapter = chapterMatch[2];
+                const chapterRef = `${book} ${chapter}`;
+                // Fetch full chapter
+                const fullChapter = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getChapter(chapterRef, verse.bibleId);
+                setChapterContent(fullChapter);
+                // Set up scroll listener after content loads
+                setTimeout(() => {
+                    if (contextContainerRef.current) {
+                        contextContainerRef.current.addEventListener('scroll', handleContextScroll);
+                        // Initial check
+                        handleContextScroll();
+                    }
+                    // Animate the title underline
+                    const underline = modalRef.current?.querySelector('.context-title-underline');
+                    if (underline) {
+                        setTimeout(() => {
+                            underline.classList.add('animate');
+                        }, 200);
+                    }
+                }, 100);
+            }
+        }
+        catch (error) {
+            console.error('Error fetching chapter:', error);
+            showToast('Failed to load chapter context', 'error');
+        }
+        finally {
+            setContextLoading(false);
         }
     };
     // Admin verse controls state
@@ -53758,6 +53844,13 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const [adminPreviewVerse, setAdminPreviewVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [adminLoading, setAdminLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [adminError, setAdminError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    // Context view state
+    const [showContext, setShowContext] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [contextLoading, setContextLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [chapterContent, setChapterContent] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [contextTranslation, setContextTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
+    const contextContainerRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const fadeOverlayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     // Authentication state
     const [showSignIn, setShowSignIn] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [showSignUp, setShowSignUp] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -53801,44 +53894,55 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             eventTarget.removeEventListener('keydown', handleKeyDown);
         };
     }, [showProfileDropdown, shadowRoot]);
-    // GSAP Overlay Entrance Animation
+    // GSAP Modal Entrance Animation with Backdrop Blur
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
-        if (overlayRef.current) {
+        if (overlayRef.current && modalRef.current) {
             // Randomly choose direction and store it for exit animation
             const direction = Math.random() > 0.5 ? 'left' : 'right';
             entranceDirectionRef.current = direction;
-            // Set initial states - start small and off-screen
+            // Set initial states - backdrop visible but no blur
             gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(overlayRef.current, {
+                opacity: 1,
+                className: 'verse-overlay' // No backdrop-blur class initially
+            });
+            // Set modal initial state - start small and off-screen
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(modalRef.current, {
                 xPercent: direction === 'left' ? -100 : 100,
-                scale: 0.85, // Start at 70% scale
+                scale: 0.85, // Start at 85% scale
                 opacity: 0
             });
             // Create animation timeline
             const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
                 onComplete: () => {
-                    console.log('Overlay entrance animation completed');
+                    console.log('Modal entrance animation completed');
                 }
             });
-            // Stage 1: Slide in from side while staying small
-            tl.to(overlayRef.current, {
+            // Stage 1: Slide modal in from side while staying small
+            tl.to(modalRef.current, {
                 xPercent: 0,
                 opacity: 1,
                 duration: 0.6,
                 ease: "power2.out"
             })
-                // Stage 2: Scale up to full size once centered
+                // Stage 2: Add backdrop blur effect (fast)
                 .to(overlayRef.current, {
+                className: 'verse-overlay backdrop-blur',
+                duration: 0.3,
+                ease: "power2.out"
+            }, "-=0.2") // Start slightly before modal finishes sliding
+                // Stage 3: Scale modal up to full size
+                .to(modalRef.current, {
                 scale: 1,
                 duration: 0.5,
                 ease: "back.out(1.2)" // Slight overshoot for dramatic effect
-            }, "-=0.1"); // Start slightly before slide completes
+            }, "-=0.2"); // Overlap with blur animation
         }
     }, []);
     // GSAP Verse Animation Setup
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
         console.log('GSAP useGSAP hook running');
-        // Split verse text into words for word-by-word animation
-        if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && verseContentRef.current) {
+        // Split verse text into letters for letter-by-letter animation
+        if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
             gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseContentRef.current, {
@@ -53846,8 +53950,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 visibility: 'visible'
             });
             // Set initial states for animation elements
-            // Don't hide verseTextRef since we're animating the words inside it
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([verseReferenceRef.current, doneButtonRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                 opacity: 0,
                 y: 30,
                 scale: 0.95,
@@ -53859,24 +53962,33 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 opacity: 0,
                 visibility: 'visible'
             });
-            const verseWords = verse.text.split(' ');
-            const wordSpans = verseWords.map((word, index) => `<span class="verse-word">${word}</span>`).join(' ');
+            // Split text into words first, then letters within each word
+            const words = verse.text.split(' ');
+            const wordSpans = words.map((word, wordIndex) => {
+                const letters = word.split('').map((letter, letterIndex) => `<span class="verse-letter">${letter}</span>`).join('');
+                return `<span class="verse-word">${letters}</span>`;
+            }).join(' '); // Join words with regular spaces
             verseTextRef.current.innerHTML = `<span class="verse-quote opening-quote">"</span>${wordSpans}<span class="verse-quote closing-quote">"</span>`;
             // Get all animated elements
-            const wordElements = verseContentRef.current.querySelectorAll('.verse-word');
+            const letterElements = verseContentRef.current.querySelectorAll('.verse-letter');
             const openingQuote = verseContentRef.current.querySelector('.opening-quote');
             const closingQuote = verseContentRef.current.querySelector('.closing-quote');
             console.log('Found elements:', {
-                words: wordElements.length,
+                letters: letterElements.length,
                 openingQuote: !!openingQuote,
                 closingQuote: !!closingQuote
             });
-            if (wordElements.length > 0 && openingQuote && closingQuote) {
-                // Set initial state for all animated elements
-                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([wordElements, openingQuote, closingQuote], {
+            if (letterElements.length > 0 && openingQuote && closingQuote) {
+                // Set initial state for quotes
+                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([openingQuote, closingQuote], {
                     opacity: 0,
-                    y: 20,
                     display: 'inline-block'
+                });
+                // Set initial state for letters with minimal glow
+                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(letterElements, {
+                    opacity: 0,
+                    display: 'inline-block',
+                    textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                 });
                 // Now make the container visible after all elements are hidden
                 gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseTextRef.current, {
@@ -53892,61 +54004,101 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                         console.log('GSAP timeline completed');
                     }
                 });
-                // Animate opening quote first
-                tl.to(openingQuote, {
+                // Animate opening quote first with glow
+                tl.fromTo(openingQuote, {
+                    opacity: 0,
+                    textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+                }, {
                     opacity: 1,
-                    y: 0,
+                    textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
                     duration: 0.5,
-                    ease: "power2.out",
-                    clearProps: "opacity,transform,y,display"
+                    ease: "power2.out"
                 })
-                    // Then animate words one by one with stagger
-                    .to(wordElements, {
+                    .to(openingQuote, {
+                    textShadow: "0px 0px 0px rgba(255,255,255,0)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                }, "-=0.1");
+                // Animate letters with staggered parallel execution matching CodePen
+                tl.to(letterElements, {
+                    keyframes: [
+                        { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
+                        { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 }, // 66% of 0.7
+                        { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.077 }, // 77% - 66% = 11%
+                        { opacity: 0.7, textShadow: "0px 0px 20px rgba(255,255,255,0.0)", duration: 0.161 } // 100% - 77% = 23%
+                    ],
+                    duration: 0.7,
+                    ease: "none", // Linear to match CSS animation
+                    stagger: 0.05 // 50ms delay between each letter start
+                }, "-=0.3");
+                // Animate closing quote with glow
+                tl.fromTo(closingQuote, {
+                    opacity: 0,
+                    textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+                }, {
                     opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    ease: "power2.out",
-                    stagger: 0.08, // 80ms delay between each word
-                    clearProps: "opacity,transform,y,display"
-                }, "-=0.3") // Start slightly before opening quote finishes
-                    // Animate closing quote after last word
-                    .to(closingQuote, {
-                    opacity: 1,
-                    y: 0,
+                    textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
                     duration: 0.5,
-                    ease: "power2.out",
-                    clearProps: "opacity,transform,y,display"
-                }, "-=0.2") // Start just before last word finishes
-                    // Then animate verse reference
+                    ease: "power2.out"
+                }, "-=0.2")
+                    .to(closingQuote, {
+                    textShadow: "0px 0px 0px rgba(255,255,255,0)",
+                    duration: 0.3,
+                    ease: "power2.out"
+                }, "-=0.1")
+                    // Then animate verse reference with lines
                     .to(verseReferenceRef.current, {
                     opacity: 1,
                     y: 0,
                     scale: 1,
                     duration: 0.8,
                     ease: "power2.out",
-                    clearProps: "opacity,transform,y,scale,display"
-                }, "-=0.4") // Start before closing quote finishes
-                    // Finally animate done button
-                    .to(doneButtonRef.current, {
+                    clearProps: "opacity,transform,y,scale,display",
+                    onComplete: () => {
+                        // Animate the decorative lines after reference appears
+                        if (leftLineRef.current && rightLineRef.current) {
+                            leftLineRef.current.classList.add('animate');
+                            rightLineRef.current.classList.add('animate');
+                        }
+                    }
+                }, "-=0.4")
+                    // Add final whole sentence glow effect - gradual build-up
+                    .to([letterElements, openingQuote, closingQuote], {
+                    opacity: 1,
+                    textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
+                    duration: 1.2, // Slower, more gradual glow build-up
+                    ease: "power2.inOut"
+                }, "+=0.3") // Wait after reference settles before starting glow
+                    // .to([letterElements, openingQuote, closingQuote], {
+                    //   opacity: 0.7,
+                    //   textShadow: "0px 0px 0px rgba(255,255,255,0)",
+                    //   duration: 0.3,
+                    //   ease: "power2.out"
+                    // }, "+=1") // Hold the glow for 0.4 seconds before fading
+                    // Finally animate buttons
+                    .to([doneButtonRef.current, moreButtonRef.current], {
                     opacity: 1,
                     y: 0,
                     scale: 1,
                     duration: 0.6,
                     ease: "back.out(1.7)",
-                    clearProps: "opacity,transform,y,scale,display"
-                }, "-=0.2"); // Start before reference finishes
+                    clearProps: "opacity,transform,y,scale,display",
+                    stagger: 0.1
+                }, "-=0.4");
                 // Force play the timeline
                 tl.play();
             }
             else {
-                console.error('No word elements found to animate');
+                console.error('No letter elements found to animate');
             }
         }
         else {
             console.error('One or more refs are null:', {
                 verseText: !!verseTextRef.current,
                 verseReference: !!verseReferenceRef.current,
-                doneButton: !!doneButtonRef.current
+                doneButton: !!doneButtonRef.current,
+                moreButton: !!moreButtonRef.current,
+                verseContent: !!verseContentRef.current
             });
         }
     }, { dependencies: [verse.text, verse.reference], scope: verseContentRef });
@@ -53954,9 +54106,43 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         // Disable keyboard dismissal to prevent accidental dismissal when testing admin features
         // Only the "Done" button should dismiss the overlay
     };
+    // Custom shrink dismissal for backdrop click (temporary dismiss)
+    const handleShrinkDismiss = () => {
+        if (modalRef.current && overlayRef.current) {
+            // Create shrink animation timeline
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
+                onComplete: () => {
+                    onDismiss(false); // Temporary dismissal
+                }
+            });
+            // Shrink and fade out the modal
+            tl.to(modalRef.current, {
+                scale: 0,
+                opacity: 0,
+                duration: 0.4,
+                ease: "power2.in"
+            })
+                // Also fade out the backdrop
+                .to(overlayRef.current, {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.in"
+            }, "-=0.3"); // Start slightly after modal starts shrinking
+        }
+        else {
+            onDismiss(false); // Fallback if refs not available
+        }
+    };
     const handleOverlayClick = (e) => {
-        // Disable click-to-dismiss to prevent accidental dismissal when testing admin features
-        // Only the "Done" button should dismiss the overlay
+        // Check if click was on the backdrop (not the modal)
+        if (e.target === e.currentTarget) {
+            // Use shrink animation for temporary dismissal
+            handleShrinkDismiss();
+        }
+    };
+    const handleModalClick = (e) => {
+        // Prevent clicks inside modal from bubbling to backdrop
+        e.stopPropagation();
     };
     const handleAdminPreview = async () => {
         if (!adminReference || !adminTranslation) {
@@ -54040,23 +54226,308 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         }
         return null;
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: overlayRef, className: "verse-overlay", onKeyDown: handleKeyDown, onClick: handleOverlayClick, tabIndex: 0, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? (
-                /* Sign In Button - Only visible when not authenticated */
-                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignIn(true), className: "df-glassmorphism-element px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white border-opacity-30", children: "Sign In" })) : (
-                /* Profile Dropdown - Only visible when authenticated */
-                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowProfileDropdown(!showProfileDropdown), className: "df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white border-opacity-30", children: [getUserAvatar(user) ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", { src: getUserAvatar(user), alt: "Profile", className: "w-6 h-6 rounded-full" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold", children: getUserInitials(user) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-4 h-4", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z", clipRule: "evenodd" }) })] }), showProfileDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-20 mb-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm font-medium", children: user.displayName || 'User' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-70 text-xs", children: user.email }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1 flex gap-2", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-green-600 bg-opacity-20 text-green-200 text-xs rounded border border-green-400 border-opacity-50", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-yellow-600 bg-opacity-20 text-yellow-200 text-xs rounded border border-yellow-400 border-opacity-50", children: "Unverified" }))] })] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: async () => {
-                                        try {
-                                            await sendVerificationEmail();
-                                            showToast('Verification email sent! Please check your inbox.', 'success');
-                                        }
-                                        catch (error) {
-                                            console.error('Error sending verification email:', error);
-                                            showToast('Failed to send verification email. Please try again.', 'error');
-                                        }
-                                    }, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleClearAuthTokens, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", title: "Clear auth tokens to test with different Google accounts", children: "Clear Auth Tokens" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] })) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+    // Get translation name from bibleId
+    const getTranslationName = (bibleId) => {
+        const entry = Object.entries(_types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS).find(([_, id]) => id === bibleId);
+        return entry ? entry[0] : 'KJV';
+    };
+    // Handle context translation change
+    const handleContextTranslationChange = async (newTranslation) => {
+        setContextTranslation(newTranslation);
+        setContextLoading(true);
+        try {
+            // Extract book and chapter from current chapter reference
+            const chapterMatch = chapterContent?.reference?.match(/^(.+?)\s+(\d+)$/);
+            if (chapterMatch) {
+                const chapterRef = chapterContent.reference;
+                const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[newTranslation];
+                // Fetch chapter in new translation
+                const fullChapter = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getChapter(chapterRef, bibleId);
+                setChapterContent(fullChapter);
+                // Set up scroll listener after content loads
+                setTimeout(() => {
+                    if (contextContainerRef.current) {
+                        contextContainerRef.current.addEventListener('scroll', handleContextScroll);
+                        // Initial check
+                        handleContextScroll();
+                    }
+                }, 100);
+            }
+        }
+        catch (error) {
+            console.error('Error fetching chapter in new translation:', error);
+            showToast('Failed to load chapter in selected translation', 'error');
+        }
+        finally {
+            setContextLoading(false);
+        }
+    };
+    // Handle back from context view
+    const handleBackFromContext = () => {
+        // Remove scroll listener
+        if (contextContainerRef.current) {
+            contextContainerRef.current.removeEventListener('scroll', handleContextScroll);
+        }
+        // Animate modal back to original size
+        if (modalRef.current) {
+            modalRef.current.classList.remove('verse-modal-expanded');
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(modalRef.current, {
+                maxHeight: '85vh',
+                duration: 0.4,
+                ease: "power2.out"
+            });
+        }
+        // Re-animate the verse reference lines using GSAP
+        if (leftLineRef.current && rightLineRef.current) {
+            // Remove the animate class first
+            leftLineRef.current.classList.remove('animate');
+            rightLineRef.current.classList.remove('animate');
+            // Set initial state with GSAP
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([leftLineRef.current, rightLineRef.current], {
+                width: '0%'
+            });
+            // Animate lines expanding from center after a delay
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(leftLineRef.current, {
+                width: '40%',
+                maxWidth: '200px',
+                duration: 0.8,
+                ease: "power2.out",
+                delay: 0.5,
+                onComplete: () => {
+                    // Add the animate class to maintain the state
+                    if (leftLineRef.current) {
+                        leftLineRef.current.classList.add('animate');
+                        // Clear inline styles since the class will handle the width
+                        gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(leftLineRef.current, { clearProps: 'width' });
+                    }
+                }
+            });
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(rightLineRef.current, {
+                width: '40%',
+                maxWidth: '200px',
+                duration: 0.8,
+                ease: "power2.out",
+                delay: 0.5,
+                onComplete: () => {
+                    // Add the animate class to maintain the state
+                    if (rightLineRef.current) {
+                        rightLineRef.current.classList.add('animate');
+                        // Clear inline styles since the class will handle the width
+                        gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(rightLineRef.current, { clearProps: 'width' });
+                    }
+                }
+            });
+        }
+        setShowContext(false);
+    };
+    // Parse and render context verses
+    const renderContextVerses = () => {
+        if (!chapterContent || !chapterContent.content)
+            return null;
+        // Extract current verse number from reference
+        const currentVerseMatch = verse.reference.match(/:(\d+)/);
+        const currentVerseNumber = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
+        // Check if we should use KJV formatting (each verse as separate paragraph)
+        const useKJVFormatting = contextTranslation === 'KJV' || contextTranslation === 'ASV';
+        // Parse content and render verses with paragraph support
+        const paragraphs = [];
+        let currentParagraph = [];
+        let currentVerseContent = [];
+        let currentVerseNum = '';
+        let paragraphKey = 0;
+        let currentParagraphStyle = '';
+        const addVerseToParagraph = (verseNum, verseContent) => {
+            if (verseNum) {
+                const verseNumber = parseInt(verseNum);
+                const isHighlighted = verseNumber === currentVerseNumber;
+                if (useKJVFormatting) {
+                    // For KJV/ASV: Each verse is its own paragraph with style
+                    let verseClasses = `context-paragraph kjv-verse ${isHighlighted ? 'highlighted-verse' : ''}`;
+                    // Apply poetry styles to KJV verses too
+                    if (currentParagraphStyle === 'q1') {
+                        verseClasses += ' poetry-q1';
+                    }
+                    else if (currentParagraphStyle === 'q2') {
+                        verseClasses += ' poetry-q2';
+                    }
+                    else if (currentParagraphStyle === 'd') {
+                        // For descriptors, use special styling
+                        paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "psalm-descriptor", children: verseContent }, `verse-${verseNum}`));
+                        return;
+                    }
+                    paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { className: "context-verse-number", children: verseNum }), verseContent.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: verseContent })] }, `verse-${verseNum}`));
+                }
+                else {
+                    // For other translations: Group verses by paragraphs
+                    currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verseNum }), verseContent.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verseContent, " "] })] }, `verse-${verseNum}`));
+                }
+            }
+        };
+        const finishParagraph = () => {
+            if (currentParagraph.length > 0) {
+                // Determine CSS classes based on paragraph style
+                let paragraphClasses = "context-paragraph";
+                if (currentParagraphStyle === 'q1') {
+                    paragraphClasses += " poetry-q1";
+                }
+                else if (currentParagraphStyle === 'q2') {
+                    paragraphClasses += " poetry-q2";
+                }
+                else if (currentParagraphStyle === 'd') {
+                    paragraphClasses = "psalm-descriptor"; // Replace default class for descriptors
+                }
+                else if (currentParagraphStyle === 'b') {
+                    paragraphClasses += " poetry-break";
+                }
+                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: paragraphClasses, children: currentParagraph }, `para-${paragraphKey++}`));
+                currentParagraph = [];
+            }
+        };
+        // Helper function to recursively extract text from nested items
+        const extractTextFromItems = (items, isWordsOfJesus = false, isTranslatorAddition = false, isDivineName = false) => {
+            const elements = [];
+            items.forEach((item, index) => {
+                if (item.type === 'text') {
+                    const text = item.text || '';
+                    if (text.trim()) {
+                        // Apply appropriate classes based on parent styles
+                        if (isDivineName) {
+                            // Divine name (LORD) - takes precedence
+                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "divine-name", children: text }, `nd-${index}`));
+                        }
+                        else if (isWordsOfJesus && isTranslatorAddition) {
+                            // Both styles apply
+                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus translator-addition", children: text }, `woj-add-${index}`));
+                        }
+                        else if (isWordsOfJesus) {
+                            // Only words of Jesus
+                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: text }, `woj-${index}`));
+                        }
+                        else if (isTranslatorAddition) {
+                            // Only translator addition
+                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translator-addition", children: text }, `add-${index}`));
+                        }
+                        else {
+                            // Plain text
+                            elements.push(text);
+                        }
+                    }
+                    else if (text) {
+                        // Keep whitespace even if not trimmed
+                        elements.push(text);
+                    }
+                }
+                else if (item.type === 'tag' && item.items) {
+                    // Check style types
+                    const isWoj = item.name === 'char' && item.attrs?.style === 'wj';
+                    const isAdd = item.name === 'char' && item.attrs?.style === 'add';
+                    const isNd = item.name === 'char' && item.attrs?.style === 'nd';
+                    // Recursively get text from nested tags, preserving parent styles
+                    elements.push(...extractTextFromItems(item.items, isWoj || isWordsOfJesus, isAdd || isTranslatorAddition, isNd || isDivineName));
+                }
+            });
+            return elements;
+        };
+        // Debug logging
+        console.log('Chapter content structure:', chapterContent);
+        chapterContent.content.forEach((section) => {
+            // Each section is a paragraph with a style
+            if (section.type === 'tag' && section.name === 'para') {
+                // Get the paragraph style
+                currentParagraphStyle = section.attrs?.style || 'p';
+                // Process items within this paragraph
+                if (section.items) {
+                    let i = 0;
+                    while (i < section.items.length) {
+                        const item = section.items[i];
+                        if (item.type === 'tag' && item.name === 'verse') {
+                            // Add previous verse to current paragraph (even if empty)
+                            if (currentVerseNum) {
+                                addVerseToParagraph(currentVerseNum, currentVerseContent);
+                            }
+                            // Start new verse
+                            currentVerseNum = item.attrs?.number || '';
+                            currentVerseContent = [];
+                            i++;
+                            // Collect all content until the next verse or para tag
+                            while (i < section.items.length) {
+                                const nextItem = section.items[i];
+                                if (nextItem.type === 'tag' && (nextItem.name === 'verse' || nextItem.name === 'para')) {
+                                    break;
+                                }
+                                if (nextItem.type === 'text') {
+                                    currentVerseContent.push(nextItem.text || '');
+                                }
+                                else if (nextItem.type === 'tag' && nextItem.items) {
+                                    // Check if this is a words of Jesus tag, translator addition, or divine name before extracting content
+                                    const isWoj = nextItem.name === 'char' && nextItem.attrs?.style === 'wj';
+                                    const isAdd = nextItem.name === 'char' && nextItem.attrs?.style === 'add';
+                                    const isNd = nextItem.name === 'char' && nextItem.attrs?.style === 'nd';
+                                    if (isWoj) {
+                                        console.log('Found words of Jesus tag in verse', currentVerseNum, nextItem);
+                                    }
+                                    if (isAdd) {
+                                        console.log('Found translator addition tag in verse', currentVerseNum, nextItem);
+                                    }
+                                    if (isNd) {
+                                        console.log('Found divine name tag in verse', currentVerseNum, nextItem);
+                                    }
+                                    // Extract content from nested tags (like char)
+                                    currentVerseContent.push(...extractTextFromItems(nextItem.items, isWoj, isAdd, isNd));
+                                }
+                                i++;
+                            }
+                        }
+                        else {
+                            i++;
+                        }
+                    }
+                    // Finish processing this paragraph section
+                    if (currentVerseNum) {
+                        addVerseToParagraph(currentVerseNum, currentVerseContent);
+                        currentVerseContent = [];
+                        currentVerseNum = '';
+                    }
+                    // For non-KJV, finish the paragraph after processing all its verses
+                    if (!useKJVFormatting) {
+                        finishParagraph();
+                    }
+                }
+            }
+        });
+        // Add the last verse (even if empty)
+        if (currentVerseNum) {
+            addVerseToParagraph(currentVerseNum, currentVerseContent);
+        }
+        // Finish the last paragraph
+        if (!useKJVFormatting) {
+            finishParagraph();
+            // If no paragraph tags were found, put all verses in one paragraph
+            if (paragraphs.length === 0 && currentParagraph.length > 0) {
+                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, "para-single"));
+            }
+        }
+        return paragraphs;
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onKeyDown: handleKeyDown, onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? (
+                            /* Sign In Button - Only visible when not authenticated */
+                            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignIn(true), className: "df-glassmorphism-element px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: "Sign In" })) : (
+                            /* Profile Dropdown - Only visible when authenticated */
+                            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowProfileDropdown(!showProfileDropdown), className: "df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: [getUserAvatar(user) ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", { src: getUserAvatar(user), alt: "Profile", className: "w-6 h-6 rounded-full" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold", children: getUserInitials(user) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-4 h-4", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z", clipRule: "evenodd" }) })] }), showProfileDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-20 mb-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm font-medium", children: user.displayName || 'User' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-70 text-xs", children: user.email }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1 flex gap-2", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-green-600 bg-opacity-20 text-green-200 text-xs rounded border border-green-400 border-opacity-50", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-yellow-600 bg-opacity-20 text-yellow-200 text-xs rounded border border-yellow-400 border-opacity-50", children: "Unverified" }))] })] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: async () => {
+                                                    try {
+                                                        await sendVerificationEmail();
+                                                        showToast('Verification email sent! Please check your inbox.', 'success');
+                                                    }
+                                                    catch (error) {
+                                                        console.error('Error sending verification email:', error);
+                                                        showToast('Failed to send verification email. Please try again.', 'error');
+                                                    }
+                                                }, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleClearAuthTokens, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", title: "Clear auth tokens to test with different Google accounts", children: "Clear Auth Tokens" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", className: "text-black", children: "ASV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", className: "text-black", children: "ESV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [verse.reference, " ", getTranslationName(verse.bibleId)] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: handleAnimatedDismiss, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: handleMoreClick, type: "button", children: "More" })] })] })) : (
+                                /* Context view */
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-view-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "context-back-btn", onClick: handleBackFromContext, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { width: "16", height: "16", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z", clipRule: "evenodd" }) }), "Back"] }), contextLoading ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-loading", children: "Loading chapter..." })) : chapterContent ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-header", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-title-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "context-title", children: chapterContent.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: contextTranslation, onChange: (e) => handleContextTranslationChange(e.target.value), className: "context-translation-select", disabled: contextLoading, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB Updated" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-title-underline" }), chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-subtitle", children: chapterContent.content[0].items[0].text }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-scroll-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-content", ref: contextContainerRef, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-verses", children: renderContextVerses() }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-fade", ref: fadeOverlayRef })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-button-fixed", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "verse-btn", onClick: handleAnimatedDismiss, type: "button", children: "Done" }) })] })) : null] }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
-                                    }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { ref: verseReferenceRef, className: "verse-reference", children: verse.reference })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-done-btn", onClick: handleAnimatedDismiss, type: "button", children: "Done" })] })] }));
+                                    }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseOverlay);
 
@@ -54118,15 +54589,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   FormPasswordInput: () => (/* binding */ FormPasswordInput)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
-
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
 
 
 const FormPasswordInput = ({ name, label, placeholder, validation = {}, autoComplete, showStrengthIndicator = false }) => {
-    const { register, formState: { errors }, watch } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_2__.useFormContext)();
-    const [showPassword, setShowPassword] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const { register, formState: { errors }, watch } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_1__.useFormContext)();
     const error = errors[name];
     const password = watch(name);
     const getPasswordStrength = (pwd) => {
@@ -54150,7 +54617,7 @@ const FormPasswordInput = ({ name, label, placeholder, validation = {}, autoComp
         return { strength: 'Strong', color: '#10b981' };
     };
     const { strength, color } = showStrengthIndicator ? getPasswordStrength(password) : { strength: '', color: '' };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "auth-form-group", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: name, className: "auth-label", children: label }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "auth-input-wrapper password-input-wrapper", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "auth-input-icon", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("rect", { x: "3", y: "11", width: "18", height: "11", rx: "2", ry: "2" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M7 11V7a5 5 0 0110 0v4" })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { ...register(name, validation), id: name, type: showPassword ? 'text' : 'password', className: `auth-input ${error ? 'auth-input-error' : ''}`, placeholder: placeholder, autoComplete: autoComplete }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "button", className: "password-toggle", onClick: () => setShowPassword(!showPassword), tabIndex: -1, children: showPassword ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("line", { x1: "1", y1: "1", x2: "23", y2: "23" })] })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "12", cy: "12", r: "3" })] })) })] }), error && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "auth-error-message", children: typeof error === 'string' ? error : (error.message || `${label} is required`) })), showStrengthIndicator && password && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "password-strength", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { style: { color }, children: strength }) }))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "auth-form-group", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: name, className: "auth-label", children: label }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "auth-input-wrapper password-input-wrapper", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { ...register(name, validation), id: name, type: "password", className: `auth-input ${error ? 'auth-input-error' : ''}`, placeholder: placeholder, autoComplete: autoComplete }) }), error && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "auth-error-message", children: typeof error === 'string' ? error : (error.message || `${label} is required`) })), showStrengthIndicator && password && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "password-strength", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { style: { color }, children: strength }) }))] }));
 };
 
 
@@ -54214,13 +54681,13 @@ const SignInForm = ({ onClose, onSwitchToSignUp, onVerificationRequired }) => {
             setError(result.error || 'Failed to sign in with Google');
         }
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClose, className: "modal-close-btn", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.FormProvider, { ...methods, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: methods.handleSubmit(onSubmit), className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.FormInput, { name: "email", type: "email", label: "Email", placeholder: "Enter your email", validation: {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg w-80 max-w-sm relative", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClose, className: "modal-close-btn", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.FormProvider, { ...methods, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: methods.handleSubmit(onSubmit), className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.FormInput, { name: "email", type: "email", label: "Email", placeholder: "Enter your email", validation: {
                                     required: 'Email is required',
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                         message: 'Invalid email address'
                                     }
-                                }, icon: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("rect", { x: "2", y: "4", width: "20", height: "16", rx: "2" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m22 7-10 5L2 7" })] }), autoComplete: "email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormPasswordInput__WEBPACK_IMPORTED_MODULE_3__.FormPasswordInput, { name: "password", label: "Password", placeholder: "Enter your password", validation: {
+                                }, autoComplete: "email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormPasswordInput__WEBPACK_IMPORTED_MODULE_3__.FormPasswordInput, { name: "password", label: "Password", placeholder: "Enter your password", validation: {
                                     required: 'Password is required'
                                 }, autoComplete: "current-password" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { ...methods.register('rememberMe'), type: "checkbox", id: "rememberMe", className: "mr-2 rounded", disabled: isLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { htmlFor: "rememberMe", className: "text-white text-sm", children: "Remember me" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_4__.FormError, { message: error || undefined }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: isLoading, className: `w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-blue-600 text-white ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-blue-700 cursor-pointer'}`, children: isLoading ? 'Signing in...' : 'Sign In' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: onGoogleSignIn, disabled: isLoading, className: `w-full px-4 py-2 rounded text-sm font-medium border-none transition-colors outline-none bg-white bg-opacity-20 text-white flex items-center justify-center gap-2 ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-30 cursor-pointer'}`, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign in with Google"] })] })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Don't have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onSwitchToSignUp, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign up" })] }) })] }) }));
 };
@@ -54286,7 +54753,7 @@ const SignUpForm = ({ onClose, onSwitchToSignIn, onSuccess }) => {
         }
     };
     const password = methods.watch('password');
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Create Account" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClose, className: "modal-close-btn", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.FormProvider, { ...methods, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: methods.handleSubmit(onSubmit), className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "grid grid-cols-2 gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.FormInput, { name: "firstName", label: "First Name", placeholder: "First Name", validation: {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg w-80 max-w-sm relative", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex items-center justify-between mb-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold", children: "Create Account" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClose, className: "modal-close-btn", children: "\u00D7" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.FormProvider, { ...methods, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: methods.handleSubmit(onSubmit), className: "space-y-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "grid grid-cols-2 gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.FormInput, { name: "firstName", label: "First Name", placeholder: "First Name", validation: {
                                             required: 'First name is required',
                                             minLength: {
                                                 value: 2,
@@ -54304,7 +54771,7 @@ const SignUpForm = ({ onClose, onSwitchToSignIn, onSuccess }) => {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                         message: 'Invalid email address'
                                     }
-                                }, icon: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("rect", { x: "2", y: "4", width: "20", height: "16", rx: "2" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m22 7-10 5L2 7" })] }), autoComplete: "email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormPasswordInput__WEBPACK_IMPORTED_MODULE_3__.FormPasswordInput, { name: "password", label: "Password", placeholder: "Create a password", validation: {
+                                }, autoComplete: "email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormPasswordInput__WEBPACK_IMPORTED_MODULE_3__.FormPasswordInput, { name: "password", label: "Password", placeholder: "Create a password", validation: {
                                     required: 'Password is required',
                                     minLength: {
                                         value: 6,
@@ -54313,7 +54780,7 @@ const SignUpForm = ({ onClose, onSwitchToSignIn, onSuccess }) => {
                                 }, autoComplete: "new-password", showStrengthIndicator: true }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormPasswordInput__WEBPACK_IMPORTED_MODULE_3__.FormPasswordInput, { name: "confirmPassword", label: "Confirm Password", placeholder: "Confirm your password", validation: {
                                     required: 'Please confirm your password',
                                     validate: (value) => value === password || 'Passwords do not match'
-                                }, autoComplete: "new-password" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_4__.FormError, { message: error || undefined }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: isLoading, className: "w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors", children: isLoading ? 'Creating Account...' : 'Create Account' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: onGoogleSignIn, disabled: isLoading, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors flex items-center justify-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign up with Google"] })] })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Already have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onSwitchToSignIn, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign in" })] }) })] }) }));
+                                }, autoComplete: "new-password" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_4__.FormError, { message: error || undefined }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { type: "submit", disabled: isLoading, className: "w-full bg-white hover:bg-gray-100 disabled:bg-gray-500 text-black py-2 px-4 rounded transition-colors", children: isLoading ? 'Creating Account...' : 'Create Account' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { type: "button", onClick: onGoogleSignIn, disabled: isLoading, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors flex items-center justify-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "w-5 h-5", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", fill: "#4285F4" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z", fill: "#34A853" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z", fill: "#FBBC05" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z", fill: "#EA4335" })] }), "Sign up with Google"] })] })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mt-4 text-center", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm", children: ["Already have an account?", ' ', (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onSwitchToSignIn, className: "text-blue-300 hover:text-blue-200 underline", children: "Sign in" })] }) })] }) }));
 };
 
 
@@ -54488,6 +54955,192 @@ const useAuthForm = () => {
 
 /***/ }),
 
+/***/ "./src/services/esv-service.ts":
+/*!*************************************!*\
+  !*** ./src/services/esv-service.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ESVService: () => (/* binding */ ESVService)
+/* harmony export */ });
+class ESVService {
+    static async getVerse(reference) {
+        try {
+            const url = `${this.BASE_URL}/passage/text/?q=${encodeURIComponent(reference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=false`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Token ${this.API_KEY}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`ESV API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.passages || data.passages.length === 0) {
+                throw new Error('No verse content found');
+            }
+            // Extract text from the passages array
+            let text = data.passages[0];
+            // Remove the verse reference from the beginning if present
+            const referencePattern = new RegExp(`^${data.canonical}\\s*`);
+            text = text.replace(referencePattern, '');
+            // Remove the (ESV) suffix
+            text = text.replace(/\s*\(ESV\)\s*$/, '');
+            // Clean up extra whitespace
+            text = text.trim();
+            return {
+                text: text,
+                reference: data.canonical || reference,
+                bibleId: 'ESV'
+            };
+        }
+        catch (error) {
+            console.error('Error fetching ESV verse:', error);
+            throw error;
+        }
+    }
+    static async getChapter(chapterReference) {
+        try {
+            const url = `${this.BASE_URL}/passage/text/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=true`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Token ${this.API_KEY}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`ESV API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.passages || data.passages.length === 0) {
+                throw new Error('No chapter content found');
+            }
+            // Parse the text format to extract verses
+            const passageText = data.passages[0];
+            const verses = [];
+            // ESV returns text with verse numbers in brackets like [1], [2], etc.
+            // We need to parse this into a format similar to scripture.api.bible
+            const verseMatches = passageText.matchAll(/\[(\d+)\]\s*([^[]*?)(?=\[|$)/g);
+            for (const match of verseMatches) {
+                const verseNum = match[1];
+                const verseText = match[2].trim();
+                // Check if this verse contains words of Jesus
+                // In ESV text format, we don't have markup, so we'll need to use the HTML endpoint for red letters
+                verses.push({
+                    number: verseNum,
+                    text: verseText
+                });
+            }
+            // Return in a format similar to scripture.api.bible
+            return {
+                id: chapterReference,
+                reference: data.canonical,
+                content: [{
+                        items: verses.map(v => ({
+                            type: 'verse',
+                            number: v.number,
+                            text: v.text
+                        }))
+                    }],
+                verseCount: verses.length
+            };
+        }
+        catch (error) {
+            console.error('Error fetching ESV chapter:', error);
+            throw error;
+        }
+    }
+    // Get chapter with HTML format for red letter support
+    static async getChapterWithRedLetters(chapterReference) {
+        try {
+            const url = `${this.BASE_URL}/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=true&include-audio-link=false`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Token ${this.API_KEY}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`ESV API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.passages || data.passages.length === 0) {
+                throw new Error('No chapter content found');
+            }
+            // Parse HTML to extract verses with red letter support
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.passages[0], 'text/html');
+            const verses = [];
+            // Find all verse numbers
+            const verseNums = doc.querySelectorAll('.verse-num');
+            verseNums.forEach((verseNumElement) => {
+                const verseNum = verseNumElement.textContent?.replace(/\s/g, '') || '';
+                // Get all text nodes and elements until the next verse number
+                const content = [];
+                let node = verseNumElement.nextSibling;
+                while (node && !(node instanceof Element && node.classList?.contains('verse-num'))) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const text = node.textContent?.trim();
+                        if (text) {
+                            content.push({
+                                type: 'text',
+                                text: text
+                            });
+                        }
+                    }
+                    else if (node instanceof Element && node.classList?.contains('woc')) {
+                        // Words of Christ
+                        content.push({
+                            type: 'tag',
+                            name: 'char',
+                            attrs: { style: 'wj' },
+                            items: [{
+                                    type: 'text',
+                                    text: node.textContent || ''
+                                }]
+                        });
+                    }
+                    node = node.nextSibling;
+                }
+                if (verseNum && content.length > 0) {
+                    verses.push({
+                        type: 'tag',
+                        name: 'verse',
+                        attrs: { number: verseNum.replace(/[^\d]/g, '') },
+                        items: []
+                    });
+                    // Add content items
+                    content.forEach(item => {
+                        if (item.type === 'text' || item.type === 'tag') {
+                            verses.push(item);
+                        }
+                    });
+                }
+            });
+            // Return in a format similar to scripture.api.bible
+            return {
+                id: chapterReference,
+                reference: data.canonical,
+                content: [{
+                        type: 'tag',
+                        name: 'para',
+                        items: verses
+                    }],
+                verseCount: verseNums.length
+            };
+        }
+        catch (error) {
+            console.error('Error fetching ESV chapter with red letters:', error);
+            throw error;
+        }
+    }
+}
+ESVService.API_KEY = 'd74f42aa54c642a4cbfef2a93c5c67f460f13cdb';
+ESVService.BASE_URL = 'https://api.esv.org/v3';
+
+
+/***/ }),
+
 /***/ "./src/services/firebase-config.ts":
 /*!*****************************************!*\
   !*** ./src/services/firebase-config.ts ***!
@@ -54532,6 +55185,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   VerseService: () => (/* binding */ VerseService)
 /* harmony export */ });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "./src/types/index.ts");
+/* harmony import */ var _esv_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./esv-service */ "./src/services/esv-service.ts");
+
 
 class VerseService {
     static async getBibles() {
@@ -54553,6 +55208,10 @@ class VerseService {
         }
     }
     static async getVerse(reference, bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS.KJV) {
+        // Route ESV requests to ESV service
+        if (bibleId === 'ESV') {
+            return _esv_service__WEBPACK_IMPORTED_MODULE_1__.ESVService.getVerse(reference);
+        }
         try {
             const apiReference = this.convertReferenceToApiFormat(reference);
             const url = `${this.BASE_URL}/bibles/${bibleId}/passages/${apiReference}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false`;
@@ -54586,6 +55245,52 @@ class VerseService {
         }
         catch (error) {
             console.error('Error fetching verse:', error);
+            throw error;
+        }
+    }
+    static async getChapter(chapterReference, bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS.KJV) {
+        // Route ESV requests to ESV service
+        if (bibleId === 'ESV') {
+            return _esv_service__WEBPACK_IMPORTED_MODULE_1__.ESVService.getChapterWithRedLetters(chapterReference);
+        }
+        try {
+            // Convert chapter reference (e.g., "John 3") to API format
+            const match = chapterReference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+)$/);
+            if (!match) {
+                throw new Error(`Invalid chapter reference: ${chapterReference}`);
+            }
+            const [, bookName, chapter] = match;
+            const apiReference = this.convertReferenceToApiFormat(`${bookName} ${chapter}:1`);
+            const bookCode = apiReference.split('.')[0];
+            const chapterApiRef = `${bookCode}.${chapter}`;
+            const url = `${this.BASE_URL}/bibles/${bibleId}/chapters/${chapterApiRef}?content-type=json&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false`;
+            console.log('Daily Flame Chapter API Call:', {
+                chapterReference,
+                chapterApiRef,
+                url
+            });
+            const response = await fetch(url, {
+                headers: {
+                    'api-key': this.API_KEY
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.data) {
+                throw new Error('No chapter content found');
+            }
+            return {
+                id: data.data.id,
+                reference: data.data.reference,
+                bookId: data.data.bookId,
+                content: data.data.content,
+                copyright: data.data.copyright
+            };
+        }
+        catch (error) {
+            console.error('Error fetching chapter:', error);
             throw error;
         }
     }
@@ -54770,11 +55475,11 @@ const getShadowDomStyles = () => {
       font-family: inherit;
     }
     
-    /* Main overlay container */
+    /* Main overlay container - now acts as backdrop */
     .verse-overlay {
       position: fixed !important;
       inset: 0 !important;
-      background-color: black !important;
+      background-color: rgba(0, 0, 0, 0.8) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -54782,16 +55487,43 @@ const getShadowDomStyles = () => {
       padding: 20px !important;
       width: 100% !important;
       height: 100% !important;
-      overflow: hidden !important;
+      overflow: visible !important; /* Allow modal animations to show */
+      transition: backdrop-filter 0.3s ease-out !important;
+    }
+    
+    /* Blurred backdrop state */
+    .verse-overlay.backdrop-blur {
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+    }
+    
+    /* Modal container */
+    .verse-modal {
+      background-color: rgba(0, 0, 0, 0.95) !important;
+      border-radius: 16px !important;
+      padding: 90px 48px 48px 48px !important;
+      max-width: 840px !important;
+      width: 90% !important;
+      min-height: 400px !important;
+      max-height: 85vh !important;
+      overflow: visible !important; /* Allow content to be visible during animations */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
     }
     
     /* Verse content container */
     .verse-content {
-      max-width: 672px !important;
       width: 100% !important;
       text-align: center !important;
       color: white !important;
       position: relative !important;
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: visible !important; /* Allow animations to show outside bounds */
+      padding-top: 20px !important; /* Add padding to accommodate upward animations */
     }
     
     /* Verse text styles */
@@ -54804,9 +55536,25 @@ const getShadowDomStyles = () => {
       color: white !important;
     }
     
+    /* Words of Jesus - Red Letter styling */
+    .words-of-jesus {
+      color: #ff4444 !important;
+    }
+    
+    /* ESV HTML format uses 'woc' class */
+    .woc {
+      color: #ff4444 !important;
+    }
+    
     .verse-word {
       display: inline-block !important;
       margin-right: 0.25em !important;
+      white-space: nowrap !important; /* Prevent breaking within words */
+    }
+    
+    .verse-letter {
+      display: inline-block !important;
+      /* No margin needed - letters should be tight within words */
     }
     
     .verse-quote {
@@ -54823,19 +55571,67 @@ const getShadowDomStyles = () => {
       margin-left: -0.1em !important;
     }
     
+    /* Verse reference container */
+    .verse-reference-container {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 40px !important;
+      width: 100% !important;
+      overflow: hidden !important;
+    }
+    
     /* Verse reference */
     .verse-reference {
       font-size: 20px !important;
       line-height: 28px !important;
-      margin-bottom: 40px !important;
       font-style: italic !important;
       opacity: 0.9;
       font-weight: normal !important;
       color: white !important;
+      padding: 0 20px !important;
+      position: relative !important;
+      z-index: 1 !important;
     }
     
-    /* Done button */
-    .verse-done-btn {
+    /* Decorative lines */
+    .verse-reference-line {
+      position: absolute !important;
+      top: 50% !important;
+      height: 1px !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      width: 0 !important;
+      transition: width 0.8s ease-out !important;
+      transform: translateY(-50%) !important;
+    }
+    
+    .verse-reference-line.left {
+      right: 50% !important;
+      margin-right: 100px !important; /* Increased gap for better spacing */
+    }
+    
+    .verse-reference-line.right {
+      left: 50% !important;
+      margin-left: 100px !important; /* Increased gap for better spacing */
+    }
+    
+    .verse-reference-line.animate {
+      width: 40% !important;
+      max-width: 200px !important;
+    }
+    
+    /* Button container */
+    .verse-button-container {
+      display: flex !important;
+      gap: 16px !important;
+      justify-content: center !important;
+      align-items: center !important;
+      margin-top: -10px !important; /* Move buttons up slightly */
+    }
+    
+    /* Shared button styles */
+    .verse-btn {
       background-color: white !important;
       color: black !important;
       border: none !important;
@@ -54853,20 +55649,33 @@ const getShadowDomStyles = () => {
       outline: none !important;
     }
     
-    .verse-done-btn:hover {
+    .verse-btn:hover {
       background-color: #f3f4f6 !important;
       transform: translateY(-2px) !important;
       box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
     }
     
-    .verse-done-btn:active {
+    .verse-btn:active {
       transform: translateY(0) !important;
       box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2) !important;
     }
     
-    .verse-done-btn:focus {
+    .verse-btn:focus {
       outline: none !important;
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    /* More button specific styles */
+    .verse-more-btn {
+      background-color: transparent !important;
+      color: white !important;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      padding: 14px 36px !important;
+    }
+    
+    .verse-more-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
     }
     
     /* Modal styles */
@@ -54889,6 +55698,44 @@ const getShadowDomStyles = () => {
       width: 100% !important;
       max-height: 90vh !important;
       overflow-y: auto !important;
+    }
+
+    /* Glassmorphism modal styles */
+    .df-glassmorphism-modal {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      box-shadow: 0 4px 20px 0 rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Modal close button */
+    .modal-close-btn {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      width: 32px !important;
+      height: 32px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 50% !important;
+      color: white !important;
+      font-size: 24px !important;
+      line-height: 1 !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      outline: none !important;
+    }
+
+    .modal-close-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      transform: scale(1.1) !important;
+    }
+
+    .modal-close-btn:active {
+      transform: scale(0.95) !important;
     }
     
     /* Form elements - only apply default styles if not using glassmorphism */
@@ -54981,7 +55828,6 @@ const getShadowDomStyles = () => {
       background-color: rgba(255, 255, 255, 0.2) !important;
       backdrop-filter: blur(4px) !important;
       -webkit-backdrop-filter: blur(4px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
     }
     
     .df-glassmorphism-element:hover {
@@ -54992,7 +55838,6 @@ const getShadowDomStyles = () => {
       background-color: rgba(255, 255, 255, 0.1) !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
       color: white !important;
     }
     
@@ -55115,6 +55960,7 @@ const getShadowDomStyles = () => {
     .z-50 { z-index: 50 !important; }
     .z-\\[999999\\] { z-index: 999999 !important; }
     .z-\\[1000000\\] { z-index: 1000000 !important; }
+    .z-\\[1000001\\] { z-index: 1000001 !important; }
     .z-\\[2000000\\] { z-index: 2000000 !important; }
     
     .flex { display: flex !important; }
@@ -55444,9 +56290,9 @@ const getShadowDomStyles = () => {
     
     /* Responsive */
     @media (max-width: 768px) {
-      .verse-content {
-        max-width: 90% !important;
-        padding: 0 10px !important;
+      .verse-modal {
+        padding: 32px !important;
+        width: 95% !important;
       }
       
       .verse-text {
@@ -55459,13 +56305,34 @@ const getShadowDomStyles = () => {
         line-height: 24px !important;
       }
       
-      .verse-done-btn {
+      .verse-btn {
         padding: 12px 32px !important;
         font-size: 16px !important;
+      }
+      
+      .verse-more-btn {
+        padding: 10px 28px !important;
+      }
+      
+      .verse-reference-line.left {
+        margin-right: 50px !important;
+      }
+      
+      .verse-reference-line.right {
+        margin-left: 50px !important;
+      }
+      
+      .verse-reference-line.animate {
+        width: 35% !important;
+        max-width: 150px !important;
       }
     }
     
     @media (max-width: 480px) {
+      .verse-modal {
+        padding: 24px !important;
+      }
+      
       .verse-text {
         font-size: 20px !important;
         line-height: 28px !important;
@@ -55474,11 +56341,34 @@ const getShadowDomStyles = () => {
       .verse-reference {
         font-size: 16px !important;
         line-height: 20px !important;
+        padding: 0 15px !important;
       }
       
-      .verse-done-btn {
+      .verse-btn {
         padding: 10px 24px !important;
         font-size: 14px !important;
+        min-width: 100px !important;
+      }
+      
+      .verse-more-btn {
+        padding: 8px 20px !important;
+      }
+      
+      .verse-button-container {
+        gap: 12px !important;
+      }
+      
+      .verse-reference-line.left {
+        margin-right: 40px !important;
+      }
+      
+      .verse-reference-line.right {
+        margin-left: 40px !important;
+      }
+      
+      .verse-reference-line.animate {
+        width: 30% !important;
+        max-width: 100px !important;
       }
     }
     
@@ -55541,43 +56431,6 @@ const getShadowDomStyles = () => {
       --df-border-white-30: rgba(255, 255, 255, 0.3);
     }
     
-    /* Mobile responsive styles */
-    @media (max-width: 768px) {
-      .verse-content {
-        max-width: 90% !important;
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-      }
-      
-      .verse-text {
-        font-size: 24px !important;
-        line-height: 32px !important;
-      }
-      
-      .verse-reference {
-        font-size: 16px !important;
-      }
-      
-      .verse-done-btn {
-        padding: 12px 32px !important;
-        font-size: 16px !important;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .verse-text {
-        font-size: 18px !important;
-      }
-      
-      .verse-reference {
-        font-size: 14px !important;
-      }
-      
-      .verse-done-btn {
-        padding: 10px 24px !important;
-        font-size: 14px !important;
-      }
-    }
 
     /* Auth Form Styles */
     .auth-form-group {
@@ -55598,6 +56451,7 @@ const getShadowDomStyles = () => {
       align-items: center !important;
     }
 
+    /* Icon class - commented out since we're not using icons anymore
     .auth-input-icon {
       position: absolute !important;
       left: 12px !important;
@@ -55606,12 +56460,11 @@ const getShadowDomStyles = () => {
       color: rgba(255, 255, 255, 0.7) !important;
       pointer-events: none !important;
       z-index: 1 !important;
-    }
+    } */
 
     .auth-input {
       width: 100% !important;
       padding: 8px 12px !important;
-      padding-left: 40px !important;
       font-size: 16px !important;
       line-height: 24px !important;
       color: white !important;
@@ -55621,6 +56474,7 @@ const getShadowDomStyles = () => {
       outline: none !important;
       transition: all 0.15s !important;
     }
+
 
     .auth-input::placeholder {
       color: rgba(255, 255, 255, 0.7) !important;
@@ -55664,22 +56518,6 @@ const getShadowDomStyles = () => {
       position: relative !important;
     }
 
-    .password-toggle {
-      position: absolute !important;
-      right: 8px !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      padding: 4px !important;
-      color: rgba(255, 255, 255, 0.7) !important;
-      background: transparent !important;
-      border: none !important;
-      cursor: pointer !important;
-      transition: color 0.15s !important;
-    }
-
-    .password-toggle:hover {
-      color: white !important;
-    }
 
     .password-strength {
       margin-top: 4px !important;
@@ -55687,10 +56525,533 @@ const getShadowDomStyles = () => {
       font-weight: 500 !important;
     }
 
-    /* Grid utilities for form layouts */
+    /* Tailwind utility classes */
+    .grid {
+      display: grid !important;
+    }
+
     .grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
+
+    .gap-3 {
+      gap: 12px !important;
+    }
+
+    .space-y-4 > * + * {
+      margin-top: 16px !important;
+    }
+
+    .space-y-2 > * + * {
+      margin-top: 8px !important;
+    }
+
+    .flex {
+      display: flex !important;
+    }
+
+    .items-center {
+      align-items: center !important;
+    }
+
+    .justify-center {
+      justify-content: center !important;
+    }
+
+    .justify-between {
+      justify-content: space-between !important;
+    }
+
+    .gap-2 {
+      gap: 8px !important;
+    }
+
+    .relative {
+      position: relative !important;
+    }
+
+    .absolute {
+      position: absolute !important;
+    }
+
+    .inset-0 {
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+    }
+
+    .z-10 {
+      z-index: 10 !important;
+    }
+
+    .w-full {
+      width: 100% !important;
+    }
+
+    .w-80 {
+      width: 320px !important;
+    }
+
+    .max-w-sm {
+      max-width: 384px !important;
+    }
+
+    .text-center {
+      text-align: center !important;
+    }
+
+    .text-sm {
+      font-size: 14px !important;
+      line-height: 20px !important;
+    }
+
+    .text-lg {
+      font-size: 18px !important;
+      line-height: 28px !important;
+    }
+
+    .font-semibold {
+      font-weight: 600 !important;
+    }
+
+    .text-white {
+      color: white !important;
+    }
+
+    .text-blue-300 {
+      color: #93c5fd !important;
+    }
+
+    .text-blue-200 {
+      color: #bfdbfe !important;
+    }
+
+    .underline {
+      text-decoration: underline !important;
+    }
+
+    .mt-4 {
+      margin-top: 16px !important;
+    }
+
+    .mt-8 {
+      margin-top: 32px !important;
+    }
+
+    .mb-4 {
+      margin-bottom: 16px !important;
+    }
+
+    .p-6 {
+      padding: 24px !important;
+    }
+
+    .py-2 {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+
+    .px-4 {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+
+    .rounded {
+      border-radius: 4px !important;
+    }
+
+    .rounded-lg {
+      border-radius: 8px !important;
+    }
+
+    .border {
+      border-width: 1px !important;
+    }
+
+    .border-white {
+      border-color: white !important;
+    }
+
+    .border-opacity-20 {
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .bg-black {
+      background-color: black !important;
+    }
+
+    .bg-white {
+      background-color: white !important;
+    }
+
+    .bg-opacity-10 {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .bg-opacity-20 {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .bg-opacity-30 {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .bg-opacity-50 {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .bg-green-600 {
+      background-color: #059669 !important;
+    }
+
+    .bg-green-700 {
+      background-color: #047857 !important;
+    }
+
+    .bg-gray-500 {
+      background-color: #6b7280 !important;
+    }
+
+    .backdrop-blur-md {
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    .hover\\:bg-green-700:hover {
+      background-color: #047857 !important;
+    }
+
+    .hover\\:bg-opacity-30:hover {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .hover\\:text-blue-200:hover {
+      color: #bfdbfe !important;
+    }
+
+    .disabled\\:bg-gray-500:disabled {
+      background-color: #6b7280 !important;
+    }
+
+    .transition-colors {
+      transition-property: background-color, border-color, color, fill, stroke !important;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transition-duration: 150ms !important;
+    }
+
+    .w-5 {
+      width: 20px !important;
+    }
+
+    .h-5 {
+      height: 20px !important;
+    }
+
+    /* Context View Styles */
+    .context-view-container {
+      position: relative !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+    }
+
+    .context-header {
+      margin-bottom: 16px !important;
+      margin-top: 0 !important; /* Remove negative margin to prevent cutoff */
+      text-align: center !important;
+      flex-shrink: 0 !important;
+    }
+    
+    /* Context title row with translation dropdown */
+    .context-title-row {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 16px !important;
+      margin-bottom: 12px !important;
+    }
+    
+    /* Context translation dropdown */
+    .context-translation-select {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      padding: 6px 12px !important;
+      border-radius: 6px !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      outline: none !important;
+    }
+    
+    .context-translation-select:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      border-color: rgba(255, 255, 255, 0.4) !important;
+    }
+    
+    .context-translation-select:disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+    }
+    
+    .context-translation-select option {
+      background-color: #1a1a1a !important;
+      color: white !important;
+    }
+
+    .context-title {
+      font-size: 32px !important;
+      font-weight: 300 !important;
+      color: white !important;
+      margin-bottom: 12px !important;
+    }
+
+    /* Animated underline for context title */
+    .context-title-underline {
+      width: 0 !important;
+      height: 1px !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      margin: 0 auto 16px auto !important;
+      transition: width 0.8s ease-out !important;
+    }
+
+    .context-title-underline.animate {
+      width: 200px !important;
+    }
+
+    .context-subtitle {
+      font-size: 20px !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      font-style: italic !important;
+    }
+
+    /* Scroll container wrapper */
+    .context-scroll-container {
+      position: relative !important;
+      height: 300px !important; /* Smaller height for more compact view */
+      overflow: hidden !important;
+      margin-bottom: 16px !important;
+    }
+
+    .context-content {
+      height: 100% !important;
+      overflow-y: auto !important;
+      padding: 20px !important;
+      padding-right: 16px !important; /* Reduced padding for thinner scrollbar */
+    }
+
+    /* Scrollbar for context content - thin and subtle */
+    .context-content::-webkit-scrollbar {
+      width: 4px !important;
+    }
+
+    .context-content::-webkit-scrollbar-track {
+      background: transparent !important;
+    }
+
+    .context-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-radius: 2px !important;
+    }
+
+    .context-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .context-verses {
+      position: relative !important;
+      padding-bottom: 100px !important; /* Extra space to ensure content isn't hidden by fade */
+    }
+
+    .context-paragraph {
+      margin-bottom: 16px !important;
+      line-height: 1.8 !important;
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-size: 18px !important;
+      text-align: left !important;
+    }
+
+    .context-paragraph:last-child {
+      margin-bottom: 0 !important;
+    }
+    
+    /* KJV formatting - each verse as separate paragraph */
+    .context-paragraph.kjv-verse {
+      margin-bottom: 12px !important;
+      text-indent: 0 !important;
+    }
+    
+    .context-paragraph.kjv-verse .context-verse-number {
+      font-weight: bold !important;
+      font-size: inherit !important;
+      vertical-align: baseline !important;
+      margin-right: 8px !important;
+    }
+
+    /* Poetry formatting styles */
+    .poetry-q1 {
+      padding-left: 2em !important;
+      margin-bottom: 0.5em !important;
+    }
+
+    .poetry-q2 {
+      padding-left: 4em !important;
+      margin-bottom: 0.5em !important;
+    }
+
+    /* Psalm descriptor/title */
+    .psalm-descriptor {
+      font-style: italic !important;
+      text-align: center !important;
+      margin-bottom: 2em !important;
+      opacity: 0.9 !important;
+      font-size: 0.95em !important;
+    }
+
+    /* Poetry line breaks */
+    .poetry-break {
+      margin-bottom: 1.5em !important;
+    }
+
+    /* Superscript verse numbers (for non-KJV formatting) */
+    .context-verse-number {
+      font-size: 0.75em !important;
+      font-weight: 600 !important;
+      color: white !important;
+      margin-right: 2px !important;
+      vertical-align: super !important;
+      line-height: 0 !important;
+    }
+
+    /* Verse text content */
+    .verse-text-content {
+      font-size: inherit !important;
+      color: inherit !important;
+    }
+
+    /* Words of Jesus in red */
+    .words-of-jesus {
+      color: #ff6b6b !important; /* Light red color for visibility on dark background */
+    }
+
+    /* Translator additions in italics */
+    .translator-addition {
+      font-style: italic !important;
+      opacity: 0.9 !important; /* Slightly dimmed to indicate they're additions */
+    }
+
+    /* Combined: Words of Jesus that are also translator additions */
+    .words-of-jesus.translator-addition {
+      color: #ff6b6b !important; /* Keep red color */
+      font-style: italic !important; /* Add italic */
+      opacity: 1 !important; /* Full opacity for Jesus's words */
+    }
+
+    /* Divine name (LORD) in small caps */
+    .divine-name {
+      font-variant: small-caps !important;
+      letter-spacing: 0.05em !important; /* Slight spacing for better readability */
+      font-weight: 600 !important; /* Slightly bolder for emphasis */
+    }
+
+    /* Highlighted verse inline */
+    .highlighted-verse {
+      position: relative !important;
+    }
+
+    .highlighted-verse .verse-text-content {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      padding: 2px 4px !important;
+      border-radius: 3px !important;
+      color: white !important;
+    }
+
+    /* Fade effect at bottom edge */
+    .context-fade {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 80px !important;
+      background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0) 0%, 
+        rgba(0, 0, 0, 0.475) 20%, 
+        rgba(0, 0, 0, 0.76) 50%, 
+        rgba(0, 0, 0, 0.9025) 80%, 
+        rgba(0, 0, 0, 0.95) 100%
+      ) !important;
+      pointer-events: none !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 2 !important;
+    }
+
+    /* Hide fade when scrolled to bottom */
+    .context-fade.hidden {
+      opacity: 0 !important;
+    }
+
+    /* Fixed button container */
+    .context-button-fixed {
+      position: sticky !important;
+      bottom: 0 !important;
+      background-color: rgba(0, 0, 0, 0.95) !important;
+      padding: 16px 0 0 0 !important;
+      text-align: center !important;
+      z-index: 10 !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Loading state */
+    .context-loading {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 200px !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-size: 18px !important;
+    }
+
+    /* Modal transition states */
+    .verse-modal-expanded {
+      max-height: 90vh !important;
+      transition: all 0.4s ease-out !important;
+    }
+    
+    /* Ensure modal expanded properly manages overflow */
+    .verse-modal-expanded .verse-content {
+      overflow: visible !important; /* Keep visible for animations */
+    }
+    
+    /* Only hide overflow when showing context */
+    .verse-modal-expanded .context-view-container {
+      overflow: hidden !important;
+    }
+
+    /* Back button for context view */
+    .context-back-btn {
+      position: absolute !important;
+      top: 20px !important;
+      left: 20px !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 6px !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    .context-back-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      transform: translateX(-2px) !important;
+    }
+
   `;
 };
 
@@ -55710,6 +57071,8 @@ __webpack_require__.r(__webpack_exports__);
 // Bible translation mappings
 const BIBLE_VERSIONS = {
     'KJV': 'de4e12af7f28f599-02',
+    'ASV': '06125adad2d5898a-01',
+    'ESV': 'ESV', // Special case - uses different API
     'WEB': '9879dbb7cfe39e4d-04',
     'WEB_BRITISH': '7142879509583d59-04',
     'WEB_UPDATED': '72f4e6dc683324df-03'
@@ -55928,8 +57291,8 @@ function renderOverlay(verse) {
         }
     }
     const OverlayApp = () => {
-        const handleDismiss = () => {
-            dismissOverlay();
+        const handleDismiss = (permanent = false) => {
+            dismissOverlay(permanent);
         };
         return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ErrorBoundary, {
             children: react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_ToastContext__WEBPACK_IMPORTED_MODULE_4__.ToastProvider, {
@@ -55945,26 +57308,31 @@ function renderOverlay(verse) {
     };
     root.render(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(OverlayApp));
 }
-function dismissOverlay() {
+function dismissOverlay(permanent = false) {
     try {
         const overlay = document.getElementById('daily-flame-extension-root');
         if (overlay) {
-            console.log('Daily Flame: Dismissing verse overlay');
+            console.log(`Daily Flame: Dismissing verse overlay (permanent: ${permanent})`);
             // Clean up styles first
             document.body.style.overflow = '';
             // Remove overlay with a small delay to allow React cleanup
             setTimeout(() => {
                 overlay.remove();
             }, 100);
-            // Save to storage that verse was shown today
-            chrome.runtime.sendMessage({ action: 'setVerseShownDate' }, (response) => {
-                if (chrome.runtime.lastError) {
-                    console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
-                }
-                else if (response && response.success) {
-                    console.log('Daily Flame: Verse dismissed for today');
-                }
-            });
+            // Only save to storage if it's a permanent dismissal (Done button clicked)
+            if (permanent) {
+                chrome.runtime.sendMessage({ action: 'setVerseShownDate' }, (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
+                    }
+                    else if (response && response.success) {
+                        console.log('Daily Flame: Verse marked as done for today');
+                    }
+                });
+            }
+            else {
+                console.log('Daily Flame: Temporary dismissal - verse will show again on next tab/reload');
+            }
         }
     }
     catch (error) {

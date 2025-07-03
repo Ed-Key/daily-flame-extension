@@ -25,11 +25,11 @@ export const getShadowDomStyles = (): string => {
       font-family: inherit;
     }
     
-    /* Main overlay container */
+    /* Main overlay container - now acts as backdrop */
     .verse-overlay {
       position: fixed !important;
       inset: 0 !important;
-      background-color: black !important;
+      background-color: rgba(0, 0, 0, 0.8) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -37,16 +37,43 @@ export const getShadowDomStyles = (): string => {
       padding: 20px !important;
       width: 100% !important;
       height: 100% !important;
-      overflow: hidden !important;
+      overflow: visible !important; /* Allow modal animations to show */
+      transition: backdrop-filter 0.3s ease-out !important;
+    }
+    
+    /* Blurred backdrop state */
+    .verse-overlay.backdrop-blur {
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+    }
+    
+    /* Modal container */
+    .verse-modal {
+      background-color: rgba(0, 0, 0, 0.95) !important;
+      border-radius: 16px !important;
+      padding: 90px 48px 48px 48px !important;
+      max-width: 840px !important;
+      width: 90% !important;
+      min-height: 400px !important;
+      max-height: 85vh !important;
+      overflow: visible !important; /* Allow content to be visible during animations */
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
     }
     
     /* Verse content container */
     .verse-content {
-      max-width: 672px !important;
       width: 100% !important;
       text-align: center !important;
       color: white !important;
       position: relative !important;
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: visible !important; /* Allow animations to show outside bounds */
+      padding-top: 20px !important; /* Add padding to accommodate upward animations */
     }
     
     /* Verse text styles */
@@ -59,9 +86,25 @@ export const getShadowDomStyles = (): string => {
       color: white !important;
     }
     
+    /* Words of Jesus - Red Letter styling */
+    .words-of-jesus {
+      color: #ff4444 !important;
+    }
+    
+    /* ESV HTML format uses 'woc' class */
+    .woc {
+      color: #ff4444 !important;
+    }
+    
     .verse-word {
       display: inline-block !important;
       margin-right: 0.25em !important;
+      white-space: nowrap !important; /* Prevent breaking within words */
+    }
+    
+    .verse-letter {
+      display: inline-block !important;
+      /* No margin needed - letters should be tight within words */
     }
     
     .verse-quote {
@@ -78,19 +121,67 @@ export const getShadowDomStyles = (): string => {
       margin-left: -0.1em !important;
     }
     
+    /* Verse reference container */
+    .verse-reference-container {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 40px !important;
+      width: 100% !important;
+      overflow: hidden !important;
+    }
+    
     /* Verse reference */
     .verse-reference {
       font-size: 20px !important;
       line-height: 28px !important;
-      margin-bottom: 40px !important;
       font-style: italic !important;
       opacity: 0.9;
       font-weight: normal !important;
       color: white !important;
+      padding: 0 20px !important;
+      position: relative !important;
+      z-index: 1 !important;
     }
     
-    /* Done button */
-    .verse-done-btn {
+    /* Decorative lines */
+    .verse-reference-line {
+      position: absolute !important;
+      top: 50% !important;
+      height: 1px !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      width: 0 !important;
+      transition: width 0.8s ease-out !important;
+      transform: translateY(-50%) !important;
+    }
+    
+    .verse-reference-line.left {
+      right: 50% !important;
+      margin-right: 100px !important; /* Increased gap for better spacing */
+    }
+    
+    .verse-reference-line.right {
+      left: 50% !important;
+      margin-left: 100px !important; /* Increased gap for better spacing */
+    }
+    
+    .verse-reference-line.animate {
+      width: 40% !important;
+      max-width: 200px !important;
+    }
+    
+    /* Button container */
+    .verse-button-container {
+      display: flex !important;
+      gap: 16px !important;
+      justify-content: center !important;
+      align-items: center !important;
+      margin-top: -10px !important; /* Move buttons up slightly */
+    }
+    
+    /* Shared button styles */
+    .verse-btn {
       background-color: white !important;
       color: black !important;
       border: none !important;
@@ -108,20 +199,33 @@ export const getShadowDomStyles = (): string => {
       outline: none !important;
     }
     
-    .verse-done-btn:hover {
+    .verse-btn:hover {
       background-color: #f3f4f6 !important;
       transform: translateY(-2px) !important;
       box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
     }
     
-    .verse-done-btn:active {
+    .verse-btn:active {
       transform: translateY(0) !important;
       box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2) !important;
     }
     
-    .verse-done-btn:focus {
+    .verse-btn:focus {
       outline: none !important;
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    /* More button specific styles */
+    .verse-more-btn {
+      background-color: transparent !important;
+      color: white !important;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      padding: 14px 36px !important;
+    }
+    
+    .verse-more-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
     }
     
     /* Modal styles */
@@ -144,6 +248,44 @@ export const getShadowDomStyles = (): string => {
       width: 100% !important;
       max-height: 90vh !important;
       overflow-y: auto !important;
+    }
+
+    /* Glassmorphism modal styles */
+    .df-glassmorphism-modal {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      box-shadow: 0 4px 20px 0 rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Modal close button */
+    .modal-close-btn {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      width: 32px !important;
+      height: 32px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 50% !important;
+      color: white !important;
+      font-size: 24px !important;
+      line-height: 1 !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      outline: none !important;
+    }
+
+    .modal-close-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      transform: scale(1.1) !important;
+    }
+
+    .modal-close-btn:active {
+      transform: scale(0.95) !important;
     }
     
     /* Form elements - only apply default styles if not using glassmorphism */
@@ -236,7 +378,6 @@ export const getShadowDomStyles = (): string => {
       background-color: rgba(255, 255, 255, 0.2) !important;
       backdrop-filter: blur(4px) !important;
       -webkit-backdrop-filter: blur(4px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
     }
     
     .df-glassmorphism-element:hover {
@@ -247,7 +388,6 @@ export const getShadowDomStyles = (): string => {
       background-color: rgba(255, 255, 255, 0.1) !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
-      border: 1px solid rgba(255, 255, 255, 0.2) !important;
       color: white !important;
     }
     
@@ -370,6 +510,7 @@ export const getShadowDomStyles = (): string => {
     .z-50 { z-index: 50 !important; }
     .z-\\[999999\\] { z-index: 999999 !important; }
     .z-\\[1000000\\] { z-index: 1000000 !important; }
+    .z-\\[1000001\\] { z-index: 1000001 !important; }
     .z-\\[2000000\\] { z-index: 2000000 !important; }
     
     .flex { display: flex !important; }
@@ -699,9 +840,9 @@ export const getShadowDomStyles = (): string => {
     
     /* Responsive */
     @media (max-width: 768px) {
-      .verse-content {
-        max-width: 90% !important;
-        padding: 0 10px !important;
+      .verse-modal {
+        padding: 32px !important;
+        width: 95% !important;
       }
       
       .verse-text {
@@ -714,13 +855,34 @@ export const getShadowDomStyles = (): string => {
         line-height: 24px !important;
       }
       
-      .verse-done-btn {
+      .verse-btn {
         padding: 12px 32px !important;
         font-size: 16px !important;
+      }
+      
+      .verse-more-btn {
+        padding: 10px 28px !important;
+      }
+      
+      .verse-reference-line.left {
+        margin-right: 50px !important;
+      }
+      
+      .verse-reference-line.right {
+        margin-left: 50px !important;
+      }
+      
+      .verse-reference-line.animate {
+        width: 35% !important;
+        max-width: 150px !important;
       }
     }
     
     @media (max-width: 480px) {
+      .verse-modal {
+        padding: 24px !important;
+      }
+      
       .verse-text {
         font-size: 20px !important;
         line-height: 28px !important;
@@ -729,11 +891,34 @@ export const getShadowDomStyles = (): string => {
       .verse-reference {
         font-size: 16px !important;
         line-height: 20px !important;
+        padding: 0 15px !important;
       }
       
-      .verse-done-btn {
+      .verse-btn {
         padding: 10px 24px !important;
         font-size: 14px !important;
+        min-width: 100px !important;
+      }
+      
+      .verse-more-btn {
+        padding: 8px 20px !important;
+      }
+      
+      .verse-button-container {
+        gap: 12px !important;
+      }
+      
+      .verse-reference-line.left {
+        margin-right: 40px !important;
+      }
+      
+      .verse-reference-line.right {
+        margin-left: 40px !important;
+      }
+      
+      .verse-reference-line.animate {
+        width: 30% !important;
+        max-width: 100px !important;
       }
     }
     
@@ -796,43 +981,6 @@ export const getShadowDomStyles = (): string => {
       --df-border-white-30: rgba(255, 255, 255, 0.3);
     }
     
-    /* Mobile responsive styles */
-    @media (max-width: 768px) {
-      .verse-content {
-        max-width: 90% !important;
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-      }
-      
-      .verse-text {
-        font-size: 24px !important;
-        line-height: 32px !important;
-      }
-      
-      .verse-reference {
-        font-size: 16px !important;
-      }
-      
-      .verse-done-btn {
-        padding: 12px 32px !important;
-        font-size: 16px !important;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .verse-text {
-        font-size: 18px !important;
-      }
-      
-      .verse-reference {
-        font-size: 14px !important;
-      }
-      
-      .verse-done-btn {
-        padding: 10px 24px !important;
-        font-size: 14px !important;
-      }
-    }
 
     /* Auth Form Styles */
     .auth-form-group {
@@ -853,6 +1001,7 @@ export const getShadowDomStyles = (): string => {
       align-items: center !important;
     }
 
+    /* Icon class - commented out since we're not using icons anymore
     .auth-input-icon {
       position: absolute !important;
       left: 12px !important;
@@ -861,12 +1010,11 @@ export const getShadowDomStyles = (): string => {
       color: rgba(255, 255, 255, 0.7) !important;
       pointer-events: none !important;
       z-index: 1 !important;
-    }
+    } */
 
     .auth-input {
       width: 100% !important;
       padding: 8px 12px !important;
-      padding-left: 40px !important;
       font-size: 16px !important;
       line-height: 24px !important;
       color: white !important;
@@ -876,6 +1024,7 @@ export const getShadowDomStyles = (): string => {
       outline: none !important;
       transition: all 0.15s !important;
     }
+
 
     .auth-input::placeholder {
       color: rgba(255, 255, 255, 0.7) !important;
@@ -919,22 +1068,6 @@ export const getShadowDomStyles = (): string => {
       position: relative !important;
     }
 
-    .password-toggle {
-      position: absolute !important;
-      right: 8px !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      padding: 4px !important;
-      color: rgba(255, 255, 255, 0.7) !important;
-      background: transparent !important;
-      border: none !important;
-      cursor: pointer !important;
-      transition: color 0.15s !important;
-    }
-
-    .password-toggle:hover {
-      color: white !important;
-    }
 
     .password-strength {
       margin-top: 4px !important;
@@ -942,9 +1075,532 @@ export const getShadowDomStyles = (): string => {
       font-weight: 500 !important;
     }
 
-    /* Grid utilities for form layouts */
+    /* Tailwind utility classes */
+    .grid {
+      display: grid !important;
+    }
+
     .grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
+
+    .gap-3 {
+      gap: 12px !important;
+    }
+
+    .space-y-4 > * + * {
+      margin-top: 16px !important;
+    }
+
+    .space-y-2 > * + * {
+      margin-top: 8px !important;
+    }
+
+    .flex {
+      display: flex !important;
+    }
+
+    .items-center {
+      align-items: center !important;
+    }
+
+    .justify-center {
+      justify-content: center !important;
+    }
+
+    .justify-between {
+      justify-content: space-between !important;
+    }
+
+    .gap-2 {
+      gap: 8px !important;
+    }
+
+    .relative {
+      position: relative !important;
+    }
+
+    .absolute {
+      position: absolute !important;
+    }
+
+    .inset-0 {
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+    }
+
+    .z-10 {
+      z-index: 10 !important;
+    }
+
+    .w-full {
+      width: 100% !important;
+    }
+
+    .w-80 {
+      width: 320px !important;
+    }
+
+    .max-w-sm {
+      max-width: 384px !important;
+    }
+
+    .text-center {
+      text-align: center !important;
+    }
+
+    .text-sm {
+      font-size: 14px !important;
+      line-height: 20px !important;
+    }
+
+    .text-lg {
+      font-size: 18px !important;
+      line-height: 28px !important;
+    }
+
+    .font-semibold {
+      font-weight: 600 !important;
+    }
+
+    .text-white {
+      color: white !important;
+    }
+
+    .text-blue-300 {
+      color: #93c5fd !important;
+    }
+
+    .text-blue-200 {
+      color: #bfdbfe !important;
+    }
+
+    .underline {
+      text-decoration: underline !important;
+    }
+
+    .mt-4 {
+      margin-top: 16px !important;
+    }
+
+    .mt-8 {
+      margin-top: 32px !important;
+    }
+
+    .mb-4 {
+      margin-bottom: 16px !important;
+    }
+
+    .p-6 {
+      padding: 24px !important;
+    }
+
+    .py-2 {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+
+    .px-4 {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+
+    .rounded {
+      border-radius: 4px !important;
+    }
+
+    .rounded-lg {
+      border-radius: 8px !important;
+    }
+
+    .border {
+      border-width: 1px !important;
+    }
+
+    .border-white {
+      border-color: white !important;
+    }
+
+    .border-opacity-20 {
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .bg-black {
+      background-color: black !important;
+    }
+
+    .bg-white {
+      background-color: white !important;
+    }
+
+    .bg-opacity-10 {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .bg-opacity-20 {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .bg-opacity-30 {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .bg-opacity-50 {
+      background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .bg-green-600 {
+      background-color: #059669 !important;
+    }
+
+    .bg-green-700 {
+      background-color: #047857 !important;
+    }
+
+    .bg-gray-500 {
+      background-color: #6b7280 !important;
+    }
+
+    .backdrop-blur-md {
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    .hover\\:bg-green-700:hover {
+      background-color: #047857 !important;
+    }
+
+    .hover\\:bg-opacity-30:hover {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .hover\\:text-blue-200:hover {
+      color: #bfdbfe !important;
+    }
+
+    .disabled\\:bg-gray-500:disabled {
+      background-color: #6b7280 !important;
+    }
+
+    .transition-colors {
+      transition-property: background-color, border-color, color, fill, stroke !important;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+      transition-duration: 150ms !important;
+    }
+
+    .w-5 {
+      width: 20px !important;
+    }
+
+    .h-5 {
+      height: 20px !important;
+    }
+
+    /* Context View Styles */
+    .context-view-container {
+      position: relative !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+    }
+
+    .context-header {
+      margin-bottom: 16px !important;
+      margin-top: 0 !important; /* Remove negative margin to prevent cutoff */
+      text-align: center !important;
+      flex-shrink: 0 !important;
+    }
+    
+    /* Context title row with translation dropdown */
+    .context-title-row {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 16px !important;
+      margin-bottom: 12px !important;
+    }
+    
+    /* Context translation dropdown */
+    .context-translation-select {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      padding: 6px 12px !important;
+      border-radius: 6px !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      outline: none !important;
+    }
+    
+    .context-translation-select:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      border-color: rgba(255, 255, 255, 0.4) !important;
+    }
+    
+    .context-translation-select:disabled {
+      opacity: 0.5 !important;
+      cursor: not-allowed !important;
+    }
+    
+    .context-translation-select option {
+      background-color: #1a1a1a !important;
+      color: white !important;
+    }
+
+    .context-title {
+      font-size: 32px !important;
+      font-weight: 300 !important;
+      color: white !important;
+      margin-bottom: 12px !important;
+    }
+
+    /* Animated underline for context title */
+    .context-title-underline {
+      width: 0 !important;
+      height: 1px !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      margin: 0 auto 16px auto !important;
+      transition: width 0.8s ease-out !important;
+    }
+
+    .context-title-underline.animate {
+      width: 200px !important;
+    }
+
+    .context-subtitle {
+      font-size: 20px !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      font-style: italic !important;
+    }
+
+    /* Scroll container wrapper */
+    .context-scroll-container {
+      position: relative !important;
+      height: 300px !important; /* Smaller height for more compact view */
+      overflow: hidden !important;
+      margin-bottom: 16px !important;
+    }
+
+    .context-content {
+      height: 100% !important;
+      overflow-y: auto !important;
+      padding: 20px !important;
+      padding-right: 16px !important; /* Reduced padding for thinner scrollbar */
+    }
+
+    /* Scrollbar for context content - thin and subtle */
+    .context-content::-webkit-scrollbar {
+      width: 4px !important;
+    }
+
+    .context-content::-webkit-scrollbar-track {
+      background: transparent !important;
+    }
+
+    .context-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-radius: 2px !important;
+    }
+
+    .context-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .context-verses {
+      position: relative !important;
+      padding-bottom: 100px !important; /* Extra space to ensure content isn't hidden by fade */
+    }
+
+    .context-paragraph {
+      margin-bottom: 16px !important;
+      line-height: 1.8 !important;
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-size: 18px !important;
+      text-align: left !important;
+    }
+
+    .context-paragraph:last-child {
+      margin-bottom: 0 !important;
+    }
+    
+    /* KJV formatting - each verse as separate paragraph */
+    .context-paragraph.kjv-verse {
+      margin-bottom: 12px !important;
+      text-indent: 0 !important;
+    }
+    
+    .context-paragraph.kjv-verse .context-verse-number {
+      font-weight: bold !important;
+      font-size: inherit !important;
+      vertical-align: baseline !important;
+      margin-right: 8px !important;
+    }
+
+    /* Poetry formatting styles */
+    .poetry-q1 {
+      padding-left: 2em !important;
+      margin-bottom: 0.5em !important;
+    }
+
+    .poetry-q2 {
+      padding-left: 4em !important;
+      margin-bottom: 0.5em !important;
+    }
+
+    /* Psalm descriptor/title */
+    .psalm-descriptor {
+      font-style: italic !important;
+      text-align: center !important;
+      margin-bottom: 2em !important;
+      opacity: 0.9 !important;
+      font-size: 0.95em !important;
+    }
+
+    /* Poetry line breaks */
+    .poetry-break {
+      margin-bottom: 1.5em !important;
+    }
+
+    /* Superscript verse numbers (for non-KJV formatting) */
+    .context-verse-number {
+      font-size: 0.75em !important;
+      font-weight: 600 !important;
+      color: white !important;
+      margin-right: 2px !important;
+      vertical-align: super !important;
+      line-height: 0 !important;
+    }
+
+    /* Verse text content */
+    .verse-text-content {
+      font-size: inherit !important;
+      color: inherit !important;
+    }
+
+    /* Words of Jesus in red */
+    .words-of-jesus {
+      color: #ff6b6b !important; /* Light red color for visibility on dark background */
+    }
+
+    /* Translator additions in italics */
+    .translator-addition {
+      font-style: italic !important;
+      opacity: 0.9 !important; /* Slightly dimmed to indicate they're additions */
+    }
+
+    /* Combined: Words of Jesus that are also translator additions */
+    .words-of-jesus.translator-addition {
+      color: #ff6b6b !important; /* Keep red color */
+      font-style: italic !important; /* Add italic */
+      opacity: 1 !important; /* Full opacity for Jesus's words */
+    }
+
+    /* Divine name (LORD) in small caps */
+    .divine-name {
+      font-variant: small-caps !important;
+      letter-spacing: 0.05em !important; /* Slight spacing for better readability */
+      font-weight: 600 !important; /* Slightly bolder for emphasis */
+    }
+
+    /* Highlighted verse inline */
+    .highlighted-verse {
+      position: relative !important;
+    }
+
+    .highlighted-verse .verse-text-content {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      padding: 2px 4px !important;
+      border-radius: 3px !important;
+      color: white !important;
+    }
+
+    /* Fade effect at bottom edge */
+    .context-fade {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 80px !important;
+      background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0) 0%, 
+        rgba(0, 0, 0, 0.475) 20%, 
+        rgba(0, 0, 0, 0.76) 50%, 
+        rgba(0, 0, 0, 0.9025) 80%, 
+        rgba(0, 0, 0, 0.95) 100%
+      ) !important;
+      pointer-events: none !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 2 !important;
+    }
+
+    /* Hide fade when scrolled to bottom */
+    .context-fade.hidden {
+      opacity: 0 !important;
+    }
+
+    /* Fixed button container */
+    .context-button-fixed {
+      position: sticky !important;
+      bottom: 0 !important;
+      background-color: rgba(0, 0, 0, 0.95) !important;
+      padding: 16px 0 0 0 !important;
+      text-align: center !important;
+      z-index: 10 !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Loading state */
+    .context-loading {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 200px !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      font-size: 18px !important;
+    }
+
+    /* Modal transition states */
+    .verse-modal-expanded {
+      max-height: 90vh !important;
+      transition: all 0.4s ease-out !important;
+    }
+    
+    /* Ensure modal expanded properly manages overflow */
+    .verse-modal-expanded .verse-content {
+      overflow: visible !important; /* Keep visible for animations */
+    }
+    
+    /* Only hide overflow when showing context */
+    .verse-modal-expanded .context-view-container {
+      overflow: hidden !important;
+    }
+
+    /* Back button for context view */
+    .context-back-btn {
+      position: absolute !important;
+      top: 20px !important;
+      left: 20px !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 6px !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+
+    .context-back-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+      transform: translateX(-2px) !important;
+    }
+
   `;
 };

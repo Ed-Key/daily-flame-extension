@@ -62,8 +62,8 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   const password = methods.watch('password');
 
   return (
-    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-      <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]">
+      <div className="df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg w-80 max-w-sm relative">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-white text-lg font-semibold">Create Account</h3>
           <button
@@ -115,12 +115,6 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
                   message: 'Invalid email address'
                 }
               }}
-              icon={
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <path d="m22 7-10 5L2 7" />
-                </svg>
-              }
               autoComplete="email"
             />
 
@@ -157,7 +151,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white py-2 px-4 rounded transition-colors"
+                className="w-full bg-white hover:bg-gray-100 disabled:bg-gray-500 text-black py-2 px-4 rounded transition-colors"
               >
                 {isLoading ? 'Creating Account...' : 'Create Account'}
               </button>

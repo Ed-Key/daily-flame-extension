@@ -122,8 +122,8 @@ function renderOverlay(verse: VerseData) {
     }
     
     const OverlayApp = () => {
-        const handleDismiss = () => {
-            dismissOverlay();
+        const handleDismiss = (permanent: boolean = false) => {
+            dismissOverlay(permanent);
         };
         
         return React.createElement(ErrorBoundary, { 
@@ -142,11 +142,11 @@ function renderOverlay(verse: VerseData) {
     root.render(React.createElement(OverlayApp));
 }
 
-function dismissOverlay() {
+function dismissOverlay(permanent: boolean = false) {
     try {
         const overlay = document.getElementById('daily-flame-extension-root');
         if (overlay) {
-            console.log('Daily Flame: Dismissing verse overlay');
+            console.log(`Daily Flame: Dismissing verse overlay (permanent: ${permanent})`);
             
             // Clean up styles first
             document.body.style.overflow = '';
@@ -156,14 +156,18 @@ function dismissOverlay() {
                 overlay.remove();
             }, 100);
             
-            // Save to storage that verse was shown today
-            chrome.runtime.sendMessage({ action: 'setVerseShownDate' }, (response: ChromeResponse) => {
-                if (chrome.runtime.lastError) {
-                    console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
-                } else if (response && response.success) {
-                    console.log('Daily Flame: Verse dismissed for today');
-                }
-            });
+            // Only save to storage if it's a permanent dismissal (Done button clicked)
+            if (permanent) {
+                chrome.runtime.sendMessage({ action: 'setVerseShownDate' }, (response: ChromeResponse) => {
+                    if (chrome.runtime.lastError) {
+                        console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
+                    } else if (response && response.success) {
+                        console.log('Daily Flame: Verse marked as done for today');
+                    }
+                });
+            } else {
+                console.log('Daily Flame: Temporary dismissal - verse will show again on next tab/reload');
+            }
         }
     } catch (error) {
         console.error('Daily Flame: Error dismissing overlay:', error);

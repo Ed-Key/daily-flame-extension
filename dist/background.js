@@ -2,6 +2,192 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/services/esv-service.ts":
+/*!*************************************!*\
+  !*** ./src/services/esv-service.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ESVService: () => (/* binding */ ESVService)
+/* harmony export */ });
+class ESVService {
+    static async getVerse(reference) {
+        try {
+            const url = `${this.BASE_URL}/passage/text/?q=${encodeURIComponent(reference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=false`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Token ${this.API_KEY}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`ESV API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.passages || data.passages.length === 0) {
+                throw new Error('No verse content found');
+            }
+            // Extract text from the passages array
+            let text = data.passages[0];
+            // Remove the verse reference from the beginning if present
+            const referencePattern = new RegExp(`^${data.canonical}\\s*`);
+            text = text.replace(referencePattern, '');
+            // Remove the (ESV) suffix
+            text = text.replace(/\s*\(ESV\)\s*$/, '');
+            // Clean up extra whitespace
+            text = text.trim();
+            return {
+                text: text,
+                reference: data.canonical || reference,
+                bibleId: 'ESV'
+            };
+        }
+        catch (error) {
+            console.error('Error fetching ESV verse:', error);
+            throw error;
+        }
+    }
+    static async getChapter(chapterReference) {
+        try {
+            const url = `${this.BASE_URL}/passage/text/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=true`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Token ${this.API_KEY}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`ESV API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.passages || data.passages.length === 0) {
+                throw new Error('No chapter content found');
+            }
+            // Parse the text format to extract verses
+            const passageText = data.passages[0];
+            const verses = [];
+            // ESV returns text with verse numbers in brackets like [1], [2], etc.
+            // We need to parse this into a format similar to scripture.api.bible
+            const verseMatches = passageText.matchAll(/\[(\d+)\]\s*([^[]*?)(?=\[|$)/g);
+            for (const match of verseMatches) {
+                const verseNum = match[1];
+                const verseText = match[2].trim();
+                // Check if this verse contains words of Jesus
+                // In ESV text format, we don't have markup, so we'll need to use the HTML endpoint for red letters
+                verses.push({
+                    number: verseNum,
+                    text: verseText
+                });
+            }
+            // Return in a format similar to scripture.api.bible
+            return {
+                id: chapterReference,
+                reference: data.canonical,
+                content: [{
+                        items: verses.map(v => ({
+                            type: 'verse',
+                            number: v.number,
+                            text: v.text
+                        }))
+                    }],
+                verseCount: verses.length
+            };
+        }
+        catch (error) {
+            console.error('Error fetching ESV chapter:', error);
+            throw error;
+        }
+    }
+    // Get chapter with HTML format for red letter support
+    static async getChapterWithRedLetters(chapterReference) {
+        try {
+            const url = `${this.BASE_URL}/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=true&include-audio-link=false`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Token ${this.API_KEY}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`ESV API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.passages || data.passages.length === 0) {
+                throw new Error('No chapter content found');
+            }
+            // Parse HTML to extract verses with red letter support
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.passages[0], 'text/html');
+            const verses = [];
+            // Find all verse numbers
+            const verseNums = doc.querySelectorAll('.verse-num');
+            verseNums.forEach((verseNumElement) => {
+                const verseNum = verseNumElement.textContent?.replace(/\s/g, '') || '';
+                // Get all text nodes and elements until the next verse number
+                const content = [];
+                let node = verseNumElement.nextSibling;
+                while (node && !(node instanceof Element && node.classList?.contains('verse-num'))) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const text = node.textContent?.trim();
+                        if (text) {
+                            content.push({
+                                type: 'text',
+                                text: text
+                            });
+                        }
+                    }
+                    else if (node instanceof Element && node.classList?.contains('woc')) {
+                        // Words of Christ
+                        content.push({
+                            type: 'tag',
+                            name: 'char',
+                            attrs: { style: 'wj' },
+                            items: [{
+                                    type: 'text',
+                                    text: node.textContent || ''
+                                }]
+                        });
+                    }
+                    node = node.nextSibling;
+                }
+                if (verseNum && content.length > 0) {
+                    verses.push({
+                        type: 'tag',
+                        name: 'verse',
+                        attrs: { number: verseNum.replace(/[^\d]/g, '') },
+                        items: []
+                    });
+                    // Add content items
+                    content.forEach(item => {
+                        if (item.type === 'text' || item.type === 'tag') {
+                            verses.push(item);
+                        }
+                    });
+                }
+            });
+            // Return in a format similar to scripture.api.bible
+            return {
+                id: chapterReference,
+                reference: data.canonical,
+                content: [{
+                        type: 'tag',
+                        name: 'para',
+                        items: verses
+                    }],
+                verseCount: verseNums.length
+            };
+        }
+        catch (error) {
+            console.error('Error fetching ESV chapter with red letters:', error);
+            throw error;
+        }
+    }
+}
+ESVService.API_KEY = 'd74f42aa54c642a4cbfef2a93c5c67f460f13cdb';
+ESVService.BASE_URL = 'https://api.esv.org/v3';
+
+
+/***/ }),
+
 /***/ "./src/services/verse-service.ts":
 /*!***************************************!*\
   !*** ./src/services/verse-service.ts ***!
@@ -13,6 +199,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   VerseService: () => (/* binding */ VerseService)
 /* harmony export */ });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types */ "./src/types/index.ts");
+/* harmony import */ var _esv_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./esv-service */ "./src/services/esv-service.ts");
+
 
 class VerseService {
     static async getBibles() {
@@ -34,6 +222,10 @@ class VerseService {
         }
     }
     static async getVerse(reference, bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS.KJV) {
+        // Route ESV requests to ESV service
+        if (bibleId === 'ESV') {
+            return _esv_service__WEBPACK_IMPORTED_MODULE_1__.ESVService.getVerse(reference);
+        }
         try {
             const apiReference = this.convertReferenceToApiFormat(reference);
             const url = `${this.BASE_URL}/bibles/${bibleId}/passages/${apiReference}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false`;
@@ -67,6 +259,52 @@ class VerseService {
         }
         catch (error) {
             console.error('Error fetching verse:', error);
+            throw error;
+        }
+    }
+    static async getChapter(chapterReference, bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS.KJV) {
+        // Route ESV requests to ESV service
+        if (bibleId === 'ESV') {
+            return _esv_service__WEBPACK_IMPORTED_MODULE_1__.ESVService.getChapterWithRedLetters(chapterReference);
+        }
+        try {
+            // Convert chapter reference (e.g., "John 3") to API format
+            const match = chapterReference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+)$/);
+            if (!match) {
+                throw new Error(`Invalid chapter reference: ${chapterReference}`);
+            }
+            const [, bookName, chapter] = match;
+            const apiReference = this.convertReferenceToApiFormat(`${bookName} ${chapter}:1`);
+            const bookCode = apiReference.split('.')[0];
+            const chapterApiRef = `${bookCode}.${chapter}`;
+            const url = `${this.BASE_URL}/bibles/${bibleId}/chapters/${chapterApiRef}?content-type=json&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false`;
+            console.log('Daily Flame Chapter API Call:', {
+                chapterReference,
+                chapterApiRef,
+                url
+            });
+            const response = await fetch(url, {
+                headers: {
+                    'api-key': this.API_KEY
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            if (!data.data) {
+                throw new Error('No chapter content found');
+            }
+            return {
+                id: data.data.id,
+                reference: data.data.reference,
+                bookId: data.data.bookId,
+                content: data.data.content,
+                copyright: data.data.copyright
+            };
+        }
+        catch (error) {
+            console.error('Error fetching chapter:', error);
             throw error;
         }
     }
@@ -227,6 +465,8 @@ __webpack_require__.r(__webpack_exports__);
 // Bible translation mappings
 const BIBLE_VERSIONS = {
     'KJV': 'de4e12af7f28f599-02',
+    'ASV': '06125adad2d5898a-01',
+    'ESV': 'ESV', // Special case - uses different API
     'WEB': '9879dbb7cfe39e4d-04',
     'WEB_BRITISH': '7142879509583d59-04',
     'WEB_UPDATED': '72f4e6dc683324df-03'

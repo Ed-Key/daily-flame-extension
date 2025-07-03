@@ -7,6 +7,7 @@ import {
   BibleTranslation,
   BibleVersion
 } from '../types';
+import { ESVService } from './esv-service';
 
 export class VerseService {
   private static readonly API_KEY = '58410e50f19ea158ea4902e05191db02';
@@ -33,6 +34,11 @@ export class VerseService {
   }
 
   static async getVerse(reference: string, bibleId: string = BIBLE_VERSIONS.KJV): Promise<VerseData> {
+    // Route ESV requests to ESV service
+    if (bibleId === 'ESV') {
+      return ESVService.getVerse(reference);
+    }
+    
     try {
       const apiReference = this.convertReferenceToApiFormat(reference);
       const url = `${this.BASE_URL}/bibles/${bibleId}/passages/${apiReference}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false`;
@@ -73,6 +79,62 @@ export class VerseService {
       
     } catch (error) {
       console.error('Error fetching verse:', error);
+      throw error;
+    }
+  }
+
+  static async getChapter(chapterReference: string, bibleId: string = BIBLE_VERSIONS.KJV): Promise<any> {
+    // Route ESV requests to ESV service
+    if (bibleId === 'ESV') {
+      return ESVService.getChapterWithRedLetters(chapterReference);
+    }
+    
+    try {
+      // Convert chapter reference (e.g., "John 3") to API format
+      const match = chapterReference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+)$/);
+      if (!match) {
+        throw new Error(`Invalid chapter reference: ${chapterReference}`);
+      }
+      
+      const [, bookName, chapter] = match;
+      const apiReference = this.convertReferenceToApiFormat(`${bookName} ${chapter}:1`);
+      const bookCode = apiReference.split('.')[0];
+      const chapterApiRef = `${bookCode}.${chapter}`;
+      
+      const url = `${this.BASE_URL}/bibles/${bibleId}/chapters/${chapterApiRef}?content-type=json&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false`;
+      
+      console.log('Daily Flame Chapter API Call:', {
+        chapterReference,
+        chapterApiRef,
+        url
+      });
+      
+      const response = await fetch(url, {
+        headers: {
+          'api-key': this.API_KEY
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} - ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      if (!data.data) {
+        throw new Error('No chapter content found');
+      }
+      
+      return {
+        id: data.data.id,
+        reference: data.data.reference,
+        bookId: data.data.bookId,
+        content: data.data.content,
+        copyright: data.data.copyright
+      };
+      
+    } catch (error) {
+      console.error('Error fetching chapter:', error);
       throw error;
     }
   }
