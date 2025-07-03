@@ -53682,10 +53682,10 @@ const ToastProvider = ({ children }) => {
 
 /***/ }),
 
-/***/ "./src/components/VerseOverlay.tsx":
-/*!*****************************************!*\
-  !*** ./src/components/VerseOverlay.tsx ***!
-  \*****************************************/
+/***/ "./src/components/VerseOverlay/components/AdminControls.tsx":
+/*!******************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/AdminControls.tsx ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -53695,17 +53695,374 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../types */ "./src/types/index.ts");
+/* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/verse-service */ "./src/services/verse-service.ts");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../ToastContext */ "./src/components/ToastContext.tsx");
+
+
+
+
+
+const AdminControls = ({ onVerseChange }) => {
+    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_4__.useToast)();
+    const [adminReference, setAdminReference] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+    const [adminTranslation, setAdminTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
+    const [adminPreviewVerse, setAdminPreviewVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [adminLoading, setAdminLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [adminError, setAdminError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const handleAdminPreview = async () => {
+        if (!adminReference || !adminTranslation) {
+            setAdminError('Please enter a Bible reference and select a translation');
+            return;
+        }
+        setAdminLoading(true);
+        setAdminError(null);
+        setAdminPreviewVerse(null);
+        try {
+            const previewVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_3__.VerseService.getVerse(adminReference, _types__WEBPACK_IMPORTED_MODULE_2__.BIBLE_VERSIONS[adminTranslation]);
+            setAdminPreviewVerse(previewVerse);
+            // If callback provided, notify parent of verse change
+            if (onVerseChange) {
+                onVerseChange(previewVerse);
+            }
+        }
+        catch (err) {
+            setAdminError(err instanceof Error ? err.message : 'Failed to load verse');
+        }
+        finally {
+            setAdminLoading(false);
+        }
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", className: "text-black", children: "ASV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", className: "text-black", children: "ESV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminControls);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/components/AuthButtons.tsx":
+/*!****************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/AuthButtons.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+const AuthButtons = ({ onSignInClick }) => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onSignInClick, className: "df-glassmorphism-element px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: "Sign In" }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuthButtons);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/components/ContextView.tsx":
+/*!****************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/ContextView.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_verseRenderer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/verseRenderer */ "./src/components/VerseOverlay/utils/verseRenderer.tsx");
+/* harmony import */ var _hooks_useContextScroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks/useContextScroll */ "./src/components/VerseOverlay/hooks/useContextScroll.ts");
+
+
+
+
+const ContextView = ({ verse, chapterContent, contextLoading, contextTranslation, onBack, onDone, onTranslationChange }) => {
+    const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const { contextContainerRef, fadeOverlayRef, setupScrollListener } = (0,_hooks_useContextScroll__WEBPACK_IMPORTED_MODULE_3__.useContextScroll)({ showContext: true });
+    // Extract current verse number from reference
+    const currentVerseMatch = verse.reference.match(/:(\d+)/);
+    const currentVerseNumber = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        // Setup scroll listener when content loads
+        if (!contextLoading && chapterContent) {
+            setupScrollListener();
+            // Animate the title underline
+            const underline = modalRef.current?.querySelector('.context-title-underline');
+            if (underline) {
+                setTimeout(() => {
+                    underline.classList.add('animate');
+                }, 200);
+            }
+        }
+    }, [contextLoading, chapterContent, setupScrollListener]);
+    const handleBackClick = () => {
+        onBack();
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-view-container", ref: modalRef, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "context-back-btn", onClick: handleBackClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { width: "16", height: "16", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z", clipRule: "evenodd" }) }), "Back"] }), contextLoading ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-loading", children: "Loading chapter..." })) : chapterContent ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-header", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-title-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "context-title", children: chapterContent.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: contextTranslation, onChange: (e) => onTranslationChange(e.target.value), className: "context-translation-select", disabled: contextLoading, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB Updated" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-title-underline" }), chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-subtitle", children: chapterContent.content[0].items[0].text }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-scroll-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-content", ref: contextContainerRef, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-verses", children: (0,_utils_verseRenderer__WEBPACK_IMPORTED_MODULE_2__.renderContextVerses)({
+                                        chapterContent,
+                                        currentVerseNumber,
+                                        contextTranslation
+                                    }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-fade", ref: fadeOverlayRef })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-button-fixed", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "verse-btn", onClick: onDone, type: "button", children: "Done" }) })] })) : null] }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ContextView);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/components/ProfileDropdown.tsx":
+/*!********************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/ProfileDropdown.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../AuthContext */ "./src/components/AuthContext.tsx");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../ToastContext */ "./src/components/ToastContext.tsx");
+
+
+
+
+const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, onClearAuthTokens, shadowRoot }) => {
+    const { sendVerificationEmail } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_2__.useAuth)();
+    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_3__.useToast)();
+    const [showDropdown, setShowDropdown] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        // Get the event target (shadowRoot or document)
+        const eventTarget = shadowRoot || document;
+        // Click outside handler
+        const handleClickOutside = (event) => {
+            if (showDropdown) {
+                const target = event.target;
+                if (!target.closest('.profile-dropdown')) {
+                    setShowDropdown(false);
+                }
+            }
+        };
+        // Keyboard shortcut for clearing auth tokens (Ctrl+Shift+C)
+        const handleKeyDown = (event) => {
+            const keyboardEvent = event;
+            if (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && keyboardEvent.key === 'C') {
+                keyboardEvent.preventDefault();
+                onClearAuthTokens();
+            }
+        };
+        eventTarget.addEventListener('click', handleClickOutside);
+        eventTarget.addEventListener('keydown', handleKeyDown);
+        return () => {
+            eventTarget.removeEventListener('click', handleClickOutside);
+            eventTarget.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [showDropdown, shadowRoot, onClearAuthTokens]);
+    const getUserInitials = (user) => {
+        if (user.displayName) {
+            return user.displayName.split(' ').map((name) => name[0]).join('').toUpperCase();
+        }
+        if (user.email) {
+            return user.email.substring(0, 2).toUpperCase();
+        }
+        return 'U';
+    };
+    const getUserAvatar = (user) => {
+        // For Google users, we might have a photoURL
+        if (user.photoURL) {
+            return user.photoURL;
+        }
+        return null;
+    };
+    const handleSendVerificationEmail = async () => {
+        try {
+            await sendVerificationEmail();
+            showToast('Verification email sent! Please check your inbox.', 'success');
+        }
+        catch (error) {
+            console.error('Error sending verification email:', error);
+            showToast('Failed to send verification email. Please try again.', 'error');
+        }
+    };
+    const handleLogout = async () => {
+        try {
+            await onSignOut();
+            setShowDropdown(false);
+        }
+        catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowDropdown(!showDropdown), className: "df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: [getUserAvatar(user) ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", { src: getUserAvatar(user), alt: "Profile", className: "w-6 h-6 rounded-full" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold", children: getUserInitials(user) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-4 h-4", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z", clipRule: "evenodd" }) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-20 mb-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm font-medium", children: user.displayName || 'User' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-70 text-xs", children: user.email }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1 flex gap-2", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-green-600 bg-opacity-20 text-green-200 text-xs rounded border border-green-400 border-opacity-50", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-yellow-600 bg-opacity-20 text-yellow-200 text-xs rounded border border-yellow-400 border-opacity-50", children: "Unverified" }))] })] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClearAuthTokens, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", title: "Clear auth tokens to test with different Google accounts", children: "Clear Auth Tokens" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProfileDropdown);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/components/VerseDisplay.tsx":
+/*!*****************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/VerseDisplay.tsx ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../types */ "./src/types/index.ts");
+
+
+
+const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse, onDone, onMore, isAdmin = false }, ref) => {
+    const verseTextRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const verseReferenceRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const leftLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const rightLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const doneButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const moreButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    // Expose refs to parent
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useImperativeHandle)(ref, () => ({
+        verseTextRef,
+        verseReferenceRef,
+        leftLineRef,
+        rightLineRef,
+        doneButtonRef,
+        moreButtonRef
+    }));
+    // Get translation name from bibleId
+    const getTranslationName = (bibleId) => {
+        const entry = Object.entries(_types__WEBPACK_IMPORTED_MODULE_2__.BIBLE_VERSIONS).find(([_, id]) => id === bibleId);
+        return entry ? entry[0] : 'KJV';
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [verse.reference, " ", getTranslationName(verse.bibleId)] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
+});
+VerseDisplay.displayName = 'VerseDisplay';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseDisplay);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/hooks/useContextScroll.ts":
+/*!***************************************************************!*\
+  !*** ./src/components/VerseOverlay/hooks/useContextScroll.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useContextScroll: () => (/* binding */ useContextScroll)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const useContextScroll = ({ showContext }) => {
+    const contextContainerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+    const fadeOverlayRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+    const handleContextScroll = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+        if (contextContainerRef.current && fadeOverlayRef.current) {
+            const scrollHeight = contextContainerRef.current.scrollHeight;
+            const scrollTop = contextContainerRef.current.scrollTop;
+            const clientHeight = contextContainerRef.current.clientHeight;
+            const scrollBottom = scrollHeight - scrollTop - clientHeight;
+            console.log('Scroll debug:', {
+                scrollHeight,
+                scrollTop,
+                clientHeight,
+                scrollBottom,
+                shouldHide: scrollBottom <= 5
+            });
+            // If we're within 5 pixels of the bottom, hide the fade
+            if (scrollBottom <= 5) {
+                fadeOverlayRef.current.classList.add('hidden');
+            }
+            else {
+                fadeOverlayRef.current.classList.remove('hidden');
+            }
+        }
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        if (showContext && contextContainerRef.current) {
+            // Add scroll listener when context is shown
+            const container = contextContainerRef.current;
+            container.addEventListener('scroll', handleContextScroll);
+            // Initial check
+            handleContextScroll();
+            return () => {
+                container.removeEventListener('scroll', handleContextScroll);
+            };
+        }
+    }, [showContext, handleContextScroll]);
+    // Setup function to be called when context content loads
+    const setupScrollListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+        setTimeout(() => {
+            if (contextContainerRef.current) {
+                contextContainerRef.current.addEventListener('scroll', handleContextScroll);
+                // Initial check
+                handleContextScroll();
+            }
+        }, 100);
+    }, [handleContextScroll]);
+    // Cleanup function to be called when leaving context view
+    const cleanupScrollListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+        if (contextContainerRef.current) {
+            contextContainerRef.current.removeEventListener('scroll', handleContextScroll);
+        }
+    }, [handleContextScroll]);
+    return {
+        contextContainerRef,
+        fadeOverlayRef,
+        setupScrollListener,
+        cleanupScrollListener,
+        handleContextScroll
+    };
+};
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/index.tsx":
+/*!***********************************************!*\
+  !*** ./src/components/VerseOverlay/index.tsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var _gsap_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @gsap/react */ "./node_modules/@gsap/react/src/index.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../types */ "./src/types/index.ts");
-/* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/verse-service */ "./src/services/verse-service.ts");
-/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AuthContext */ "./src/components/AuthContext.tsx");
-/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ToastContext */ "./src/components/ToastContext.tsx");
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./forms */ "./src/components/forms/index.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
+/* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/verse-service */ "./src/services/verse-service.ts");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../AuthContext */ "./src/components/AuthContext.tsx");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ToastContext */ "./src/components/ToastContext.tsx");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../forms */ "./src/components/forms/index.ts");
+/* harmony import */ var _components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ProfileDropdown */ "./src/components/VerseOverlay/components/ProfileDropdown.tsx");
+/* harmony import */ var _components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/AuthButtons */ "./src/components/VerseOverlay/components/AuthButtons.tsx");
+/* harmony import */ var _components_AdminControls__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/AdminControls */ "./src/components/VerseOverlay/components/AdminControls.tsx");
+/* harmony import */ var _components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/VerseDisplay */ "./src/components/VerseOverlay/components/VerseDisplay.tsx");
+/* harmony import */ var _components_ContextView__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ContextView */ "./src/components/VerseOverlay/components/ContextView.tsx");
 
 
 
 
+
+
+
+
+
+// Import modularized components
 
 
 
@@ -53714,17 +54071,23 @@ __webpack_require__.r(__webpack_exports__);
 const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_5__.useAuth)();
     const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_6__.useToast)();
-    const doneButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const moreButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const leftLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const rightLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    // GSAP animation refs
+    // Modal refs
     const overlayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const verseTextRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const verseReferenceRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const verseContentRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const verseDisplayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const entranceDirectionRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)('left');
+    // Context view state
+    const [showContext, setShowContext] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [contextLoading, setContextLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [chapterContent, setChapterContent] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [contextTranslation, setContextTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
+    const [shouldAnimateLines, setShouldAnimateLines] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    // Authentication state
+    const [showSignIn, setShowSignIn] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [showSignUp, setShowSignUp] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [showEmailVerification, setShowEmailVerification] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [verificationEmail, setVerificationEmail] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     // Debug logging
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         console.log('VerseOverlay: Auth state changed', { user, isAdmin });
@@ -53733,7 +54096,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleAnimatedDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create exit animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(true); // Pass true for permanent dismissal (Done button)
                 }
@@ -53762,34 +54125,11 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             onDismiss(true); // Fallback if ref not available - treat as permanent
         }
     };
-    // Handle scroll for context fade effect
-    const handleContextScroll = () => {
-        if (contextContainerRef.current && fadeOverlayRef.current) {
-            const scrollHeight = contextContainerRef.current.scrollHeight;
-            const scrollTop = contextContainerRef.current.scrollTop;
-            const clientHeight = contextContainerRef.current.clientHeight;
-            const scrollBottom = scrollHeight - scrollTop - clientHeight;
-            console.log('Scroll debug:', {
-                scrollHeight,
-                scrollTop,
-                clientHeight,
-                scrollBottom,
-                shouldHide: scrollBottom <= 5
-            });
-            // If we're within 5 pixels of the bottom, hide the fade
-            if (scrollBottom <= 5) {
-                fadeOverlayRef.current.classList.add('hidden');
-            }
-            else {
-                fadeOverlayRef.current.classList.remove('hidden');
-            }
-        }
-    };
     // Handle More button click
     const handleMoreClick = async () => {
         // Animate modal expansion
         if (modalRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(modalRef.current, {
                 maxHeight: '90vh',
                 duration: 0.4,
                 ease: "power2.out",
@@ -53813,21 +54153,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 // Fetch full chapter
                 const fullChapter = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getChapter(chapterRef, verse.bibleId);
                 setChapterContent(fullChapter);
-                // Set up scroll listener after content loads
-                setTimeout(() => {
-                    if (contextContainerRef.current) {
-                        contextContainerRef.current.addEventListener('scroll', handleContextScroll);
-                        // Initial check
-                        handleContextScroll();
-                    }
-                    // Animate the title underline
-                    const underline = modalRef.current?.querySelector('.context-title-underline');
-                    if (underline) {
-                        setTimeout(() => {
-                            underline.classList.add('animate');
-                        }, 200);
-                    }
-                }, 100);
             }
         }
         catch (error) {
@@ -53838,62 +54163,70 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             setContextLoading(false);
         }
     };
-    // Admin verse controls state
-    const [adminReference, setAdminReference] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
-    const [adminTranslation, setAdminTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
-    const [adminPreviewVerse, setAdminPreviewVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [adminLoading, setAdminLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [adminError, setAdminError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    // Context view state
-    const [showContext, setShowContext] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [contextLoading, setContextLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [chapterContent, setChapterContent] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [contextTranslation, setContextTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
-    const contextContainerRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const fadeOverlayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    // Authentication state
-    const [showSignIn, setShowSignIn] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [showSignUp, setShowSignUp] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [showEmailVerification, setShowEmailVerification] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [verificationEmail, setVerificationEmail] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    // Profile dropdown state
-    const [showProfileDropdown, setShowProfileDropdown] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         // Focus the done button after a short delay
         const timer = setTimeout(() => {
-            doneButtonRef.current?.focus();
+            verseDisplayRef.current?.doneButtonRef.current?.focus();
         }, 100);
         // Prevent scrolling on the body
         document.body.style.overflow = 'hidden';
-        // Get the event target (shadowRoot or document)
-        const eventTarget = shadowRoot || document;
-        // Click outside handler for profile dropdown
-        const handleClickOutside = (event) => {
-            if (showProfileDropdown) {
-                const target = event.target;
-                if (!target.closest('.profile-dropdown')) {
-                    setShowProfileDropdown(false);
-                }
-            }
-        };
-        // Keyboard shortcut for clearing auth tokens (Ctrl+Shift+C)
-        const handleKeyDown = (event) => {
-            const keyboardEvent = event;
-            if (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && keyboardEvent.key === 'C') {
-                keyboardEvent.preventDefault();
-                handleClearAuthTokens();
-            }
-        };
-        eventTarget.addEventListener('click', handleClickOutside);
-        eventTarget.addEventListener('keydown', handleKeyDown);
         // Cleanup function
         return () => {
             document.body.style.overflow = '';
             clearTimeout(timer);
-            eventTarget.removeEventListener('click', handleClickOutside);
-            eventTarget.removeEventListener('keydown', handleKeyDown);
         };
-    }, [showProfileDropdown, shadowRoot]);
+    }, []);
+    // Re-animate lines when returning from context view
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        if (shouldAnimateLines && verseDisplayRef.current) {
+            const refs = verseDisplayRef.current;
+            if (refs.leftLineRef.current && refs.rightLineRef.current) {
+                // Remove the animate class first
+                refs.leftLineRef.current.classList.remove('animate');
+                refs.rightLineRef.current.classList.remove('animate');
+                // Force a reflow to ensure the removal takes effect
+                void refs.leftLineRef.current.offsetWidth;
+                void refs.rightLineRef.current.offsetWidth;
+                // Set initial state with GSAP
+                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
+                    width: '0%'
+                });
+                // Animate lines expanding from center
+                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(refs.leftLineRef.current, {
+                    width: '40%',
+                    maxWidth: '200px',
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: 0.5,
+                    onComplete: () => {
+                        // Add the animate class to maintain the state
+                        if (refs.leftLineRef.current) {
+                            refs.leftLineRef.current.classList.add('animate');
+                            // Clear inline styles since the class will handle the width
+                            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(refs.leftLineRef.current, { clearProps: 'width' });
+                        }
+                    }
+                });
+                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(refs.rightLineRef.current, {
+                    width: '40%',
+                    maxWidth: '200px',
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: 0.5,
+                    onComplete: () => {
+                        // Add the animate class to maintain the state
+                        if (refs.rightLineRef.current) {
+                            refs.rightLineRef.current.classList.add('animate');
+                            // Clear inline styles since the class will handle the width
+                            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(refs.rightLineRef.current, { clearProps: 'width' });
+                        }
+                    }
+                });
+                // Reset the flag
+                setShouldAnimateLines(false);
+            }
+        }
+    }, [shouldAnimateLines, verseDisplayRef.current]);
     // GSAP Modal Entrance Animation with Backdrop Blur
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
         if (overlayRef.current && modalRef.current) {
@@ -53901,18 +54234,18 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             const direction = Math.random() > 0.5 ? 'left' : 'right';
             entranceDirectionRef.current = direction;
             // Set initial states - backdrop visible but no blur
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(overlayRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(overlayRef.current, {
                 opacity: 1,
                 className: 'verse-overlay' // No backdrop-blur class initially
             });
             // Set modal initial state - start small and off-screen
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(modalRef.current, {
                 xPercent: direction === 'left' ? -100 : 100,
                 scale: 0.85, // Start at 85% scale
                 opacity: 0
             });
             // Create animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
                 onComplete: () => {
                     console.log('Modal entrance animation completed');
                 }
@@ -53940,17 +54273,22 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     }, []);
     // GSAP Verse Animation Setup
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
-        console.log('GSAP useGSAP hook running');
+        console.log('GSAP useGSAP hook running for verse animation');
+        // Get refs from VerseDisplay component
+        const refs = verseDisplayRef.current;
+        if (!refs || !verseContentRef.current)
+            return;
+        const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef, leftLineRef, rightLineRef } = refs;
         // Split verse text into letters for letter-by-letter animation
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseContentRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseContentRef.current, {
                 opacity: 1,
                 visibility: 'visible'
             });
             // Set initial states for animation elements
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                 opacity: 0,
                 y: 30,
                 scale: 0.95,
@@ -53958,7 +54296,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 display: 'block'
             });
             // Keep the verse text container hidden initially
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseTextRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseTextRef.current, {
                 opacity: 0,
                 visibility: 'visible'
             });
@@ -53980,22 +54318,22 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
             if (letterElements.length > 0 && openingQuote && closingQuote) {
                 // Set initial state for quotes
-                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([openingQuote, closingQuote], {
+                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set([openingQuote, closingQuote], {
                     opacity: 0,
                     display: 'inline-block'
                 });
                 // Set initial state for letters with minimal glow
-                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(letterElements, {
+                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(letterElements, {
                     opacity: 0,
                     display: 'inline-block',
                     textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                 });
                 // Now make the container visible after all elements are hidden
-                gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(verseTextRef.current, {
+                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseTextRef.current, {
                     opacity: 1
                 });
                 // Create timeline for smooth verse reveal
-                const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
+                const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
                     delay: 0.9, // Delayed to start after overlay entrance animation
                     onStart: () => {
                         console.log('GSAP timeline started');
@@ -54069,12 +54407,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     duration: 1.2, // Slower, more gradual glow build-up
                     ease: "power2.inOut"
                 }, "+=0.3") // Wait after reference settles before starting glow
-                    // .to([letterElements, openingQuote, closingQuote], {
-                    //   opacity: 0.7,
-                    //   textShadow: "0px 0px 0px rgba(255,255,255,0)",
-                    //   duration: 0.3,
-                    //   ease: "power2.out"
-                    // }, "+=1") // Hold the glow for 0.4 seconds before fading
                     // Finally animate buttons
                     .to([doneButtonRef.current, moreButtonRef.current], {
                     opacity: 1,
@@ -54093,24 +54425,14 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             }
         }
         else {
-            console.error('One or more refs are null:', {
-                verseText: !!verseTextRef.current,
-                verseReference: !!verseReferenceRef.current,
-                doneButton: !!doneButtonRef.current,
-                moreButton: !!moreButtonRef.current,
-                verseContent: !!verseContentRef.current
-            });
+            console.error('One or more refs are null');
         }
     }, { dependencies: [verse.text, verse.reference], scope: verseContentRef });
-    const handleKeyDown = (e) => {
-        // Disable keyboard dismissal to prevent accidental dismissal when testing admin features
-        // Only the "Done" button should dismiss the overlay
-    };
     // Custom shrink dismissal for backdrop click (temporary dismiss)
     const handleShrinkDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create shrink animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(false); // Temporary dismissal
                 }
@@ -54144,25 +54466,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         // Prevent clicks inside modal from bubbling to backdrop
         e.stopPropagation();
     };
-    const handleAdminPreview = async () => {
-        if (!adminReference || !adminTranslation) {
-            setAdminError('Please enter a Bible reference and select a translation');
-            return;
-        }
-        setAdminLoading(true);
-        setAdminError(null);
-        setAdminPreviewVerse(null);
-        try {
-            const previewVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(adminReference, _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[adminTranslation]);
-            setAdminPreviewVerse(previewVerse);
-        }
-        catch (err) {
-            setAdminError(err instanceof Error ? err.message : 'Failed to load verse');
-        }
-        finally {
-            setAdminLoading(false);
-        }
-    };
     const switchToSignUp = () => {
         setShowSignIn(false);
         setShowSignUp(true);
@@ -54181,15 +54484,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleSignUpSuccess = () => {
         setShowSignUp(false);
         setShowEmailVerification(true);
-    };
-    const handleLogout = async () => {
-        try {
-            await signOut();
-            setShowProfileDropdown(false);
-        }
-        catch (error) {
-            console.error('Logout error:', error);
-        }
     };
     const handleClearAuthTokens = async () => {
         try {
@@ -54210,27 +54504,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             showToast('Error clearing auth tokens. Try the keyboard shortcut Ctrl+Shift+C.', 'error');
         }
     };
-    const getUserInitials = (user) => {
-        if (user.displayName) {
-            return user.displayName.split(' ').map((name) => name[0]).join('').toUpperCase();
-        }
-        if (user.email) {
-            return user.email.substring(0, 2).toUpperCase();
-        }
-        return 'U';
-    };
-    const getUserAvatar = (user) => {
-        // For Google users, we might have a photoURL
-        if (user.photoURL) {
-            return user.photoURL;
-        }
-        return null;
-    };
-    // Get translation name from bibleId
-    const getTranslationName = (bibleId) => {
-        const entry = Object.entries(_types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS).find(([_, id]) => id === bibleId);
-        return entry ? entry[0] : 'KJV';
-    };
     // Handle context translation change
     const handleContextTranslationChange = async (newTranslation) => {
         setContextTranslation(newTranslation);
@@ -54244,14 +54517,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 // Fetch chapter in new translation
                 const fullChapter = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getChapter(chapterRef, bibleId);
                 setChapterContent(fullChapter);
-                // Set up scroll listener after content loads
-                setTimeout(() => {
-                    if (contextContainerRef.current) {
-                        contextContainerRef.current.addEventListener('scroll', handleContextScroll);
-                        // Initial check
-                        handleContextScroll();
-                    }
-                }, 100);
             }
         }
         catch (error) {
@@ -54264,272 +54529,233 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     };
     // Handle back from context view
     const handleBackFromContext = () => {
-        // Remove scroll listener
-        if (contextContainerRef.current) {
-            contextContainerRef.current.removeEventListener('scroll', handleContextScroll);
-        }
         // Animate modal back to original size
         if (modalRef.current) {
             modalRef.current.classList.remove('verse-modal-expanded');
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(modalRef.current, {
                 maxHeight: '85vh',
                 duration: 0.4,
                 ease: "power2.out"
             });
         }
-        // Re-animate the verse reference lines using GSAP
-        if (leftLineRef.current && rightLineRef.current) {
-            // Remove the animate class first
-            leftLineRef.current.classList.remove('animate');
-            rightLineRef.current.classList.remove('animate');
-            // Set initial state with GSAP
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set([leftLineRef.current, rightLineRef.current], {
-                width: '0%'
-            });
-            // Animate lines expanding from center after a delay
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(leftLineRef.current, {
-                width: '40%',
-                maxWidth: '200px',
-                duration: 0.8,
-                ease: "power2.out",
-                delay: 0.5,
-                onComplete: () => {
-                    // Add the animate class to maintain the state
-                    if (leftLineRef.current) {
-                        leftLineRef.current.classList.add('animate');
-                        // Clear inline styles since the class will handle the width
-                        gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(leftLineRef.current, { clearProps: 'width' });
-                    }
-                }
-            });
-            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(rightLineRef.current, {
-                width: '40%',
-                maxWidth: '200px',
-                duration: 0.8,
-                ease: "power2.out",
-                delay: 0.5,
-                onComplete: () => {
-                    // Add the animate class to maintain the state
-                    if (rightLineRef.current) {
-                        rightLineRef.current.classList.add('animate');
-                        // Clear inline styles since the class will handle the width
-                        gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(rightLineRef.current, { clearProps: 'width' });
-                    }
-                }
-            });
-        }
         setShowContext(false);
-    };
-    // Parse and render context verses
-    const renderContextVerses = () => {
-        if (!chapterContent || !chapterContent.content)
-            return null;
-        // Extract current verse number from reference
-        const currentVerseMatch = verse.reference.match(/:(\d+)/);
-        const currentVerseNumber = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
-        // Check if we should use KJV formatting (each verse as separate paragraph)
-        const useKJVFormatting = contextTranslation === 'KJV' || contextTranslation === 'ASV';
-        // Parse content and render verses with paragraph support
-        const paragraphs = [];
-        let currentParagraph = [];
-        let currentVerseContent = [];
-        let currentVerseNum = '';
-        let paragraphKey = 0;
-        let currentParagraphStyle = '';
-        const addVerseToParagraph = (verseNum, verseContent) => {
-            if (verseNum) {
-                const verseNumber = parseInt(verseNum);
-                const isHighlighted = verseNumber === currentVerseNumber;
-                if (useKJVFormatting) {
-                    // For KJV/ASV: Each verse is its own paragraph with style
-                    let verseClasses = `context-paragraph kjv-verse ${isHighlighted ? 'highlighted-verse' : ''}`;
-                    // Apply poetry styles to KJV verses too
-                    if (currentParagraphStyle === 'q1') {
-                        verseClasses += ' poetry-q1';
-                    }
-                    else if (currentParagraphStyle === 'q2') {
-                        verseClasses += ' poetry-q2';
-                    }
-                    else if (currentParagraphStyle === 'd') {
-                        // For descriptors, use special styling
-                        paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "psalm-descriptor", children: verseContent }, `verse-${verseNum}`));
-                        return;
-                    }
-                    paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { className: "context-verse-number", children: verseNum }), verseContent.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: verseContent })] }, `verse-${verseNum}`));
-                }
-                else {
-                    // For other translations: Group verses by paragraphs
-                    currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verseNum }), verseContent.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verseContent, " "] })] }, `verse-${verseNum}`));
-                }
-            }
-        };
-        const finishParagraph = () => {
-            if (currentParagraph.length > 0) {
-                // Determine CSS classes based on paragraph style
-                let paragraphClasses = "context-paragraph";
-                if (currentParagraphStyle === 'q1') {
-                    paragraphClasses += " poetry-q1";
-                }
-                else if (currentParagraphStyle === 'q2') {
-                    paragraphClasses += " poetry-q2";
-                }
-                else if (currentParagraphStyle === 'd') {
-                    paragraphClasses = "psalm-descriptor"; // Replace default class for descriptors
-                }
-                else if (currentParagraphStyle === 'b') {
-                    paragraphClasses += " poetry-break";
-                }
-                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: paragraphClasses, children: currentParagraph }, `para-${paragraphKey++}`));
-                currentParagraph = [];
-            }
-        };
-        // Helper function to recursively extract text from nested items
-        const extractTextFromItems = (items, isWordsOfJesus = false, isTranslatorAddition = false, isDivineName = false) => {
-            const elements = [];
-            items.forEach((item, index) => {
-                if (item.type === 'text') {
-                    const text = item.text || '';
-                    if (text.trim()) {
-                        // Apply appropriate classes based on parent styles
-                        if (isDivineName) {
-                            // Divine name (LORD) - takes precedence
-                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "divine-name", children: text }, `nd-${index}`));
-                        }
-                        else if (isWordsOfJesus && isTranslatorAddition) {
-                            // Both styles apply
-                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus translator-addition", children: text }, `woj-add-${index}`));
-                        }
-                        else if (isWordsOfJesus) {
-                            // Only words of Jesus
-                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: text }, `woj-${index}`));
-                        }
-                        else if (isTranslatorAddition) {
-                            // Only translator addition
-                            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translator-addition", children: text }, `add-${index}`));
-                        }
-                        else {
-                            // Plain text
-                            elements.push(text);
-                        }
-                    }
-                    else if (text) {
-                        // Keep whitespace even if not trimmed
-                        elements.push(text);
-                    }
-                }
-                else if (item.type === 'tag' && item.items) {
-                    // Check style types
-                    const isWoj = item.name === 'char' && item.attrs?.style === 'wj';
-                    const isAdd = item.name === 'char' && item.attrs?.style === 'add';
-                    const isNd = item.name === 'char' && item.attrs?.style === 'nd';
-                    // Recursively get text from nested tags, preserving parent styles
-                    elements.push(...extractTextFromItems(item.items, isWoj || isWordsOfJesus, isAdd || isTranslatorAddition, isNd || isDivineName));
-                }
+        // Use requestAnimationFrame to wait for the next paint
+        requestAnimationFrame(() => {
+            // Wait one more frame to ensure React has rendered
+            requestAnimationFrame(() => {
+                setShouldAnimateLines(true);
             });
-            return elements;
-        };
-        // Debug logging
-        console.log('Chapter content structure:', chapterContent);
-        chapterContent.content.forEach((section) => {
-            // Each section is a paragraph with a style
-            if (section.type === 'tag' && section.name === 'para') {
-                // Get the paragraph style
-                currentParagraphStyle = section.attrs?.style || 'p';
-                // Process items within this paragraph
-                if (section.items) {
-                    let i = 0;
-                    while (i < section.items.length) {
-                        const item = section.items[i];
-                        if (item.type === 'tag' && item.name === 'verse') {
-                            // Add previous verse to current paragraph (even if empty)
-                            if (currentVerseNum) {
-                                addVerseToParagraph(currentVerseNum, currentVerseContent);
-                            }
-                            // Start new verse
-                            currentVerseNum = item.attrs?.number || '';
-                            currentVerseContent = [];
-                            i++;
-                            // Collect all content until the next verse or para tag
-                            while (i < section.items.length) {
-                                const nextItem = section.items[i];
-                                if (nextItem.type === 'tag' && (nextItem.name === 'verse' || nextItem.name === 'para')) {
-                                    break;
-                                }
-                                if (nextItem.type === 'text') {
-                                    currentVerseContent.push(nextItem.text || '');
-                                }
-                                else if (nextItem.type === 'tag' && nextItem.items) {
-                                    // Check if this is a words of Jesus tag, translator addition, or divine name before extracting content
-                                    const isWoj = nextItem.name === 'char' && nextItem.attrs?.style === 'wj';
-                                    const isAdd = nextItem.name === 'char' && nextItem.attrs?.style === 'add';
-                                    const isNd = nextItem.name === 'char' && nextItem.attrs?.style === 'nd';
-                                    if (isWoj) {
-                                        console.log('Found words of Jesus tag in verse', currentVerseNum, nextItem);
-                                    }
-                                    if (isAdd) {
-                                        console.log('Found translator addition tag in verse', currentVerseNum, nextItem);
-                                    }
-                                    if (isNd) {
-                                        console.log('Found divine name tag in verse', currentVerseNum, nextItem);
-                                    }
-                                    // Extract content from nested tags (like char)
-                                    currentVerseContent.push(...extractTextFromItems(nextItem.items, isWoj, isAdd, isNd));
-                                }
-                                i++;
-                            }
-                        }
-                        else {
-                            i++;
-                        }
-                    }
-                    // Finish processing this paragraph section
-                    if (currentVerseNum) {
-                        addVerseToParagraph(currentVerseNum, currentVerseContent);
-                        currentVerseContent = [];
-                        currentVerseNum = '';
-                    }
-                    // For non-KJV, finish the paragraph after processing all its verses
-                    if (!useKJVFormatting) {
-                        finishParagraph();
-                    }
-                }
-            }
         });
-        // Add the last verse (even if empty)
-        if (currentVerseNum) {
-            addVerseToParagraph(currentVerseNum, currentVerseContent);
-        }
-        // Finish the last paragraph
-        if (!useKJVFormatting) {
-            finishParagraph();
-            // If no paragraph tags were found, put all verses in one paragraph
-            if (paragraphs.length === 0 && currentParagraph.length > 0) {
-                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, "para-single"));
-            }
-        }
-        return paragraphs;
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onKeyDown: handleKeyDown, onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? (
-                            /* Sign In Button - Only visible when not authenticated */
-                            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowSignIn(true), className: "df-glassmorphism-element px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: "Sign In" })) : (
-                            /* Profile Dropdown - Only visible when authenticated */
-                            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowProfileDropdown(!showProfileDropdown), className: "df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: [getUserAvatar(user) ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", { src: getUserAvatar(user), alt: "Profile", className: "w-6 h-6 rounded-full" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold", children: getUserInitials(user) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-4 h-4", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z", clipRule: "evenodd" }) })] }), showProfileDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-20 mb-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm font-medium", children: user.displayName || 'User' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-70 text-xs", children: user.email }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1 flex gap-2", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-green-600 bg-opacity-20 text-green-200 text-xs rounded border border-green-400 border-opacity-50", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-yellow-600 bg-opacity-20 text-yellow-200 text-xs rounded border border-yellow-400 border-opacity-50", children: "Unverified" }))] })] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: async () => {
-                                                    try {
-                                                        await sendVerificationEmail();
-                                                        showToast('Verification email sent! Please check your inbox.', 'success');
-                                                    }
-                                                    catch (error) {
-                                                        console.error('Error sending verification email:', error);
-                                                        showToast('Failed to send verification email. Please try again.', 'error');
-                                                    }
-                                                }, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleClearAuthTokens, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", title: "Clear auth tokens to test with different Google accounts", children: "Clear Auth Tokens" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", className: "text-black", children: "ASV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", className: "text-black", children: "ESV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] })), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [verse.reference, " ", getTranslationName(verse.bibleId)] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: handleAnimatedDismiss, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: handleMoreClick, type: "button", children: "More" })] })] })) : (
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, onClearAuthTokens: handleClearAuthTokens, shadowRoot: shadowRoot })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: verse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
                                 /* Context view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-view-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "context-back-btn", onClick: handleBackFromContext, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { width: "16", height: "16", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z", clipRule: "evenodd" }) }), "Back"] }), contextLoading ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-loading", children: "Loading chapter..." })) : chapterContent ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-header", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-title-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "context-title", children: chapterContent.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: contextTranslation, onChange: (e) => handleContextTranslationChange(e.target.value), className: "context-translation-select", disabled: contextLoading, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB Updated" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-title-underline" }), chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-subtitle", children: chapterContent.content[0].items[0].text }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-scroll-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-content", ref: contextContainerRef, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-verses", children: renderContextVerses() }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-fade", ref: fadeOverlayRef })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-button-fixed", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "verse-btn", onClick: handleAnimatedDismiss, type: "button", children: "Done" }) })] })) : null] }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_12__["default"], { verse: verse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
                                     }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseOverlay);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/utils/verseRenderer.tsx":
+/*!*************************************************************!*\
+  !*** ./src/components/VerseOverlay/utils/verseRenderer.tsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   renderContextVerses: () => (/* binding */ renderContextVerses)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+const renderContextVerses = ({ chapterContent, currentVerseNumber, contextTranslation }) => {
+    if (!chapterContent || !chapterContent.content)
+        return [];
+    // Check if we should use KJV formatting (each verse as separate paragraph)
+    const useKJVFormatting = contextTranslation === 'KJV' || contextTranslation === 'ASV';
+    // Parse content and render verses with paragraph support
+    const paragraphs = [];
+    let currentParagraph = [];
+    let currentVerseContent = [];
+    let currentVerseNum = '';
+    let paragraphKey = 0;
+    let currentParagraphStyle = '';
+    const addVerseToParagraph = (verseNum, verseContent) => {
+        if (verseNum) {
+            const verseNumber = parseInt(verseNum);
+            const isHighlighted = verseNumber === currentVerseNumber;
+            if (useKJVFormatting) {
+                // For KJV/ASV: Each verse is its own paragraph with style
+                let verseClasses = `context-paragraph kjv-verse ${isHighlighted ? 'highlighted-verse' : ''}`;
+                // Apply poetry styles to KJV verses too
+                if (currentParagraphStyle === 'q1') {
+                    verseClasses += ' poetry-q1';
+                }
+                else if (currentParagraphStyle === 'q2') {
+                    verseClasses += ' poetry-q2';
+                }
+                else if (currentParagraphStyle === 'd') {
+                    // For descriptors, use special styling
+                    paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "psalm-descriptor", children: verseContent }, `verse-${verseNum}`));
+                    return;
+                }
+                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { className: "context-verse-number", children: verseNum }), verseContent.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: verseContent })] }, `verse-${verseNum}`));
+            }
+            else {
+                // For other translations: Group verses by paragraphs
+                currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verseNum }), verseContent.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verseContent, " "] })] }, `verse-${verseNum}`));
+            }
+        }
+    };
+    const finishParagraph = () => {
+        if (currentParagraph.length > 0) {
+            // Determine CSS classes based on paragraph style
+            let paragraphClasses = "context-paragraph";
+            if (currentParagraphStyle === 'q1') {
+                paragraphClasses += " poetry-q1";
+            }
+            else if (currentParagraphStyle === 'q2') {
+                paragraphClasses += " poetry-q2";
+            }
+            else if (currentParagraphStyle === 'd') {
+                paragraphClasses = "psalm-descriptor"; // Replace default class for descriptors
+            }
+            else if (currentParagraphStyle === 'b') {
+                paragraphClasses += " poetry-break";
+            }
+            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: paragraphClasses, children: currentParagraph }, `para-${paragraphKey++}`));
+            currentParagraph = [];
+        }
+    };
+    // Helper function to recursively extract text from nested items
+    const extractTextFromItems = (items, isWordsOfJesus = false, isTranslatorAddition = false, isDivineName = false) => {
+        const elements = [];
+        items.forEach((item, index) => {
+            if (item.type === 'text') {
+                const text = item.text || '';
+                if (text.trim()) {
+                    // Apply appropriate classes based on parent styles
+                    if (isDivineName) {
+                        // Divine name (LORD) - takes precedence
+                        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "divine-name", children: text }, `nd-${index}`));
+                    }
+                    else if (isWordsOfJesus && isTranslatorAddition) {
+                        // Both styles apply
+                        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus translator-addition", children: text }, `woj-add-${index}`));
+                    }
+                    else if (isWordsOfJesus) {
+                        // Only words of Jesus
+                        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: text }, `woj-${index}`));
+                    }
+                    else if (isTranslatorAddition) {
+                        // Only translator addition
+                        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translator-addition", children: text }, `add-${index}`));
+                    }
+                    else {
+                        // Plain text
+                        elements.push(text);
+                    }
+                }
+                else if (text) {
+                    // Keep whitespace even if not trimmed
+                    elements.push(text);
+                }
+            }
+            else if (item.type === 'tag' && item.items) {
+                // Check style types
+                const isWoj = item.name === 'char' && item.attrs?.style === 'wj';
+                const isAdd = item.name === 'char' && item.attrs?.style === 'add';
+                const isNd = item.name === 'char' && item.attrs?.style === 'nd';
+                // Recursively get text from nested tags, preserving parent styles
+                elements.push(...extractTextFromItems(item.items, isWoj || isWordsOfJesus, isAdd || isTranslatorAddition, isNd || isDivineName));
+            }
+        });
+        return elements;
+    };
+    // Debug logging
+    console.log('Chapter content structure:', chapterContent);
+    chapterContent.content.forEach((section) => {
+        // Each section is a paragraph with a style
+        if (section.type === 'tag' && section.name === 'para') {
+            // Get the paragraph style
+            currentParagraphStyle = section.attrs?.style || 'p';
+            // Process items within this paragraph
+            if (section.items) {
+                let i = 0;
+                while (i < section.items.length) {
+                    const item = section.items[i];
+                    if (item.type === 'tag' && item.name === 'verse') {
+                        // Add previous verse to current paragraph (even if empty)
+                        if (currentVerseNum) {
+                            addVerseToParagraph(currentVerseNum, currentVerseContent);
+                        }
+                        // Start new verse
+                        currentVerseNum = item.attrs?.number || '';
+                        currentVerseContent = [];
+                        i++;
+                        // Collect all content until the next verse or para tag
+                        while (i < section.items.length) {
+                            const nextItem = section.items[i];
+                            if (nextItem.type === 'tag' && (nextItem.name === 'verse' || nextItem.name === 'para')) {
+                                break;
+                            }
+                            if (nextItem.type === 'text') {
+                                currentVerseContent.push(nextItem.text || '');
+                            }
+                            else if (nextItem.type === 'tag' && nextItem.items) {
+                                // Check if this is a words of Jesus tag, translator addition, or divine name before extracting content
+                                const isWoj = nextItem.name === 'char' && nextItem.attrs?.style === 'wj';
+                                const isAdd = nextItem.name === 'char' && nextItem.attrs?.style === 'add';
+                                const isNd = nextItem.name === 'char' && nextItem.attrs?.style === 'nd';
+                                if (isWoj) {
+                                    console.log('Found words of Jesus tag in verse', currentVerseNum, nextItem);
+                                }
+                                if (isAdd) {
+                                    console.log('Found translator addition tag in verse', currentVerseNum, nextItem);
+                                }
+                                if (isNd) {
+                                    console.log('Found divine name tag in verse', currentVerseNum, nextItem);
+                                }
+                                // Extract content from nested tags (like char)
+                                currentVerseContent.push(...extractTextFromItems(nextItem.items, isWoj, isAdd, isNd));
+                            }
+                            i++;
+                        }
+                    }
+                    else {
+                        i++;
+                    }
+                }
+                // Finish processing this paragraph section
+                if (currentVerseNum) {
+                    addVerseToParagraph(currentVerseNum, currentVerseContent);
+                    currentVerseContent = [];
+                    currentVerseNum = '';
+                }
+                // For non-KJV, finish the paragraph after processing all its verses
+                if (!useKJVFormatting) {
+                    finishParagraph();
+                }
+            }
+        }
+    });
+    // Add the last verse (even if empty)
+    if (currentVerseNum) {
+        addVerseToParagraph(currentVerseNum, currentVerseContent);
+    }
+    // Finish the last paragraph
+    if (!useKJVFormatting) {
+        finishParagraph();
+        // If no paragraph tags were found, put all verses in one paragraph
+        if (paragraphs.length === 0 && currentParagraph.length > 0) {
+            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, "para-single"));
+        }
+    }
+    return paragraphs;
+};
 
 
 /***/ }),
@@ -57183,7 +57409,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _components_VerseOverlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/VerseOverlay */ "./src/components/VerseOverlay.tsx");
+/* harmony import */ var _components_VerseOverlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/VerseOverlay */ "./src/components/VerseOverlay/index.tsx");
 /* harmony import */ var _components_AuthContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/AuthContext */ "./src/components/AuthContext.tsx");
 /* harmony import */ var _components_ToastContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/ToastContext */ "./src/components/ToastContext.tsx");
 /* harmony import */ var _styles_shadow_dom_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/shadow-dom-styles */ "./src/styles/shadow-dom-styles.ts");
