@@ -1,44 +1,44 @@
 name: Update Verse of the Day
 
-  on:
-    schedule:
-      # Run every 85 days at 00:00 UTC (provides 5-day buffer)
-      # This is approximately every 2040 hours
-      - cron: '0 0 1 */3 *'
-    workflow_dispatch: # Allow manual triggering for testing
+on:
+  schedule:
+    # Run every 85 days at 00:00 UTC (provides 5-day buffer)
+    # This is approximately every 2040 hours
+    - cron: '0 0 1 */3 *'
+  workflow_dispatch: # Allow manual triggering for testing
 
-  jobs:
-    update-verses:
-      runs-on: ubuntu-latest
+jobs:
+  update-verses:
+    runs-on: ubuntu-latest
 
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: |
-          npm install puppeteer
-          npm install cheerio
+    - name: Install dependencies
+      run: |
+        npm install puppeteer
+        npm install cheerio
 
-      - name: Scrape verses from YouVersion
-        run: |
-          node .github/scripts/scrape-verses.js
+    - name: Scrape verses from YouVersion
+      run: |
+        node .github/scripts/scrape-verses.js
 
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add docs/verses.json
-          if git diff-index --quiet HEAD --; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update verses from YouVersion [skip ci]"
-            git push
-          fi
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/verses.json
+        if git diff-index --quiet HEAD --; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update verses from YouVersion [skip ci]"
+          git push
+        fi
