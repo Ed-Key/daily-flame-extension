@@ -73,7 +73,7 @@ const ContextView: React.FC<ContextViewProps> = ({
               </select>
             </div>
             <div className="context-title-underline"></div>
-            {chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && (
+            {contextTranslation !== 'ESV' && chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && (
               <p className="context-subtitle">{chapterContent.content[0].items[0].text}</p>
             )}
           </div>

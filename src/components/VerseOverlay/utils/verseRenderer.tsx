@@ -151,6 +151,8 @@ export const renderContextVerses = ({
   // For ESV, wrap content in a container with chapter number
   if (useESVFormatting && chapterContent.chapterNumber) {
     const esvContent: React.JSX.Element[] = [];
+    let isFirstParagraph = true;
+    let chapterNumberAdded = false;
     
     chapterContent.content.forEach((section: any, sectionIndex: number) => {
       // Handle headings
@@ -227,22 +229,33 @@ export const renderContextVerses = ({
         }
         
         if (paragraphElements.length > 0) {
-          esvContent.push(
-            <p key={`para-${sectionIndex}`} className="context-paragraph esv-format">
-              {paragraphElements}
-            </p>
-          );
+          // Add chapter number to the first paragraph with verse content
+          if (isFirstParagraph && !chapterNumberAdded) {
+            esvContent.push(
+              <div key={`para-with-chapter-${sectionIndex}`} className="esv-chapter-container">
+                <div className="esv-chapter-number">{chapterContent.chapterNumber}</div>
+                <p className="context-paragraph esv-format esv-first-paragraph">
+                  {paragraphElements}
+                </p>
+              </div>
+            );
+            chapterNumberAdded = true;
+            isFirstParagraph = false;
+          } else {
+            esvContent.push(
+              <p key={`para-${sectionIndex}`} className="context-paragraph esv-format">
+                {paragraphElements}
+              </p>
+            );
+          }
         }
       }
     });
     
-    // Wrap in ESV container with chapter number floated
+    // Return the content without wrapping in additional containers
     return [
-      <div key="esv-chapter" className="esv-chapter-container">
-        <div className="esv-content">
-          <div className="esv-chapter-number">{chapterContent.chapterNumber}</div>
-          {esvContent}
-        </div>
+      <div key="esv-chapter" className="esv-content">
+        {esvContent}
       </div>
     ];
   }

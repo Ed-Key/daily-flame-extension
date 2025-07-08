@@ -1605,7 +1605,7 @@ export const getShadowDomStyles = (): string => {
     /* ESV-specific formatting */
     .esv-chapter-container {
       position: relative !important;
-      margin-top: 20px !important;
+      margin-bottom: 16px !important;
     }
 
     .esv-chapter-number {
@@ -1614,8 +1614,9 @@ export const getShadowDomStyles = (): string => {
       line-height: 0.8 !important;
       font-weight: 300 !important;
       color: rgba(255, 255, 255, 0.7) !important;
-      margin-right: 20px !important;
-      margin-top: -8px !important;
+      margin-left: -0.5rem !important;
+      margin-right: 12px !important;
+      margin-top: -5px !important;
       margin-bottom: -10px !important;
       padding-right: 5px !important;
     }
@@ -1625,8 +1626,10 @@ export const getShadowDomStyles = (): string => {
     }
     
     /* First paragraph in ESV needs special handling */
-    .esv-content .context-paragraph:first-of-type {
+    .esv-first-paragraph {
       /* Text will wrap around the floated chapter number */
+      text-indent: 0 !important; /* No indent for first paragraph with chapter number */
+      display: block !important;
     }
 
     /* ESV section headings */
