@@ -1,0 +1,36 @@
+{
+  "lastUpdated": "2025-01-08T00:00:00Z",
+  "nextUpdate": "2025-04-03T00:00:00Z",
+  "source": "YouVersion Verse of the Day Calendar",
+  "verses": [
+    {
+      "date": "2025-01-08",
+      "reference": "1 Peter 5:7",
+      "book": "1 Peter",
+      "chapter": 5,
+      "verse": "7",
+      "bibleId": "de4e12af7f28f599-02"
+    },
+    {
+      "date": "2025-01-09",
+      "reference": "Romans 8:28",
+      "book": "Romans",
+      "chapter": 8,
+      "verse": "28",
+      "bibleId": "de4e12af7f28f599-02"
+    },
+    {
+      "date": "2025-01-10",
+      "reference": "Philippians 4:13",
+      "book": "Philippians",
+      "chapter": 4,
+      "verse": "13",
+      "bibleId": "de4e12af7f28f599-02"
+    }
+  ],
+  "metadata": {
+    "totalDays": 90,
+    "version": "1.0",
+    "note": "This is sample data. Real data will be populated by GitHub Actions."
+  }
+}

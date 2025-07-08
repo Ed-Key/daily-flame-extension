@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { VerseData, BIBLE_VERSIONS, BibleTranslation } from '../../../types';
 import { VerseService } from '../../../services/verse-service';
 import { useToast } from '../../ToastContext';
@@ -6,32 +6,71 @@ import { AdminControlsProps } from '../types';
 
 const AdminControls: React.FC<AdminControlsProps> = ({ onVerseChange }) => {
   const { showToast } = useToast();
-  const [adminReference, setAdminReference] = useState('');
-  const [adminTranslation, setAdminTranslation] = useState<BibleTranslation>('KJV');
-  const [adminPreviewVerse, setAdminPreviewVerse] = useState<VerseData | null>(null);
+  const [todaysVerse, setTodaysVerse] = useState<{ reference: string; date: string } | null>(null);
+  const [nextVerses, setNextVerses] = useState<Array<{ reference: string; date: string }>>([]);
   const [adminLoading, setAdminLoading] = useState(false);
   const [adminError, setAdminError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [nextUpdate, setNextUpdate] = useState<string | null>(null);
 
-  const handleAdminPreview = async () => {
-    if (!adminReference || !adminTranslation) {
-      setAdminError('Please enter a Bible reference and select a translation');
-      return;
-    }
+  useEffect(() => {
+    fetchVerseSchedule();
+  }, []);
 
+  const fetchVerseSchedule = async () => {
     setAdminLoading(true);
     setAdminError(null);
-    setAdminPreviewVerse(null);
 
     try {
-      const previewVerse = await VerseService.getVerse(adminReference, BIBLE_VERSIONS[adminTranslation]);
-      setAdminPreviewVerse(previewVerse);
+      // Get today's date in YYYY-MM-DD format
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
       
-      // If callback provided, notify parent of verse change
-      if (onVerseChange) {
-        onVerseChange(previewVerse);
+      // Fetch verse data from GitHub Pages
+      const response = await fetch('https://ed-key.github.io/daily-flame-extension/verses.json');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch verse schedule');
       }
+      
+      const data = await response.json();
+      
+      // Find today's verse
+      const todayVerse = data.verses.find((v: any) => v.date === todayStr);
+      if (todayVerse) {
+        setTodaysVerse({
+          reference: todayVerse.reference,
+          date: todayVerse.date
+        });
+      }
+      
+      // Get next 7 days of verses
+      const upcoming = [];
+      for (let i = 1; i <= 7; i++) {
+        const futureDate = new Date(today);
+        futureDate.setDate(today.getDate() + i);
+        const futureDateStr = futureDate.toISOString().split('T')[0];
+        
+        const futureVerse = data.verses.find((v: any) => v.date === futureDateStr);
+        if (futureVerse) {
+          upcoming.push({
+            reference: futureVerse.reference,
+            date: futureVerse.date
+          });
+        }
+      }
+      setNextVerses(upcoming);
+      
+      // Set update info
+      if (data.lastUpdated) {
+        setLastUpdated(new Date(data.lastUpdated).toLocaleDateString());
+      }
+      if (data.nextUpdate) {
+        setNextUpdate(new Date(data.nextUpdate).toLocaleDateString());
+      }
+      
     } catch (err) {
-      setAdminError(err instanceof Error ? err.message : 'Failed to load verse');
+      setAdminError(err instanceof Error ? err.message : 'Failed to load verse schedule');
     } finally {
       setAdminLoading(false);
     }
@@ -40,39 +79,16 @@ const AdminControls: React.FC<AdminControlsProps> = ({ onVerseChange }) => {
   return (
     <div className="df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm">
       <h3 className="text-white text-lg font-semibold mb-4 flex items-center gap-2">
-        <span>⚙️</span>
-        Admin: Set Daily Verse
+        <span>📅</span>
+        YouVersion Verse Calendar
       </h3>
       
-      <div className="space-y-3">
-        <div className="flex gap-3">
-          <input
-            type="text"
-            value={adminReference}
-            onChange={(e) => setAdminReference(e.target.value)}
-            placeholder="e.g., John 3:16, Psalms 23:1-3"
-            className="df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-          />
-          <select
-            value={adminTranslation}
-            onChange={(e) => setAdminTranslation(e.target.value as BibleTranslation)}
-            className="df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-          >
-            <option value="KJV" className="text-black">KJV</option>
-            <option value="ASV" className="text-black">ASV</option>
-            <option value="ESV" className="text-black">ESV</option>
-            <option value="WEB" className="text-black">WEB</option>
-            <option value="WEB_BRITISH" className="text-black">WEB British</option>
-            <option value="WEB_UPDATED" className="text-black">WEB Updated</option>
-          </select>
-          <button
-            onClick={handleAdminPreview}
-            disabled={adminLoading}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors"
-          >
-            {adminLoading ? 'Loading...' : 'Preview'}
-          </button>
-        </div>
+      <div className="space-y-4">
+        {adminLoading && (
+          <div className="text-white text-center py-4">
+            Loading verse schedule...
+          </div>
+        )}
         
         {adminError && (
           <div className="p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm">
@@ -80,15 +96,49 @@ const AdminControls: React.FC<AdminControlsProps> = ({ onVerseChange }) => {
           </div>
         )}
         
-        {adminPreviewVerse && (
-          <div className="p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded">
-            <p className="text-yellow-100 italic mb-2">
-              Preview: "{adminPreviewVerse.text}"
-            </p>
-            <p className="text-yellow-200 font-medium text-sm">
-              {adminPreviewVerse.reference} ({adminTranslation})
-            </p>
-          </div>
+        {!adminLoading && !adminError && (
+          <>
+            {/* Today's Verse */}
+            {todaysVerse && (
+              <div className="p-3 bg-green-500 bg-opacity-20 border border-green-400 border-opacity-50 rounded">
+                <h4 className="text-green-100 font-semibold mb-1">Today's Verse</h4>
+                <p className="text-white font-medium">
+                  {todaysVerse.reference}
+                </p>
+                <p className="text-green-200 text-sm mt-1">
+                  {new Date(todaysVerse.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+            )}
+            
+            {/* Upcoming Verses */}
+            {nextVerses.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="text-white font-semibold">Upcoming Verses</h4>
+                {nextVerses.map((verse, index) => (
+                  <div key={index} className="p-2 bg-white bg-opacity-10 rounded text-white text-sm">
+                    <span className="font-medium">{verse.reference}</span>
+                    <span className="text-white text-opacity-70 ml-2">
+                      - {new Date(verse.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Update Info */}
+            <div className="text-white text-opacity-70 text-xs space-y-1 pt-2 border-t border-white border-opacity-20">
+              {lastUpdated && (
+                <p>Last updated: {lastUpdated}</p>
+              )}
+              {nextUpdate && (
+                <p>Next update: {nextUpdate}</p>
+              )}
+              <p className="text-white text-opacity-50">
+                Verses rotate on a 90-day cycle from YouVersion
+              </p>
+            </div>
+          </>
         )}
       </div>
     </div>

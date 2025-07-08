@@ -369,23 +369,90 @@ class VerseService {
     }
     static async getDailyVerse() {
         try {
-            const verses = await this.getStoredVerses();
-            if (!verses || verses.length === 0) {
-                throw new Error('No verses configured');
+            // Fetch verses from GitHub Pages
+            const versesData = await this.fetchVersesFromGitHub();
+            if (!versesData || !versesData.verses || versesData.verses.length === 0) {
+                // Fallback to stored verses if GitHub fetch fails
+                console.warn('GitHub verses unavailable, falling back to stored verses');
+                return this.getDailyVerseFromStored();
             }
-            // Use date as seed for consistent daily verse
+            // Get today's date in YYYY-MM-DD format
             const today = new Date();
-            const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
-            const verseIndex = dayOfYear % verses.length;
-            const selectedVerse = verses[verseIndex];
-            return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
+            const todayStr = today.toISOString().split('T')[0];
+            // Find verse for today's date
+            const todaysVerse = versesData.verses.find((v) => v.date === todayStr);
+            if (todaysVerse) {
+                // Use the verse for today's date
+                return await this.getVerse(todaysVerse.reference, todaysVerse.bibleId || 'de4e12af7f28f599-02');
+            }
+            else {
+                // If no exact date match, use modulo to cycle through available verses
+                const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+                const verseIndex = dayOfYear % versesData.verses.length;
+                const selectedVerse = versesData.verses[verseIndex];
+                return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId || 'de4e12af7f28f599-02');
+            }
         }
         catch (error) {
             console.error('Error getting daily verse:', error);
-            throw error;
+            // Fallback to stored verses on any error
+            return this.getDailyVerseFromStored();
+        }
+    }
+    static async getDailyVerseFromStored() {
+        const verses = await this.getStoredVerses();
+        if (!verses || verses.length === 0) {
+            throw new Error('No verses configured');
+        }
+        // Use date as seed for consistent daily verse
+        const today = new Date();
+        const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+        const verseIndex = dayOfYear % verses.length;
+        const selectedVerse = verses[verseIndex];
+        return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
+    }
+    static async fetchVersesFromGitHub() {
+        // Check cache first
+        if (this.cachedVerses &&
+            Date.now() - this.cachedVerses.timestamp < this.CACHE_DURATION) {
+            return this.cachedVerses.data;
+        }
+        try {
+            const response = await fetch(this.VERSES_URL, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to fetch verses: ${response.status}`);
+            }
+            const data = await response.json();
+            // Update cache
+            this.cachedVerses = {
+                data: data,
+                timestamp: Date.now()
+            };
+            return data;
+        }
+        catch (error) {
+            console.error('Error fetching verses from GitHub:', error);
+            return null;
         }
     }
     static async getStoredVerses() {
+        // First try to get verses from GitHub Pages
+        const githubVerses = await this.fetchVersesFromGitHub();
+        if (githubVerses && githubVerses.verses && githubVerses.verses.length > 0) {
+            // Convert GitHub verses to StoredVerse format
+            return githubVerses.verses.map((v) => ({
+                reference: v.reference,
+                bibleId: v.bibleId || 'de4e12af7f28f599-02',
+                translation: 'ESV',
+                dateAdded: v.date || new Date().toISOString()
+            }));
+        }
+        // Fallback to Chrome storage
         return new Promise((resolve) => {
             chrome.storage.local.get('verseList', (result) => {
                 resolve(result.verseList || this.getDefaultVerses());
@@ -492,6 +559,9 @@ class VerseService {
 }
 VerseService.API_KEY = '58410e50f19ea158ea4902e05191db02';
 VerseService.BASE_URL = 'https://api.scripture.api.bible/v1';
+VerseService.VERSES_URL = 'https://ed-key.github.io/daily-flame-extension/verses.json';
+VerseService.cachedVerses = null;
+VerseService.CACHE_DURATION = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
 
 /***/ }),

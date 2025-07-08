@@ -53695,45 +53695,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../types */ "./src/types/index.ts");
-/* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/verse-service */ "./src/services/verse-service.ts");
-/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../ToastContext */ "./src/components/ToastContext.tsx");
-
-
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../ToastContext */ "./src/components/ToastContext.tsx");
 
 
 
 const AdminControls = ({ onVerseChange }) => {
-    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_4__.useToast)();
-    const [adminReference, setAdminReference] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
-    const [adminTranslation, setAdminTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
-    const [adminPreviewVerse, setAdminPreviewVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_2__.useToast)();
+    const [todaysVerse, setTodaysVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [nextVerses, setNextVerses] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
     const [adminLoading, setAdminLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [adminError, setAdminError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const handleAdminPreview = async () => {
-        if (!adminReference || !adminTranslation) {
-            setAdminError('Please enter a Bible reference and select a translation');
-            return;
-        }
+    const [lastUpdated, setLastUpdated] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [nextUpdate, setNextUpdate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        fetchVerseSchedule();
+    }, []);
+    const fetchVerseSchedule = async () => {
         setAdminLoading(true);
         setAdminError(null);
-        setAdminPreviewVerse(null);
         try {
-            const previewVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_3__.VerseService.getVerse(adminReference, _types__WEBPACK_IMPORTED_MODULE_2__.BIBLE_VERSIONS[adminTranslation]);
-            setAdminPreviewVerse(previewVerse);
-            // If callback provided, notify parent of verse change
-            if (onVerseChange) {
-                onVerseChange(previewVerse);
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            // Fetch verse data from GitHub Pages
+            const response = await fetch('https://ed-key.github.io/daily-flame-extension/verses.json');
+            if (!response.ok) {
+                throw new Error('Failed to fetch verse schedule');
+            }
+            const data = await response.json();
+            // Find today's verse
+            const todayVerse = data.verses.find((v) => v.date === todayStr);
+            if (todayVerse) {
+                setTodaysVerse({
+                    reference: todayVerse.reference,
+                    date: todayVerse.date
+                });
+            }
+            // Get next 7 days of verses
+            const upcoming = [];
+            for (let i = 1; i <= 7; i++) {
+                const futureDate = new Date(today);
+                futureDate.setDate(today.getDate() + i);
+                const futureDateStr = futureDate.toISOString().split('T')[0];
+                const futureVerse = data.verses.find((v) => v.date === futureDateStr);
+                if (futureVerse) {
+                    upcoming.push({
+                        reference: futureVerse.reference,
+                        date: futureVerse.date
+                    });
+                }
+            }
+            setNextVerses(upcoming);
+            // Set update info
+            if (data.lastUpdated) {
+                setLastUpdated(new Date(data.lastUpdated).toLocaleDateString());
+            }
+            if (data.nextUpdate) {
+                setNextUpdate(new Date(data.nextUpdate).toLocaleDateString());
             }
         }
         catch (err) {
-            setAdminError(err instanceof Error ? err.message : 'Failed to load verse');
+            setAdminError(err instanceof Error ? err.message : 'Failed to load verse schedule');
         }
         finally {
             setAdminLoading(false);
         }
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\u2699\uFE0F" }), "Admin: Set Daily Verse"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "flex gap-3", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "text", value: adminReference, onChange: (e) => setAdminReference(e.target.value), placeholder: "e.g., John 3:16, Psalms 23:1-3", className: "df-glassmorphism-input flex-1 px-3 py-2 rounded bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: adminTranslation, onChange: (e) => setAdminTranslation(e.target.value), className: "df-glassmorphism-input px-3 py-2 rounded bg-white bg-opacity-20 text-white border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", className: "text-black", children: "KJV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", className: "text-black", children: "ASV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", className: "text-black", children: "ESV" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", className: "text-black", children: "WEB" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", className: "text-black", children: "WEB British" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", className: "text-black", children: "WEB Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleAdminPreview, disabled: adminLoading, className: "px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-500 text-white rounded transition-colors", children: adminLoading ? 'Loading...' : 'Preview' })] }), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), adminPreviewVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-yellow-500 bg-opacity-20 border border-yellow-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-100 italic mb-2", children: ["Preview: \"", adminPreviewVerse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-yellow-200 font-medium text-sm", children: [adminPreviewVerse.reference, " (", adminTranslation, ")"] })] }))] })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-modal mb-8 p-4 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg backdrop-blur-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { className: "text-white text-lg font-semibold mb-4 flex items-center gap-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "\uD83D\uDCC5" }), "YouVersion Verse Calendar"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-4", children: [adminLoading && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "text-white text-center py-4", children: "Loading verse schedule..." })), adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "p-2 bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded text-red-200 text-sm", children: adminError })), !adminLoading && !adminError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [todaysVerse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-3 bg-green-500 bg-opacity-20 border border-green-400 border-opacity-50 rounded", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { className: "text-green-100 font-semibold mb-1", children: "Today's Verse" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white font-medium", children: todaysVerse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-green-200 text-sm mt-1", children: new Date(todaysVerse.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) })] })), nextVerses.length > 0 && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "space-y-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { className: "text-white font-semibold", children: "Upcoming Verses" }), nextVerses.map((verse, index) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "p-2 bg-white bg-opacity-10 rounded text-white text-sm", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "font-medium", children: verse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "text-white text-opacity-70 ml-2", children: ["- ", new Date(verse.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })] })] }, index)))] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-white text-opacity-70 text-xs space-y-1 pt-2 border-t border-white border-opacity-20", children: [lastUpdated && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { children: ["Last updated: ", lastUpdated] })), nextUpdate && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { children: ["Next update: ", nextUpdate] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-50", children: "Verses rotate on a 90-day cycle from YouVersion" })] })] }))] })] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AdminControls);
 
@@ -53801,7 +53829,7 @@ const ContextView = ({ verse, chapterContent, contextLoading, contextTranslation
     const handleBackClick = () => {
         onBack();
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-view-container", ref: modalRef, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "context-back-btn", onClick: handleBackClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { width: "16", height: "16", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z", clipRule: "evenodd" }) }), "Back"] }), contextLoading ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-loading", children: "Loading chapter..." })) : chapterContent ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-header", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-title-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "context-title", children: chapterContent.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: contextTranslation, onChange: (e) => onTranslationChange(e.target.value), className: "context-translation-select", disabled: contextLoading, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB Updated" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-title-underline" }), chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-subtitle", children: chapterContent.content[0].items[0].text }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-scroll-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-content", ref: contextContainerRef, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-verses", children: (0,_utils_verseRenderer__WEBPACK_IMPORTED_MODULE_2__.renderContextVerses)({
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-view-container", ref: modalRef, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "context-back-btn", onClick: handleBackClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { width: "16", height: "16", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z", clipRule: "evenodd" }) }), "Back"] }), contextLoading ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-loading", children: "Loading chapter..." })) : chapterContent ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-header", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-title-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "context-title", children: chapterContent.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { value: contextTranslation, onChange: (e) => onTranslationChange(e.target.value), className: "context-translation-select", disabled: contextLoading, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB Updated" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-title-underline" }), contextTranslation !== 'ESV' && chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-subtitle", children: chapterContent.content[0].items[0].text }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "context-scroll-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-content", ref: contextContainerRef, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-verses", children: (0,_utils_verseRenderer__WEBPACK_IMPORTED_MODULE_2__.renderContextVerses)({
                                         chapterContent,
                                         currentVerseNumber,
                                         contextTranslation
@@ -54681,6 +54709,8 @@ const renderContextVerses = ({ chapterContent, currentVerseNumber, contextTransl
     // For ESV, wrap content in a container with chapter number
     if (useESVFormatting && chapterContent.chapterNumber) {
         const esvContent = [];
+        let isFirstParagraph = true;
+        let chapterNumberAdded = false;
         chapterContent.content.forEach((section, sectionIndex) => {
             // Handle headings
             if (section.type === 'tag' && section.name === 'heading') {
@@ -54734,13 +54764,21 @@ const renderContextVerses = ({ chapterContent, currentVerseNumber, contextTransl
                     paragraphElements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: currentVerseNum }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: currentVerseContent })] }, `verse-${currentVerseNum}`));
                 }
                 if (paragraphElements.length > 0) {
-                    esvContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph esv-format", children: paragraphElements }, `para-${sectionIndex}`));
+                    // Add chapter number to the first paragraph with verse content
+                    if (isFirstParagraph && !chapterNumberAdded) {
+                        esvContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "esv-chapter-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-number", children: chapterContent.chapterNumber }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph esv-format esv-first-paragraph", children: paragraphElements })] }, `para-with-chapter-${sectionIndex}`));
+                        chapterNumberAdded = true;
+                        isFirstParagraph = false;
+                    }
+                    else {
+                        esvContent.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph esv-format", children: paragraphElements }, `para-${sectionIndex}`));
+                    }
                 }
             }
         });
-        // Wrap in ESV container with chapter number floated
+        // Return the content without wrapping in additional containers
         return [
-            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "esv-content", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-number", children: chapterContent.chapterNumber }), esvContent] }) }, "esv-chapter")
+            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-content", children: esvContent }, "esv-chapter")
         ];
     }
     // Original code for non-ESV translations
@@ -55648,23 +55686,90 @@ class VerseService {
     }
     static async getDailyVerse() {
         try {
-            const verses = await this.getStoredVerses();
-            if (!verses || verses.length === 0) {
-                throw new Error('No verses configured');
+            // Fetch verses from GitHub Pages
+            const versesData = await this.fetchVersesFromGitHub();
+            if (!versesData || !versesData.verses || versesData.verses.length === 0) {
+                // Fallback to stored verses if GitHub fetch fails
+                console.warn('GitHub verses unavailable, falling back to stored verses');
+                return this.getDailyVerseFromStored();
             }
-            // Use date as seed for consistent daily verse
+            // Get today's date in YYYY-MM-DD format
             const today = new Date();
-            const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
-            const verseIndex = dayOfYear % verses.length;
-            const selectedVerse = verses[verseIndex];
-            return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
+            const todayStr = today.toISOString().split('T')[0];
+            // Find verse for today's date
+            const todaysVerse = versesData.verses.find((v) => v.date === todayStr);
+            if (todaysVerse) {
+                // Use the verse for today's date
+                return await this.getVerse(todaysVerse.reference, todaysVerse.bibleId || 'de4e12af7f28f599-02');
+            }
+            else {
+                // If no exact date match, use modulo to cycle through available verses
+                const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+                const verseIndex = dayOfYear % versesData.verses.length;
+                const selectedVerse = versesData.verses[verseIndex];
+                return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId || 'de4e12af7f28f599-02');
+            }
         }
         catch (error) {
             console.error('Error getting daily verse:', error);
-            throw error;
+            // Fallback to stored verses on any error
+            return this.getDailyVerseFromStored();
+        }
+    }
+    static async getDailyVerseFromStored() {
+        const verses = await this.getStoredVerses();
+        if (!verses || verses.length === 0) {
+            throw new Error('No verses configured');
+        }
+        // Use date as seed for consistent daily verse
+        const today = new Date();
+        const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+        const verseIndex = dayOfYear % verses.length;
+        const selectedVerse = verses[verseIndex];
+        return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
+    }
+    static async fetchVersesFromGitHub() {
+        // Check cache first
+        if (this.cachedVerses &&
+            Date.now() - this.cachedVerses.timestamp < this.CACHE_DURATION) {
+            return this.cachedVerses.data;
+        }
+        try {
+            const response = await fetch(this.VERSES_URL, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to fetch verses: ${response.status}`);
+            }
+            const data = await response.json();
+            // Update cache
+            this.cachedVerses = {
+                data: data,
+                timestamp: Date.now()
+            };
+            return data;
+        }
+        catch (error) {
+            console.error('Error fetching verses from GitHub:', error);
+            return null;
         }
     }
     static async getStoredVerses() {
+        // First try to get verses from GitHub Pages
+        const githubVerses = await this.fetchVersesFromGitHub();
+        if (githubVerses && githubVerses.verses && githubVerses.verses.length > 0) {
+            // Convert GitHub verses to StoredVerse format
+            return githubVerses.verses.map((v) => ({
+                reference: v.reference,
+                bibleId: v.bibleId || 'de4e12af7f28f599-02',
+                translation: 'ESV',
+                dateAdded: v.date || new Date().toISOString()
+            }));
+        }
+        // Fallback to Chrome storage
         return new Promise((resolve) => {
             chrome.storage.local.get('verseList', (result) => {
                 resolve(result.verseList || this.getDefaultVerses());
@@ -55771,6 +55876,9 @@ class VerseService {
 }
 VerseService.API_KEY = '58410e50f19ea158ea4902e05191db02';
 VerseService.BASE_URL = 'https://api.scripture.api.bible/v1';
+VerseService.VERSES_URL = 'https://ed-key.github.io/daily-flame-extension/verses.json';
+VerseService.cachedVerses = null;
+VerseService.CACHE_DURATION = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
 
 /***/ }),
@@ -57392,7 +57500,7 @@ const getShadowDomStyles = () => {
     /* ESV-specific formatting */
     .esv-chapter-container {
       position: relative !important;
-      margin-top: 20px !important;
+      margin-bottom: 16px !important;
     }
 
     .esv-chapter-number {
@@ -57401,8 +57509,9 @@ const getShadowDomStyles = () => {
       line-height: 0.8 !important;
       font-weight: 300 !important;
       color: rgba(255, 255, 255, 0.7) !important;
-      margin-right: 20px !important;
-      margin-top: -8px !important;
+      margin-left: -0.5rem !important;
+      margin-right: 12px !important;
+      margin-top: -5px !important;
       margin-bottom: -10px !important;
       padding-right: 5px !important;
     }
@@ -57412,8 +57521,10 @@ const getShadowDomStyles = () => {
     }
     
     /* First paragraph in ESV needs special handling */
-    .esv-content .context-paragraph:first-of-type {
+    .esv-first-paragraph {
       /* Text will wrap around the floated chapter number */
+      text-indent: 0 !important; /* No indent for first paragraph with chapter number */
+      display: block !important;
     }
 
     /* ESV section headings */
