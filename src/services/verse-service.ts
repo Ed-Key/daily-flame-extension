@@ -8,13 +8,11 @@ import {
   BibleVersion
 } from '../types';
 import { ESVService } from './esv-service';
+import { FirestoreService, FirestoreVerse } from './firestore-service';
 
 export class VerseService {
   private static readonly API_KEY = '58410e50f19ea158ea4902e05191db02';
   private static readonly BASE_URL = 'https://api.scripture.api.bible/v1';
-  private static readonly VERSES_URL = 'https://ed-key.github.io/daily-flame-extension/verses.json';
-  private static cachedVerses: { data: any; timestamp: number } | null = null;
-  private static readonly CACHE_DURATION = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
   static async getBibles(): Promise<BibleVersion[]> {
     try {
@@ -163,33 +161,30 @@ export class VerseService {
 
   static async getDailyVerse(): Promise<VerseData> {
     try {
-      // Fetch verses from GitHub Pages
-      const versesData = await this.fetchVersesFromGitHub();
-      
-      if (!versesData || !versesData.verses || versesData.verses.length === 0) {
-        // Fallback to stored verses if GitHub fetch fails
-        console.warn('GitHub verses unavailable, falling back to stored verses');
-        return this.getDailyVerseFromStored();
-      }
-      
-      // Get today's date in YYYY-MM-DD format
-      const today = new Date();
-      const todayStr = today.toISOString().split('T')[0];
-      
-      // Find verse for today's date
-      const todaysVerse = versesData.verses.find((v: { date: string; reference: string; bibleId?: string }) => v.date === todayStr);
+      // First try to get today's verse from Firestore
+      const todaysVerse = await FirestoreService.getTodaysVerse();
       
       if (todaysVerse) {
-        // Use the verse for today's date
+        // Use the verse for today's date from Firestore
         return await this.getVerse(todaysVerse.reference, todaysVerse.bibleId || 'de4e12af7f28f599-02');
-      } else {
-        // If no exact date match, use modulo to cycle through available verses
+      }
+      
+      // If no verse for today, try to get all verses and use modulo
+      const allVerses = await FirestoreService.getAllVerses();
+      
+      if (allVerses && allVerses.length > 0) {
+        // Use date as seed for consistent daily verse
+        const today = new Date();
         const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
-        const verseIndex = dayOfYear % versesData.verses.length;
-        const selectedVerse = versesData.verses[verseIndex];
+        const verseIndex = dayOfYear % allVerses.length;
+        const selectedVerse = allVerses[verseIndex];
         
         return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId || 'de4e12af7f28f599-02');
       }
+      
+      // Final fallback to stored verses
+      console.warn('Firestore unavailable, falling back to default verses');
+      return this.getDailyVerseFromStored();
       
     } catch (error) {
       console.error('Error getting daily verse:', error);
@@ -214,56 +209,26 @@ export class VerseService {
     return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
   }
 
-  private static async fetchVersesFromGitHub(): Promise<{ verses: Array<{ date: string; reference: string; bibleId?: string }> } | null> {
-    // Check cache first
-    if (this.cachedVerses && 
-        Date.now() - this.cachedVerses.timestamp < this.CACHE_DURATION) {
-      return this.cachedVerses.data;
-    }
-    
-    try {
-      const response = await fetch(this.VERSES_URL, {
-        headers: {
-          'Accept': 'application/json',
-          'Cache-Control': 'no-cache'
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch verses: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      
-      // Update cache
-      this.cachedVerses = {
-        data: data,
-        timestamp: Date.now()
-      };
-      
-      return data;
-      
-    } catch (error) {
-      console.error('Error fetching verses from GitHub:', error);
-      return null;
-    }
-  }
 
   static async getStoredVerses(): Promise<StoredVerse[]> {
-    // First try to get verses from GitHub Pages
-    const githubVerses = await this.fetchVersesFromGitHub();
-    
-    if (githubVerses && githubVerses.verses && githubVerses.verses.length > 0) {
-      // Convert GitHub verses to StoredVerse format
-      return githubVerses.verses.map((v: { reference: string; bibleId?: string; date?: string }) => ({
-        reference: v.reference,
-        bibleId: v.bibleId || 'de4e12af7f28f599-02',
-        translation: 'ESV',
-        dateAdded: v.date || new Date().toISOString()
-      }));
+    // First try to get verses from Firestore
+    try {
+      const firestoreVerses = await FirestoreService.getAllVerses();
+      
+      if (firestoreVerses && firestoreVerses.length > 0) {
+        // Convert Firestore verses to StoredVerse format
+        return firestoreVerses.map((v: FirestoreVerse & { date?: string }) => ({
+          reference: v.reference,
+          bibleId: v.bibleId || 'de4e12af7f28f599-02',
+          translation: 'ESV',
+          dateAdded: v.date || new Date().toISOString()
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching from Firestore:', error);
     }
     
-    // Fallback to Chrome storage
+    // Fallback to Chrome storage with default verses
     return new Promise((resolve) => {
       chrome.storage.local.get('verseList', (result) => {
         resolve(result.verseList || this.getDefaultVerses());

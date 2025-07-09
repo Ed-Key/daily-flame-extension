@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Daily verses collection - public read access
+    match /dailyVerses/{date} {
+      // Anyone can read verses
+      allow read: if true;
+      
+      // Only authenticated admin can write (for manual updates)
+      // GitHub Actions uses service account which bypasses security rules
+      allow write: if request.auth != null && 
+        request.auth.token.email == 'admin@daily-flame.com';
+    }
+    
+    // Metadata document
+    match /dailyVerses/_metadata {
+      allow read: if true;
+      allow write: if false; // Only service account can update
+    }
+    
+    // Future: User favorites collection
+    match /users/{userId} {
+      // Users can only access their own data
+      allow read, write: if request.auth != null && 
+        request.auth.uid == userId;
+      
+      // Favorites subcollection
+      match /favorites/{verseId} {
+        allow read, write: if request.auth != null && 
+          request.auth.uid == userId;
+      }
+      
+      // Verse history subcollection (future feature)
+      match /history/{date} {
+        allow read: if request.auth != null && 
+          request.auth.uid == userId;
+        allow write: if request.auth != null && 
+          request.auth.uid == userId &&
+          // Prevent backdating history
+          request.resource.data.viewedAt == request.time;
+      }
+    }
+    
+    // Future: Shared verse collections
+    match /sharedCollections/{collectionId} {
+      allow read: if resource.data.isPublic == true ||
+        (request.auth != null && 
+         request.auth.uid in resource.data.members);
+      
+      allow create: if request.auth != null;
+      
+      allow update, delete: if request.auth != null && 
+        request.auth.uid == resource.data.ownerId;
+    }
+  }
+}

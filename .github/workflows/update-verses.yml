@@ -1,44 +1,88 @@
-name: Update Verse of the Day
+name: Update Daily Verses
 
 on:
+  # Run every 85 days at midnight UTC
   schedule:
-    # Run every 85 days at 00:00 UTC (provides 5-day buffer)
-    # This is approximately every 2040 hours
-    - cron: '0 0 1 */3 *'
-  workflow_dispatch: # Allow manual triggering for testing
+    - cron: '0 0 */85 * *'
+  
+  # Allow manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no Firestore updates)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   update-verses:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: |
-        npm install puppeteer
-        npm install cheerio
-
-    - name: Scrape verses from YouVersion
-      run: |
-        node .github/scripts/scrape-verses.js
-
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs/verses.json
-        if git diff-index --quiet HEAD --; then
-          echo "No changes to commit"
-        else
-          git commit -m "Update verses from YouVersion [skip ci]"
-          git push
-        fi
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: |
+          cd .github/scripts
+          npm init -y
+          npm install puppeteer csv-parse firebase-admin
+      
+      - name: Run verse scraper
+        env:
+          FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          cd .github/scripts
+          node scrape-verses.js
+      
+      - name: Commit verses.json backup
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/verses.json
+          git diff --staged --quiet || git commit -m "Update daily verses (automated)"
+      
+      - name: Push changes
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+      
+      - name: Upload verses.json as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: verses-json
+          path: docs/verses.json
+          retention-days: 90
+      
+      - name: Send notification on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Daily Verses Update Failed',
+              body: `The automated verse update workflow failed. Please check the [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.`,
+              labels: ['bug', 'automated']
+            })
