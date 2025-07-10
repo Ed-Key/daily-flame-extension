@@ -5,6 +5,7 @@ import { AuthProvider } from '../components/AuthContext';
 import { ToastProvider } from '../components/ToastContext';
 import { VerseData, ChromeMessage, ChromeResponse } from '../types';
 import { getShadowDomStyles } from '../styles/shadow-dom-styles';
+import { VerseService } from '../services/verse-service';
 
 // Initialize the verse overlay when this script is injected
 async function initVerseOverlay() {
@@ -17,21 +18,21 @@ async function initVerseOverlay() {
     }
     
     try {
-        // Get today's verse from the background script
-        const verseResponse = await sendMessage({ action: 'getDailyVerse' });
+        // Get today's verse directly from VerseService
+        console.log('Daily Flame: Fetching daily verse...');
+        const verse = await VerseService.getDailyVerse();
         
-        if (!verseResponse.success) {
+        if (verse) {
+            renderOverlay(verse);
+        } else {
             // Fallback to hardcoded verse if API fails
             const fallbackVerse: VerseData = {
                 text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, to give you hope and a future.",
                 reference: "Jeremiah 29:11",
-                bibleId: "de4e12af7f28f599-02"
+                bibleId: "ESV"
             };
             renderOverlay(fallbackVerse);
-            return;
         }
-        
-        renderOverlay(verseResponse.verse);
         
     } catch (error) {
         console.error('Daily Flame: Error creating overlay:', error);
@@ -39,7 +40,7 @@ async function initVerseOverlay() {
         const fallbackVerse: VerseData = {
             text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
             reference: "Proverbs 3:5-6",
-            bibleId: "de4e12af7f28f599-02"
+            bibleId: "ESV"
         };
         renderOverlay(fallbackVerse);
     }
@@ -158,10 +159,11 @@ function dismissOverlay(permanent: boolean = false) {
             
             // Only save to storage if it's a permanent dismissal (Done button clicked)
             if (permanent) {
-                chrome.runtime.sendMessage({ action: 'setVerseShownDate' }, (response: ChromeResponse) => {
+                const today = new Date().toISOString().split("T")[0];
+                chrome.storage.local.set({ verseShownDate: today }, () => {
                     if (chrome.runtime.lastError) {
                         console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
-                    } else if (response && response.success) {
+                    } else {
                         console.log('Daily Flame: Verse marked as done for today');
                     }
                 });
@@ -172,12 +174,6 @@ function dismissOverlay(permanent: boolean = false) {
     } catch (error) {
         console.error('Daily Flame: Error dismissing overlay:', error);
     }
-}
-
-function sendMessage(message: ChromeMessage): Promise<ChromeResponse> {
-    return new Promise((resolve) => {
-        chrome.runtime.sendMessage(message, resolve);
-    });
 }
 
 // Initialize the verse overlay when this script is injected

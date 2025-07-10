@@ -12,6 +12,8 @@
   "host_permissions": [
     "<all_urls>",
     "https://api.scripture.api.bible/*",
+    "https://api.nlt.to/*",
+    "https://api.esv.org/*",
     "https://*.firebaseapp.com/*",
     "https://*.googleapis.com/*",
     "https://securetoken.googleapis.com/*",

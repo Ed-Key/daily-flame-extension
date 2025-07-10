@@ -92,9 +92,13 @@ export const BIBLE_VERSIONS = {
   'KJV': 'de4e12af7f28f599-02',
   'ASV': '06125adad2d5898a-01',
   'ESV': 'ESV', // Special case - uses different API
+  'NLT': 'NLT', // Special case - uses different API
   'WEB': '9879dbb7cfe39e4d-04', 
   'WEB_BRITISH': '7142879509583d59-04',
   'WEB_UPDATED': '72f4e6dc683324df-03'
 } as const;
 
 export type BibleTranslation = keyof typeof BIBLE_VERSIONS;
+
+// Export unified Bible format types
+export * from './bible-formats';

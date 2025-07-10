@@ -5,14 +5,33 @@ import {
   PassageResponse,
   BIBLE_VERSIONS,
   BibleTranslation,
-  BibleVersion
+  BibleVersion,
+  UnifiedChapter,
+  BibleParser
 } from '../types';
 import { ESVService } from './esv-service';
+import { NLTService } from './nlt-service';
 import { FirestoreService, FirestoreVerse } from './firestore-service';
+
+// Import parsers
+import { StandardBibleParser } from './parsers/standard-parser';
+import { ESVBibleParser } from './parsers/esv-parser';
+import { NLTBibleParser } from './parsers/nlt-parser';
 
 export class VerseService {
   private static readonly API_KEY = '58410e50f19ea158ea4902e05191db02';
   private static readonly BASE_URL = 'https://api.scripture.api.bible/v1';
+  
+  // Parser registry
+  private static parsers: Map<string, BibleParser> = new Map<string, BibleParser>([
+    ['ESV', new ESVBibleParser()],
+    ['NLT', new NLTBibleParser()],
+    ['KJV', new StandardBibleParser('KJV')],
+    ['ASV', new StandardBibleParser('ASV')],
+    ['WEB', new StandardBibleParser('WEB')],
+    ['WEB_BRITISH', new StandardBibleParser('WEB_BRITISH')],
+    ['WEB_UPDATED', new StandardBibleParser('WEB_UPDATED')]
+  ]);
 
   static async getBibles(): Promise<BibleVersion[]> {
     try {
@@ -34,10 +53,15 @@ export class VerseService {
     }
   }
 
-  static async getVerse(reference: string, bibleId: string = BIBLE_VERSIONS.KJV): Promise<VerseData> {
+  static async getVerse(reference: string, bibleId: string = BIBLE_VERSIONS.ESV): Promise<VerseData> {
     // Route ESV requests to ESV service
     if (bibleId === 'ESV') {
       return ESVService.getVerse(reference);
+    }
+    
+    // Route NLT requests to NLT service
+    if (bibleId === 'NLT') {
+      return NLTService.getVerse(reference);
     }
     
     try {
@@ -84,60 +108,129 @@ export class VerseService {
     }
   }
 
-  static async getChapter(chapterReference: string, bibleId: string = BIBLE_VERSIONS.KJV): Promise<any> {
-    // Route ESV requests to ESV service
-    if (bibleId === 'ESV') {
-      return ESVService.getChapterWithRedLetters(chapterReference);
-    }
+  static async getChapter(chapterReference: string, bibleId: string = BIBLE_VERSIONS.ESV): Promise<UnifiedChapter> {
+    // Find the translation key from bibleId (moved outside try for catch block access)
+    const translationKey = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === bibleId)?.[0] as BibleTranslation;
     
     try {
-      // Convert chapter reference (e.g., "John 3") to API format
-      const match = chapterReference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+)$/);
-      if (!match) {
-        throw new Error(`Invalid chapter reference: ${chapterReference}`);
+      if (!translationKey) {
+        throw new Error(`Unknown bible ID: ${bibleId}`);
       }
+
+      // Get the appropriate parser
+      const parser = this.parsers.get(translationKey);
+      if (!parser) {
+        throw new Error(`No parser available for translation: ${translationKey}`);
+      }
+
+      // Fetch raw data based on translation type
+      let rawData: any;
       
-      const [, bookName, chapter] = match;
-      const apiReference = this.convertReferenceToApiFormat(`${bookName} ${chapter}:1`);
-      const bookCode = apiReference.split('.')[0];
-      const chapterApiRef = `${bookCode}.${chapter}`;
-      
-      const url = `${this.BASE_URL}/bibles/${bibleId}/chapters/${chapterApiRef}?content-type=json&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false`;
-      
-      console.log('Daily Flame Chapter API Call:', {
-        chapterReference,
-        chapterApiRef,
-        url
-      });
-      
-      const response = await fetch(url, {
-        headers: {
-          'api-key': this.API_KEY
+      if (bibleId === 'ESV') {
+        // Get raw HTML from ESV API for parser
+        const url = `https://api.esv.org/v3/passage/html/?q=${encodeURIComponent(chapterReference)}&include-passage-references=false&include-footnotes=false&include-headings=true&include-verse-numbers=true&include-audio-link=false`;
+        const response = await fetch(url, {
+          headers: {
+            'Authorization': `Token ${ESVService.API_KEY}`
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`ESV API request failed: ${response.status}`);
         }
+        
+        rawData = await response.json();
+        console.log('ESV API raw response:', rawData);
+      } else if (bibleId === 'NLT') {
+        rawData = await NLTService.getChapterWithRedLetters(chapterReference);
+      } else {
+        // Standard API format
+        rawData = await this.fetchStandardChapter(chapterReference, bibleId);
+      }
+
+      // Parse to unified format
+      const unifiedChapter = parser.parse(rawData);
+      
+      console.log('Parsed unified chapter:', {
+        reference: unifiedChapter.reference,
+        translation: unifiedChapter.translation,
+        verseCount: unifiedChapter.verses.length
       });
       
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.status} - ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      
-      if (!data.data) {
-        throw new Error('No chapter content found');
-      }
-      
-      return {
-        id: data.data.id,
-        reference: data.data.reference,
-        bookId: data.data.bookId,
-        content: data.data.content,
-        copyright: data.data.copyright
-      };
+      return unifiedChapter;
       
     } catch (error) {
-      console.error('Error fetching chapter:', error);
+      console.error('Error fetching chapter:', {
+        chapterReference,
+        bibleId,
+        translation: translationKey,
+        error: error instanceof Error ? error.message : String(error)
+      });
+      
+      // Provide more helpful error messages
+      if (error instanceof Error) {
+        if (error.message.includes('No verses found')) {
+          throw new Error(`Unable to load ${chapterReference} in ${translationKey}. The API may have returned an empty response.`);
+        } else if (error.message.includes('API request failed')) {
+          throw new Error(`Failed to connect to Bible API for ${translationKey}. Please check your internet connection.`);
+        }
+      }
+      
       throw error;
     }
+  }
+
+  /**
+   * Fetch chapter data from standard Bible API
+   */
+  private static async fetchStandardChapter(chapterReference: string, bibleId: string): Promise<any> {
+    // Convert chapter reference (e.g., "John 3") to API format
+    const match = chapterReference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+)$/);
+    if (!match) {
+      throw new Error(`Invalid chapter reference: ${chapterReference}`);
+    }
+    
+    const [, bookName, chapter] = match;
+    const apiReference = this.convertReferenceToApiFormat(`${bookName} ${chapter}:1`);
+    const bookCode = apiReference.split('.')[0];
+    const chapterApiRef = `${bookCode}.${chapter}`;
+    
+    const url = `${this.BASE_URL}/bibles/${bibleId}/chapters/${chapterApiRef}?content-type=json&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=false`;
+    
+    console.log('Standard API Chapter Call:', {
+      chapterReference,
+      chapterApiRef,
+      url
+    });
+    
+    const response = await fetch(url, {
+      headers: {
+        'api-key': this.API_KEY
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status} - ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!data.data) {
+      throw new Error('No chapter content found');
+    }
+    
+    // Debug logging removed for production
+    
+    const result = {
+      id: data.data.id,
+      reference: data.data.reference || chapterReference,
+      bookId: data.data.bookId,
+      content: data.data.content,
+      copyright: data.data.copyright
+    };
+    
+    console.log('Standard API response:', result);
+    return result;
   }
 
   static async getRandomVerse(verseList?: StoredVerse[]): Promise<VerseData> {
@@ -166,7 +259,7 @@ export class VerseService {
       
       if (todaysVerse) {
         // Use the verse for today's date from Firestore
-        return await this.getVerse(todaysVerse.reference, todaysVerse.bibleId || 'de4e12af7f28f599-02');
+        return await this.getVerse(todaysVerse.reference, 'ESV');
       }
       
       // If no verse for today, try to get all verses and use modulo
@@ -179,7 +272,7 @@ export class VerseService {
         const verseIndex = dayOfYear % allVerses.length;
         const selectedVerse = allVerses[verseIndex];
         
-        return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId || 'de4e12af7f28f599-02');
+        return await this.getVerse(selectedVerse.reference, 'ESV');
       }
       
       // Final fallback to stored verses
@@ -219,7 +312,7 @@ export class VerseService {
         // Convert Firestore verses to StoredVerse format
         return firestoreVerses.map((v: FirestoreVerse & { date?: string }) => ({
           reference: v.reference,
-          bibleId: v.bibleId || 'de4e12af7f28f599-02',
+          bibleId: v.bibleId || 'ESV',
           translation: 'ESV',
           dateAdded: v.date || new Date().toISOString()
         }));
@@ -245,15 +338,15 @@ export class VerseService {
   }
 
   static getDefaultVerses(): StoredVerse[] {
-    const kjvId = BIBLE_VERSIONS.KJV;
+    const esvId = BIBLE_VERSIONS.ESV;
     return [
-      { reference: 'John 3:16', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() },
-      { reference: 'Jeremiah 29:11', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() },
-      { reference: 'Philippians 4:13', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() },
-      { reference: 'Romans 8:28', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() },
-      { reference: 'Joshua 1:9', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() },
-      { reference: 'Proverbs 3:5-6', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() },
-      { reference: '1 Peter 5:7', bibleId: kjvId, translation: 'KJV', dateAdded: new Date().toISOString() }
+      { reference: 'John 3:16', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() },
+      { reference: 'Jeremiah 29:11', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() },
+      { reference: 'Philippians 4:13', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() },
+      { reference: 'Romans 8:28', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() },
+      { reference: 'Joshua 1:9', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() },
+      { reference: 'Proverbs 3:5-6', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() },
+      { reference: '1 Peter 5:7', bibleId: esvId, translation: 'ESV', dateAdded: new Date().toISOString() }
     ];
   }
 

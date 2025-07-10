@@ -15,13 +15,13 @@ export const useContextScroll = ({ showContext }: UseContextScrollProps) => {
       const clientHeight = contextContainerRef.current.clientHeight;
       const scrollBottom = scrollHeight - scrollTop - clientHeight;
       
-      console.log('Scroll debug:', {
-        scrollHeight,
-        scrollTop,
-        clientHeight,
-        scrollBottom,
-        shouldHide: scrollBottom <= 5
-      });
+      // console.log('Scroll debug:', {
+      //   scrollHeight,
+      //   scrollTop,
+      //   clientHeight,
+      //   scrollBottom,
+      //   shouldHide: scrollBottom <= 5
+      // });
       
       // If we're within 5 pixels of the bottom, hide the fade
       if (scrollBottom <= 5) {

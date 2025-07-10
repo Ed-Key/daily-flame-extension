@@ -1,7 +1,7 @@
 import { VerseData } from '../types';
 
 export class ESVService {
-  private static readonly API_KEY = 'd74f42aa54c642a4cbfef2a93c5c67f460f13cdb';
+  static readonly API_KEY = 'd74f42aa54c642a4cbfef2a93c5c67f460f13cdb';
   private static readonly BASE_URL = 'https://api.esv.org/v3';
 
   static async getVerse(reference: string): Promise<VerseData> {

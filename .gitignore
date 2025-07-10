@@ -8,3 +8,10 @@ service-account-key.json
 # Screenshots and debug files
 *.png
 pglite-debug.log
+
+# Editor backup files
+*.save
+CLAUDE.md.save
+
+# Test files
+test.html

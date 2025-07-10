@@ -1562,6 +1562,32 @@ export const getShadowDomStyles = (): string => {
       color: rgba(255, 255, 255, 0.7) !important;
       font-size: 18px !important;
     }
+    
+    /* Loading container */
+    .context-loading-container {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 300px !important;
+      gap: 20px !important;
+    }
+    
+    /* Loading spinner */
+    .context-spinner {
+      width: 40px !important;
+      height: 40px !important;
+      border: 3px solid rgba(255, 255, 255, 0.2) !important;
+      border-top-color: rgba(255, 255, 255, 0.8) !important;
+      border-radius: 50% !important;
+      animation: spin 1s linear infinite !important;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* Modal transition states */
     .verse-modal-expanded {
@@ -1610,7 +1636,7 @@ export const getShadowDomStyles = (): string => {
 
     .esv-chapter-number {
       float: left !important;
-      font-size: 72px !important;
+      font-size: 60px !important;
       line-height: 0.8 !important;
       font-weight: 300 !important;
       color: rgba(255, 255, 255, 0.7) !important;
@@ -1715,6 +1741,80 @@ export const getShadowDomStyles = (): string => {
       .context-paragraph.esv-format {
         text-indent: 1.2em !important;
       }
+    }
+
+    /* NLT-specific formatting */
+    .nlt-content {
+      display: block !important;
+      font-family: Georgia, serif !important;
+      line-height: 1.6 !important;
+    }
+    
+    .nlt-content .chapter-number {
+      float: left !important;
+      font-size: 72px !important;
+      font-weight: 300 !important;
+      line-height: 0.9 !important;
+      margin-right: 8px !important;
+      margin-top: -8px !important;
+      color: #333 !important;
+    }
+    
+    .nlt-content .body, .nlt-content .body-ch {
+      text-align: left !important;
+      margin-bottom: 12px !important;
+    }
+    
+    .nlt-content .body-ch {
+      text-indent: 0 !important;
+    }
+    
+    .nlt-content .body {
+      text-indent: 2em !important;
+    }
+    
+    .nlt-content .vn {
+      font-size: 0.65em !important;
+      vertical-align: super !important;
+      font-weight: 600 !important;
+      margin-right: 2px !important;
+      line-height: 0 !important;
+    }
+    
+    .nlt-content .red {
+      color: #d73502 !important;
+    }
+    
+    .nlt-content h2 {
+      font-size: 1.1em !important;
+      font-style: italic !important;
+      font-weight: normal !important;
+      margin-top: 20px !important;
+      margin-bottom: 10px !important;
+      text-align: left !important;
+    }
+    
+    .nlt-content .tn {
+      display: none !important; /* Hide footnotes for now */
+    }
+    
+    .nlt-content .a-tn {
+      display: none !important; /* Hide footnote markers */
+    }
+    
+    /* NLT first verse with chapter number */
+    .nlt-first-verse-content {
+      overflow: hidden !important;
+    }
+    
+    .nlt-first-verse-content .esv-heading {
+      margin-top: 0 !important;
+    }
+    
+    /* Ensure NLT content uses the same heading styles as ESV */
+    .esv-content .esv-heading {
+      display: block !important;
+      clear: both !important;
     }
 
   `;

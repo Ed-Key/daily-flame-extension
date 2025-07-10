@@ -1,8 +1,17 @@
 import React, { useRef, useEffect } from 'react';
-import { BibleTranslation } from '../../../types';
+import { BibleTranslation, UnifiedChapter } from '../../../types';
 import { ContextViewProps } from '../types';
 import { renderContextVerses } from '../utils/verseRenderer';
+import { renderUnifiedVerses } from '../utils/unifiedVerseRenderer';
 import { useContextScroll } from '../hooks/useContextScroll';
+
+// Helper to check if chapter content is in unified format
+const isUnifiedFormat = (chapterContent: any): chapterContent is UnifiedChapter => {
+  return chapterContent && 
+    'verses' in chapterContent && 
+    Array.isArray(chapterContent.verses) &&
+    'translation' in chapterContent;
+};
 
 const ContextView: React.FC<ContextViewProps> = ({
   verse,
@@ -52,7 +61,10 @@ const ContextView: React.FC<ContextViewProps> = ({
       </button>
 
       {contextLoading ? (
-        <div className="context-loading">Loading chapter...</div>
+        <div className="context-loading-container">
+          <div className="context-spinner"></div>
+          <div className="context-loading">Loading chapter...</div>
+        </div>
       ) : chapterContent ? (
         <>
           <div className="context-header">
@@ -67,13 +79,14 @@ const ContextView: React.FC<ContextViewProps> = ({
                 <option value="KJV">King James Version</option>
                 <option value="ASV">American Standard Version</option>
                 <option value="ESV">English Standard Version</option>
+                <option value="NLT">New Living Translation</option>
                 <option value="WEB">World English Bible</option>
                 <option value="WEB_BRITISH">WEB British Edition</option>
                 <option value="WEB_UPDATED">WEB Updated</option>
               </select>
             </div>
             <div className="context-title-underline"></div>
-            {contextTranslation !== 'ESV' && chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && (
+            {contextTranslation !== 'ESV' && contextTranslation !== 'NLT' && chapterContent.content && chapterContent.content.length > 0 && chapterContent.content[0].items && chapterContent.content[0].items[0]?.text && (
               <p className="context-subtitle">{chapterContent.content[0].items[0].text}</p>
             )}
           </div>
@@ -81,11 +94,17 @@ const ContextView: React.FC<ContextViewProps> = ({
           <div className="context-scroll-container">
             <div className="context-content" ref={contextContainerRef}>
               <div className="context-verses">
-                {renderContextVerses({ 
-                  chapterContent, 
-                  currentVerseNumber, 
-                  contextTranslation 
-                })}
+                {isUnifiedFormat(chapterContent) ? 
+                  renderUnifiedVerses({ 
+                    chapterContent: chapterContent as UnifiedChapter, 
+                    currentVerseNumber 
+                  }) :
+                  renderContextVerses({ 
+                    chapterContent, 
+                    currentVerseNumber, 
+                    contextTranslation 
+                  })
+                }
               </div>
             </div>
             <div className="context-fade" ref={fadeOverlayRef}></div>

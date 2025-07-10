@@ -101,7 +101,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     setContextLoading(true);
     
     // Set initial translation based on current verse
-    const translationKey = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === verse.bibleId)?.[0] as BibleTranslation || 'KJV';
+    const translationKey = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === verse.bibleId)?.[0] as BibleTranslation || 'ESV';
     setContextTranslation(translationKey);
     
     try {
@@ -118,7 +118,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       }
     } catch (error) {
       console.error('Error fetching chapter:', error);
-      showToast('Failed to load chapter context', 'error');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      showToast(`Failed to load chapter: ${errorMessage}`, 'error');
     } finally {
       setContextLoading(false);
     }
@@ -511,23 +512,27 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
   // Handle context translation change
   const handleContextTranslationChange = async (newTranslation: string) => {
+    // Store the current chapter reference before clearing content
+    const currentChapterRef = chapterContent?.reference;
+    
+    // Clear the chapter content immediately to prevent rendering mismatch
+    setChapterContent(null);
     setContextTranslation(newTranslation as BibleTranslation);
     setContextLoading(true);
     
     try {
-      // Extract book and chapter from current chapter reference
-      const chapterMatch = chapterContent?.reference?.match(/^(.+?)\s+(\d+)$/);
-      if (chapterMatch) {
-        const chapterRef = chapterContent.reference;
+      // Use the stored reference
+      if (currentChapterRef) {
         const bibleId = BIBLE_VERSIONS[newTranslation as BibleTranslation];
         
         // Fetch chapter in new translation
-        const fullChapter = await VerseService.getChapter(chapterRef, bibleId);
+        const fullChapter = await VerseService.getChapter(currentChapterRef, bibleId);
         setChapterContent(fullChapter);
       }
     } catch (error) {
       console.error('Error fetching chapter in new translation:', error);
-      showToast('Failed to load chapter in selected translation', 'error');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      showToast(`Failed to load chapter: ${errorMessage}`, 'error');
     } finally {
       setContextLoading(false);
     }

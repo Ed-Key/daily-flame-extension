@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     content: './src/content/monitor.ts',
     'verse-app': './src/content/verse-app.ts',
-    background: './src/background/index.ts',
+    background: './src/background/index-simple.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -36,7 +36,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /__tests__/],
       },
       {
         test: /\.css$/,
