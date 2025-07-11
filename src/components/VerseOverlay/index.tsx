@@ -284,8 +284,10 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         visibility: 'visible'
       });
       
+      // Clean and normalize the text first - remove newlines and extra spaces
+      const cleanText = verse.text.replace(/\s+/g, ' ').trim();
       // Split text into words first, then letters within each word
-      const words = verse.text.split(' ');
+      const words = cleanText.split(' ').filter(word => word.length > 0);
       const wordSpans = words.map((word, wordIndex) => {
         const letters = word.split('').map((letter, letterIndex) => 
           `<span class="verse-letter">${letter}</span>`
