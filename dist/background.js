@@ -51,6 +51,43 @@ async function closeOffscreenDocument() {
 }
 // Store auth state
 let currentUser = null;
+// Helper function to store auth state in Chrome storage
+async function storeAuthState(user) {
+    if (user) {
+        await chrome.storage.local.set({
+            authUser: {
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName,
+                emailVerified: user.emailVerified,
+                photoURL: user.photoURL
+            },
+            authTimestamp: Date.now()
+        });
+        console.log('Background: Auth state stored in Chrome storage');
+    }
+    else {
+        await chrome.storage.local.remove(['authUser', 'authTimestamp']);
+        console.log('Background: Auth state cleared from Chrome storage');
+    }
+}
+// Helper function to retrieve auth state from Chrome storage
+async function getStoredAuthState() {
+    const result = await chrome.storage.local.get(['authUser', 'authTimestamp']);
+    if (result.authUser && result.authTimestamp) {
+        // Check if auth state is still valid (24 hours)
+        const isExpired = Date.now() - result.authTimestamp > 24 * 60 * 60 * 1000;
+        if (!isExpired) {
+            console.log('Background: Retrieved valid auth state from Chrome storage');
+            return result.authUser;
+        }
+        else {
+            console.log('Background: Stored auth state expired');
+            await chrome.storage.local.remove(['authUser', 'authTimestamp']);
+        }
+    }
+    return null;
+}
 // Handle messages from content script and other parts of the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Background: Received message:', request.action);
@@ -131,9 +168,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         })
             .catch(error => {
             console.error('Background: Auth error:', error);
+            const errorMessage = error instanceof Error ? error.message :
+                (typeof error === 'string' ? error : 'Authentication failed');
             sendResponse({
                 success: false,
-                error: error.message || 'Authentication failed'
+                error: errorMessage
             });
         });
         return true; // Keep message channel open for async response
@@ -142,32 +181,95 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'authStateChanged') {
         currentUser = request.user;
         console.log('Background: Auth state changed:', currentUser ? 'User signed in' : 'User signed out');
-        // Notify all tabs about auth state change
-        chrome.tabs.query({}, (tabs) => {
-            tabs.forEach(tab => {
-                if (tab.id) {
-                    chrome.tabs.sendMessage(tab.id, {
-                        action: 'authStateChanged',
-                        user: currentUser
-                    }).catch(() => {
-                        // Ignore errors for tabs that don't have our content script
-                    });
-                }
+        // Store auth state in Chrome storage
+        storeAuthState(currentUser).then(() => {
+            // Notify all tabs about auth state change
+            chrome.tabs.query({}, (tabs) => {
+                tabs.forEach(tab => {
+                    if (tab.id) {
+                        chrome.tabs.sendMessage(tab.id, {
+                            action: 'authStateChanged',
+                            user: currentUser
+                        }).catch(() => {
+                            // Ignore errors for tabs that don't have our content script
+                        });
+                    }
+                });
             });
         });
         return false; // No response needed
     }
     // Handle direct auth requests
     if (request.action === 'auth') {
+        // Special handling for getCurrentUser to check stored auth state
+        if (request.authAction === 'getCurrentUser') {
+            getStoredAuthState().then(storedUser => {
+                if (storedUser) {
+                    currentUser = storedUser;
+                    sendResponse({ success: true, user: storedUser });
+                }
+                else {
+                    sendResponse({ success: true, user: null });
+                }
+            }).catch(error => {
+                console.error('Background: Error getting stored auth state:', error);
+                sendResponse({ success: true, user: null });
+            });
+            return true;
+        }
+        // Handle sendVerificationEmail
+        if (request.authAction === 'sendVerificationEmail') {
+            if (!currentUser) {
+                sendResponse({ success: false, error: 'No user signed in' });
+                return true;
+            }
+            handleAuthAction('sendVerificationEmail', request.authData)
+                .then(result => {
+                sendResponse(result);
+            })
+                .catch(error => {
+                console.error('Background: Error sending verification email:', error);
+                sendResponse({
+                    success: false,
+                    error: error.message || 'Failed to send verification email'
+                });
+            });
+            return true;
+        }
         handleAuthAction(request.authAction, request.authData)
             .then(result => {
+            // If sign-in was successful, store the user
+            if (result.success && result.user) {
+                currentUser = result.user;
+                storeAuthState(result.user);
+            }
+            // If sign-out was successful, clear the stored auth state
+            if (result.success && request.authAction === 'signOut') {
+                console.log('Background: Clearing auth state after sign-out');
+                currentUser = null;
+                storeAuthState(null).then(() => {
+                    // Notify all tabs about sign-out
+                    chrome.tabs.query({}, (tabs) => {
+                        tabs.forEach(tab => {
+                            if (tab.id) {
+                                chrome.tabs.sendMessage(tab.id, {
+                                    action: 'authStateChanged',
+                                    user: null
+                                }).catch(() => { });
+                            }
+                        });
+                    });
+                });
+            }
             sendResponse(result);
         })
             .catch(error => {
             console.error('Background: Auth error:', error);
+            const errorMessage = error instanceof Error ? error.message :
+                (typeof error === 'string' ? error : 'Authentication failed');
             sendResponse({
                 success: false,
-                error: error.message || 'Authentication failed'
+                error: errorMessage
             });
         });
         return true; // Keep message channel open for async response
@@ -185,8 +287,11 @@ async function handleAuthAction(action, data) {
             if (chrome.runtime.lastError) {
                 reject(chrome.runtime.lastError);
             }
+            else if (!response || typeof response !== 'object') {
+                reject(new Error('Invalid response from offscreen document'));
+            }
             else if (!response.success) {
-                reject(response.error);
+                reject(response.error || new Error('Authentication failed'));
             }
             else {
                 resolve(response);
@@ -194,6 +299,36 @@ async function handleAuthAction(action, data) {
         });
     });
 }
+// Periodically verify auth state is still valid
+async function verifyAuthState() {
+    if (!currentUser)
+        return;
+    try {
+        console.log('Background: Verifying auth state...');
+        const result = await handleAuthAction('verifyAuthState', {});
+        if (!result.isValid) {
+            console.log('Background: Auth state is no longer valid, clearing...');
+            currentUser = null;
+            await chrome.storage.local.remove(['authUser', 'authTimestamp']);
+            // Notify all tabs
+            chrome.tabs.query({}, (tabs) => {
+                tabs.forEach(tab => {
+                    if (tab.id) {
+                        chrome.tabs.sendMessage(tab.id, {
+                            action: 'authStateChanged',
+                            user: null
+                        }).catch(() => { });
+                    }
+                });
+            });
+        }
+    }
+    catch (error) {
+        console.error('Background: Error verifying auth state:', error);
+    }
+}
+// Set up periodic auth verification (every 5 minutes)
+setInterval(verifyAuthState, 5 * 60 * 1000);
 // Handle extension icon clicks - always show verse overlay first
 chrome.action.onClicked.addListener((tab) => {
     if (!tab.id || !tab.url) {
@@ -261,6 +396,31 @@ chrome.action.onClicked.addListener((tab) => {
 });
 chrome.runtime.onInstalled.addListener(() => {
     console.log('Daily Flame extension installed');
+    // Check for stored auth state on extension startup
+    getStoredAuthState().then(storedUser => {
+        if (storedUser) {
+            currentUser = storedUser;
+            console.log('Background: Restored auth state from storage');
+        }
+    });
+    // Pre-warm offscreen document for faster first sign-in
+    console.log('Background: Pre-warming offscreen document');
+    setupOffscreenDocument().then(() => {
+        console.log('Background: Offscreen document ready');
+    }).catch(error => {
+        console.error('Background: Failed to pre-warm offscreen document:', error);
+    });
+});
+// Also check auth state when extension starts
+getStoredAuthState().then(storedUser => {
+    if (storedUser) {
+        currentUser = storedUser;
+        console.log('Background: Restored auth state on startup');
+    }
+});
+// Pre-warm offscreen document on startup (not just install)
+setupOffscreenDocument().catch(() => {
+    // Ignore errors on startup pre-warm
 });
 console.log('Background script loaded successfully');
 

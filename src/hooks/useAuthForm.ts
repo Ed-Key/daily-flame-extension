@@ -19,7 +19,7 @@ interface AuthResult {
 }
 
 export const useAuthForm = () => {
-  const { signIn, signUp, signInWithGoogle } = useAuth();
+  const { signIn, signUp, signInWithGoogle, isSigningIn } = useAuth();
   const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -97,6 +97,6 @@ export const useAuthForm = () => {
     handleSignIn,
     handleSignUp,
     handleGoogleSignIn,
-    isLoading
+    isLoading: isLoading || isSigningIn
   };
 };

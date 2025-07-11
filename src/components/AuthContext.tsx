@@ -1,16 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithCredential,
-  GoogleAuthProvider,
-  signOut as firebaseSignOut,
-  onAuthStateChanged,
-  sendEmailVerification,
-  updateProfile,
-  User
-} from 'firebase/auth';
-import { auth } from '../services/firebase-config';
 import { AuthContextType, FirebaseUser } from '../types';
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -30,6 +18,8 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   // Admin users list (in a real app, this would be in Firestore or a database)
   const adminEmails = [
@@ -46,45 +36,96 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   ) : false;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: User | null) => {
-      console.log('🔄 [DEBUG] Auth state changed:', firebaseUser ? 'User signed in' : 'User signed out');
+    const initializeAuth = async () => {
+      console.log('🔍 [DEBUG] Initializing auth from Chrome storage...');
       
-      if (firebaseUser) {
-        console.log('👤 [DEBUG] User details:', {
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          emailVerified: firebaseUser.emailVerified,
-          displayName: firebaseUser.displayName,
-          photoURL: firebaseUser.photoURL,
-          providerData: firebaseUser.providerData.map(p => ({
-            providerId: p.providerId,
-            email: p.email
-          }))
-        });
+      try {
+        // Get auth state from Chrome storage
+        const result = await chrome.storage.local.get(['authUser', 'authTimestamp']);
         
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          displayName: firebaseUser.displayName,
-          emailVerified: firebaseUser.emailVerified,
-          photoURL: firebaseUser.photoURL,
-        });
-      } else {
-        console.log('🚪 [DEBUG] No user signed in');
-        setUser(null);
+        if (result.authUser && result.authTimestamp) {
+          // Check if auth state is still valid (24 hours)
+          const isExpired = Date.now() - result.authTimestamp > 24 * 60 * 60 * 1000;
+          
+          if (!isExpired) {
+            console.log('✅ [DEBUG] Restored valid auth state from storage:', result.authUser);
+            setUser(result.authUser);
+          } else {
+            console.log('⏰ [DEBUG] Stored auth state expired');
+            await chrome.storage.local.remove(['authUser', 'authTimestamp']);
+          }
+        } else {
+          console.log('🚪 [DEBUG] No stored auth state found');
+        }
+      } catch (error) {
+        console.error('❌ [DEBUG] Error restoring auth state:', error);
       }
+      
       setIsLoading(false);
-    });
+    };
+    
+    initializeAuth();
+    
+    // Listen for auth state changes from background script
+    const handleMessage = (request: any) => {
+      if (request.action === 'authStateChanged') {
+        console.log('📡 [DEBUG] Received auth state change from background:', request.user);
+        setUser(request.user);
+      }
+    };
+    
+    // Listen for storage changes
+    const handleStorageChange = (changes: any, namespace: string) => {
+      if (namespace === 'local' && changes.authUser) {
+        if (changes.authUser.newValue) {
+          console.log('💾 [DEBUG] Auth state updated in storage:', changes.authUser.newValue);
+          setUser(changes.authUser.newValue);
+        } else {
+          console.log('🗑️ [DEBUG] Auth state removed from storage');
+          setUser(null);
+        }
+      }
+    };
+    
+    chrome.runtime.onMessage.addListener(handleMessage);
+    chrome.storage.onChanged.addListener(handleStorageChange);
 
-    return unsubscribe;
+    return () => {
+      chrome.runtime.onMessage.removeListener(handleMessage);
+      chrome.storage.onChanged.removeListener(handleStorageChange);
+    };
   }, []);
 
   const signIn = async (email: string, password: string): Promise<void> => {
+    if (isSigningIn) {
+      console.log('AuthContext: Sign-in already in progress');
+      return;
+    }
+    
+    setIsSigningIn(true);
+    let storageListener: ((changes: any, namespace: string) => void) | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
+    
     try {
       console.log('AuthContext: Requesting sign-in via offscreen document');
       
-      // Send auth request to background script which will use offscreen document
-      const response = await new Promise((resolve, reject) => {
+      // Set up storage listener as fallback
+      const authCompletePromise = new Promise<FirebaseUser>((resolve, reject) => {
+        storageListener = (changes: any, namespace: string) => {
+          if (namespace === 'local' && changes.authUser?.newValue) {
+            console.log('AuthContext: Detected auth state via storage listener during sign-in');
+            resolve(changes.authUser.newValue);
+          }
+        };
+        chrome.storage.onChanged.addListener(storageListener);
+        
+        timeoutId = setTimeout(() => {
+          reject(new Error('Sign-in timeout - please try again'));
+        }, 30000);
+      });
+      
+      // Send auth request to background script
+      const messagePromise = new Promise<any>((resolve, reject) => {
         chrome.runtime.sendMessage(
           { 
             action: 'auth',
@@ -93,13 +134,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           },
           (response) => {
             if (chrome.runtime.lastError) {
-              reject(chrome.runtime.lastError);
+              console.warn('AuthContext: Message channel error:', chrome.runtime.lastError);
             } else {
               resolve(response);
             }
           }
         );
       });
+      
+      // Process message response if available
+      const response = await Promise.race([
+        messagePromise,
+        authCompletePromise.then(user => ({ success: true, user }))
+      ]);
       
       if (!(response as any)?.success) {
         const error = (response as any)?.error;
@@ -145,6 +192,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
       
       throw error;
+    } finally {
+      setIsSigningIn(false);
+      if (timeoutId) clearTimeout(timeoutId);
+      if (storageListener) {
+        chrome.storage.onChanged.removeListener(storageListener);
+      }
     }
   };
 
@@ -224,11 +277,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const signInWithGoogle = async (): Promise<void> => {
+    if (isSigningIn) {
+      console.log('AuthContext: Sign-in already in progress');
+      return;
+    }
+    
+    setIsSigningIn(true);
+    let storageListener: ((changes: any, namespace: string) => void) | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
+    
     try {
       console.log('AuthContext: Requesting Google sign-in via offscreen document');
       
-      // Send auth request to background script which will use offscreen document
-      const response = await new Promise((resolve, reject) => {
+      // Set up storage listener as fallback for lost message channels
+      const authCompletePromise = new Promise<FirebaseUser>((resolve, reject) => {
+        storageListener = (changes: any, namespace: string) => {
+          if (namespace === 'local' && changes.authUser?.newValue) {
+            console.log('AuthContext: Detected auth state via storage listener during sign-in');
+            resolve(changes.authUser.newValue);
+          }
+        };
+        chrome.storage.onChanged.addListener(storageListener);
+        
+        // Set timeout to prevent infinite waiting
+        timeoutId = setTimeout(() => {
+          reject(new Error('Sign-in timeout - please try again'));
+        }, 30000); // 30 second timeout
+      });
+      
+      // Send auth request to background script
+      const messagePromise = new Promise<any>((resolve, reject) => {
         chrome.runtime.sendMessage(
           { 
             action: 'auth',
@@ -237,7 +315,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           },
           (response) => {
             if (chrome.runtime.lastError) {
-              reject(chrome.runtime.lastError);
+              console.warn('AuthContext: Message channel error:', chrome.runtime.lastError);
+              // Don't reject here, let storage listener handle it
             } else {
               resolve(response);
             }
@@ -245,19 +324,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         );
       });
       
-      if (!(response as any)?.success) {
-        throw new Error((response as any)?.error?.message || (response as any)?.error || 'Sign-in failed');
-      }
+      // Race between message response and storage update
+      const result = await Promise.race([
+        messagePromise.then(response => {
+          if (response?.success && response?.user) {
+            return response.user;
+          } else if (!response?.success) {
+            throw new Error(response?.error?.message || response?.error || 'Sign-in failed');
+          }
+          return null;
+        }),
+        authCompletePromise
+      ]);
       
-      // Update local auth state with the user from response
-      const userData = (response as any).user;
-      if (userData) {
-        setUser(userData);
+      if (result) {
+        setUser(result);
         console.log('AuthContext: Google sign-in successful');
       }
     } catch (error) {
-      console.error('AuthContext: Error opening auth tab:', error);
-      throw new Error('Failed to open authentication page. Please try again.');
+      console.error('AuthContext: Error during sign-in:', error);
+      throw error;
+    } finally {
+      setIsSigningIn(false);
+      if (timeoutId) clearTimeout(timeoutId);
+      if (storageListener) {
+        chrome.storage.onChanged.removeListener(storageListener);
+      }
     }
   };
 
@@ -300,50 +392,38 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const sendVerificationEmail = async (): Promise<void> => {
     console.log('🔍 [DEBUG] sendVerificationEmail called');
     
-    if (!auth.currentUser) {
+    if (!user) {
       console.error('🚨 [DEBUG] No current user found when trying to send verification email');
       throw new Error('No user signed in');
     }
     
-    const currentUser = auth.currentUser;
-    console.log('👤 [DEBUG] Current user state:', {
-      uid: currentUser.uid,
-      email: currentUser.email,
-      emailVerified: currentUser.emailVerified,
-      displayName: currentUser.displayName,
-      isAnonymous: currentUser.isAnonymous,
-      providerData: currentUser.providerData
-    });
-    
     try {
-      console.log('📧 [DEBUG] Attempting to send verification email to:', currentUser.email);
-      await sendEmailVerification(currentUser);
-      console.log('✅ [DEBUG] sendEmailVerification() completed successfully');
-      console.log('📬 [DEBUG] Verification email should have been sent to:', currentUser.email);
-    } catch (error: any) {
-      console.error('❌ [DEBUG] Error sending verification email:', error);
-      console.error('🔍 [DEBUG] Error details:', {
-        code: error.code,
-        message: error.message,
-        stack: error.stack
+      console.log('📧 [DEBUG] Requesting verification email via background script');
+      
+      const response = await new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage(
+          { 
+            action: 'auth',
+            authAction: 'sendVerificationEmail',
+            authData: {}
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            } else {
+              resolve(response);
+            }
+          }
+        );
       });
       
-      // Map Firebase email verification errors to user-friendly messages
-      if (error.code) {
-        switch (error.code) {
-          case 'auth/too-many-requests':
-            throw new Error('Too many email verification requests. Please wait a few minutes before trying again.');
-          case 'auth/user-token-expired':
-            throw new Error('Your session has expired. Please sign out and sign back in.');
-          case 'auth/network-request-failed':
-            throw new Error('Network error. Please check your internet connection and try again.');
-          case 'auth/quota-exceeded':
-            throw new Error('Email quota exceeded. Please try again later.');
-          default:
-            throw new Error(`Failed to send verification email: ${error.message}`);
-        }
+      if (!(response as any)?.success) {
+        throw new Error((response as any)?.error?.message || (response as any)?.error || 'Failed to send verification email');
       }
       
+      console.log('✅ [DEBUG] Verification email sent successfully');
+    } catch (error: any) {
+      console.error('❌ [DEBUG] Error sending verification email:', error);
       throw error;
     }
   };
@@ -351,6 +431,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value: AuthContextType = {
     user,
     isLoading,
+    isSigningIn,
     signIn,
     signUp,
     signInWithGoogle,
