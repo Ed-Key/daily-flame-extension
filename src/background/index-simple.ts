@@ -114,29 +114,6 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
     return true; // Keep message channel open for async response
   }
   
-  // Forward verse-related messages to the content script/verse app
-  if (request.action === 'getDailyVerse' || 
-      request.action === 'getVerse' || 
-      request.action === 'getStoredVerses' ||
-      request.action === 'saveVerses') {
-    
-    // Forward the message to the active tab's content script
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]?.id) {
-        chrome.tabs.sendMessage(tabs[0].id, request, (response) => {
-          if (chrome.runtime.lastError) {
-            sendResponse({ success: false, error: chrome.runtime.lastError.message });
-          } else {
-            sendResponse(response);
-          }
-        });
-      } else {
-        sendResponse({ success: false, error: 'No active tab found' });
-      }
-    });
-    
-    return true; // Keep message channel open
-  }
   
   if (request.action === 'getVerseShownDate') {
     const today = new Date().toISOString().split("T")[0];

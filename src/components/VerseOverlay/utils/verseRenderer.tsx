@@ -1,11 +1,5 @@
 import React from 'react';
 
-export interface RenderContextVersesProps {
-  chapterContent: any;
-  currentVerseNumber: number | null;
-  contextTranslation: string;
-}
-
 // Parse NLT HTML and convert to structured format
 const parseNLTHTML = (htmlContent: string): any => {
   console.log('[NLT Parser] Starting parseNLTHTML with content:', {
@@ -421,7 +415,11 @@ export const renderContextVerses = ({
   chapterContent, 
   currentVerseNumber, 
   contextTranslation 
-}: RenderContextVersesProps): React.JSX.Element[] => {
+}: {
+  chapterContent: any;
+  currentVerseNumber: number | null;
+  contextTranslation: string;
+}): React.JSX.Element[] => {
   if (!chapterContent || (!chapterContent.content && !chapterContent.passages)) return [];
 
   // Check if we should use KJV formatting (each verse as separate paragraph)

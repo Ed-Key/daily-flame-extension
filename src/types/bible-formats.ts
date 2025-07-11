@@ -80,20 +80,3 @@ export interface BibleParser {
    */
   getName(): string;
 }
-
-/**
- * Options for verse rendering
- */
-export interface VerseRenderOptions {
-  /** Whether to highlight a specific verse */
-  highlightVerse?: string;
-  
-  /** Whether to show verse numbers */
-  showVerseNumbers?: boolean;
-  
-  /** Whether to show section headings */
-  showHeadings?: boolean;
-  
-  /** Custom CSS class prefix */
-  cssPrefix?: string;
-}

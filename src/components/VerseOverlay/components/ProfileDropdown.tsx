@@ -8,7 +8,6 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   isAdmin,
   isEmailVerified,
   onSignOut,
-  onClearAuthTokens,
   shadowRoot
 }) => {
   const { sendVerificationEmail } = useAuth();
@@ -29,23 +28,13 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
       }
     };
 
-    // Keyboard shortcut for clearing auth tokens (Ctrl+Shift+C)
-    const handleKeyDown = (event: Event) => {
-      const keyboardEvent = event as KeyboardEvent;
-      if (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && keyboardEvent.key === 'C') {
-        keyboardEvent.preventDefault();
-        onClearAuthTokens();
-      }
-    };
 
     eventTarget.addEventListener('click', handleClickOutside);
-    eventTarget.addEventListener('keydown', handleKeyDown);
 
     return () => {
       eventTarget.removeEventListener('click', handleClickOutside);
-      eventTarget.removeEventListener('keydown', handleKeyDown);
     };
-  }, [showDropdown, shadowRoot, onClearAuthTokens]);
+  }, [showDropdown, shadowRoot]);
 
   const getUserInitials = (user: any) => {
     if (user.displayName) {
@@ -137,14 +126,6 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             </button>
           )}
           
-          {/* Clear Auth Tokens */}
-          <button
-            onClick={onClearAuthTokens}
-            className="w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors"
-            title="Clear auth tokens to test with different Google accounts"
-          >
-            Clear Auth Tokens
-          </button>
           
           <button
             onClick={handleLogout}

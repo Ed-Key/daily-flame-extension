@@ -52,14 +52,6 @@ export interface VerseOverlayProps {
   shadowRoot?: ShadowRoot;
 }
 
-export interface UserModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-// Keep AdminModalProps for backward compatibility
-export interface AdminModalProps extends UserModalProps {}
-
 export interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;

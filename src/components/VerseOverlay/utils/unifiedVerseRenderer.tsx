@@ -1,11 +1,6 @@
 import React from 'react';
 import { UnifiedChapter, UnifiedVerse } from '../../../types/bible-formats';
 
-export interface RenderUnifiedVersesProps {
-  chapterContent: UnifiedChapter;
-  currentVerseNumber: number | null;
-}
-
 /**
  * Renders verses from unified chapter format
  * Maintains translation-specific styling while using standardized data
@@ -13,7 +8,10 @@ export interface RenderUnifiedVersesProps {
 export const renderUnifiedVerses = ({ 
   chapterContent, 
   currentVerseNumber 
-}: RenderUnifiedVersesProps): React.JSX.Element[] => {
+}: {
+  chapterContent: UnifiedChapter;
+  currentVerseNumber: number | null;
+}): React.JSX.Element[] => {
   if (!chapterContent || !chapterContent.verses || chapterContent.verses.length === 0) {
     return [];
   }

@@ -491,24 +491,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     setShowEmailVerification(true);
   };
 
-  const handleClearAuthTokens = async () => {
-    try {
-      const response = await new Promise<any>((resolve) => {
-        chrome.runtime.sendMessage({ action: 'clearAuthTokens' }, resolve);
-      });
-      
-      if (response && response.success) {
-        console.log('Auth tokens cleared successfully');
-        showToast('Auth tokens cleared! You can now test with different Google accounts.', 'success');
-      } else {
-        console.error('Failed to clear auth tokens:', response?.error);
-        showToast('Failed to clear auth tokens. Try using Ctrl+Shift+C shortcut or sign out.', 'error');
-      }
-    } catch (error) {
-      console.error('Error clearing auth tokens:', error);
-      showToast('Error clearing auth tokens. Try the keyboard shortcut Ctrl+Shift+C.', 'error');
-    }
-  };
 
   // Handle context translation change
   const handleContextTranslationChange = async (newTranslation: string) => {
@@ -582,7 +564,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 isAdmin={isAdmin}
                 isEmailVerified={isEmailVerified}
                 onSignOut={signOut}
-                onClearAuthTokens={handleClearAuthTokens}
                 shadowRoot={shadowRoot}
               />
             )}
