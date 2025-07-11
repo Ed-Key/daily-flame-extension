@@ -1,60 +1,97 @@
-# DailyFlame Chrome Extension - Development Notes
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-DailyFlame is a Chrome extension that displays daily Bible verses to users. It features authentication, verse display with animations, and support for multiple Bible translations.
+DailyFlame is a Chrome extension (Manifest V3) that displays daily Bible verses with beautiful animations. It features Firebase authentication, multiple Bible translation support, and a modular React/TypeScript architecture.
 
-## Recent Updates (2025-07-07)
+## Development Commands
 
-### ESV Bible Format Implementation
-- Implemented ESV-specific formatting that matches traditional Bible typography
-- Added large chapter number display (e.g., "4") that floats to the left of the first verse
-- Fixed verse number extraction issue where "4:1" was displaying as "41" 
-- Added paragraph indentation (2em) for all paragraphs except the first
-- Section headings are displayed in italics and left-aligned
-- Improved spacing to prevent text overlap with chapter number
+### Build & Development
+- `npm run build` - Production build
+- `npm run build:dev` - Development build
+- `npm run watch` - Watch mode for development
+- `npm run clean` - Clean dist directory
 
-### Modularized VerseOverlay Component
-- Broke down the 1255-line VerseOverlay.tsx into smaller, maintainable components:
-  - ProfileDropdown: User profile menu
-  - AdminControls: Admin panel for daily verses
-  - VerseDisplay: Main verse display with animations
-  - ContextView: Full chapter view
-  - AuthButtons: Sign in/up buttons
-- Created utility functions and hooks for better organization
-- Fixed line animation issue when returning from context view using requestAnimationFrame
+### Testing
+- `npm test` - Run all tests
+- `npm run test:watch` - Watch mode for tests
+- `npm run test:coverage` - Generate coverage report
 
-### Key Technical Details
-- ESV API endpoint: `https://api.esv.org/v3`
-- Shadow DOM is used for style isolation in the Chrome extension
-- GSAP animations for verse reveal and modal transitions
-- React with TypeScript for component development
-- Webpack for bundling
+### Linting & Type Checking
+**IMPORTANT**: Always run these commands before completing any task:
+- Check if lint/typecheck commands exist in package.json
+- If not found, ask user for the correct commands
+- Suggest adding them to this file for future reference
 
-### Important Commands
-- Build: `npm run build`
-- The extension uses Shadow DOM, so all styles must be in shadow-dom-styles.ts
+## Architecture Overview
 
-### API Services
-- ESV Bible API is integrated with HTML parsing for red-letter support
-- Scripture.api.bible is used for other translations (KJV, ASV, WEB)
-- Firebase for authentication and data storage
+### Chrome Extension Structure (Manifest V3)
+- **content.js**: Monitors page loads and determines when to show verses
+- **verse-app.js**: Main React application loaded in Shadow DOM
+- **background.js**: Service worker for Chrome extension lifecycle
+- **offscreen.html**: Required for Firebase auth in Manifest V3
 
-### File Structure
+### Shadow DOM Implementation
+**CRITICAL**: All styles must be in `src/styles/shadow-dom-styles.ts` due to Shadow DOM isolation. Regular CSS imports will not work.
+
+### Bible Text Processing Architecture
 ```
-src/
-├── components/
-│   ├── VerseOverlay/
-│   │   ├── index.tsx (main component)
-│   │   ├── components/ (sub-components)
-│   │   ├── hooks/ (custom hooks)
-│   │   └── utils/ (utilities)
-│   └── forms/ (auth forms)
-├── services/
-│   ├── verse-service.ts
-│   └── esv-service.ts
-└── styles/
-    └── shadow-dom-styles.ts
+verse-service.ts (orchestrator)
+    ├── esv-service.ts (ESV API integration)
+    ├── nlt-service.ts (NLT API integration)
+    └── scripture.api.bible (KJV, ASV, WEB)
+    
+Parser System:
+    ├── BaseParser (abstract base class)
+    ├── EsvParser (ESV-specific formatting)
+    ├── NltParser (NLT-specific formatting)
+    └── StandardParser (generic Bible formatting)
 ```
 
-### Current Focus
-The project recently implemented ESV Bible formatting to match traditional printed Bible layouts, with proper chapter numbers, verse numbers, and paragraph formatting.
+### Component Architecture
+The main VerseOverlay component is modularized:
+- `ProfileDropdown`: User authentication state and preferences
+- `AdminControls`: Daily verse management (admin only)
+- `VerseDisplay`: Core verse display with GSAP animations
+- `ContextView`: Full chapter reading view
+- `AuthButtons`: Sign in/up UI components
+
+### API Integrations
+- **ESV API**: `https://api.esv.org/v3` - Requires API key
+- **NLT API**: `https://api.nlt.to` - Requires API key
+- **Scripture.api.bible**: For KJV, ASV, WEB translations
+- **Firebase**: Authentication and Firestore for data persistence
+
+### Key Technical Constraints
+1. **Shadow DOM**: All styling must be injected via shadow-dom-styles.ts
+2. **Manifest V3**: Requires offscreen documents for Firebase auth
+3. **GSAP Animations**: Used for verse reveal and transitions
+4. **React 18**: With TypeScript for type safety
+
+## Testing Approach
+- Jest with ts-jest for TypeScript support
+- Test files in `__tests__` directories
+- Integration tests for API services and parsers
+- Mock Chrome APIs for extension-specific code
+
+## Recent Implementation Notes
+
+### ESV Bible Formatting (2025-07-07)
+- Large floating chapter numbers (e.g., "4" floats left of first verse)
+- Paragraph indentation (2em) except for first paragraph
+- Section headings in italics
+- Fixed verse number parsing ("4:1" was showing as "41")
+
+### Line Animation Fix
+When returning from context view, use `requestAnimationFrame` to ensure proper animation sequencing.
+
+## Performance Considerations
+- Verses are cached in Chrome storage to reduce API calls
+- GSAP animations are optimized for smooth performance
+- React components use proper memoization where needed
+
+## Security Notes
+- API keys are stored in Firebase config
+- User authentication via Firebase Auth
+- Content Security Policy configured for extension context
