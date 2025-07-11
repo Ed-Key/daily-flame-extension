@@ -7,7 +7,8 @@
     "storage",
     "activeTab",
     "scripting",
-    "identity"
+    "tabs",
+    "offscreen"
   ],
   "host_permissions": [
     "<all_urls>",
@@ -18,15 +19,10 @@
     "https://*.googleapis.com/*",
     "https://securetoken.googleapis.com/*",
     "https://identitytoolkit.googleapis.com/*",
-    "https://accounts.google.com/*"
+    "https://accounts.google.com/*",
+    "https://apis.google.com/*",
+    "https://www.gstatic.com/*"
   ],
-  "oauth2": {
-    "client_id": "129859451154-k5rac7rbnfbbiatr3oci3dbgb6n127r7.apps.googleusercontent.com",
-    "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email",
-      "https://www.googleapis.com/auth/userinfo.profile"
-    ]
-  },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
@@ -55,7 +51,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map"],
+      "resources": ["auth.html", "auth.js", "auth.css", "*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map"],
       "matches": ["<all_urls>"]
     }
   ]

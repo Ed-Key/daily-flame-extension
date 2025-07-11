@@ -8,6 +8,8 @@ module.exports = {
     content: './src/content/monitor.ts',
     'verse-app': './src/content/verse-app.ts',
     background: './src/background/index-simple.ts',
+    auth: './src/auth/auth.ts',
+    offscreen: './src/offscreen.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,8 +21,8 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks(chunk) {
-        // Don't split verse-app - we want it as a single bundle
-        return chunk.name !== 'verse-app';
+        // Don't split verse-app, auth, or offscreen - we want them as single bundles
+        return chunk.name !== 'verse-app' && chunk.name !== 'auth' && chunk.name !== 'offscreen';
       },
       cacheGroups: {
         vendor: {
@@ -59,6 +61,18 @@ module.exports = {
           from: 'src/assets',
           to: 'assets',
           noErrorOnMissing: true,
+        },
+        {
+          from: 'src/auth/auth.html',
+          to: 'auth.html',
+        },
+        {
+          from: 'src/auth/auth.css',
+          to: 'auth.css',
+        },
+        {
+          from: 'src/offscreen.html',
+          to: 'offscreen.html',
         },
       ],
     }),

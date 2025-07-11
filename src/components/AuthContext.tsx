@@ -81,21 +81,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signIn = async (email: string, password: string): Promise<void> => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('AuthContext: Requesting sign-in via offscreen document');
       
-      // Check email verification (except for admin)
-      if (email !== 'admin@dailyflame.com' && !userCredential.user.emailVerified) {
-        console.log('🚨 [DEBUG] User email not verified, signing them out');
-        console.log('📧 [DEBUG] User email that needs verification:', userCredential.user.email);
+      // Send auth request to background script which will use offscreen document
+      const response = await new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage(
+          { 
+            action: 'auth',
+            authAction: 'signInWithEmail',
+            authData: { email, password }
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            } else {
+              resolve(response);
+            }
+          }
+        );
+      });
+      
+      if (!(response as any)?.success) {
+        const error = (response as any)?.error;
         
-        // Sign them out immediately if not verified
-        await firebaseSignOut(auth);
+        // Handle email verification error specially
+        if (error?.code === 'auth/email-not-verified') {
+          const verificationError = new Error('VERIFICATION_REQUIRED') as any;
+          verificationError.isVerificationError = true;
+          verificationError.userEmail = email;
+          throw verificationError;
+        }
         
-        // Create a special error that includes email verification context
-        const verificationError = new Error('VERIFICATION_REQUIRED') as any;
-        verificationError.isVerificationError = true;
-        verificationError.userEmail = userCredential.user.email;
-        throw verificationError;
+        throw new Error(error?.message || error || 'Sign-in failed');
+      }
+      
+      // Update local auth state with the user from response
+      const userData = (response as any).user;
+      if (userData) {
+        setUser(userData);
+        console.log('AuthContext: Email sign-in successful');
       }
     } catch (error: any) {
       console.error('Sign in error:', error);
@@ -126,38 +150,53 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signUp = async (email: string, password: string, firstName?: string, lastName?: string): Promise<void> => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('AuthContext: Requesting sign-up via offscreen document');
       
-      // Update user profile with display name if provided
-      if (firstName && lastName) {
-        await updateProfile(userCredential.user, {
-          displayName: `${firstName} ${lastName}`
-        });
+      // Send auth request to background script which will use offscreen document
+      const response = await new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage(
+          { 
+            action: 'auth',
+            authAction: 'signUpWithEmail',
+            authData: { email, password }
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            } else {
+              resolve(response);
+            }
+          }
+        );
+      });
+      
+      if (!(response as any)?.success) {
+        throw new Error((response as any)?.error?.message || (response as any)?.error || 'Sign-up failed');
       }
       
-      // Send email verification (except for admin email)
-      if (email !== 'admin@dailyflame.com') {
-        console.log('🔍 [DEBUG] Sign up successful, attempting to send verification email...');
-        console.log('👤 [DEBUG] New user created:', {
-          uid: userCredential.user.uid,
-          email: userCredential.user.email,
-          emailVerified: userCredential.user.emailVerified,
-          displayName: userCredential.user.displayName
-        });
+      // Update local auth state with the user from response
+      const userData = (response as any).user;
+      if (userData) {
+        setUser(userData);
         
-        try {
-          await sendEmailVerification(userCredential.user);
-          console.log('✅ [DEBUG] Verification email sent during sign up to:', userCredential.user.email);
-        } catch (emailError: any) {
-          console.error('❌ [DEBUG] Failed to send verification email during sign up:', emailError);
-          // Don't throw here - let the user know they can resend later
-          console.warn('⚠️ [DEBUG] Continuing with sign up despite email verification failure');
+        // If first and last name provided, we'll need to update profile separately
+        // Note: This would require additional implementation in offscreen document
+        if (firstName && lastName) {
+          console.log('AuthContext: Display name update requested but not implemented in offscreen flow');
         }
         
-        // Sign the user out immediately so they can't use the account until verified
-        console.log('🔐 [DEBUG] Signing user out to enforce email verification');
-        await firebaseSignOut(auth);
-        console.log('✅ [DEBUG] User signed out successfully after account creation');
+        console.log('AuthContext: Sign-up successful');
+        console.log('👤 [DEBUG] New user created:', {
+          uid: userData.uid,
+          email: userData.email,
+          emailVerified: userData.emailVerified,
+          displayName: userData.displayName
+        });
+        
+        if ((response as any).needsVerification) {
+          console.log('✅ [DEBUG] Verification email sent during sign up to:', userData.email);
+          console.log('🔐 [DEBUG] User needs to verify email before signing in');
+        }
       } else {
         console.log('👑 [DEBUG] Admin account created - auto-verified, no email verification needed');
       }
@@ -186,71 +225,72 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signInWithGoogle = async (): Promise<void> => {
     try {
-      console.log('AuthContext: Starting Google Sign-In via background script');
+      console.log('AuthContext: Requesting Google sign-in via offscreen document');
       
-      // Send message to background script to handle Google authentication
-      const response = await new Promise<any>((resolve, reject) => {
-        // Set a timeout to prevent hanging if user cancels OAuth
-        const timeout = setTimeout(() => {
-          reject(new Error('Google sign-in timed out. Please try again.'));
-        }, 30000); // 30 second timeout
-        
-        chrome.runtime.sendMessage({ action: 'googleSignIn' }, (response) => {
-          clearTimeout(timeout);
-          
-          // Check for Chrome runtime errors (e.g., extension context invalidated)
-          if (chrome.runtime.lastError) {
-            reject(new Error(chrome.runtime.lastError.message || 'Failed to communicate with extension'));
-            return;
+      // Send auth request to background script which will use offscreen document
+      const response = await new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage(
+          { 
+            action: 'auth',
+            authAction: 'signInWithGoogle',
+            authData: {}
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            } else {
+              resolve(response);
+            }
           }
-          
-          resolve(response);
-        });
+        );
       });
       
-      if (!response || !response.success) {
-        throw new Error(response?.error || 'Google sign-in failed');
+      if (!(response as any)?.success) {
+        throw new Error((response as any)?.error?.message || (response as any)?.error || 'Sign-in failed');
       }
       
-      const token = response.token;
-      const userInfo = response.userInfo;
-      
-      if (!token) {
-        throw new Error('No auth token received from background script');
+      // Update local auth state with the user from response
+      const userData = (response as any).user;
+      if (userData) {
+        setUser(userData);
+        console.log('AuthContext: Google sign-in successful');
       }
-      
-      console.log('AuthContext: Received token from background, creating Firebase credential');
-
-      // Create Firebase credential with the Google token
-      const credential = GoogleAuthProvider.credential(null, token);
-
-      // Sign in to Firebase with the credential
-      const userCredential = await signInWithCredential(auth, credential);
-      
-      // Update user profile with photo URL if available from Google
-      if (userInfo && userInfo.picture && userCredential.user) {
-        try {
-          await updateProfile(userCredential.user, {
-            photoURL: userInfo.picture,
-            displayName: userCredential.user.displayName || userInfo.name || `${userInfo.given_name || ''} ${userInfo.family_name || ''}`.trim()
-          });
-          console.log('AuthContext: Updated user profile with Google photo and name');
-        } catch (profileError) {
-          console.warn('AuthContext: Failed to update profile with Google info:', profileError);
-        }
-      }
-      
-      console.log('AuthContext: Google sign-in successful');
     } catch (error) {
-      console.error('AuthContext: Google sign-in error:', error);
-      throw error;
+      console.error('AuthContext: Error opening auth tab:', error);
+      throw new Error('Failed to open authentication page. Please try again.');
     }
   };
 
 
   const signOut = async (): Promise<void> => {
     try {
-      await firebaseSignOut(auth);
+      console.log('AuthContext: Requesting sign-out via offscreen document');
+      
+      // Send auth request to background script which will use offscreen document
+      const response = await new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage(
+          { 
+            action: 'auth',
+            authAction: 'signOut',
+            authData: {}
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            } else {
+              resolve(response);
+            }
+          }
+        );
+      });
+      
+      if (!(response as any)?.success) {
+        throw new Error((response as any)?.error?.message || (response as any)?.error || 'Sign-out failed');
+      }
+      
+      // Clear local auth state
+      setUser(null);
+      console.log('AuthContext: Sign-out successful');
     } catch (error) {
       console.error('Sign out error:', error);
       throw error;

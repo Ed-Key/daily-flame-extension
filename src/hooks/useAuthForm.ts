@@ -76,10 +76,15 @@ export const useAuthForm = () => {
           success: false, 
           error: 'Pop-up was blocked. Please allow pop-ups for this site.' 
         };
-      } else if (error.message?.includes('cancelled')) {
+      } else if (error.message?.includes('cancelled') || error.message?.includes('closed')) {
         return { 
           success: false, 
           error: 'Sign-in was cancelled.' 
+        };
+      } else if (error.message?.includes('redirect')) {
+        return { 
+          success: false, 
+          error: 'Authentication redirect failed. Please try again.' 
         };
       }
       return { success: false, error: error.message || 'Google sign-in failed' };

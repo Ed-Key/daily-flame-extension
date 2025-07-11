@@ -4,144 +4,53 @@
   !*** ./src/background/index-simple.ts ***!
   \****************************************/
 
-// Simplified background script without Firebase imports
-// Only handles message routing and chrome.identity operations
-// Detect if running on Microsoft Edge
-function isEdgeBrowser() {
-    return navigator.userAgent.includes('Edg/');
+// Simplified background script for Daily Flame Chrome Extension
+// Handles message routing and extension functionality
+// Offscreen document management
+const OFFSCREEN_DOCUMENT_PATH = '/offscreen.html';
+// Track if offscreen document is created
+let offscreenDocumentCreated = false;
+// Check if offscreen document already exists
+async function hasOffscreenDocument() {
+    // For simplicity, we'll track it with a flag
+    // In production, you might want to use chrome.runtime.getContexts if available
+    return offscreenDocumentCreated;
 }
-// Google Sign-In handler using chrome.identity API
-async function handleGoogleSignIn() {
-    console.log('Background: Starting Google Sign-In process');
-    // Check if we're on Edge, which doesn't support getAuthToken
-    if (isEdgeBrowser()) {
-        console.log('Background: Detected Microsoft Edge, using launchWebAuthFlow');
-        return handleGoogleSignInWithWebAuthFlow();
+// Create offscreen document if it doesn't exist
+async function setupOffscreenDocument() {
+    if (await hasOffscreenDocument()) {
+        return;
     }
-    return new Promise((resolve, reject) => {
-        // Force account selection by using 'any' account parameter
-        chrome.identity.getAuthToken({
-            interactive: true,
-            account: { id: 'any' } // Force account picker
-        }, async (result) => {
-            if (chrome.runtime.lastError || !result) {
-                console.error('Background: Google Sign-In failed', chrome.runtime.lastError);
-                reject(new Error(chrome.runtime.lastError?.message || 'Failed to get auth token'));
-                return;
-            }
-            // Extract token from result (could be string or object depending on API version)
-            const authToken = typeof result === 'string' ? result : result.token;
-            if (!authToken) {
-                reject(new Error('No auth token received'));
-                return;
-            }
-            console.log('Background: Google Sign-In successful, token received');
-            // Fetch user info from Google API to get profile photo and details
-            try {
-                const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${authToken}`);
-                if (!userInfoResponse.ok) {
-                    console.warn('Background: Failed to fetch user info, proceeding with token only');
-                    resolve({ token: authToken, userInfo: null });
-                    return;
-                }
-                const userInfo = await userInfoResponse.json();
-                console.log('Background: User info fetched successfully');
-                resolve({ token: authToken, userInfo });
-            }
-            catch (error) {
-                console.warn('Background: Error fetching user info:', error);
-                resolve({ token: authToken, userInfo: null });
-            }
+    try {
+        // @ts-ignore - chrome.offscreen is available with offscreen permission
+        await chrome.offscreen.createDocument({
+            url: chrome.runtime.getURL(OFFSCREEN_DOCUMENT_PATH),
+            // @ts-ignore
+            reasons: ['DOM_SCRAPING'],
+            justification: 'Firebase authentication requires DOM access'
         });
-    });
-}
-// Alternative Google Sign-In for Edge using launchWebAuthFlow
-async function handleGoogleSignInWithWebAuthFlow() {
-    console.log('Background: Using launchWebAuthFlow for Edge compatibility');
-    const manifest = chrome.runtime.getManifest();
-    const clientId = manifest.oauth2?.client_id;
-    if (!clientId) {
-        throw new Error('OAuth2 client ID not found in manifest');
+        offscreenDocumentCreated = true;
     }
-    // Generate redirect URI for the extension
-    const redirectUri = chrome.identity.getRedirectURL();
-    console.log('Background: Redirect URI:', redirectUri);
-    // Build the OAuth2 URL
-    const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
-    authUrl.searchParams.set('client_id', clientId);
-    authUrl.searchParams.set('response_type', 'token');
-    authUrl.searchParams.set('redirect_uri', redirectUri);
-    authUrl.searchParams.set('scope', 'openid email profile');
-    authUrl.searchParams.set('prompt', 'select_account'); // Force account selection
-    return new Promise((resolve, reject) => {
-        chrome.identity.launchWebAuthFlow({
-            url: authUrl.toString(),
-            interactive: true
-        }, async (responseUrl) => {
-            if (chrome.runtime.lastError || !responseUrl) {
-                console.error('Background: Web auth flow failed', chrome.runtime.lastError);
-                reject(new Error(chrome.runtime.lastError?.message || 'Authentication failed'));
-                return;
-            }
-            // Extract access token from the response URL
-            const url = new URL(responseUrl);
-            const params = new URLSearchParams(url.hash.substring(1)); // Remove the # character
-            const accessToken = params.get('access_token');
-            if (!accessToken) {
-                reject(new Error('No access token in response'));
-                return;
-            }
-            console.log('Background: Access token obtained via web auth flow');
-            // Fetch user info
-            try {
-                const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`);
-                if (!userInfoResponse.ok) {
-                    console.warn('Background: Failed to fetch user info');
-                    resolve({ token: accessToken, userInfo: null });
-                    return;
-                }
-                const userInfo = await userInfoResponse.json();
-                console.log('Background: User info fetched successfully');
-                resolve({ token: accessToken, userInfo });
-            }
-            catch (error) {
-                console.warn('Background: Error fetching user info:', error);
-                resolve({ token: accessToken, userInfo: null });
-            }
-        });
-    });
-}
-// Clear all cached auth tokens for testing different accounts
-async function clearAuthTokens() {
-    console.log('Background: Clearing all cached auth tokens');
-    // Edge doesn't support these methods, so just resolve immediately
-    if (isEdgeBrowser()) {
-        console.log('Background: Edge browser detected, no cached tokens to clear');
-        return Promise.resolve();
+    catch (error) {
+        console.error('Error creating offscreen document:', error);
     }
-    return new Promise((resolve, reject) => {
-        // First, try to get current token to revoke it
-        chrome.identity.getAuthToken({ interactive: false }, (result) => {
-            const token = typeof result === 'string' ? result : result?.token;
-            if (token) {
-                // Revoke the token first
-                chrome.identity.removeCachedAuthToken({ token }, () => {
-                    console.log('Background: Removed cached token');
-                });
-            }
-            // Then clear all cached tokens
-            chrome.identity.clearAllCachedAuthTokens(() => {
-                if (chrome.runtime.lastError) {
-                    console.error('Background: Error clearing auth tokens', chrome.runtime.lastError);
-                    reject(new Error(chrome.runtime.lastError.message));
-                    return;
-                }
-                console.log('Background: All auth tokens cleared successfully');
-                resolve();
-            });
-        });
-    });
 }
+// Close offscreen document
+async function closeOffscreenDocument() {
+    if (!(await hasOffscreenDocument())) {
+        return;
+    }
+    try {
+        // @ts-ignore
+        await chrome.offscreen.closeDocument();
+        offscreenDocumentCreated = false;
+    }
+    catch (error) {
+        console.error('Error closing offscreen document:', error);
+    }
+}
+// Store auth state
+let currentUser = null;
 // Handle messages from content script and other parts of the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Background: Received message:', request.action);
@@ -213,33 +122,78 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         });
         return true;
     }
-    if (request.action === 'googleSignIn') {
-        handleGoogleSignIn()
+    if (request.action === 'openAuthTab') {
+        // Handle opening authentication tab with offscreen document
+        console.log('Background: Opening auth tab with offscreen document');
+        handleAuthAction(request.authAction, request.authData)
             .then(result => {
-            sendResponse({
-                success: true,
-                token: result.token,
-                userInfo: result.userInfo
-            });
+            sendResponse(result);
         })
             .catch(error => {
-            console.error('Background: Error with Google sign-in:', error);
-            sendResponse({ success: false, error: error.message });
+            console.error('Background: Auth error:', error);
+            sendResponse({
+                success: false,
+                error: error.message || 'Authentication failed'
+            });
         });
         return true; // Keep message channel open for async response
     }
-    if (request.action === 'clearAuthTokens') {
-        clearAuthTokens()
-            .then(() => {
-            sendResponse({ success: true });
+    // Handle auth state changes from offscreen document
+    if (request.action === 'authStateChanged') {
+        currentUser = request.user;
+        console.log('Background: Auth state changed:', currentUser ? 'User signed in' : 'User signed out');
+        // Notify all tabs about auth state change
+        chrome.tabs.query({}, (tabs) => {
+            tabs.forEach(tab => {
+                if (tab.id) {
+                    chrome.tabs.sendMessage(tab.id, {
+                        action: 'authStateChanged',
+                        user: currentUser
+                    }).catch(() => {
+                        // Ignore errors for tabs that don't have our content script
+                    });
+                }
+            });
+        });
+        return false; // No response needed
+    }
+    // Handle direct auth requests
+    if (request.action === 'auth') {
+        handleAuthAction(request.authAction, request.authData)
+            .then(result => {
+            sendResponse(result);
         })
             .catch(error => {
-            console.error('Background: Error clearing auth tokens:', error);
-            sendResponse({ success: false, error: error.message });
+            console.error('Background: Auth error:', error);
+            sendResponse({
+                success: false,
+                error: error.message || 'Authentication failed'
+            });
         });
         return true; // Keep message channel open for async response
     }
 });
+// Handle authentication actions via offscreen document
+async function handleAuthAction(action, data) {
+    await setupOffscreenDocument();
+    return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({
+            target: 'offscreen-auth',
+            action: action,
+            ...data
+        }, (response) => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            }
+            else if (!response.success) {
+                reject(response.error);
+            }
+            else {
+                resolve(response);
+            }
+        });
+    });
+}
 // Handle extension icon clicks - always show verse overlay first
 chrome.action.onClicked.addListener((tab) => {
     if (!tab.id || !tab.url) {
