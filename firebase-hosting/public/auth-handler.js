@@ -83,6 +83,35 @@ window.addEventListener('message', async (event) => {
         console.log('Sign-out successful');
         break;
         
+      case 'verifyAuthState':
+        console.log('Verifying auth state...');
+        const currentUser = auth.currentUser;
+        const isValid = currentUser !== null;
+        result = { 
+          success: true, 
+          isValid,
+          user: isValid ? {
+            uid: currentUser.uid,
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+            emailVerified: currentUser.emailVerified
+          } : null
+        };
+        console.log('Auth state verification:', isValid ? 'Valid' : 'Invalid');
+        break;
+        
+      case 'sendVerificationEmail':
+        console.log('Sending verification email...');
+        if (auth.currentUser) {
+          await sendEmailVerification(auth.currentUser);
+          result = { success: true };
+          console.log('Verification email sent successfully');
+        } else {
+          throw new Error('No user signed in');
+        }
+        break;
+        
       default:
         throw new Error(`Unknown action: ${action}`);
     }

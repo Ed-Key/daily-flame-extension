@@ -9,18 +9,32 @@ let offscreenDocumentCreated = false;
 
 // Check if offscreen document already exists
 async function hasOffscreenDocument(): Promise<boolean> {
-  // For simplicity, we'll track it with a flag
-  // In production, you might want to use chrome.runtime.getContexts if available
+  // Check using Chrome API if available (Chrome 114+)
+  if ('getContexts' in chrome.runtime) {
+    try {
+      // @ts-ignore - getContexts is available in newer Chrome versions
+      const contexts = await chrome.runtime.getContexts({
+        contextTypes: ['OFFSCREEN_DOCUMENT' as any]
+      });
+      return (contexts as any).length > 0;
+    } catch (error) {
+      console.log('getContexts not available, falling back to flag');
+    }
+  }
+  
+  // Fallback to flag tracking
   return offscreenDocumentCreated;
 }
 
 // Create offscreen document if it doesn't exist
 async function setupOffscreenDocument(): Promise<void> {
   if (await hasOffscreenDocument()) {
+    console.log('Offscreen document already exists');
     return;
   }
   
   try {
+    console.log('Creating new offscreen document...');
     // @ts-ignore - chrome.offscreen is available with offscreen permission
     await chrome.offscreen.createDocument({
       url: chrome.runtime.getURL(OFFSCREEN_DOCUMENT_PATH),
@@ -29,8 +43,20 @@ async function setupOffscreenDocument(): Promise<void> {
       justification: 'Firebase authentication requires DOM access'
     });
     offscreenDocumentCreated = true;
-  } catch (error) {
+    console.log('Offscreen document created successfully');
+    
+    // Wait a bit for the document to initialize
+    await new Promise(resolve => setTimeout(resolve, 100));
+  } catch (error: any) {
+    // Handle specific error cases
+    if (error?.message?.includes('Only a single offscreen document may be created')) {
+      console.log('Offscreen document already exists (caught via error)');
+      offscreenDocumentCreated = true;
+      return;
+    }
+    
     console.error('Error creating offscreen document:', error);
+    throw error;
   }
 }
 
@@ -276,7 +302,23 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
 
 // Handle authentication actions via offscreen document
 async function handleAuthAction(action: string, data?: any): Promise<any> {
-  await setupOffscreenDocument();
+  // Retry logic for offscreen document setup
+  let setupAttempts = 0;
+  const maxSetupAttempts = 3;
+  
+  while (setupAttempts < maxSetupAttempts) {
+    try {
+      await setupOffscreenDocument();
+      break;
+    } catch (error) {
+      setupAttempts++;
+      if (setupAttempts >= maxSetupAttempts) {
+        throw new Error('Failed to setup offscreen document after multiple attempts');
+      }
+      console.log(`Retrying offscreen document setup (attempt ${setupAttempts + 1})...`);
+      await new Promise(resolve => setTimeout(resolve, 1000 * setupAttempts));
+    }
+  }
   
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage({
@@ -285,11 +327,52 @@ async function handleAuthAction(action: string, data?: any): Promise<any> {
       ...data
     }, (response) => {
       if (chrome.runtime.lastError) {
+        console.error('Chrome runtime error:', chrome.runtime.lastError);
         reject(chrome.runtime.lastError);
       } else if (!response || typeof response !== 'object') {
+        console.error('Invalid response from offscreen document:', response);
         reject(new Error('Invalid response from offscreen document'));
       } else if (!response.success) {
-        reject(response.error || new Error('Authentication failed'));
+        // Enhanced error handling for specific auth errors
+        const error = response.error || {};
+        const errorCode = error.code || 'unknown';
+        let errorMessage = error.message || 'Authentication failed';
+        
+        // Provide user-friendly error messages
+        switch (errorCode) {
+          case 'auth/invalid-credential':
+            errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+            break;
+          case 'auth/user-not-found':
+            errorMessage = 'No account found with this email address. Please sign up first.';
+            break;
+          case 'auth/wrong-password':
+            errorMessage = 'Incorrect password. Please try again.';
+            break;
+          case 'auth/email-already-in-use':
+            errorMessage = 'This email is already registered. Please sign in instead.';
+            break;
+          case 'auth/weak-password':
+            errorMessage = 'Password is too weak. Please use at least 6 characters.';
+            break;
+          case 'auth/network-request-failed':
+            errorMessage = 'Network error. Please check your internet connection.';
+            break;
+          case 'auth/popup-blocked':
+            errorMessage = 'Pop-up was blocked. Please allow pop-ups for this extension.';
+            break;
+          case 'auth/cancelled-popup-request':
+            errorMessage = 'Sign-in was cancelled. Please try again.';
+            break;
+          case 'iframe-timeout':
+            errorMessage = 'Authentication timed out. Please try again.';
+            break;
+          case 'iframe-not-found':
+            errorMessage = 'Authentication system not ready. Please try again in a moment.';
+            break;
+        }
+        
+        reject({ code: errorCode, message: errorMessage });
       } else {
         resolve(response);
       }
