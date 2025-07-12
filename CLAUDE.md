@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+**⚡ ALWAYS USE SUPERCLAUDE**: This project requires SuperClaude tools for all operations. 
+See "MANDATORY: Always Use SuperClaude Tools" section below.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
@@ -95,3 +98,161 @@ When returning from context view, use `requestAnimationFrame` to ensure proper a
 - API keys are stored in Firebase config
 - User authentication via Firebase Auth
 - Content Security Policy configured for extension context
+
+## MANDATORY: Always Use SuperClaude Tools
+
+**CRITICAL**: You MUST use SuperClaude commands and personas for ALL tasks. Never use generic approaches.
+
+### Before ANY task:
+1. Identify the task type (frontend, backend, debugging, etc.)
+2. Select appropriate persona using `--persona-[type]`
+3. Choose the right command (/build, /analyze, /improve, etc.)
+4. Enable relevant MCP servers (--c7, --magic, --seq, --pup)
+5. Always announce which SuperClaude tools you're using
+
+### Response Format:
+"I'll use SuperClaude's [command] with [persona] to accomplish this:
+`/[command] --[flags] --persona-[type]`"
+
+## SuperClaude Configuration
+**IMPORTANT**: This project uses SuperClaude - an advanced AI assistant framework. When responding to user requests, actively consider and use these tools when appropriate.
+
+Full documentation: `/mnt/c/Users/EdKib/DailyFlame/Super_Claude_Docs.md`
+
+### When to Use SuperClaude Tools:
+
+#### 1. PERSONAS - Automatically activate based on task type:
+- **Frontend work** (React, UI, CSS) → Use `--persona-frontend`
+- **API/Backend work** → Use `--persona-backend`
+- **System design/Architecture** → Use `--persona-architect`
+- **Debugging/Investigation** → Use `--persona-analyzer`
+- **Security concerns** → Use `--persona-security`
+- **Testing/QA** → Use `--persona-qa`
+- **Performance issues** → Use `--persona-performance`
+- **Code cleanup** → Use `--persona-refactorer`
+- **Documentation/Teaching** → Use `--persona-mentor`
+
+#### 2. MCP SERVERS - Enable for specialized capabilities:
+- **Library/Framework questions** → Use `--c7` (Context7 for official docs)
+- **Complex analysis/debugging** → Use `--seq` (Sequential thinking)
+- **UI component generation** → Use `--magic` (Magic UI components)
+- **E2E testing/browser automation** → Use `--pup` (Puppeteer)
+
+#### 3. COMMANDS - Use these instead of generic responses:
+- **Understanding code** → `/analyze --code --arch`
+- **Building features** → `/build --feature --tdd`
+- **Finding bugs** → `/troubleshoot --investigate --seq`
+- **Security review** → `/scan --security --owasp`
+- **Performance optimization** → `/improve --performance --profile`
+- **Code quality** → `/improve --quality --iterate`
+- **Testing** → `/test --coverage --e2e`
+- **Documentation** → `/document --user --examples`
+
+#### 4. THINKING MODES - Apply based on complexity:
+- **Simple tasks** → Normal mode
+- **Multi-file analysis** → `--think` (4K tokens)
+- **Architecture decisions** → `--think-hard` (10K tokens)
+- **System redesign** → `--ultrathink` (32K tokens)
+
+#### 5. AUTO-ACTIVATION RULES:
+- **3+ step tasks** → Automatically use TodoWrite
+- **Bug/error keywords** → Activate analyzer persona
+- **Performance keywords** → Activate performance persona
+- **Security keywords** → Activate security persona + scan
+- **Large context (>75%)** → Enable `--uc` (UltraCompressed)
+
+### Example Usage in Responses:
+
+```bash
+# When user asks about a bug:
+/troubleshoot --investigate --seq --persona-analyzer
+
+# When building a React component:
+/build --feature --react --magic --persona-frontend
+
+# When reviewing security:
+/scan --security --owasp --persona-security
+
+# When optimizing performance:
+/analyze --performance --pup --persona-performance
+```
+
+### Key Principles:
+1. **Always consider** which SuperClaude tools match the user's request
+2. **Proactively suggest** using appropriate commands and personas
+3. **Use evidence-based language** ("may", "could", "typically" instead of "best", "optimal")
+4. **Enable MCP servers** when they provide value for the task
+5. **Apply thinking modes** for complex analysis
+6. **Use TodoWrite** for multi-step tasks automatically
+
+### SuperClaude Enforcement Rules:
+- **NEVER** edit files without using a SuperClaude command
+- **ALWAYS** state which persona you're activating at the start
+- **ALWAYS** explain which MCP servers would help and why
+- **MUST** announce the SuperClaude command before executing
+- For UI work: **MUST** use `--persona-frontend` with `--magic`
+- For debugging: **MUST** use `--persona-analyzer` with `--seq`
+- For architecture: **MUST** use `--persona-architect` with `--ultrathink`
+- For security: **MUST** use `--persona-security` with OWASP scanning
+- For performance: **MUST** use `--persona-performance` with `--pup`
+
+### Decision Matrix for Tool Selection:
+
+| User Says | Claude Should Use |
+|-----------|-------------------|
+| "help me debug", "fix this error", "investigate issue" | `/troubleshoot --investigate --seq --persona-analyzer` |
+| "build a component", "create UI", "implement feature" | `/build --feature --magic --persona-frontend` |
+| "design API", "system architecture", "database schema" | `/design --api --seq --ultrathink --persona-architect` |
+| "security audit", "check vulnerabilities", "OWASP scan" | `/scan --security --owasp --persona-security` |
+| "slow performance", "optimize", "bottleneck" | `/analyze --performance --pup --profile --persona-performance` |
+| "clean up code", "refactor", "technical debt" | `/improve --quality --iterate --persona-refactorer` |
+| "write tests", "test coverage", "E2E testing" | `/test --coverage --e2e --pup --persona-qa` |
+| "explain this", "document", "tutorial" | `/document --user --examples --persona-mentor` |
+| "understand codebase", "analyze project" | `/analyze --code --arch --c7` |
+
+### Integration Instructions for Claude:
+1. **Read user request** → Identify keywords/intent
+2. **Match to SuperClaude tools** → Select appropriate command/persona/MCP
+3. **Mention the tool in response** → e.g., "I'll use the /analyze command with the performance persona to investigate this"
+4. **Execute with proper flags** → Include all relevant flags for comprehensive results
+5. **Use TodoWrite for complex tasks** → Automatically for 3+ steps
+
+### Response Format Example:
+```
+User: "Can you help me fix this performance issue in my React app?"
+
+Claude: "I'll help you investigate this performance issue. Let me use SuperClaude's performance analysis tools:
+
+/analyze --performance --pup --profile --persona-performance
+
+This will:
+- Enable the performance persona for specialized optimization expertise
+- Use Puppeteer to measure real browser performance metrics
+- Generate detailed profiling data
+
+Let me start by analyzing your React components..."
+```
+
+### Auto-Activate SuperClaude Based on Keywords:
+When these keywords appear in user requests, IMMEDIATELY activate the corresponding SuperClaude tools:
+
+- **UI/Frontend Keywords**: "UI", "button", "component", "design", "style", "CSS", "React", "interface"
+  → Auto-activate: `/build --react --magic --persona-frontend`
+  
+- **Debug Keywords**: "debug", "error", "fix", "bug", "issue", "not working", "problem"
+  → Auto-activate: `/troubleshoot --investigate --seq --persona-analyzer`
+  
+- **Performance Keywords**: "slow", "performance", "optimize", "lag", "speed up", "bottleneck"
+  → Auto-activate: `/analyze --performance --pup --profile --persona-performance`
+  
+- **Security Keywords**: "security", "vulnerability", "auth", "permission", "OWASP", "exploit"
+  → Auto-activate: `/scan --security --owasp --persona-security`
+  
+- **Architecture Keywords**: "design", "architecture", "structure", "system", "API", "database"
+  → Auto-activate: `/design --seq --ultrathink --persona-architect`
+  
+- **Code Quality Keywords**: "refactor", "clean", "improve", "quality", "technical debt"
+  → Auto-activate: `/improve --quality --iterate --persona-refactorer`
+  
+- **Testing Keywords**: "test", "coverage", "E2E", "unit test", "integration"
+  → Auto-activate: `/test --coverage --e2e --pup --persona-qa`

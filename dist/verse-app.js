@@ -65580,7 +65580,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 const AuthButtons = ({ onSignInClick }) => {
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onSignInClick, className: "df-glassmorphism-element px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: "Sign In" }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: onSignInClick, className: "flex items-center gap-2 text-white hover:opacity-70 transition-opacity", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", className: "w-8 h-8", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z", clipRule: "evenodd" }) })] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuthButtons);
 
@@ -65693,21 +65693,27 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
             eventTarget.removeEventListener('click', handleClickOutside);
         };
     }, [showDropdown, shadowRoot]);
-    const getUserInitials = (user) => {
+    // Helper function to format user name (e.g., "Edward Kiboma" → "Edward K.")
+    const getFormattedName = (user) => {
         if (user.displayName) {
-            return user.displayName.split(' ').map((name) => name[0]).join('').toUpperCase();
+            const names = user.displayName.split(' ');
+            if (names.length >= 2) {
+                return `${names[0]} ${names[1][0]}.`;
+            }
+            return names[0];
+        }
+        // Fallback to email username
+        return user.email?.split('@')[0] || 'User';
+    };
+    // Helper function to get first initial
+    const getFirstInitial = (user) => {
+        if (user.displayName) {
+            return user.displayName[0].toUpperCase();
         }
         if (user.email) {
-            return user.email.substring(0, 2).toUpperCase();
+            return user.email[0].toUpperCase();
         }
         return 'U';
-    };
-    const getUserAvatar = (user) => {
-        // For Google users, we might have a photoURL
-        if (user.photoURL) {
-            return user.photoURL;
-        }
-        return null;
     };
     const handleSendVerificationEmail = async () => {
         try {
@@ -65728,7 +65734,7 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
             console.error('Logout error:', error);
         }
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowDropdown(!showDropdown), className: "df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm", children: [getUserAvatar(user) ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", { src: getUserAvatar(user), alt: "Profile", className: "w-6 h-6 rounded-full" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold", children: getUserInitials(user) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-4 h-4", fill: "currentColor", viewBox: "0 0 20 20", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z", clipRule: "evenodd" }) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-20 mb-2", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm font-medium", children: user.displayName || 'User' }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-70 text-xs", children: user.email }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1 flex gap-2", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-green-600 bg-opacity-20 text-green-200 text-xs rounded border border-green-400 border-opacity-50", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-2 py-1 bg-yellow-600 bg-opacity-20 text-yellow-200 text-xs rounded border border-yellow-400 border-opacity-50", children: "Unverified" }))] })] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2", children: "Sign Out" })] }))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowDropdown(!showDropdown), className: "flex items-center gap-2 text-white hover:opacity-70 transition-opacity", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "bg-black rounded-full flex items-center justify-center text-white text-sm font-semibold box-border", style: { width: '28px', height: '28px', border: '2px solid white' }, children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "absolute top-12 right-0 w-56 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-10 mb-1", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-60 text-xs mt-0.5", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1.5 flex gap-1.5", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-green-300 text-xs rounded", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-yellow-300 text-xs rounded", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity border-t border-white border-opacity-10 mt-1 pt-1", children: "Sign Out" })] }))] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProfileDropdown);
 
@@ -70190,6 +70196,11 @@ const getShadowDomStyles = () => {
       display: inline-block;
       vertical-align: middle;
       fill: currentColor;
+    }
+    
+    /* Override for inverted user icons */
+    .df-icon-inverted {
+      fill: #374151 !important;
     }
     
     /* Scrollbar styles for modal */

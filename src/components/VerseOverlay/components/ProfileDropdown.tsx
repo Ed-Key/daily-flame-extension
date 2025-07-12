@@ -36,22 +36,28 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     };
   }, [showDropdown, shadowRoot]);
 
-  const getUserInitials = (user: any) => {
+  // Helper function to format user name (e.g., "Edward Kiboma" → "Edward K.")
+  const getFormattedName = (user: any) => {
     if (user.displayName) {
-      return user.displayName.split(' ').map((name: string) => name[0]).join('').toUpperCase();
+      const names = user.displayName.split(' ');
+      if (names.length >= 2) {
+        return `${names[0]} ${names[1][0]}.`;
+      }
+      return names[0];
     }
-    if (user.email) {
-      return user.email.substring(0, 2).toUpperCase();
-    }
-    return 'U';
+    // Fallback to email username
+    return user.email?.split('@')[0] || 'User';
   };
 
-  const getUserAvatar = (user: any) => {
-    // For Google users, we might have a photoURL
-    if (user.photoURL) {
-      return user.photoURL;
+  // Helper function to get first initial
+  const getFirstInitial = (user: any) => {
+    if (user.displayName) {
+      return user.displayName[0].toUpperCase();
     }
-    return null;
+    if (user.email) {
+      return user.email[0].toUpperCase();
+    }
+    return 'U';
   };
 
   const handleSendVerificationEmail = async () => {
@@ -77,50 +83,45 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     <div className="relative profile-dropdown">
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="df-glassmorphism-element flex items-center gap-2 p-2 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-lg transition-colors backdrop-blur-sm"
+        className="flex items-center gap-2 text-white hover:opacity-70 transition-opacity"
+        aria-label="User menu"
       >
-        {getUserAvatar(user) ? (
-          <img
-            src={getUserAvatar(user)}
-            alt="Profile"
-            className="w-6 h-6 rounded-full"
-          />
-        ) : (
-          <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-semibold">
-            {getUserInitials(user)}
-          </div>
-        )}
-        <span className="text-sm">{user.displayName || user.email?.split('@')[0]}</span>
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-        </svg>
+        <span className="text-sm">{getFormattedName(user)}</span>
+        <div 
+          className="bg-black rounded-full flex items-center justify-center text-white text-sm font-semibold box-border"
+          style={{ width: '28px', height: '28px', border: '2px solid white' }}
+        >
+          {getFirstInitial(user)}
+        </div>
       </button>
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="df-glassmorphism-dropdown absolute top-12 right-0 w-64 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20">
-          <div className="px-3 py-2 border-b border-white border-opacity-20 mb-2">
-            <p className="text-white text-sm font-medium">{user.displayName || 'User'}</p>
-            <p className="text-white text-opacity-70 text-xs">{user.email}</p>
-            <div className="mt-1 flex gap-2">
-              {isAdmin && (
-                <span className="inline-block px-2 py-1 bg-green-600 bg-opacity-20 text-green-200 text-xs rounded border border-green-400 border-opacity-50">
-                  Admin
-                </span>
-              )}
-              {!isEmailVerified && (
-                <span className="inline-block px-2 py-1 bg-yellow-600 bg-opacity-20 text-yellow-200 text-xs rounded border border-yellow-400 border-opacity-50">
-                  Unverified
-                </span>
-              )}
-            </div>
+        <div className="absolute top-12 right-0 w-56 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20">
+          <div className="px-3 py-2 border-b border-white border-opacity-10 mb-1">
+            <p className="text-white text-sm">{user.displayName || user.email?.split('@')[0]}</p>
+            <p className="text-white text-opacity-60 text-xs mt-0.5">{user.email}</p>
+            {(isAdmin || !isEmailVerified) && (
+              <div className="mt-1.5 flex gap-1.5">
+                {isAdmin && (
+                  <span className="inline-block px-1.5 py-0.5 text-green-300 text-xs rounded">
+                    Admin
+                  </span>
+                )}
+                {!isEmailVerified && (
+                  <span className="inline-block px-1.5 py-0.5 text-yellow-300 text-xs rounded">
+                    Unverified
+                  </span>
+                )}
+              </div>
+            )}
           </div>
           
           {/* Email Verification Section */}
           {!isEmailVerified && (
             <button
               onClick={handleSendVerificationEmail}
-              className="w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors"
+              className="w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity"
             >
               Resend Verification Email
             </button>
@@ -129,7 +130,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           
           <button
             onClick={handleLogout}
-            className="w-full text-left px-3 py-2 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-colors border-t border-white border-opacity-20 mt-2 pt-2"
+            className="w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity border-t border-white border-opacity-10 mt-1 pt-1"
           >
             Sign Out
           </button>

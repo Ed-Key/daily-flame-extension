@@ -951,6 +951,11 @@ export const getShadowDomStyles = (): string => {
       fill: currentColor;
     }
     
+    /* Override for inverted user icons */
+    .df-icon-inverted {
+      fill: #374151 !important;
+    }
+    
     /* Scrollbar styles for modal */
     .modal-content::-webkit-scrollbar {
       width: 8px;
