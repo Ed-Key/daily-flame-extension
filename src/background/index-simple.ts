@@ -1,6 +1,8 @@
 // Simplified background script for Daily Flame Chrome Extension
 // Handles message routing and extension functionality
 
+import { getLocalDateString } from '../utils/date-utils';
+
 // Offscreen document management
 const OFFSCREEN_DOCUMENT_PATH = '/offscreen.html';
 
@@ -142,7 +144,7 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
   
   
   if (request.action === 'getVerseShownDate') {
-    const today = new Date().toISOString().split("T")[0];
+    const today = getLocalDateString();
     chrome.storage.local.get("verseShownDate", ({ verseShownDate }) => {
       sendResponse({ 
         success: true,
@@ -155,7 +157,7 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
   }
   
   if (request.action === 'setVerseShownDate') {
-    const today = new Date().toISOString().split("T")[0];
+    const today = getLocalDateString();
     chrome.storage.local.set({ verseShownDate: today }, () => {
       console.log('Daily Flame: Verse shown for', today);
       sendResponse({ success: true });

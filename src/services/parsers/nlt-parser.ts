@@ -1,5 +1,5 @@
 import { BaseBibleParser } from './base-parser';
-import { UnifiedChapter, UnifiedVerse } from '../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata } from '../../types/bible-formats';
 
 /**
  * Parser for NLT (New Living Translation) Bible API
@@ -31,8 +31,17 @@ export class NLTBibleParser extends BaseBibleParser {
     const passage = apiResponse.passages[0];
     const { bookName, chapterNumber } = this.parseReference(passage.reference);
     
+    // Check if this is a Psalm
+    const isPsalm = bookName.toLowerCase() === 'psalm' || bookName.toLowerCase() === 'psalms';
+    
+    // Extract Psalm metadata if applicable
+    let psalmMetadata: PsalmMetadata | undefined;
+    if (isPsalm) {
+      psalmMetadata = this.extractPsalmMetadata(passage.content, chapterNumber);
+    }
+    
     // Parse HTML content
-    const verses = this.parseNLTHtml(passage.content);
+    const verses = this.parseNLTHtml(passage.content, isPsalm);
 
     const unifiedChapter: UnifiedChapter = {
       reference: passage.reference,
@@ -44,6 +53,7 @@ export class NLTBibleParser extends BaseBibleParser {
         copyright: '© 1996, 2004, 2015 by Tyndale House Foundation',
         translationName: 'New Living Translation'
       },
+      psalmMetadata,
       rawResponse: apiResponse
     };
 
@@ -68,8 +78,9 @@ export class NLTBibleParser extends BaseBibleParser {
    * - <cn> contains chapter number (only in first verse)
    * - <sn> contains section headings
    * - <red> or class="red" for words of Jesus
+   * - Poetry formatting with q1/q2 classes for Psalms
    */
-  private parseNLTHtml(html: string): UnifiedVerse[] {
+  private parseNLTHtml(html: string, isPsalm: boolean = false): UnifiedVerse[] {
     const verses: UnifiedVerse[] = [];
     
     // Extract all verse_export elements
@@ -117,6 +128,22 @@ export class NLTBibleParser extends BaseBibleParser {
       // Check for red letter text
       const hasRedLetter = /<red>|class=["']?red["']?/.test(verseContent);
       
+      // Check for Psalm-specific elements
+      let isSelah = false;
+      let poetryIndentLevel = 0;
+      
+      if (isPsalm) {
+        // Check for Selah
+        isSelah = /\bSelah\b/i.test(verseContent);
+        
+        // Check for poetry indentation (q1, q2 classes)
+        if (/<[^>]*class=["']?q2["']?/.test(verseContent)) {
+          poetryIndentLevel = 2;
+        } else if (/<[^>]*class=["']?q1["']?/.test(verseContent)) {
+          poetryIndentLevel = 1;
+        }
+      }
+      
       // Extract plain text
       const plainText = this.stripHtmlTags(verseContent).trim();
 
@@ -127,7 +154,9 @@ export class NLTBibleParser extends BaseBibleParser {
           isFirstVerse: isFirstVerse || index === 0,
           isRedLetter: hasRedLetter,
           heading,
-          rawHtml: match[0] // Preserve original for potential custom rendering
+          rawHtml: match[0], // Preserve original for potential custom rendering
+          isSelah: isSelah || undefined,
+          poetryIndentLevel: poetryIndentLevel || undefined
         }
       );
 
@@ -207,5 +236,70 @@ export class NLTBibleParser extends BaseBibleParser {
     }
 
     return verses;
+  }
+
+  /**
+   * Extract Psalm-specific metadata from NLT HTML
+   */
+  private extractPsalmMetadata(html: string, chapterNumber: string): PsalmMetadata {
+    const metadata: PsalmMetadata = {
+      psalmNumber: chapterNumber,
+      hasSelah: /\bSelah\b/i.test(html)
+    };
+    
+    // Look for superscription
+    // NLT typically puts Psalm titles in <h3 class="psalm-title"> or similar
+    const superscriptionMatch = html.match(/<h3[^>]*class=["']?psalm-title["']?[^>]*>(.*?)<\/h3>/i);
+    if (!superscriptionMatch) {
+      // Try alternative patterns
+      const altMatch = html.match(/<p[^>]*class=["']?psalm-acrostic-title["']?[^>]*>(.*?)<\/p>/i);
+      if (altMatch) {
+        metadata.superscription = this.stripHtmlTags(altMatch[1]).trim();
+      }
+    } else {
+      metadata.superscription = this.stripHtmlTags(superscriptionMatch[1]).trim();
+    }
+    
+    // Extract section headings
+    const sectionHeadings: Array<{ afterVerse: string; heading: string }> = [];
+    const headingPattern = /<h3[^>]*class=["']?subhead["']?[^>]*>(.*?)<\/h3>/gs;
+    const headings = Array.from(html.matchAll(headingPattern));
+    
+    headings.forEach(headingMatch => {
+      const headingText = this.stripHtmlTags(headingMatch[1]).trim();
+      
+      // Skip if this is the superscription
+      if (headingText === metadata.superscription) {
+        return;
+      }
+      
+      // Find which verse this heading appears after
+      const headingPosition = html.indexOf(headingMatch[0]);
+      const beforeHeading = html.substring(0, headingPosition);
+      
+      // Look for the last verse number before this heading
+      const verseNumbers = Array.from(beforeHeading.matchAll(/vn="(\d+)"/g));
+      if (verseNumbers.length > 0) {
+        const lastVerseNumber = verseNumbers[verseNumbers.length - 1][1];
+        sectionHeadings.push({
+          afterVerse: lastVerseNumber,
+          heading: headingText
+        });
+      }
+    });
+    
+    if (sectionHeadings.length > 0) {
+      metadata.sectionHeadings = sectionHeadings;
+    }
+    
+    // Check for musical notation in superscription
+    if (metadata.superscription) {
+      const musicalMatch = metadata.superscription.match(/(For the (?:choir )?director[^.]*)/i);
+      if (musicalMatch) {
+        metadata.musicalNotation = musicalMatch[1];
+      }
+    }
+    
+    return metadata;
   }
 }

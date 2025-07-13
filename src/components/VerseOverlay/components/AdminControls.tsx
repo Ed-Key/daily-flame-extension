@@ -3,6 +3,7 @@ import { VerseData, BIBLE_VERSIONS, BibleTranslation } from '../../../types';
 import { VerseService } from '../../../services/verse-service';
 import { useToast } from '../../ToastContext';
 import { AdminControlsProps } from '../types';
+import { getLocalDateString } from '../../../utils/date-utils';
 
 const AdminControls: React.FC<AdminControlsProps> = ({ onVerseChange }) => {
   const { showToast } = useToast();
@@ -22,9 +23,9 @@ const AdminControls: React.FC<AdminControlsProps> = ({ onVerseChange }) => {
     setAdminError(null);
 
     try {
-      // Get today's date in YYYY-MM-DD format
+      // Get today's date in YYYY-MM-DD format using local timezone
       const today = new Date();
-      const todayStr = today.toISOString().split('T')[0];
+      const todayStr = getLocalDateString(today);
       
       // Fetch verse data from GitHub Pages
       const response = await fetch('https://ed-key.github.io/daily-flame-extension/verses.json');
@@ -49,7 +50,7 @@ const AdminControls: React.FC<AdminControlsProps> = ({ onVerseChange }) => {
       for (let i = 1; i <= 7; i++) {
         const futureDate = new Date(today);
         futureDate.setDate(today.getDate() + i);
-        const futureDateStr = futureDate.toISOString().split('T')[0];
+        const futureDateStr = getLocalDateString(futureDate);
         
         const futureVerse = data.verses.find((v: any) => v.date === futureDateStr);
         if (futureVerse) {

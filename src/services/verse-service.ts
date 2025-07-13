@@ -12,6 +12,7 @@ import {
 import { ESVService } from './esv-service';
 import { NLTService } from './nlt-service';
 import { FirestoreService, FirestoreVerse } from './firestore-service';
+import { getDayOfYear } from '../utils/date-utils';
 
 // Import parsers
 import { StandardBibleParser } from './parsers/standard-parser';
@@ -293,9 +294,9 @@ export class VerseService {
       throw new Error('No verses configured');
     }
     
-    // Use date as seed for consistent daily verse
+    // Use date as seed for consistent daily verse (based on local timezone)
     const today = new Date();
-    const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+    const dayOfYear = getDayOfYear(today);
     const verseIndex = dayOfYear % verses.length;
     
     const selectedVerse = verses[verseIndex];

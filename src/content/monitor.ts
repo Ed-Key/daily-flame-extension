@@ -1,13 +1,15 @@
 // Minimal monitor script - only checks if verse should be shown
 // No heavy imports - just Chrome API calls
 
+import { getLocalDateString } from '../utils/date-utils';
+
 console.log('Daily Flame: Monitor initialized');
 
 async function checkAndLoadVerse() {
   try {
     // Check if verse was already shown today
     const result = await chrome.storage.local.get(['verseShownDate']);
-    const today = new Date().toISOString().split("T")[0];
+    const today = getLocalDateString();
     
     if (result.verseShownDate === today) {
       console.log('Daily Flame: Verse already shown today');

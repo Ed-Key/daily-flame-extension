@@ -107,9 +107,12 @@ export abstract class BaseBibleParser implements BibleParser {
     text: string,
     options: Partial<UnifiedVerse> = {}
   ): UnifiedVerse {
+    // Don't clean text if lines are provided (preserve line breaks for poetry)
+    const processedText = options.lines ? text : this.cleanVerseText(text);
+    
     return {
       number,
-      text: this.cleanVerseText(text),
+      text: processedText,
       isRedLetter: false,
       isFirstVerse: false,
       ...options

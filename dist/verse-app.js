@@ -65495,6 +65495,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../ToastContext */ "./src/components/ToastContext.tsx");
+/* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/date-utils */ "./src/utils/date-utils.ts");
+
 
 
 
@@ -65513,9 +65515,9 @@ const AdminControls = ({ onVerseChange }) => {
         setAdminLoading(true);
         setAdminError(null);
         try {
-            // Get today's date in YYYY-MM-DD format
+            // Get today's date in YYYY-MM-DD format using local timezone
             const today = new Date();
-            const todayStr = today.toISOString().split('T')[0];
+            const todayStr = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_3__.getLocalDateString)(today);
             // Fetch verse data from GitHub Pages
             const response = await fetch('https://ed-key.github.io/daily-flame-extension/verses.json');
             if (!response.ok) {
@@ -65535,7 +65537,7 @@ const AdminControls = ({ onVerseChange }) => {
             for (let i = 1; i <= 7; i++) {
                 const futureDate = new Date(today);
                 futureDate.setDate(today.getDate() + i);
-                const futureDateStr = futureDate.toISOString().split('T')[0];
+                const futureDateStr = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_3__.getLocalDateString)(futureDate);
                 const futureVerse = data.verses.find((v) => v.date === futureDateStr);
                 if (futureVerse) {
                     upcoming.push({
@@ -66403,27 +66405,31 @@ const renderUnifiedVerses = ({ chapterContent, currentVerseNumber }) => {
     if (!chapterContent || !chapterContent.verses || chapterContent.verses.length === 0) {
         return [];
     }
-    const { translation, verses, chapterNumber } = chapterContent;
+    const { translation, verses, chapterNumber, psalmMetadata } = chapterContent;
     // Determine rendering style based on translation
     const useKJVFormatting = translation === 'KJV' || translation === 'ASV';
     const useESVFormatting = translation === 'ESV';
     const useNLTFormatting = translation === 'NLT';
     // For ESV and NLT, use special formatting with floating chapter numbers
     if (useESVFormatting || useNLTFormatting) {
-        return renderESVStyle(verses, chapterNumber, currentVerseNumber, translation);
+        return renderESVStyle(verses, chapterNumber, currentVerseNumber, translation, psalmMetadata);
     }
     // For KJV/ASV, each verse is its own paragraph
     if (useKJVFormatting) {
-        return renderKJVStyle(verses, currentVerseNumber);
+        return renderKJVStyle(verses, currentVerseNumber, psalmMetadata);
     }
     // For other translations, group verses by natural paragraphs
-    return renderStandardStyle(verses, currentVerseNumber);
+    return renderStandardStyle(verses, currentVerseNumber, psalmMetadata);
 };
 /**
  * Render ESV/NLT style with floating chapter number and grouped paragraphs
  */
-function renderESVStyle(verses, chapterNumber, currentVerseNumber, translation) {
+function renderESVStyle(verses, chapterNumber, currentVerseNumber, translation, psalmMetadata) {
     const content = [];
+    // Add Psalm superscription if present
+    if (psalmMetadata?.superscription) {
+        content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "psalm-superscription", children: psalmMetadata.superscription }, "psalm-superscription"));
+    }
     let currentParagraph = [];
     let paragraphKey = 0;
     let isFirstParagraph = true;
@@ -66442,30 +66448,48 @@ function renderESVStyle(verses, chapterNumber, currentVerseNumber, translation) 
         // For the first verse of a chapter (verse 1), don't show the verse number
         // as it's already shown in the chapter number
         const shouldShowVerseNumber = verse.number !== '1' || index > 0;
+        // Apply poetry indentation if specified
+        const verseClasses = [
+            isHighlighted ? 'highlighted-verse' : '',
+            verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
+            verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
+            verse.isSelah ? 'verse-with-selah' : ''
+        ].filter(Boolean).join(' ');
         // Create verse element
-        const verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [shouldShowVerseNumber && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), ' '] })] }, `verse-${verse.number}`));
+        const verseElement = verse.lines && verse.lines.length > 0 ? (
+        // For verses with line breaks (poetry), render each line separately
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `verse-with-lines ${verseClasses}`, children: verse.lines.map((line, lineIndex) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-line-wrapper", children: [lineIndex === 0 && shouldShowVerseNumber && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: `verse-line ${lineIndex === 1 ? 'continuation-line' : ''}`, children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: line })) : (line), verse.lines && lineIndex === verse.lines.length - 1 && verse.isSelah && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }))] })] }, `${verse.number}-line-${lineIndex}`))) }, `verse-${verse.number}`)) : (
+        // Regular verse rendering (no line breaks)
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: verseClasses, children: [shouldShowVerseNumber && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), verse.isSelah && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] }, `verse-${verse.number}`));
         currentParagraph.push(verseElement);
         // For ESV/NLT, we'll group verses into paragraphs
-        // This is a simplified approach - in reality, we'd need paragraph boundaries from the API
-        // For now, let's create a new paragraph after every 3-4 verses or at headings
-        if ((index + 1) % 3 === 0 || index === verses.length - 1) {
-            finishParagraph();
+        // Check for stanza breaks in Psalms or natural paragraph boundaries
+        const shouldBreakParagraph = verse.stanzaBreakAfter ||
+            (index + 1) % 3 === 0 ||
+            index === verses.length - 1;
+        if (shouldBreakParagraph) {
+            finishParagraph(verse.stanzaBreakAfter);
         }
     });
     // Make sure to finish any remaining paragraph
     if (currentParagraph.length > 0) {
         finishParagraph();
     }
-    function finishParagraph() {
+    function finishParagraph(hasStanzaBreak) {
         if (currentParagraph.length === 0)
             return;
+        const paragraphClasses = [
+            'context-paragraph',
+            'esv-format',
+            hasStanzaBreak ? 'stanza-break' : ''
+        ].filter(Boolean).join(' ');
         if (isFirstParagraph) {
             // First paragraph includes the floating chapter number
-            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "esv-chapter-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-number", children: chapterNumber }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph esv-format esv-first-paragraph", children: currentParagraph })] }, `para-with-chapter-${paragraphKey++}`));
+            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "esv-chapter-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-chapter-number", children: chapterNumber }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: `${paragraphClasses} esv-first-paragraph`, children: currentParagraph })] }, `para-with-chapter-${paragraphKey++}`));
             isFirstParagraph = false;
         }
         else {
-            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph esv-format", children: currentParagraph }, `para-${paragraphKey++}`));
+            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: paragraphClasses, children: currentParagraph }, `para-${paragraphKey++}`));
         }
         currentParagraph = [];
     }
@@ -66476,8 +66500,13 @@ function renderESVStyle(verses, chapterNumber, currentVerseNumber, translation) 
 /**
  * Render KJV/ASV style where each verse is its own paragraph
  */
-function renderKJVStyle(verses, currentVerseNumber) {
-    return verses.map(verse => {
+function renderKJVStyle(verses, currentVerseNumber, psalmMetadata) {
+    const elements = [];
+    // Add Psalm superscription if present
+    if (psalmMetadata?.superscription) {
+        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "psalm-superscription", children: psalmMetadata.superscription }, "psalm-superscription"));
+    }
+    const verseElements = verses.map(verse => {
         const verseNum = parseInt(verse.number);
         const isHighlighted = verseNum === currentVerseNumber;
         // Handle section headings
@@ -66485,15 +66514,30 @@ function renderKJVStyle(verses, currentVerseNumber) {
         if (verse.heading) {
             elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "esv-heading", children: verse.heading }, `heading-${verse.number}`));
         }
-        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: `context-paragraph kjv-verse ${isHighlighted ? 'highlighted-verse' : ''}`, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text) })] }, `verse-${verse.number}`));
+        // Apply poetry indentation and other Psalm-specific classes
+        const verseClasses = [
+            'context-paragraph',
+            'kjv-verse',
+            isHighlighted ? 'highlighted-verse' : '',
+            verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
+            verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
+            verse.isSelah ? 'verse-with-selah' : '',
+            verse.stanzaBreakAfter ? 'stanza-break' : ''
+        ].filter(Boolean).join(' ');
+        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), verse.isSelah && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" })] })] }, `verse-${verse.number}`));
         return elements;
     }).flat();
+    return elements.concat(verseElements);
 }
 /**
  * Render standard style with verses grouped in paragraphs
  */
-function renderStandardStyle(verses, currentVerseNumber) {
+function renderStandardStyle(verses, currentVerseNumber, psalmMetadata) {
     const paragraphs = [];
+    // Add Psalm superscription if present
+    if (psalmMetadata?.superscription) {
+        paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "psalm-superscription", children: psalmMetadata.superscription }, "psalm-superscription"));
+    }
     let currentParagraph = [];
     let paragraphKey = 0;
     verses.forEach((verse, index) => {
@@ -66508,11 +66552,24 @@ function renderStandardStyle(verses, currentVerseNumber) {
             }
             paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "esv-heading", children: verse.heading }, `heading-${verse.number}`));
         }
+        // Apply poetry indentation and other Psalm-specific classes
+        const verseClasses = [
+            isHighlighted ? 'highlighted-verse' : '',
+            verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
+            verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
+            verse.isSelah ? 'verse-with-selah' : ''
+        ].filter(Boolean).join(' ');
         // Add verse to current paragraph
-        currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: isHighlighted ? 'highlighted-verse' : '', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), ' '] })] }, `verse-${verse.number}`));
-        // Create new paragraph every few verses
-        if ((index + 1) % 4 === 0 && index < verses.length - 1) {
-            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, `para-${paragraphKey++}`));
+        currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), verse.isSelah && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] }, `verse-${verse.number}`));
+        // Check for stanza breaks in Psalms or natural paragraph boundaries
+        const shouldBreakParagraph = verse.stanzaBreakAfter ||
+            ((index + 1) % 4 === 0 && index < verses.length - 1);
+        if (shouldBreakParagraph) {
+            const paragraphClasses = [
+                'context-paragraph',
+                verse.stanzaBreakAfter ? 'stanza-break' : ''
+            ].filter(Boolean).join(' ');
+            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: paragraphClasses, children: currentParagraph }, `para-${paragraphKey++}`));
             currentParagraph = [];
         }
     });
@@ -67900,6 +67957,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/firestore */ "./node_modules/firebase/firestore/dist/esm/index.esm.js");
 /* harmony import */ var _firebase_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./firebase-config */ "./src/services/firebase-config.ts");
+/* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
+
 
 
 class FirestoreService {
@@ -67933,10 +67992,10 @@ class FirestoreService {
         }
     }
     /**
-     * Get today's verse
+     * Get today's verse using local timezone
      */
     static async getTodaysVerse() {
-        const today = new Date().toISOString().split('T')[0];
+        const today = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_2__.getLocalDateString)();
         return this.getVerseByDate(today);
     }
     /**
@@ -68192,9 +68251,11 @@ class BaseBibleParser {
      * @param options Additional options
      */
     createVerse(number, text, options = {}) {
+        // Don't clean text if lines are provided (preserve line breaks for poetry)
+        const processedText = options.lines ? text : this.cleanVerseText(text);
         return {
             number,
-            text: this.cleanVerseText(text),
+            text: processedText,
             isRedLetter: false,
             isFirstVerse: false,
             ...options
@@ -68254,8 +68315,15 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
         const passage = apiResponse.passages[0];
         const reference = apiResponse.canonical || apiResponse.query;
         const { bookName, chapterNumber } = this.parseReference(reference);
+        // Check if this is a Psalm
+        const isPsalm = bookName.toLowerCase() === 'psalm' || bookName.toLowerCase() === 'psalms';
+        // Extract Psalm metadata if applicable
+        let psalmMetadata;
+        if (isPsalm) {
+            psalmMetadata = this.extractPsalmMetadata(passage, chapterNumber);
+        }
         // Parse HTML content using browser's DOMParser if available
-        const verses = this.parseESVHtml(passage, chapterNumber);
+        const verses = this.parseESVHtml(passage, chapterNumber, isPsalm);
         const unifiedChapter = {
             reference: reference,
             translation: 'ESV',
@@ -68266,6 +68334,7 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                 copyright: apiResponse.copyright,
                 translationName: 'English Standard Version'
             },
+            psalmMetadata,
             rawResponse: apiResponse
         };
         this.debug('Parsed ESV chapter', {
@@ -68281,13 +68350,14 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
      * - Verse numbers in <b class="verse-num">
      * - Section headings in <h3>
      * - Red letter text in <span class="woc">
+     * - Psalm-specific elements like Selah markers
      */
-    parseESVHtml(html, chapterNumber) {
+    parseESVHtml(html, chapterNumber, isPsalm = false) {
         const verses = [];
         // Debug: log first 500 chars of HTML
         this.debug('HTML content (first 500 chars):', html.substring(0, 500));
         // Try the new format first (paragraphs with <b> tags for verse numbers)
-        const paragraphVerses = this.parseESVParagraphs(html, chapterNumber);
+        const paragraphVerses = this.parseESVParagraphs(html, chapterNumber, isPsalm);
         if (paragraphVerses.length > 0) {
             return paragraphVerses;
         }
@@ -68406,7 +68476,7 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
      * Parse ESV HTML that uses the new paragraph structure with <b> tags
      * New format: <p><b class="chapter-num">1:1&nbsp;</b>verse text...</p>
      */
-    parseESVParagraphs(html, chapterNumber) {
+    parseESVParagraphs(html, chapterNumber, isPsalm = false) {
         const verses = [];
         this.debug('Trying paragraph parsing...');
         // First, get all section headings and their positions
@@ -68417,13 +68487,17 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
             heading: this.stripHtmlTags(h[2]),
             headingId: h[1]
         }));
-        // Match paragraphs
+        // Match paragraphs - handle both regular and block-indent paragraphs
         const paragraphPattern = /<p[^>]*>(.*?)<\/p>/gs;
         const paragraphs = Array.from(html.matchAll(paragraphPattern));
         this.debug('Paragraphs found:', paragraphs.length);
         paragraphs.forEach((match) => {
             const paragraphHtml = match[1];
             const paragraphPosition = html.indexOf(match[0]);
+            // Skip ESV copyright paragraph
+            if (paragraphHtml.includes('class="copyright"')) {
+                return;
+            }
             // Find the heading for this paragraph (if any)
             let currentHeading = null;
             for (let i = headingPositions.length - 1; i >= 0; i--) {
@@ -68432,59 +68506,264 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                     break;
                 }
             }
-            // Process verses in this paragraph
-            // New format: <b class="chapter-num">1:1&nbsp;</b> or <b class="verse-num">2&nbsp;</b>
-            const versePattern = /<b[^>]*class="(chapter-num|verse-num)"[^>]*>([^<]+)<\/b>/g;
-            const verseMatches = Array.from(paragraphHtml.matchAll(versePattern));
-            // Debug logging removed for production
-            if (verseMatches.length === 0) {
-                // No verse numbers found, skip this paragraph
-                return;
+            // For Psalms with line-based structure, we need to handle span.line elements
+            if (isPsalm && paragraphHtml.includes('class="line"')) {
+                // Parse line-based Psalm structure
+                const linePattern = /<span[^>]*class="[^"]*line[^"]*"[^>]*>(.*?)<\/span>/gs;
+                const lines = Array.from(paragraphHtml.matchAll(linePattern));
+                // Check for end-line-group markers to detect stanza breaks
+                const endLineGroupPattern = /<span[^>]*class="end-line-group"[^>]*><\/span>/g;
+                const stanzaBreakPositions = new Set();
+                let match;
+                while ((match = endLineGroupPattern.exec(paragraphHtml)) !== null) {
+                    // Find which line precedes this end-line-group marker
+                    for (let i = lines.length - 1; i >= 0; i--) {
+                        const lineEnd = paragraphHtml.indexOf(lines[i][0]) + lines[i][0].length;
+                        if (lineEnd < match.index) {
+                            stanzaBreakPositions.add(i);
+                            break;
+                        }
+                    }
+                }
+                const processedLines = new Set();
+                lines.forEach((lineMatch, lineIndex) => {
+                    // Skip if we've already processed this line as part of a previous verse
+                    if (processedLines.has(lineIndex)) {
+                        return;
+                    }
+                    const lineHtml = lineMatch[1];
+                    const isIndentLine = lineMatch[0].includes('indent line');
+                    // Look for verse numbers in this line
+                    const verseNumPattern = /<b[^>]*class="[^"]*(chapter-num|verse-num)[^"]*"[^>]*>([^<]+)<\/b>/g;
+                    const verseNumMatch = verseNumPattern.exec(lineHtml);
+                    if (verseNumMatch) {
+                        const [fullMatch, numClass, verseRef] = verseNumMatch;
+                        let verseNumber = '';
+                        if (numClass.includes('chapter-num')) {
+                            // Extract verse number from format like "105:1&nbsp;"
+                            const chapterVerseMatch = verseRef.match(/\d+:(\d+)/);
+                            verseNumber = chapterVerseMatch ? chapterVerseMatch[1] : '1';
+                        }
+                        else {
+                            // Regular verse number
+                            verseNumber = verseRef.match(/\d+/)?.[0] || '';
+                        }
+                        // Get text after verse number
+                        const textAfterVerseNum = lineHtml.substring(lineHtml.indexOf(fullMatch) + fullMatch.length);
+                        let verseText = this.stripHtmlTags(textAfterVerseNum).trim();
+                        // Only add initial text to verseLines if it's not empty
+                        const verseLines = verseText ? [verseText] : [];
+                        // If this is an indent line without a verse number, it's continuation of previous verse
+                        // We need to append it to the previous verse
+                        if (verses.length > 0 && !verseNumber && isIndentLine) {
+                            const lastVerse = verses[verses.length - 1];
+                            if (lastVerse.lines) {
+                                lastVerse.lines.push(verseText);
+                            }
+                            else {
+                                lastVerse.text += ' ' + verseText;
+                            }
+                            return;
+                        }
+                        // For verses with both regular and indent lines, we need to collect all lines
+                        // Look ahead to collect all lines belonging to this verse
+                        let nextLineIndex = lineIndex + 1;
+                        while (nextLineIndex < lines.length) {
+                            const nextLine = lines[nextLineIndex];
+                            const nextLineHtml = nextLine[1];
+                            const isNextLineIndented = nextLine[0].includes('indent line');
+                            // Check if this line belongs to the current verse (no verse number)
+                            if (!/<b[^>]*class="[^"]*verse-num/.test(nextLineHtml) &&
+                                !/<b[^>]*class="[^"]*chapter-num/.test(nextLineHtml)) {
+                                const lineText = this.stripHtmlTags(nextLineHtml).trim();
+                                if (lineText) {
+                                    verseLines.push(lineText);
+                                }
+                                // Mark this line as processed
+                                processedLines.add(nextLineIndex);
+                                nextLineIndex++;
+                            }
+                            else {
+                                // Found the start of next verse, stop collecting lines
+                                break;
+                            }
+                        }
+                        // Mark current line as processed
+                        processedLines.add(lineIndex);
+                        // Combine text for backward compatibility
+                        verseText = verseLines.join(' ');
+                        // Create verse if we have a verse number and any text (initial or collected)
+                        if (verseNumber && (verseText || verseLines.length > 0)) {
+                            const isFirstVerse = verseNumber === '1';
+                            const poetryIndentLevel = isIndentLine ? 1 : 0;
+                            // Check for Selah
+                            const isSelah = /\bSelah\b/i.test(verseText);
+                            // Add heading only to the first verse after a heading
+                            const shouldAddHeading = currentHeading &&
+                                !verses.some(v => v.heading === currentHeading.heading);
+                            verses.push(this.createVerse(verseNumber, verseText, {
+                                isFirstVerse,
+                                isRedLetter: false, // ESV HTML doesn't include red letter in Psalms
+                                heading: shouldAddHeading && currentHeading ? currentHeading.heading : undefined,
+                                headingId: shouldAddHeading && currentHeading ? currentHeading.headingId : undefined,
+                                isSelah: isSelah || undefined,
+                                poetryIndentLevel: poetryIndentLevel || undefined,
+                                // Check if this verse ends a stanza
+                                stanzaBreakAfter: stanzaBreakPositions.has(lineIndex) ? true : undefined,
+                                lines: verseLines.length > 0 ? verseLines : undefined
+                            }));
+                        }
+                    }
+                    else if (verses.length > 0) {
+                        // This is a line without a verse number - append to previous verse
+                        const lastVerse = verses[verses.length - 1];
+                        const additionalText = this.stripHtmlTags(lineHtml).trim();
+                        if (additionalText) {
+                            // If the verse has lines array, add to it; otherwise append to text
+                            if (lastVerse.lines) {
+                                lastVerse.lines.push(additionalText);
+                                // Also update the combined text for backward compatibility
+                                lastVerse.text = lastVerse.lines.join(' ');
+                            }
+                            else {
+                                lastVerse.text += ' ' + additionalText;
+                            }
+                        }
+                        // Check if this line ends a stanza
+                        if (stanzaBreakPositions.has(lineIndex)) {
+                            lastVerse.stanzaBreakAfter = true;
+                        }
+                    }
+                });
             }
-            // Track if this is the first verse in the paragraph (for heading assignment)
-            let isFirstInParagraph = true;
-            verseMatches.forEach((verseMatch, index) => {
-                const [fullMatch, numClass, verseRef] = verseMatch;
-                let verseNumber = '';
-                let verseText = '';
-                if (numClass === 'chapter-num') {
-                    // Extract verse number from format like "1:1&nbsp;"
-                    const chapterVerseMatch = verseRef.match(/\d+:(\d+)/);
-                    verseNumber = chapterVerseMatch ? chapterVerseMatch[1] : '1';
+            else {
+                // Original paragraph parsing for non-line-based content
+                // Process verses in this paragraph
+                const versePattern = /<b[^>]*class="[^"]*(chapter-num|verse-num)[^"]*"[^>]*>([^<]+)<\/b>/g;
+                const verseMatches = Array.from(paragraphHtml.matchAll(versePattern));
+                if (verseMatches.length === 0) {
+                    // No verse numbers found, skip this paragraph
+                    return;
                 }
-                else {
-                    // Regular verse number
-                    verseNumber = verseRef.match(/\d+/)?.[0] || '';
-                }
-                // Get the text after this verse number until the next verse number or end of paragraph
-                const currentIndex = paragraphHtml.indexOf(fullMatch) + fullMatch.length;
-                let endIndex = paragraphHtml.length;
-                // Find the next verse number if exists
-                if (index < verseMatches.length - 1) {
-                    endIndex = paragraphHtml.indexOf(verseMatches[index + 1][0]);
-                }
-                // Extract text from current position to next verse
-                verseText = paragraphHtml.substring(currentIndex, endIndex);
-                // Check if text contains red letter before stripping tags
-                const hasRedLetter = /<span[^>]*class="woc"[^>]*>/.test(verseText);
-                // Clean up the verse text
-                verseText = this.stripHtmlTags(verseText).trim();
-                if (verseNumber && verseText) {
-                    const isFirstVerse = verseNumber === '1';
-                    // Add heading only to the first verse in the paragraph after a heading
-                    const shouldAddHeading = currentHeading && isFirstInParagraph &&
-                        !verses.some(v => v.heading === currentHeading.heading);
-                    verses.push(this.createVerse(verseNumber, verseText, {
-                        isFirstVerse,
-                        isRedLetter: hasRedLetter,
-                        heading: shouldAddHeading && currentHeading ? currentHeading.heading : undefined,
-                        headingId: shouldAddHeading && currentHeading ? currentHeading.headingId : undefined
-                    }));
-                    isFirstInParagraph = false;
-                }
-            });
+                // Track if this is the first verse in the paragraph (for heading assignment)
+                let isFirstInParagraph = true;
+                verseMatches.forEach((verseMatch, index) => {
+                    const [fullMatch, numClass, verseRef] = verseMatch;
+                    let verseNumber = '';
+                    let verseText = '';
+                    if (numClass.includes('chapter-num')) {
+                        // Extract verse number from format like "1:1&nbsp;"
+                        const chapterVerseMatch = verseRef.match(/\d+:(\d+)/);
+                        verseNumber = chapterVerseMatch ? chapterVerseMatch[1] : '1';
+                    }
+                    else {
+                        // Regular verse number
+                        verseNumber = verseRef.match(/\d+/)?.[0] || '';
+                    }
+                    // Get the text after this verse number until the next verse number or end of paragraph
+                    const currentIndex = paragraphHtml.indexOf(fullMatch) + fullMatch.length;
+                    let endIndex = paragraphHtml.length;
+                    // Find the next verse number if exists
+                    if (index < verseMatches.length - 1) {
+                        endIndex = paragraphHtml.indexOf(verseMatches[index + 1][0]);
+                    }
+                    // Extract text from current position to next verse
+                    verseText = paragraphHtml.substring(currentIndex, endIndex);
+                    // Check if text contains red letter before stripping tags
+                    const hasRedLetter = /<span[^>]*class="woc"[^>]*>/.test(verseText);
+                    // Check for Psalm-specific elements
+                    let isSelah = false;
+                    let cleanedVerseText = verseText;
+                    if (isPsalm) {
+                        // Check for Selah
+                        isSelah = /\bSelah\b/i.test(verseText);
+                    }
+                    // Clean up the verse text
+                    cleanedVerseText = this.stripHtmlTags(cleanedVerseText).trim();
+                    if (verseNumber && cleanedVerseText) {
+                        const isFirstVerse = verseNumber === '1';
+                        // Add heading only to the first verse in the paragraph after a heading
+                        const shouldAddHeading = currentHeading && isFirstInParagraph &&
+                            !verses.some(v => v.heading === currentHeading.heading);
+                        verses.push(this.createVerse(verseNumber, cleanedVerseText, {
+                            isFirstVerse,
+                            isRedLetter: hasRedLetter,
+                            heading: shouldAddHeading && currentHeading ? currentHeading.heading : undefined,
+                            headingId: shouldAddHeading && currentHeading ? currentHeading.headingId : undefined,
+                            isSelah: isSelah || undefined,
+                            // For ESV, paragraphs often indicate stanza breaks in Psalms
+                            stanzaBreakAfter: isPsalm && index === verseMatches.length - 1 ? true : undefined
+                        }));
+                        isFirstInParagraph = false;
+                    }
+                });
+            }
         });
         return verses;
+    }
+    /**
+     * Extract Psalm-specific metadata from ESV HTML
+     */
+    extractPsalmMetadata(html, chapterNumber) {
+        const metadata = {
+            psalmNumber: chapterNumber,
+            hasSelah: /\bSelah\b/i.test(html)
+        };
+        // Look for superscription in h3 tag at the beginning
+        // ESV puts Psalm titles in h3 tags with specific formatting
+        const superscriptionMatch = html.match(/<h3[^>]*>(.*?)<\/h3>/);
+        if (superscriptionMatch) {
+            const superscriptionText = this.stripHtmlTags(superscriptionMatch[1]).trim();
+            // Check if this is actually a superscription (not a section heading)
+            // Superscriptions typically mention "Psalm" or start with "To the" or "A" or "Of"
+            if (/^(To the|A |Of |When |For |In |The )/i.test(superscriptionText) ||
+                /Psalm/i.test(superscriptionText)) {
+                metadata.superscription = superscriptionText;
+                // Extract musical notation if present
+                const musicalMatch = superscriptionText.match(/(To the choirmaster[^.]*)/i);
+                if (musicalMatch) {
+                    metadata.musicalNotation = musicalMatch[1];
+                }
+            }
+        }
+        // Extract section headings (h3 tags that aren't superscriptions)
+        const sectionHeadings = [];
+        const headingPattern = /<h3[^>]*>(.*?)<\/h3>/gs;
+        const headings = Array.from(html.matchAll(headingPattern));
+        // Skip the first h3 if it's the superscription
+        const startIndex = metadata.superscription ? 1 : 0;
+        for (let i = startIndex; i < headings.length; i++) {
+            const headingText = this.stripHtmlTags(headings[i][1]).trim();
+            // Find which verse this heading appears after
+            const headingPosition = html.indexOf(headings[i][0]);
+            const beforeHeading = html.substring(0, headingPosition);
+            const verseMatches = beforeHeading.match(/<b[^>]*class="(chapter-num|verse-num)"[^>]*>([^<]+)<\/b>/g);
+            if (verseMatches && verseMatches.length > 0) {
+                const lastVerseMatch = verseMatches[verseMatches.length - 1];
+                const verseNumber = this.extractVerseNumber(lastVerseMatch);
+                sectionHeadings.push({
+                    afterVerse: verseNumber,
+                    heading: headingText
+                });
+            }
+        }
+        if (sectionHeadings.length > 0) {
+            metadata.sectionHeadings = sectionHeadings;
+        }
+        return metadata;
+    }
+    /**
+     * Helper to extract verse number from ESV verse markup
+     */
+    extractVerseNumber(verseMarkup) {
+        // Handle chapter-num format like "1:1"
+        const chapterVerseMatch = verseMarkup.match(/\d+:(\d+)/);
+        if (chapterVerseMatch) {
+            return chapterVerseMatch[1];
+        }
+        // Handle regular verse-num format
+        const verseMatch = verseMarkup.match(/>(\d+)/);
+        return verseMatch ? verseMatch[1] : '1';
     }
 }
 
@@ -68529,8 +68808,15 @@ class NLTBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
         }
         const passage = apiResponse.passages[0];
         const { bookName, chapterNumber } = this.parseReference(passage.reference);
+        // Check if this is a Psalm
+        const isPsalm = bookName.toLowerCase() === 'psalm' || bookName.toLowerCase() === 'psalms';
+        // Extract Psalm metadata if applicable
+        let psalmMetadata;
+        if (isPsalm) {
+            psalmMetadata = this.extractPsalmMetadata(passage.content, chapterNumber);
+        }
         // Parse HTML content
-        const verses = this.parseNLTHtml(passage.content);
+        const verses = this.parseNLTHtml(passage.content, isPsalm);
         const unifiedChapter = {
             reference: passage.reference,
             translation: 'NLT',
@@ -68541,6 +68827,7 @@ class NLTBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                 copyright: '© 1996, 2004, 2015 by Tyndale House Foundation',
                 translationName: 'New Living Translation'
             },
+            psalmMetadata,
             rawResponse: apiResponse
         };
         this.debug('Parsed NLT chapter', {
@@ -68562,8 +68849,9 @@ class NLTBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
      * - <cn> contains chapter number (only in first verse)
      * - <sn> contains section headings
      * - <red> or class="red" for words of Jesus
+     * - Poetry formatting with q1/q2 classes for Psalms
      */
-    parseNLTHtml(html) {
+    parseNLTHtml(html, isPsalm = false) {
         const verses = [];
         // Extract all verse_export elements
         const verseExportPattern = /<verse_export[^>]*vn="(\d+)"[^>]*>(.*?)<\/verse_export>/gs;
@@ -68602,13 +68890,29 @@ class NLTBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
             verseContent = verseContent.replace(/<span[^>]*class="tn"[^>]*>.*?<\/span>/gs, '');
             // Check for red letter text
             const hasRedLetter = /<red>|class=["']?red["']?/.test(verseContent);
+            // Check for Psalm-specific elements
+            let isSelah = false;
+            let poetryIndentLevel = 0;
+            if (isPsalm) {
+                // Check for Selah
+                isSelah = /\bSelah\b/i.test(verseContent);
+                // Check for poetry indentation (q1, q2 classes)
+                if (/<[^>]*class=["']?q2["']?/.test(verseContent)) {
+                    poetryIndentLevel = 2;
+                }
+                else if (/<[^>]*class=["']?q1["']?/.test(verseContent)) {
+                    poetryIndentLevel = 1;
+                }
+            }
             // Extract plain text
             const plainText = this.stripHtmlTags(verseContent).trim();
             const verse = this.createVerse(verseNumber, plainText, {
                 isFirstVerse: isFirstVerse || index === 0,
                 isRedLetter: hasRedLetter,
                 heading,
-                rawHtml: match[0] // Preserve original for potential custom rendering
+                rawHtml: match[0], // Preserve original for potential custom rendering
+                isSelah: isSelah || undefined,
+                poetryIndentLevel: poetryIndentLevel || undefined
             });
             verses.push(verse);
         });
@@ -68678,6 +68982,62 @@ class NLTBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
         }
         return verses;
     }
+    /**
+     * Extract Psalm-specific metadata from NLT HTML
+     */
+    extractPsalmMetadata(html, chapterNumber) {
+        const metadata = {
+            psalmNumber: chapterNumber,
+            hasSelah: /\bSelah\b/i.test(html)
+        };
+        // Look for superscription
+        // NLT typically puts Psalm titles in <h3 class="psalm-title"> or similar
+        const superscriptionMatch = html.match(/<h3[^>]*class=["']?psalm-title["']?[^>]*>(.*?)<\/h3>/i);
+        if (!superscriptionMatch) {
+            // Try alternative patterns
+            const altMatch = html.match(/<p[^>]*class=["']?psalm-acrostic-title["']?[^>]*>(.*?)<\/p>/i);
+            if (altMatch) {
+                metadata.superscription = this.stripHtmlTags(altMatch[1]).trim();
+            }
+        }
+        else {
+            metadata.superscription = this.stripHtmlTags(superscriptionMatch[1]).trim();
+        }
+        // Extract section headings
+        const sectionHeadings = [];
+        const headingPattern = /<h3[^>]*class=["']?subhead["']?[^>]*>(.*?)<\/h3>/gs;
+        const headings = Array.from(html.matchAll(headingPattern));
+        headings.forEach(headingMatch => {
+            const headingText = this.stripHtmlTags(headingMatch[1]).trim();
+            // Skip if this is the superscription
+            if (headingText === metadata.superscription) {
+                return;
+            }
+            // Find which verse this heading appears after
+            const headingPosition = html.indexOf(headingMatch[0]);
+            const beforeHeading = html.substring(0, headingPosition);
+            // Look for the last verse number before this heading
+            const verseNumbers = Array.from(beforeHeading.matchAll(/vn="(\d+)"/g));
+            if (verseNumbers.length > 0) {
+                const lastVerseNumber = verseNumbers[verseNumbers.length - 1][1];
+                sectionHeadings.push({
+                    afterVerse: lastVerseNumber,
+                    heading: headingText
+                });
+            }
+        });
+        if (sectionHeadings.length > 0) {
+            metadata.sectionHeadings = sectionHeadings;
+        }
+        // Check for musical notation in superscription
+        if (metadata.superscription) {
+            const musicalMatch = metadata.superscription.match(/(For the (?:choir )?director[^.]*)/i);
+            if (musicalMatch) {
+                metadata.musicalNotation = musicalMatch[1];
+            }
+        }
+        return metadata;
+    }
 }
 
 
@@ -68725,6 +69085,13 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
             throw new Error('Invalid API response: missing reference');
         }
         const { bookName, chapterNumber } = this.parseReference(apiResponse.reference);
+        // Check if this is a Psalm
+        const isPsalm = bookName.toLowerCase() === 'psalm' || bookName.toLowerCase() === 'psalms';
+        // Extract Psalm metadata if applicable
+        let psalmMetadata;
+        if (isPsalm) {
+            psalmMetadata = this.extractPsalmMetadata(apiResponse, chapterNumber);
+        }
         const verses = [];
         // Extract verses from content array - handle the actual API structure
         if (apiResponse.content && Array.isArray(apiResponse.content)) {
@@ -68738,10 +69105,25 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                         if (item.type === 'tag' && item.name === 'verse' && item.attrs?.number) {
                             // If we have a previous verse, save it
                             if (currentVerseNumber && currentVerseText) {
-                                verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), {
+                                const verseOptions = {
                                     isFirstVerse: verses.length === 0,
                                     isRedLetter: false
-                                }));
+                                };
+                                // Add Psalm-specific attributes
+                                if (isPsalm) {
+                                    // Check for Selah
+                                    if (/\bSelah\b/i.test(currentVerseText)) {
+                                        verseOptions.isSelah = true;
+                                    }
+                                    // Check for poetry markers in the paragraph style
+                                    if (paragraph.attrs?.style === 'q1') {
+                                        verseOptions.poetryIndentLevel = 1;
+                                    }
+                                    else if (paragraph.attrs?.style === 'q2') {
+                                        verseOptions.poetryIndentLevel = 2;
+                                    }
+                                }
+                                verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), verseOptions));
                             }
                             // Start new verse
                             currentVerseNumber = item.attrs.number;
@@ -68764,10 +69146,25 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                     });
                     // Don't forget the last verse in the paragraph
                     if (currentVerseNumber && currentVerseText) {
-                        verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), {
+                        const verseOptions = {
                             isFirstVerse: verses.length === 0,
                             isRedLetter: false
-                        }));
+                        };
+                        // Add Psalm-specific attributes
+                        if (isPsalm) {
+                            // Check for Selah
+                            if (/\bSelah\b/i.test(currentVerseText)) {
+                                verseOptions.isSelah = true;
+                            }
+                            // Check for poetry markers in the paragraph style
+                            if (paragraph.attrs?.style === 'q1') {
+                                verseOptions.poetryIndentLevel = 1;
+                            }
+                            else if (paragraph.attrs?.style === 'q2') {
+                                verseOptions.poetryIndentLevel = 2;
+                            }
+                        }
+                        verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), verseOptions));
                     }
                 }
             });
@@ -68821,6 +69218,7 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                 copyright: apiResponse.copyright,
                 translationName: this.getTranslationFullName()
             },
+            psalmMetadata,
             rawResponse: apiResponse
         };
         this.debug('Parsed chapter', {
@@ -68843,6 +69241,90 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
         };
         return names[this.translation] || this.translation;
     }
+    /**
+     * Extract Psalm-specific metadata from standard API response
+     */
+    extractPsalmMetadata(apiResponse, chapterNumber) {
+        const metadata = {
+            psalmNumber: chapterNumber,
+            hasSelah: false
+        };
+        // Check all content for Selah
+        if (apiResponse.content && Array.isArray(apiResponse.content)) {
+            for (const paragraph of apiResponse.content) {
+                if (paragraph.items && Array.isArray(paragraph.items)) {
+                    for (const item of paragraph.items) {
+                        if (item.type === 'text' && item.text && /\bSelah\b/i.test(item.text)) {
+                            metadata.hasSelah = true;
+                            break;
+                        }
+                    }
+                }
+                if (metadata.hasSelah)
+                    break;
+            }
+        }
+        // Look for title/superscription
+        // In scripture.api.bible, titles often come as the first paragraph with style="s1" or "d"
+        if (apiResponse.content && apiResponse.content.length > 0) {
+            const firstPara = apiResponse.content[0];
+            if (firstPara.attrs?.style === 's1' || firstPara.attrs?.style === 'd') {
+                // Extract title text
+                let titleText = '';
+                if (firstPara.items && Array.isArray(firstPara.items)) {
+                    firstPara.items.forEach((item) => {
+                        if (item.type === 'text' && item.text) {
+                            titleText += item.text;
+                        }
+                    });
+                }
+                if (titleText.trim()) {
+                    metadata.superscription = titleText.trim();
+                    // Check for musical notation
+                    const musicalMatch = titleText.match(/(To the (?:chief )?Musician[^.]*)/i);
+                    if (musicalMatch) {
+                        metadata.musicalNotation = musicalMatch[1];
+                    }
+                }
+            }
+        }
+        // Extract section headings
+        const sectionHeadings = [];
+        let lastVerseNumber = '0';
+        if (apiResponse.content && Array.isArray(apiResponse.content)) {
+            apiResponse.content.forEach((paragraph) => {
+                // Check if this is a heading (style="s2" or similar)
+                if (paragraph.attrs?.style === 's2' || paragraph.attrs?.style === 's3') {
+                    let headingText = '';
+                    if (paragraph.items && Array.isArray(paragraph.items)) {
+                        paragraph.items.forEach((item) => {
+                            if (item.type === 'text' && item.text) {
+                                headingText += item.text;
+                            }
+                        });
+                    }
+                    if (headingText.trim() && lastVerseNumber !== '0') {
+                        sectionHeadings.push({
+                            afterVerse: lastVerseNumber,
+                            heading: headingText.trim()
+                        });
+                    }
+                }
+                // Track last verse number
+                if (paragraph.items && Array.isArray(paragraph.items)) {
+                    paragraph.items.forEach((item) => {
+                        if (item.type === 'tag' && item.name === 'verse' && item.attrs?.number) {
+                            lastVerseNumber = item.attrs.number;
+                        }
+                    });
+                }
+            });
+        }
+        if (sectionHeadings.length > 0) {
+            metadata.sectionHeadings = sectionHeadings;
+        }
+        return metadata;
+    }
 }
 
 
@@ -68862,9 +69344,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _esv_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./esv-service */ "./src/services/esv-service.ts");
 /* harmony import */ var _nlt_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nlt-service */ "./src/services/nlt-service.ts");
 /* harmony import */ var _firestore_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./firestore-service */ "./src/services/firestore-service.ts");
-/* harmony import */ var _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parsers/standard-parser */ "./src/services/parsers/standard-parser.ts");
-/* harmony import */ var _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parsers/esv-parser */ "./src/services/parsers/esv-parser.ts");
-/* harmony import */ var _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parsers/nlt-parser */ "./src/services/parsers/nlt-parser.ts");
+/* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
+/* harmony import */ var _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parsers/standard-parser */ "./src/services/parsers/standard-parser.ts");
+/* harmony import */ var _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parsers/esv-parser */ "./src/services/parsers/esv-parser.ts");
+/* harmony import */ var _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./parsers/nlt-parser */ "./src/services/parsers/nlt-parser.ts");
+
 
 
 
@@ -69090,9 +69574,9 @@ class VerseService {
         if (!verses || verses.length === 0) {
             throw new Error('No verses configured');
         }
-        // Use date as seed for consistent daily verse
+        // Use date as seed for consistent daily verse (based on local timezone)
         const today = new Date();
-        const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+        const dayOfYear = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_4__.getDayOfYear)(today);
         const verseIndex = dayOfYear % verses.length;
         const selectedVerse = verses[verseIndex];
         return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
@@ -69223,13 +69707,13 @@ VerseService.API_KEY = '58410e50f19ea158ea4902e05191db02';
 VerseService.BASE_URL = 'https://api.scripture.api.bible/v1';
 // Parser registry
 VerseService.parsers = new Map([
-    ['ESV', new _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_5__.ESVBibleParser()],
-    ['NLT', new _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_6__.NLTBibleParser()],
-    ['KJV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_4__.StandardBibleParser('KJV')],
-    ['ASV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_4__.StandardBibleParser('ASV')],
-    ['WEB', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_4__.StandardBibleParser('WEB')],
-    ['WEB_BRITISH', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_4__.StandardBibleParser('WEB_BRITISH')],
-    ['WEB_UPDATED', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_4__.StandardBibleParser('WEB_UPDATED')]
+    ['ESV', new _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_6__.ESVBibleParser()],
+    ['NLT', new _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_7__.NLTBibleParser()],
+    ['KJV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('KJV')],
+    ['ASV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('ASV')],
+    ['WEB', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('WEB')],
+    ['WEB_BRITISH', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('WEB_BRITISH')],
+    ['WEB_UPDATED', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('WEB_UPDATED')]
 ]);
 
 
@@ -71069,6 +71553,162 @@ const getShadowDomStyles = () => {
       clear: both !important;
     }
 
+    /* ============================================
+       PSALM-SPECIFIC STYLES
+       ============================================ */
+    
+    /* Psalm superscription/title */
+    .psalm-superscription {
+      font-style: italic !important;
+      font-size: 1.1em !important;
+      color: #a0a0a0 !important;
+      margin-bottom: 1.5rem !important;
+      text-align: center !important;
+      padding: 0 2rem !important;
+      line-height: 1.6 !important;
+    }
+    
+    /* Selah marker - right-aligned and italic */
+    .selah-marker {
+      font-style: italic !important;
+      float: right !important;
+      margin-left: 2em !important;
+      color: #888 !important;
+      font-size: 0.9em !important;
+    }
+    
+    /* Clear floats after verses with Selah */
+    .verse-with-selah::after {
+      content: "" !important;
+      display: table !important;
+      clear: both !important;
+    }
+    
+    /* Poetry indentation levels */
+    .poetry-indent-1 {
+      padding-left: 2em !important;
+    }
+    
+    .poetry-indent-2 {
+      padding-left: 4em !important;
+    }
+    
+    /* Stanza break - extra spacing between stanzas */
+    .stanza-break {
+      margin-bottom: 2rem !important;
+    }
+    
+    /* Section headings within Psalms */
+    .psalm-section-heading {
+      font-weight: 600 !important;
+      font-size: 1.1em !important;
+      color: #b0b0b0 !important;
+      margin-top: 2rem !important;
+      margin-bottom: 1rem !important;
+      text-align: center !important;
+    }
+    
+    /* Acrostic letter (for Psalms like 119) */
+    .acrostic-letter {
+      float: left !important;
+      font-size: 3em !important;
+      line-height: 0.8 !important;
+      font-weight: bold !important;
+      color: #888 !important;
+      margin-right: 0.3em !important;
+      margin-top: 0.1em !important;
+      font-family: Georgia, serif !important;
+    }
+    
+    /* Speaker labels for dialogue Psalms */
+    .speaker-label {
+      font-weight: 600 !important;
+      font-size: 0.9em !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      color: #999 !important;
+      margin-bottom: 0.5rem !important;
+      display: block !important;
+    }
+    
+    /* Musical notation */
+    .musical-notation {
+      font-style: italic !important;
+      font-size: 0.95em !important;
+      color: #999 !important;
+      text-align: center !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* Psalm poetry line structure styles */
+    .verse-with-lines {
+      display: block !important;
+      margin-bottom: 0.5rem !important;
+    }
+    
+    .verse-line-wrapper {
+      display: flex !important;
+      align-items: baseline !important;
+      margin-bottom: 0.2rem !important;
+    }
+    
+    .verse-line-wrapper .context-verse-number {
+      position: relative !important;
+      top: 0 !important;
+      margin-right: 0.5rem !important;
+      flex-shrink: 0 !important;
+      min-width: 1.5em !important;
+    }
+    
+    .verse-line {
+      flex: 1 !important;
+      line-height: 1.6 !important;
+    }
+    
+    .verse-line.continuation-line {
+      padding-left: 2em !important;
+    }
+    
+    /* When verse has lines, don't use paragraph grouping */
+    .esv-first-paragraph .verse-with-lines,
+    .context-paragraph .verse-with-lines {
+      display: block !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* ESV chapter container adjustments for poetry */
+    .esv-chapter-container .verse-with-lines:first-child {
+      margin-top: 0 !important;
+    }
+    
+    /* Responsive adjustments for Psalm elements */
+    @media (max-width: 768px) {
+      .psalm-superscription {
+        font-size: 1em !important;
+        padding: 0 1rem !important;
+      }
+      
+      .poetry-indent-1 {
+        padding-left: 1em !important;
+      }
+      
+      .poetry-indent-2 {
+        padding-left: 2em !important;
+      }
+      
+      .acrostic-letter {
+        font-size: 2.5em !important;
+      }
+      
+      .verse-line.continuation-line {
+        padding-left: 1em !important;
+      }
+      
+      .verse-line-wrapper .context-verse-number {
+        min-width: 1.2em !important;
+      }
+    }
+
   `;
 };
 
@@ -71112,6 +71752,55 @@ const BIBLE_VERSIONS = {
 };
 // Export unified Bible format types
 
+
+
+/***/ }),
+
+/***/ "./src/utils/date-utils.ts":
+/*!*********************************!*\
+  !*** ./src/utils/date-utils.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getDayOfYear: () => (/* binding */ getDayOfYear),
+/* harmony export */   getLocalDateString: () => (/* binding */ getLocalDateString),
+/* harmony export */   parseLocalDateString: () => (/* binding */ parseLocalDateString)
+/* harmony export */ });
+/**
+ * Date utility functions for DailyFlame
+ * Ensures consistent date handling across the application
+ */
+/**
+ * Get the current date in the user's local timezone as YYYY-MM-DD string
+ * This ensures verse changes happen at midnight in the user's timezone,
+ * not at midnight UTC
+ */
+function getLocalDateString(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+/**
+ * Parse a YYYY-MM-DD string into a Date object in local timezone
+ * Useful for comparing dates or calculating date differences
+ */
+function parseLocalDateString(dateString) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+}
+/**
+ * Get the day of year (1-365/366) for a given date
+ * Used for deterministic verse selection based on date
+ */
+function getDayOfYear(date = new Date()) {
+    const startOfYear = new Date(date.getFullYear(), 0, 0);
+    const diff = date.getTime() - startOfYear.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+}
 
 
 /***/ })
@@ -71223,6 +71912,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ToastContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/ToastContext */ "./src/components/ToastContext.tsx");
 /* harmony import */ var _styles_shadow_dom_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/shadow-dom-styles */ "./src/styles/shadow-dom-styles.ts");
 /* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/verse-service */ "./src/services/verse-service.ts");
+/* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
+
 
 
 
@@ -71360,7 +72051,7 @@ function dismissOverlay(permanent = false) {
             }, 100);
             // Only save to storage if it's a permanent dismissal (Done button clicked)
             if (permanent) {
-                const today = new Date().toISOString().split("T")[0];
+                const today = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_7__.getLocalDateString)();
                 chrome.storage.local.set({ verseShownDate: today }, () => {
                     if (chrome.runtime.lastError) {
                         console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);

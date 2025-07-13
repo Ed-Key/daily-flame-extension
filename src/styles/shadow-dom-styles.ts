@@ -1822,5 +1822,161 @@ export const getShadowDomStyles = (): string => {
       clear: both !important;
     }
 
+    /* ============================================
+       PSALM-SPECIFIC STYLES
+       ============================================ */
+    
+    /* Psalm superscription/title */
+    .psalm-superscription {
+      font-style: italic !important;
+      font-size: 1.1em !important;
+      color: #a0a0a0 !important;
+      margin-bottom: 1.5rem !important;
+      text-align: center !important;
+      padding: 0 2rem !important;
+      line-height: 1.6 !important;
+    }
+    
+    /* Selah marker - right-aligned and italic */
+    .selah-marker {
+      font-style: italic !important;
+      float: right !important;
+      margin-left: 2em !important;
+      color: #888 !important;
+      font-size: 0.9em !important;
+    }
+    
+    /* Clear floats after verses with Selah */
+    .verse-with-selah::after {
+      content: "" !important;
+      display: table !important;
+      clear: both !important;
+    }
+    
+    /* Poetry indentation levels */
+    .poetry-indent-1 {
+      padding-left: 2em !important;
+    }
+    
+    .poetry-indent-2 {
+      padding-left: 4em !important;
+    }
+    
+    /* Stanza break - extra spacing between stanzas */
+    .stanza-break {
+      margin-bottom: 2rem !important;
+    }
+    
+    /* Section headings within Psalms */
+    .psalm-section-heading {
+      font-weight: 600 !important;
+      font-size: 1.1em !important;
+      color: #b0b0b0 !important;
+      margin-top: 2rem !important;
+      margin-bottom: 1rem !important;
+      text-align: center !important;
+    }
+    
+    /* Acrostic letter (for Psalms like 119) */
+    .acrostic-letter {
+      float: left !important;
+      font-size: 3em !important;
+      line-height: 0.8 !important;
+      font-weight: bold !important;
+      color: #888 !important;
+      margin-right: 0.3em !important;
+      margin-top: 0.1em !important;
+      font-family: Georgia, serif !important;
+    }
+    
+    /* Speaker labels for dialogue Psalms */
+    .speaker-label {
+      font-weight: 600 !important;
+      font-size: 0.9em !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      color: #999 !important;
+      margin-bottom: 0.5rem !important;
+      display: block !important;
+    }
+    
+    /* Musical notation */
+    .musical-notation {
+      font-style: italic !important;
+      font-size: 0.95em !important;
+      color: #999 !important;
+      text-align: center !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* Psalm poetry line structure styles */
+    .verse-with-lines {
+      display: block !important;
+      margin-bottom: 0.5rem !important;
+    }
+    
+    .verse-line-wrapper {
+      display: flex !important;
+      align-items: baseline !important;
+      margin-bottom: 0.2rem !important;
+    }
+    
+    .verse-line-wrapper .context-verse-number {
+      position: relative !important;
+      top: 0 !important;
+      margin-right: 0.5rem !important;
+      flex-shrink: 0 !important;
+      min-width: 1.5em !important;
+    }
+    
+    .verse-line {
+      flex: 1 !important;
+      line-height: 1.6 !important;
+    }
+    
+    .verse-line.continuation-line {
+      padding-left: 2em !important;
+    }
+    
+    /* When verse has lines, don't use paragraph grouping */
+    .esv-first-paragraph .verse-with-lines,
+    .context-paragraph .verse-with-lines {
+      display: block !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* ESV chapter container adjustments for poetry */
+    .esv-chapter-container .verse-with-lines:first-child {
+      margin-top: 0 !important;
+    }
+    
+    /* Responsive adjustments for Psalm elements */
+    @media (max-width: 768px) {
+      .psalm-superscription {
+        font-size: 1em !important;
+        padding: 0 1rem !important;
+      }
+      
+      .poetry-indent-1 {
+        padding-left: 1em !important;
+      }
+      
+      .poetry-indent-2 {
+        padding-left: 2em !important;
+      }
+      
+      .acrostic-letter {
+        font-size: 2.5em !important;
+      }
+      
+      .verse-line.continuation-line {
+        padding-left: 1em !important;
+      }
+      
+      .verse-line-wrapper .context-verse-number {
+        min-width: 1.2em !important;
+      }
+    }
+
   `;
 };

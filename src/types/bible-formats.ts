@@ -13,6 +13,9 @@ export interface UnifiedVerse {
   /** The verse text content */
   text: string;
   
+  /** For poetry structure - array of lines within the verse */
+  lines?: string[];
+  
   /** Whether this verse contains words of Jesus (red letter) */
   isRedLetter?: boolean;
   
@@ -27,6 +30,60 @@ export interface UnifiedVerse {
   
   /** Raw HTML content if needed for specific rendering (ESV/NLT) */
   rawHtml?: string;
+  
+  // Psalm-specific fields
+  /** Whether this verse contains a Selah marker */
+  isSelah?: boolean;
+  
+  /** Poetry indentation level (0=normal, 1=q1 indent, 2=q2 indent) */
+  poetryIndentLevel?: number;
+  
+  /** Whether there should be a stanza break after this verse */
+  stanzaBreakAfter?: boolean;
+  
+  /** Hebrew letter for acrostic Psalms (e.g., "א" for Psalm 119) */
+  acrosticLetter?: string;
+  
+  /** Speaker label for dialogue Psalms (e.g., "The LORD says:") */
+  speakerLabel?: string;
+}
+
+/**
+ * Metadata specific to Psalms
+ */
+export interface PsalmMetadata {
+  /** Psalm number (e.g., "105" or "119:1-8" for partial Psalms) */
+  psalmNumber: string;
+  
+  /** Superscription/title (e.g., "A Psalm of David") */
+  superscription?: string;
+  
+  /** Musical notation (e.g., "To the choirmaster: with stringed instruments") */
+  musicalNotation?: string;
+  
+  /** Historical context note */
+  historicalContext?: string;
+  
+  /** Quick check if Psalm contains any Selah markers */
+  hasSelah: boolean;
+  
+  /** Section headings within the Psalm */
+  sectionHeadings?: Array<{
+    afterVerse: string;
+    heading: string;
+  }>;
+  
+  /** Stanza pattern (e.g., [8, 7, 6, 8] = verses per stanza) */
+  stanzaPattern?: number[];
+  
+  /** Type of Psalm for specialized formatting */
+  psalmType?: 'individual' | 'communal' | 'royal' | 'wisdom' | 'thanksgiving' | 'lament' | 'acrostic';
+  
+  /** For acrostic Psalms, the pattern of Hebrew letters */
+  acrosticPattern?: Array<{
+    letter: string;
+    verses: string[];
+  }>;
 }
 
 /**
@@ -59,6 +116,9 @@ export interface UnifiedChapter {
     /** Translation full name (e.g., "English Standard Version") */
     translationName?: string;
   };
+  
+  /** Psalm-specific metadata (only present for Psalms) */
+  psalmMetadata?: PsalmMetadata;
   
   /** Raw API response for debugging/fallback */
   rawResponse?: any;

@@ -11,6 +11,7 @@ import {
   DocumentData
 } from 'firebase/firestore';
 import { db } from './firebase-config';
+import { getLocalDateString } from '../utils/date-utils';
 
 export interface FirestoreVerse {
   reference: string;
@@ -63,10 +64,10 @@ export class FirestoreService {
   }
 
   /**
-   * Get today's verse
+   * Get today's verse using local timezone
    */
   static async getTodaysVerse(): Promise<FirestoreVerse | null> {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalDateString();
     return this.getVerseByDate(today);
   }
 

@@ -6,6 +6,7 @@ import { ToastProvider } from '../components/ToastContext';
 import { VerseData, ChromeMessage, ChromeResponse } from '../types';
 import { getShadowDomStyles } from '../styles/shadow-dom-styles';
 import { VerseService } from '../services/verse-service';
+import { getLocalDateString } from '../utils/date-utils';
 
 // Initialize the verse overlay when this script is injected
 async function initVerseOverlay() {
@@ -159,7 +160,7 @@ function dismissOverlay(permanent: boolean = false) {
             
             // Only save to storage if it's a permanent dismissal (Done button clicked)
             if (permanent) {
-                const today = new Date().toISOString().split("T")[0];
+                const today = getLocalDateString();
                 chrome.storage.local.set({ verseShownDate: today }, () => {
                     if (chrome.runtime.lastError) {
                         console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);

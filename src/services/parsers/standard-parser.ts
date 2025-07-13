@@ -1,5 +1,5 @@
 import { BaseBibleParser } from './base-parser';
-import { UnifiedChapter, UnifiedVerse } from '../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata } from '../../types/bible-formats';
 import { BibleTranslation } from '../../types';
 
 /**
@@ -35,6 +35,16 @@ export class StandardBibleParser extends BaseBibleParser {
     }
 
     const { bookName, chapterNumber } = this.parseReference(apiResponse.reference);
+    
+    // Check if this is a Psalm
+    const isPsalm = bookName.toLowerCase() === 'psalm' || bookName.toLowerCase() === 'psalms';
+    
+    // Extract Psalm metadata if applicable
+    let psalmMetadata: PsalmMetadata | undefined;
+    if (isPsalm) {
+      psalmMetadata = this.extractPsalmMetadata(apiResponse, chapterNumber);
+    }
+    
     const verses: UnifiedVerse[] = [];
 
     // Extract verses from content array - handle the actual API structure
@@ -50,13 +60,30 @@ export class StandardBibleParser extends BaseBibleParser {
             if (item.type === 'tag' && item.name === 'verse' && item.attrs?.number) {
               // If we have a previous verse, save it
               if (currentVerseNumber && currentVerseText) {
+                const verseOptions: any = {
+                  isFirstVerse: verses.length === 0,
+                  isRedLetter: false
+                };
+                
+                // Add Psalm-specific attributes
+                if (isPsalm) {
+                  // Check for Selah
+                  if (/\bSelah\b/i.test(currentVerseText)) {
+                    verseOptions.isSelah = true;
+                  }
+                  
+                  // Check for poetry markers in the paragraph style
+                  if (paragraph.attrs?.style === 'q1') {
+                    verseOptions.poetryIndentLevel = 1;
+                  } else if (paragraph.attrs?.style === 'q2') {
+                    verseOptions.poetryIndentLevel = 2;
+                  }
+                }
+                
                 verses.push(this.createVerse(
                   currentVerseNumber,
                   currentVerseText.trim(),
-                  {
-                    isFirstVerse: verses.length === 0,
-                    isRedLetter: false
-                  }
+                  verseOptions
                 ));
               }
               
@@ -82,13 +109,30 @@ export class StandardBibleParser extends BaseBibleParser {
           
           // Don't forget the last verse in the paragraph
           if (currentVerseNumber && currentVerseText) {
+            const verseOptions: any = {
+              isFirstVerse: verses.length === 0,
+              isRedLetter: false
+            };
+            
+            // Add Psalm-specific attributes
+            if (isPsalm) {
+              // Check for Selah
+              if (/\bSelah\b/i.test(currentVerseText)) {
+                verseOptions.isSelah = true;
+              }
+              
+              // Check for poetry markers in the paragraph style
+              if (paragraph.attrs?.style === 'q1') {
+                verseOptions.poetryIndentLevel = 1;
+              } else if (paragraph.attrs?.style === 'q2') {
+                verseOptions.poetryIndentLevel = 2;
+              }
+            }
+            
             verses.push(this.createVerse(
               currentVerseNumber,
               currentVerseText.trim(),
-              {
-                isFirstVerse: verses.length === 0,
-                isRedLetter: false
-              }
+              verseOptions
             ));
           }
         }
@@ -155,6 +199,7 @@ export class StandardBibleParser extends BaseBibleParser {
         copyright: apiResponse.copyright,
         translationName: this.getTranslationFullName()
       },
+      psalmMetadata,
       rawResponse: apiResponse
     };
 
@@ -179,5 +224,99 @@ export class StandardBibleParser extends BaseBibleParser {
       'WEB_UPDATED': 'World English Bible Updated'
     };
     return names[this.translation] || this.translation;
+  }
+
+  /**
+   * Extract Psalm-specific metadata from standard API response
+   */
+  private extractPsalmMetadata(apiResponse: any, chapterNumber: string): PsalmMetadata {
+    const metadata: PsalmMetadata = {
+      psalmNumber: chapterNumber,
+      hasSelah: false
+    };
+    
+    // Check all content for Selah
+    if (apiResponse.content && Array.isArray(apiResponse.content)) {
+      for (const paragraph of apiResponse.content) {
+        if (paragraph.items && Array.isArray(paragraph.items)) {
+          for (const item of paragraph.items) {
+            if (item.type === 'text' && item.text && /\bSelah\b/i.test(item.text)) {
+              metadata.hasSelah = true;
+              break;
+            }
+          }
+        }
+        if (metadata.hasSelah) break;
+      }
+    }
+    
+    // Look for title/superscription
+    // In scripture.api.bible, titles often come as the first paragraph with style="s1" or "d"
+    if (apiResponse.content && apiResponse.content.length > 0) {
+      const firstPara = apiResponse.content[0];
+      if (firstPara.attrs?.style === 's1' || firstPara.attrs?.style === 'd') {
+        // Extract title text
+        let titleText = '';
+        if (firstPara.items && Array.isArray(firstPara.items)) {
+          firstPara.items.forEach((item: any) => {
+            if (item.type === 'text' && item.text) {
+              titleText += item.text;
+            }
+          });
+        }
+        
+        if (titleText.trim()) {
+          metadata.superscription = titleText.trim();
+          
+          // Check for musical notation
+          const musicalMatch = titleText.match(/(To the (?:chief )?Musician[^.]*)/i);
+          if (musicalMatch) {
+            metadata.musicalNotation = musicalMatch[1];
+          }
+        }
+      }
+    }
+    
+    // Extract section headings
+    const sectionHeadings: Array<{ afterVerse: string; heading: string }> = [];
+    let lastVerseNumber = '0';
+    
+    if (apiResponse.content && Array.isArray(apiResponse.content)) {
+      apiResponse.content.forEach((paragraph: any) => {
+        // Check if this is a heading (style="s2" or similar)
+        if (paragraph.attrs?.style === 's2' || paragraph.attrs?.style === 's3') {
+          let headingText = '';
+          if (paragraph.items && Array.isArray(paragraph.items)) {
+            paragraph.items.forEach((item: any) => {
+              if (item.type === 'text' && item.text) {
+                headingText += item.text;
+              }
+            });
+          }
+          
+          if (headingText.trim() && lastVerseNumber !== '0') {
+            sectionHeadings.push({
+              afterVerse: lastVerseNumber,
+              heading: headingText.trim()
+            });
+          }
+        }
+        
+        // Track last verse number
+        if (paragraph.items && Array.isArray(paragraph.items)) {
+          paragraph.items.forEach((item: any) => {
+            if (item.type === 'tag' && item.name === 'verse' && item.attrs?.number) {
+              lastVerseNumber = item.attrs.number;
+            }
+          });
+        }
+      });
+    }
+    
+    if (sectionHeadings.length > 0) {
+      metadata.sectionHeadings = sectionHeadings;
+    }
+    
+    return metadata;
   }
 }
