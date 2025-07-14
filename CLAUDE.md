@@ -27,6 +27,12 @@ DailyFlame is a Chrome extension (Manifest V3) that displays daily Bible verses 
 - If not found, ask user for the correct commands
 - Suggest adding them to this file for future reference
 
+### Build After Edit Rule
+**MANDATORY**: After making ANY code changes:
+1. Always run `npm run build:dev` to verify compilation
+2. Check for any build errors and fix them immediately
+3. Only mark tasks as complete after successful build
+
 ## Architecture Overview
 
 ### Chrome Extension Structure (Manifest V3)
@@ -102,6 +108,12 @@ When returning from context view, use `requestAnimationFrame` to ensure proper a
 ## MANDATORY: Always Use SuperClaude Tools
 
 **CRITICAL**: You MUST use SuperClaude commands and personas for ALL tasks. Never use generic approaches.
+
+### ABSOLUTE REQUIREMENTS:
+1. **ALWAYS USE SUPERCLAUDE COMMANDS** - No exceptions
+2. **ALWAYS RUN `npm run build:dev`** after ANY code changes
+3. **COMBINE COMMANDS** as needed (e.g., `/build --feature --tdd --magic --persona-frontend`)
+4. **USE APPROPRIATE PERSONAS** for each task type
 
 ### Before ANY task:
 1. Identify the task type (frontend, backend, debugging, etc.)

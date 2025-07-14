@@ -65582,7 +65582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 const AuthButtons = ({ onSignInClick }) => {
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: onSignInClick, className: "flex items-center gap-2 text-white hover:opacity-70 transition-opacity", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", className: "w-8 h-8", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z", clipRule: "evenodd" }) })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: onSignInClick, className: "flex items-center gap-2 text-white sign-in-glow", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: "Sign In" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", className: "w-8 h-8", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z", clipRule: "evenodd" }) })] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuthButtons);
 
@@ -65736,7 +65736,7 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
             console.error('Logout error:', error);
         }
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowDropdown(!showDropdown), className: "flex items-center gap-2 text-white hover:opacity-70 transition-opacity", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "bg-black rounded-full flex items-center justify-center text-white text-sm font-semibold box-border", style: { width: '28px', height: '28px', border: '2px solid white' }, children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "absolute top-12 right-0 w-56 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-10 mb-1", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-60 text-xs mt-0.5", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1.5 flex gap-1.5", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-green-300 text-xs rounded", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-yellow-300 text-xs rounded", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity border-t border-white border-opacity-10 mt-1 pt-1", children: "Sign Out" })] }))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowDropdown(!showDropdown), className: "flex items-center gap-2 text-white sign-in-glow", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "bg-black rounded-full flex items-center justify-center text-white text-sm font-semibold box-border", style: { width: '28px', height: '28px', border: '2px solid white' }, children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "absolute top-12 right-0 w-56 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-10 mb-1", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-60 text-xs mt-0.5", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1.5 flex gap-1.5", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-green-300 text-xs rounded", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-yellow-300 text-xs rounded", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity border-t border-white border-opacity-10 mt-1 pt-1", children: "Sign Out" })] }))] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProfileDropdown);
 
@@ -65779,9 +65779,10 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
     // Get translation name from bibleId
     const getTranslationName = (bibleId) => {
         const entry = Object.entries(_types__WEBPACK_IMPORTED_MODULE_2__.BIBLE_VERSIONS).find(([_, id]) => id === bibleId);
-        return entry ? entry[0] : 'KJV';
+        return (entry ? entry[0] : 'KJV');
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [verse.reference, " ", getTranslationName(verse.bibleId)] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
+    const currentTranslation = getTranslationName(verse.bibleId);
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [verse.reference, " ", currentTranslation] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
 });
 VerseDisplay.displayName = 'VerseDisplay';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseDisplay);
@@ -66226,16 +66227,17 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     duration: 0.3,
                     ease: "power2.out"
                 }, "-=0.1")
-                    // Then animate verse reference with lines
-                    .to(verseReferenceRef.current, {
+                    // Animate verse reference AND buttons together
+                    .to([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                     opacity: 1,
                     y: 0,
                     scale: 1,
                     duration: 0.8,
                     ease: "power2.out",
                     clearProps: "opacity,transform,y,scale,display",
+                    stagger: 0.05, // Slight stagger for subtle cascade effect
                     onComplete: () => {
-                        // Animate the decorative lines after reference appears
+                        // Animate the decorative lines after reference/buttons appear
                         if (leftLineRef.current && rightLineRef.current) {
                             leftLineRef.current.classList.add('animate');
                             rightLineRef.current.classList.add('animate');
@@ -66248,17 +66250,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
                     duration: 1.2, // Slower, more gradual glow build-up
                     ease: "power2.inOut"
-                }, "+=0.3") // Wait after reference settles before starting glow
-                    // Finally animate buttons
-                    .to([doneButtonRef.current, moreButtonRef.current], {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.6,
-                    ease: "back.out(1.7)",
-                    clearProps: "opacity,transform,y,scale,display",
-                    stagger: 0.1
-                }, "-=0.4");
+                }, "+=0.3"); // Wait after reference settles before starting glow
                 // Force play the timeline
                 tl.play();
             }
@@ -69858,7 +69850,7 @@ const getShadowDomStyles = () => {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      margin-bottom: 40px !important;
+      margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
       overflow: hidden !important;
     }
@@ -69901,6 +69893,7 @@ const getShadowDomStyles = () => {
       width: 40% !important;
       max-width: 200px !important;
     }
+
     
     /* Button container */
     .verse-button-container {
@@ -69908,7 +69901,7 @@ const getShadowDomStyles = () => {
       gap: 16px !important;
       justify-content: center !important;
       align-items: center !important;
-      margin-top: -10px !important; /* Move buttons up slightly */
+      margin-top: -15px !important; /* Move buttons up slightly to overlap with verse */
     }
     
     /* Shared button styles */
@@ -70223,6 +70216,12 @@ const getShadowDomStyles = () => {
     /* Utility classes */
     .fixed { position: fixed !important; }
     .absolute { position: absolute !important; }
+    
+    /* Ensure sign-in button container doesn't clip glow */
+    .absolute.top-4.right-4 {
+      overflow: visible !important;
+      z-index: 20 !important;
+    }
     .relative { position: relative !important; }
     .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
     .top-0 { top: 0 !important; }
@@ -70543,8 +70542,41 @@ const getShadowDomStyles = () => {
     .hover\\:text-gray-200:hover { color: #e5e7eb !important; }
     .hover\\:underline:hover { text-decoration: underline !important; }
     .hover\\:no-underline:hover { text-decoration: none !important; }
+    .hover\\:opacity-70:hover { opacity: 0.7 !important; }
     .hover\\:opacity-80:hover { opacity: 0.8 !important; }
     .hover\\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+    
+    /* Sign-in button glow effect - using same text-shadow as verse letters */
+    .sign-in-glow {
+      transition: all 0.3s ease !important;
+      color: rgba(255,255,255,0.6) !important; /* Dimmer default state */
+    }
+    
+    .sign-in-glow span {
+      color: rgba(255,255,255,0.6) !important; /* Ensure span inherits dimmer color */
+    }
+    
+    .sign-in-glow svg {
+      opacity: 0.6 !important; /* Dim the icon too */
+    }
+    
+    .sign-in-glow:hover {
+      color: rgba(255,255,255,0.8) !important; /* Slightly brighter on hover */
+      text-shadow: 0px 0px 25px rgba(255,255,255,1) !important; /* Stronger glow */
+      transform: translateY(-1px) !important;
+    }
+    
+    /* Apply glow to all child elements on hover */
+    .sign-in-glow:hover * {
+      color: rgba(255,255,255,0.8) !important;
+      text-shadow: 0px 0px 25px rgba(255,255,255,1) !important;
+    }
+    
+    /* Special handling for the SVG icon */
+    .sign-in-glow:hover svg {
+      opacity: 0.8 !important;
+      filter: drop-shadow(0px 0px 25px rgba(255,255,255,1)) !important;
+    }
     
     /* Focus states */
     .focus\\:outline-none:focus { outline: none !important; }

@@ -83,7 +83,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     <div className="relative profile-dropdown">
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center gap-2 text-white hover:opacity-70 transition-opacity"
+        className="flex items-center gap-2 text-white sign-in-glow"
         aria-label="User menu"
       >
         <span className="text-sm">{getFormattedName(user)}</span>

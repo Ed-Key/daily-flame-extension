@@ -127,7 +127,7 @@ export const getShadowDomStyles = (): string => {
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      margin-bottom: 40px !important;
+      margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
       overflow: hidden !important;
     }
@@ -170,6 +170,7 @@ export const getShadowDomStyles = (): string => {
       width: 40% !important;
       max-width: 200px !important;
     }
+
     
     /* Button container */
     .verse-button-container {
@@ -177,7 +178,7 @@ export const getShadowDomStyles = (): string => {
       gap: 16px !important;
       justify-content: center !important;
       align-items: center !important;
-      margin-top: -10px !important; /* Move buttons up slightly */
+      margin-top: -15px !important; /* Move buttons up slightly to overlap with verse */
     }
     
     /* Shared button styles */
@@ -492,6 +493,12 @@ export const getShadowDomStyles = (): string => {
     /* Utility classes */
     .fixed { position: fixed !important; }
     .absolute { position: absolute !important; }
+    
+    /* Ensure sign-in button container doesn't clip glow */
+    .absolute.top-4.right-4 {
+      overflow: visible !important;
+      z-index: 20 !important;
+    }
     .relative { position: relative !important; }
     .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
     .top-0 { top: 0 !important; }
@@ -812,8 +819,41 @@ export const getShadowDomStyles = (): string => {
     .hover\\:text-gray-200:hover { color: #e5e7eb !important; }
     .hover\\:underline:hover { text-decoration: underline !important; }
     .hover\\:no-underline:hover { text-decoration: none !important; }
+    .hover\\:opacity-70:hover { opacity: 0.7 !important; }
     .hover\\:opacity-80:hover { opacity: 0.8 !important; }
     .hover\\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+    
+    /* Sign-in button glow effect - using same text-shadow as verse letters */
+    .sign-in-glow {
+      transition: all 0.3s ease !important;
+      color: rgba(255,255,255,0.6) !important; /* Dimmer default state */
+    }
+    
+    .sign-in-glow span {
+      color: rgba(255,255,255,0.6) !important; /* Ensure span inherits dimmer color */
+    }
+    
+    .sign-in-glow svg {
+      opacity: 0.6 !important; /* Dim the icon too */
+    }
+    
+    .sign-in-glow:hover {
+      color: rgba(255,255,255,0.8) !important; /* Slightly brighter on hover */
+      text-shadow: 0px 0px 25px rgba(255,255,255,1) !important; /* Stronger glow */
+      transform: translateY(-1px) !important;
+    }
+    
+    /* Apply glow to all child elements on hover */
+    .sign-in-glow:hover * {
+      color: rgba(255,255,255,0.8) !important;
+      text-shadow: 0px 0px 25px rgba(255,255,255,1) !important;
+    }
+    
+    /* Special handling for the SVG icon */
+    .sign-in-glow:hover svg {
+      opacity: 0.8 !important;
+      filter: drop-shadow(0px 0px 25px rgba(255,255,255,1)) !important;
+    }
     
     /* Focus states */
     .focus\\:outline-none:focus { outline: none !important; }

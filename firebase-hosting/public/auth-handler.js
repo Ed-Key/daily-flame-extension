@@ -30,9 +30,19 @@ console.log('Auth handler initialized');
 window.addEventListener('message', async (event) => {
   console.log('Received message:', event.data, 'from:', event.origin);
   
-  // Only accept messages from Chrome extensions
-  if (!event.origin.startsWith('chrome-extension://')) {
-    console.warn('Ignoring message from non-extension origin:', event.origin);
+  // Accept messages from Chrome extensions and Firebase auth domains
+  const allowedOrigins = [
+    'chrome-extension://',
+    'https://daily-flame.firebaseapp.com',
+    'https://daily-flame.web.app'
+  ];
+
+  const isAllowedOrigin = allowedOrigins.some(origin => 
+    event.origin.startsWith(origin) || event.origin === origin
+  );
+
+  if (!isAllowedOrigin) {
+    console.warn('Ignoring message from non-allowed origin:', event.origin);
     return;
   }
   
@@ -129,7 +139,9 @@ window.addEventListener('message', async (event) => {
     const response = {
       success: true,
       user: userData,
-      needsVerification: action === 'signUpWithEmail' && email !== 'admin@dailyflame.com'
+      needsVerification: action === 'signUpWithEmail' && email !== 'admin@dailyflame.com',
+      // Include isValid for verifyAuthState action
+      ...(action === 'verifyAuthState' && { isValid: result.isValid })
     };
     
     console.log('Sending success response:', response);

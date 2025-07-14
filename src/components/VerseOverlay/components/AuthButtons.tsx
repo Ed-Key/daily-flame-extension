@@ -5,7 +5,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({ onSignInClick }) => {
   return (
     <button
       onClick={onSignInClick}
-      className="flex items-center gap-2 text-white hover:opacity-70 transition-opacity"
+      className="flex items-center gap-2 text-white sign-in-glow"
     >
       <span className="text-sm">Sign In</span>
       <svg 
