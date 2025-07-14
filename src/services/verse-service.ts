@@ -109,6 +109,7 @@ export class VerseService {
     }
   }
 
+
   static async getChapter(chapterReference: string, bibleId: string = BIBLE_VERSIONS.ESV): Promise<UnifiedChapter> {
     // Find the translation key from bibleId (moved outside try for catch block access)
     const translationKey = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === bibleId)?.[0] as BibleTranslation;

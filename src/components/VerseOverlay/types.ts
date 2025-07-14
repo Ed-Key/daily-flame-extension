@@ -1,4 +1,4 @@
-import { VerseData } from '../../types';
+import { VerseData, BibleTranslation } from '../../types';
 
 // Props interfaces for VerseOverlay components
 

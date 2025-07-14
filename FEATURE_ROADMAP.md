@@ -60,11 +60,18 @@ This document outlines the comprehensive feature development plan for DailyFlame
 - Bible translation preference (ESV, KJV, ASV, WEB)
 - Theme selection (light/dark/auto)
 - Font size adjustment (small/medium/large)
-- Display frequency control
-  - Every new tab
-  - Once daily
-  - Scheduled times (e.g., 9 AM, 12 PM, 5 PM)
-- Notification preferences
+- Display frequency control (CLARIFIED BEHAVIOR):
+  - **Default behavior**: Verse appears on EVERY new tab until "Done" is clicked
+  - **Same verse all day**: Daily verse doesn't change, only acknowledgment resets
+  - **Scheduled reset times**: User defines times when acknowledgment resets (e.g., 9 AM, 5 PM)
+  - **Example flow**: 
+    - 9:00 AM - Reset triggers, verse shows on every new tab
+    - 9:15 AM - User clicks "Done", verse stops showing
+    - 5:00 PM - Reset triggers again, same verse requires re-acknowledgment
+  - **Options**:
+    - Traditional mode: Once per day (current behavior)
+    - Scheduled mode: Multiple acknowledgments at chosen times
+- Notification preferences (TO BE IMPLEMENTED LATER)
 
 **Technical Implementation**:
 ```typescript
@@ -73,13 +80,19 @@ interface UserPreferences {
   preferredTranslation: BibleTranslation;
   theme: 'light' | 'dark' | 'auto';
   fontSize: 'small' | 'medium' | 'large';
-  displayFrequency: 'always' | 'daily' | 'scheduled';
-  scheduledTimes?: string[];
-  notifications: {
-    enabled: boolean;
-    streakReminders: boolean;
-    missedDayReminders: boolean;
+  // Display frequency control with acknowledgment-based behavior
+  acknowledgmentSchedule: {
+    enabled: boolean; // false = traditional once/day, true = scheduled resets
+    resetTimes: string[]; // ['09:00', '17:00'] - times to reset acknowledgment
   };
+  // Notifications to be implemented later
+}
+
+// Updated storage model for acknowledgment tracking
+interface DailyAcknowledgment {
+  date: string; // Current date
+  acknowledgedPeriods: string[]; // Which time periods have been acknowledged
+  // e.g., ['09:00', '17:00'] means user has acknowledged verse for both periods
 }
 
 class PreferencesService {
@@ -99,10 +112,21 @@ class PreferencesService {
 ```
 
 **UI Components**:
-- Settings modal accessible from profile dropdown
-- Toggle switches for boolean options
-- Select dropdowns for multi-choice options
-- Time picker for scheduled times
+- Settings button added to ProfileDropdown component (first step)
+- PreferencesModal component with sections for:
+  - Theme selection (radio buttons)
+  - Bible translation (dropdown)
+  - Acknowledgment schedule (toggle + time pickers)
+- Time picker for scheduled reset times
+- Clear examples/explanations in UI about how acknowledgment works
+
+**Implementation Steps**:
+1. Add Settings button to ProfileDropdown
+2. Create PreferencesModal component
+3. Implement PreferencesService for storage
+4. Update monitor.ts to check acknowledgment periods
+5. Modify verse-app.ts onDismiss to handle period-based acknowledgment
+6. Add theme classes to shadow-dom-styles.ts
 
 #### 1.2 Save/Favorite Verses Feature
 **Timeline**: 3-4 days  

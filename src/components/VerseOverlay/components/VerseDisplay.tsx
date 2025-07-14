@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { VerseDisplayProps } from '../types';
-import { BIBLE_VERSIONS } from '../../../types';
+import { BIBLE_VERSIONS, BibleTranslation } from '../../../types';
 
 export interface VerseDisplayRefs {
   verseTextRef: React.RefObject<HTMLParagraphElement | null>;
@@ -35,24 +35,26 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
   }));
 
   // Get translation name from bibleId
-  const getTranslationName = (bibleId: string): string => {
+  const getTranslationName = (bibleId: string): BibleTranslation => {
     const entry = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === bibleId);
-    return entry ? entry[0] : 'KJV';
+    return (entry ? entry[0] : 'KJV') as BibleTranslation;
   };
+
+  const currentTranslation = getTranslationName(verse.bibleId);
 
   return (
     <>
       <div className="mb-10">
-        <p ref={verseTextRef} className="verse-text">
-          "{verse.text}"
-        </p>
         <div className="verse-reference-container">
           <div ref={leftLineRef} className="verse-reference-line left"></div>
           <p ref={verseReferenceRef} className="verse-reference">
-            {verse.reference} {getTranslationName(verse.bibleId)}
+            {verse.reference} {currentTranslation}
           </p>
           <div ref={rightLineRef} className="verse-reference-line right"></div>
         </div>
+        <p ref={verseTextRef} className="verse-text">
+          "{verse.text}"
+        </p>
       </div>
       <div className="verse-button-container">
         <button

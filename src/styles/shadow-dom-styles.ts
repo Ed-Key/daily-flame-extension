@@ -823,7 +823,7 @@ export const getShadowDomStyles = (): string => {
     .hover\\:opacity-80:hover { opacity: 0.8 !important; }
     .hover\\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
     
-    /* Sign-in button glow effect - using same text-shadow as verse letters */
+    /* Sign-in button hover effect - brightens text */
     .sign-in-glow {
       transition: all 0.3s ease !important;
       color: rgba(255,255,255,0.6) !important; /* Dimmer default state */
@@ -838,21 +838,18 @@ export const getShadowDomStyles = (): string => {
     }
     
     .sign-in-glow:hover {
-      color: rgba(255,255,255,0.8) !important; /* Slightly brighter on hover */
-      text-shadow: 0px 0px 25px rgba(255,255,255,1) !important; /* Stronger glow */
-      transform: translateY(-1px) !important;
+      color: rgba(255,255,255,1) !important; /* Full white on hover */
+      transform: translateY(-1px) !important; /* Keep the subtle lift */
     }
     
-    /* Apply glow to all child elements on hover */
+    /* Apply brightness to all child elements on hover */
     .sign-in-glow:hover * {
-      color: rgba(255,255,255,0.8) !important;
-      text-shadow: 0px 0px 25px rgba(255,255,255,1) !important;
+      color: rgba(255,255,255,1) !important; /* Full white */
     }
     
     /* Special handling for the SVG icon */
     .sign-in-glow:hover svg {
-      opacity: 0.8 !important;
-      filter: drop-shadow(0px 0px 25px rgba(255,255,255,1)) !important;
+      opacity: 1 !important; /* Full opacity */
     }
     
     /* Focus states */
