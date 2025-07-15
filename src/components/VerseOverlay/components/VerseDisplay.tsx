@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import { VerseDisplayProps } from '../types';
 import { BIBLE_VERSIONS, BibleTranslation } from '../../../types';
 
@@ -17,6 +17,7 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
   onMore,
   isAdmin = false 
 }, ref) => {
+  const [isOpen, setIsOpen] = useState(false);
   const verseTextRef = useRef<HTMLParagraphElement>(null);
   const verseReferenceRef = useRef<HTMLParagraphElement>(null);
   const leftLineRef = useRef<HTMLDivElement>(null);
@@ -48,7 +49,46 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
         <div className="verse-reference-container">
           <div ref={leftLineRef} className="verse-reference-line left"></div>
           <p ref={verseReferenceRef} className="verse-reference">
-            {verse.reference} {currentTranslation}
+            <span>{verse.reference}</span>
+            <button 
+              className={`verse-translation-button ${isOpen ? 'open' : ''}`}
+              onClick={() => setIsOpen(!isOpen)}
+              type="button"
+            >
+              <span>{currentTranslation}</span>
+              <svg
+                className="verse-chevron"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
+              >
+                <path
+                  className="chevron-top"
+                  d="M7 9L12 4"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  className="chevron-top--left"
+                  d="M17 9L12 4"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  className="chevron-bottom"
+                  d="M7 15L12 20"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  className="chevron-bottom--right"
+                  d="M17 15L12 20"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
           </p>
           <div ref={rightLineRef} className="verse-reference-line right"></div>
         </div>

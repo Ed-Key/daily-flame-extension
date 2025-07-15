@@ -129,7 +129,7 @@ export const getShadowDomStyles = (): string => {
       justify-content: center !important;
       margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
-      overflow: hidden !important;
+      overflow: visible !important;
     }
     
     /* Verse reference */
@@ -143,6 +143,97 @@ export const getShadowDomStyles = (): string => {
       padding: 0 20px !important;
       position: relative !important;
       z-index: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    
+    /* Translation button with chevron */
+    .verse-translation-button {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      color: white !important;
+      font-size: 16px !important;
+      font-style: normal !important;
+      cursor: pointer !important;
+      transition: opacity 0.2s ease-out !important;
+      position: relative !important;
+      opacity: 0.9 !important;
+    }
+    
+    .verse-translation-button:hover {
+      opacity: 1 !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-radius: 4px !important;
+      padding: 2px 6px !important;
+      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+    }
+    
+    .verse-translation-button:focus {
+      outline: none !important;
+    }
+    
+    /* Open state background */
+    .verse-translation-button.open {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-radius: 4px !important;
+      padding: 2px 6px !important;
+      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+    }
+    
+    /* Chevron SVG styling */
+    .verse-chevron {
+      width: 20px !important;
+      height: 20px !important;
+      opacity: 0.8 !important;
+      transition: opacity 0.2s ease-out !important;
+    }
+    
+    .verse-translation-button:hover .verse-chevron {
+      opacity: 1 !important;
+    }
+    
+    /* Chevron path animations */
+    .verse-chevron path {
+      transition-property: translate, rotate, d, opacity, scale !important;
+      transition-duration: 0.2s !important;
+      transition-timing-function: ease-out !important;
+      transform-box: fill-box !important;
+      transform-origin: center center !important;
+    }
+    
+    .chevron-top--left {
+      transform-origin: 0 0 !important;
+    }
+    
+    .chevron-bottom--right {
+      transform-origin: 0 100% !important;
+    }
+    
+    /* Open state animations (will be triggered by class) */
+    /* Creates a left arrow <- shape */
+    .verse-translation-button.open .chevron-top {
+      /* Move to form top part of < */
+      d: path('M14 6L10 12') !important;
+    }
+    
+    .verse-translation-button.open .chevron-top--left {
+      /* Move to form horizontal line through middle */
+      d: path('M22 12L10 12') !important;
+    }
+    
+    .verse-translation-button.open .chevron-bottom {
+      /* Move to form bottom part of < */
+      d: path('M14 18L10 12') !important;
+    }
+    
+    .verse-translation-button.open .chevron-bottom--right {
+      /* Also forms part of horizontal line (overlaps with top--left) */
+      d: path('M22 12L10 12') !important;
     }
     
     /* Decorative lines */
@@ -892,6 +983,15 @@ export const getShadowDomStyles = (): string => {
         line-height: 24px !important;
       }
       
+      .verse-translation-button {
+        font-size: 14px !important;
+      }
+      
+      .verse-chevron {
+        width: 18px !important;
+        height: 18px !important;
+      }
+      
       .verse-btn {
         padding: 12px 32px !important;
         font-size: 16px !important;
@@ -929,6 +1029,15 @@ export const getShadowDomStyles = (): string => {
         font-size: 16px !important;
         line-height: 20px !important;
         padding: 0 15px !important;
+      }
+      
+      .verse-translation-button {
+        font-size: 12px !important;
+      }
+      
+      .verse-chevron {
+        width: 16px !important;
+        height: 16px !important;
       }
       
       .verse-btn {

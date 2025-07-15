@@ -382,14 +382,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           ease: "power2.out"
         }, "-=0.1")
         
-        // Then animate verse reference with lines
-        .to(verseReferenceRef.current, {
+        // Animate verse reference AND buttons together
+        .to([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
           opacity: 1,
           y: 0,
           scale: 1,
           duration: 0.8,
           ease: "power2.out",
           clearProps: "opacity,transform,y,scale,display",
+          stagger: 0.05, // Small stagger for smooth appearance
           onComplete: () => {
             // Animate the decorative lines after reference appears
             if (leftLineRef.current && rightLineRef.current) {
@@ -405,18 +406,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
           duration: 1.2,  // Slower, more gradual glow build-up
           ease: "power2.inOut"
-        }, "+=0.3") // Wait after reference settles before starting glow
-        
-        // Finally animate buttons
-        .to([doneButtonRef.current, moreButtonRef.current], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: "back.out(1.7)",
-          clearProps: "opacity,transform,y,scale,display",
-          stagger: 0.1
-        }, "-=0.4");
+        }, "+=0.3"); // Wait after reference settles before starting glow
         
         // Force play the timeline
         tl.play();
