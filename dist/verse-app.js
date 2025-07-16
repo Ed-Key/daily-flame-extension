@@ -65761,6 +65761,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse, onDone, onMore, isAdmin = false }, ref) => {
+    const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const verseTextRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const verseReferenceRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const leftLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
@@ -65782,7 +65783,7 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
         return (entry ? entry[0] : 'KJV');
     };
     const currentTranslation = getTranslationName(verse.bibleId);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [verse.reference, " ", currentTranslation] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: verse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `verse-translation-button ${isOpen ? 'open' : ''}`, onClick: () => setIsOpen(!isOpen), type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "verse-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-top", d: "M7 9L12 4", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-top--left", d: "M17 9L12 4", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-bottom", d: "M7 15L12 20", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-bottom--right", d: "M17 15L12 20", strokeWidth: "2", strokeLinecap: "round" })] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
 });
 VerseDisplay.displayName = 'VerseDisplay';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseDisplay);
@@ -66235,9 +66236,9 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     duration: 0.8,
                     ease: "power2.out",
                     clearProps: "opacity,transform,y,scale,display",
-                    stagger: 0.05, // Slight stagger for subtle cascade effect
+                    stagger: 0.05, // Small stagger for smooth appearance
                     onComplete: () => {
-                        // Animate the decorative lines after reference/buttons appear
+                        // Animate the decorative lines after reference appears
                         if (leftLineRef.current && rightLineRef.current) {
                             leftLineRef.current.classList.add('animate');
                             rightLineRef.current.classList.add('animate');
@@ -69852,7 +69853,7 @@ const getShadowDomStyles = () => {
       justify-content: center !important;
       margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
-      overflow: hidden !important;
+      overflow: visible !important;
     }
     
     /* Verse reference */
@@ -69866,6 +69867,97 @@ const getShadowDomStyles = () => {
       padding: 0 20px !important;
       position: relative !important;
       z-index: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    
+    /* Translation button with chevron */
+    .verse-translation-button {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      color: white !important;
+      font-size: 16px !important;
+      font-style: normal !important;
+      cursor: pointer !important;
+      transition: opacity 0.2s ease-out !important;
+      position: relative !important;
+      opacity: 0.9 !important;
+    }
+    
+    .verse-translation-button:hover {
+      opacity: 1 !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-radius: 4px !important;
+      padding: 2px 6px !important;
+      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+    }
+    
+    .verse-translation-button:focus {
+      outline: none !important;
+    }
+    
+    /* Open state background */
+    .verse-translation-button.open {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border-radius: 4px !important;
+      padding: 2px 6px !important;
+      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+    }
+    
+    /* Chevron SVG styling */
+    .verse-chevron {
+      width: 20px !important;
+      height: 20px !important;
+      opacity: 0.8 !important;
+      transition: opacity 0.2s ease-out !important;
+    }
+    
+    .verse-translation-button:hover .verse-chevron {
+      opacity: 1 !important;
+    }
+    
+    /* Chevron path animations */
+    .verse-chevron path {
+      transition-property: translate, rotate, d, opacity, scale !important;
+      transition-duration: 0.2s !important;
+      transition-timing-function: ease-out !important;
+      transform-box: fill-box !important;
+      transform-origin: center center !important;
+    }
+    
+    .chevron-top--left {
+      transform-origin: 0 0 !important;
+    }
+    
+    .chevron-bottom--right {
+      transform-origin: 0 100% !important;
+    }
+    
+    /* Open state animations (will be triggered by class) */
+    /* Creates a left arrow <- shape */
+    .verse-translation-button.open .chevron-top {
+      /* Move to form top part of < */
+      d: path('M14 6L10 12') !important;
+    }
+    
+    .verse-translation-button.open .chevron-top--left {
+      /* Move to form horizontal line through middle */
+      d: path('M22 12L10 12') !important;
+    }
+    
+    .verse-translation-button.open .chevron-bottom {
+      /* Move to form bottom part of < */
+      d: path('M14 18L10 12') !important;
+    }
+    
+    .verse-translation-button.open .chevron-bottom--right {
+      /* Also forms part of horizontal line (overlaps with top--left) */
+      d: path('M22 12L10 12') !important;
     }
     
     /* Decorative lines */
@@ -70615,6 +70707,15 @@ const getShadowDomStyles = () => {
         line-height: 24px !important;
       }
       
+      .verse-translation-button {
+        font-size: 14px !important;
+      }
+      
+      .verse-chevron {
+        width: 18px !important;
+        height: 18px !important;
+      }
+      
       .verse-btn {
         padding: 12px 32px !important;
         font-size: 16px !important;
@@ -70652,6 +70753,15 @@ const getShadowDomStyles = () => {
         font-size: 16px !important;
         line-height: 20px !important;
         padding: 0 15px !important;
+      }
+      
+      .verse-translation-button {
+        font-size: 12px !important;
+      }
+      
+      .verse-chevron {
+        width: 16px !important;
+        height: 16px !important;
       }
       
       .verse-btn {

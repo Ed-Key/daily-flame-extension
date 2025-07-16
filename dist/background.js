@@ -390,6 +390,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 // Handle authentication actions via offscreen document
 async function handleAuthAction(action, data) {
+    // Force recreate offscreen document for each auth attempt to avoid caching
+    console.log('Background: Recreating offscreen document for fresh auth attempt');
+    try {
+        // Close existing offscreen document if it exists
+        await closeOffscreenDocument();
+        console.log('Background: Closed existing offscreen document');
+        // Wait a bit to ensure it's fully closed
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    catch (error) {
+        console.log('Background: No existing offscreen document to close');
+    }
     // Retry logic for offscreen document setup
     let setupAttempts = 0;
     const maxSetupAttempts = 3;
