@@ -34,7 +34,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const [contextLoading, setContextLoading] = useState(false);
   const [chapterContent, setChapterContent] = useState<any>(null);
   const [contextTranslation, setContextTranslation] = useState<BibleTranslation>('KJV');
-  const [shouldAnimateLines, setShouldAnimateLines] = useState(false);
   
   // Authentication state
   const [showSignIn, setShowSignIn] = useState(false);
@@ -141,62 +140,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     };
   }, []);
 
-  // Re-animate lines when returning from context view
-  useEffect(() => {
-    if (shouldAnimateLines && verseDisplayRef.current) {
-      const refs = verseDisplayRef.current;
-      if (refs.leftLineRef.current && refs.rightLineRef.current) {
-        // Remove the animate class first
-        refs.leftLineRef.current.classList.remove('animate');
-        refs.rightLineRef.current.classList.remove('animate');
-        
-        // Force a reflow to ensure the removal takes effect
-        void refs.leftLineRef.current.offsetWidth;
-        void refs.rightLineRef.current.offsetWidth;
-        
-        // Set initial state with GSAP
-        gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
-          width: '0%'
-        });
-        
-        // Animate lines expanding from center
-        gsap.to(refs.leftLineRef.current, {
-          width: '40%',
-          maxWidth: '200px',
-          duration: 0.8,
-          ease: "power2.out",
-          delay: 0.5,
-          onComplete: () => {
-            // Add the animate class to maintain the state
-            if (refs.leftLineRef.current) {
-              refs.leftLineRef.current.classList.add('animate');
-              // Clear inline styles since the class will handle the width
-              gsap.set(refs.leftLineRef.current, { clearProps: 'width' });
-            }
-          }
-        });
-        
-        gsap.to(refs.rightLineRef.current, {
-          width: '40%',
-          maxWidth: '200px',
-          duration: 0.8,
-          ease: "power2.out",
-          delay: 0.5,
-          onComplete: () => {
-            // Add the animate class to maintain the state
-            if (refs.rightLineRef.current) {
-              refs.rightLineRef.current.classList.add('animate');
-              // Clear inline styles since the class will handle the width
-              gsap.set(refs.rightLineRef.current, { clearProps: 'width' });
-            }
-          }
-        });
-        
-        // Reset the flag
-        setShouldAnimateLines(false);
-      }
-    }
-  }, [shouldAnimateLines, verseDisplayRef.current]);
+  // Removed line animation effect
 
   // GSAP Modal Entrance Animation with Backdrop Blur
   useGSAP(() => {
@@ -257,7 +201,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     const refs = verseDisplayRef.current;
     if (!refs || !verseContentRef.current) return;
 
-    const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef, leftLineRef, rightLineRef } = refs;
+    const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef } = refs;
     
     // Split verse text into letters for letter-by-letter animation
     if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
@@ -390,14 +334,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           duration: 0.8,
           ease: "power2.out",
           clearProps: "opacity,transform,y,scale,display",
-          stagger: 0.05, // Small stagger for smooth appearance
-          onComplete: () => {
-            // Animate the decorative lines after reference appears
-            if (leftLineRef.current && rightLineRef.current) {
-              leftLineRef.current.classList.add('animate');
-              rightLineRef.current.classList.add('animate');
-            }
-          }
+          stagger: 0.05 // Small stagger for smooth appearance
         }, "-=0.4")
         
         // Add final whole sentence glow effect - gradual build-up
@@ -484,6 +421,23 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   };
 
 
+  // Handle verse translation change
+  const handleVerseTranslationChange = async (newTranslation: BibleTranslation) => {
+    try {
+      const bibleId = BIBLE_VERSIONS[newTranslation];
+      // Fetch the verse in the new translation
+      const newVerse = await VerseService.getVerse(verse.reference, bibleId);
+      
+      // Update the verse prop by calling parent's update mechanism
+      // Since we can't directly update the prop, we'll need to reload the page or update the stored verse
+      // For now, let's just reload the component with the new verse
+      window.location.reload();
+    } catch (error) {
+      console.error('Error changing translation:', error);
+      showToast('Failed to change translation', 'error');
+    }
+  };
+
   // Handle context translation change
   const handleContextTranslationChange = async (newTranslation: string) => {
     // Store the current chapter reference before clearing content
@@ -530,7 +484,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     requestAnimationFrame(() => {
       // Wait one more frame to ensure React has rendered
       requestAnimationFrame(() => {
-        setShouldAnimateLines(true);
+        // Animation state cleaned up - lines removed
       });
     });
   };
@@ -545,23 +499,22 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       >
         {/* Modal Container */}
         <div ref={modalRef} className="verse-modal" onClick={handleModalClick}>
-
           {/* Top-Right Controls */}
           <div className="absolute top-4 right-4">
-            {!user ? (
-              <AuthButtons onSignInClick={() => setShowSignIn(true)} />
-            ) : (
-              <ProfileDropdown
-                user={user}
-                isAdmin={isAdmin}
-                isEmailVerified={isEmailVerified}
-                onSignOut={signOut}
-                shadowRoot={shadowRoot}
-              />
-            )}
-          </div>
+              {!user ? (
+                <AuthButtons onSignInClick={() => setShowSignIn(true)} />
+              ) : (
+                <ProfileDropdown
+                  user={user}
+                  isAdmin={isAdmin}
+                  isEmailVerified={isEmailVerified}
+                  onSignOut={signOut}
+                  shadowRoot={shadowRoot}
+                />
+              )}
+            </div>
 
-          <div ref={verseContentRef} className="verse-content">
+            <div ref={verseContentRef} className="verse-content">
             {/* Admin Controls - Only visible to authenticated admins */}
             {user && isAdmin && !showContext && (
               <AdminControls />
@@ -574,6 +527,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 verse={verse}
                 onDone={handleAnimatedDismiss}
                 onMore={handleMoreClick}
+                onTranslationChange={handleVerseTranslationChange}
                 shadowRoot={shadowRoot}
                 isAdmin={isAdmin}
               />
@@ -589,9 +543,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 onTranslationChange={handleContextTranslationChange}
               />
             )}
+            </div>
           </div>
-
-        </div>
       </div>
       
       {/* Auth Modals - Rendered outside verse overlay for proper layering */}

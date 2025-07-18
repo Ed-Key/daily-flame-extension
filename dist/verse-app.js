@@ -65690,9 +65690,17 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
                 }
             }
         };
+        // Listen for other dropdowns opening
+        const handleCloseDropdown = (event) => {
+            if (event.detail.source !== 'profile') {
+                setShowDropdown(false);
+            }
+        };
         eventTarget.addEventListener('click', handleClickOutside);
+        document.addEventListener('dropdown-open', handleCloseDropdown);
         return () => {
             eventTarget.removeEventListener('click', handleClickOutside);
+            document.removeEventListener('dropdown-open', handleCloseDropdown);
         };
     }, [showDropdown, shadowRoot]);
     // Helper function to format user name (e.g., "Edward Kiboma" → "Edward K.")
@@ -65736,7 +65744,16 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
             console.error('Logout error:', error);
         }
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => setShowDropdown(!showDropdown), className: "flex items-center gap-2 text-white sign-in-glow", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "text-sm", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "bg-black rounded-full flex items-center justify-center text-white text-sm font-semibold box-border", style: { width: '28px', height: '28px', border: '2px solid white' }, children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "absolute top-12 right-0 w-56 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "px-3 py-2 border-b border-white border-opacity-10 mb-1", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-sm", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "text-white text-opacity-60 text-xs mt-0.5", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mt-1.5 flex gap-1.5", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-green-300 text-xs rounded", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "inline-block px-1.5 py-0.5 text-yellow-300 text-xs rounded", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity border-t border-white border-opacity-10 mt-1 pt-1", children: "Sign Out" })] }))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => {
+                    const newState = !showDropdown;
+                    setShowDropdown(newState);
+                    if (newState) {
+                        // Notify other dropdowns to close
+                        document.dispatchEvent(new CustomEvent('dropdown-open', {
+                            detail: { source: 'profile' }
+                        }));
+                    }
+                }, className: "profile-button sign-in-glow", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-button__name", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "profile-button__avatar", children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-info", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "profile-dropdown-info__name", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "profile-dropdown-info__email", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-badges", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-dropdown-badge profile-dropdown-badge--admin", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-dropdown-badge profile-dropdown-badge--unverified", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "profile-dropdown-action", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "profile-dropdown-action profile-dropdown-action--signout", children: "Sign Out" })] }))] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProfileDropdown);
 
@@ -65760,20 +65777,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse, onDone, onMore, isAdmin = false }, ref) => {
+// Full translation names mapping
+const TRANSLATION_NAMES = {
+    'KJV': 'King James Version',
+    'ASV': 'American Standard Version',
+    'ESV': 'English Standard Version',
+    'NLT': 'New Living Translation',
+    'WEB': 'World English Bible',
+    'WEB_BRITISH': 'World English Bible (British)',
+    'WEB_UPDATED': 'World English Bible (Updated)'
+};
+const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse, onDone, onMore, onTranslationChange, isAdmin = false }, ref) => {
     const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const verseTextRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const verseReferenceRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const leftLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const rightLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const doneButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const moreButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     // Expose refs to parent
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useImperativeHandle)(ref, () => ({
         verseTextRef,
         verseReferenceRef,
-        leftLineRef,
-        rightLineRef,
         doneButtonRef,
         moreButtonRef
     }));
@@ -65783,7 +65806,46 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
         return (entry ? entry[0] : 'KJV');
     };
     const currentTranslation = getTranslationName(verse.bibleId);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-reference-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: verse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `verse-translation-button ${isOpen ? 'open' : ''}`, onClick: () => setIsOpen(!isOpen), type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "verse-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-top", d: "M7 9L12 4", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-top--left", d: "M17 9L12 4", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-bottom", d: "M7 15L12 20", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { className: "chevron-bottom--right", d: "M17 15L12 20", strokeWidth: "2", strokeLinecap: "round" })] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
+    // Handle click outside to close dropdown - matching ProfileDropdown implementation
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        // Click outside handler
+        const handleClickOutside = (event) => {
+            if (isOpen) {
+                const target = event.target;
+                if (!target.closest('.translation-dropdown')) {
+                    setIsOpen(false);
+                }
+            }
+        };
+        // Listen for other dropdowns opening
+        const handleCloseDropdown = (event) => {
+            if (event.detail.source !== 'translation') {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('dropdown-open', handleCloseDropdown);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener('dropdown-open', handleCloseDropdown);
+        };
+    }, [isOpen]);
+    const handleTranslationSelect = (translation) => {
+        if (onTranslationChange) {
+            onTranslationChange(translation);
+        }
+        setIsOpen(false);
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "verse-reference-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: verse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "translation-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `translation-button ${isOpen ? 'translation-button--open' : ''}`, onClick: () => {
+                                                const newState = !isOpen;
+                                                setIsOpen(newState);
+                                                if (newState) {
+                                                    // Notify other dropdowns to close
+                                                    document.dispatchEvent(new CustomEvent('dropdown-open', {
+                                                        detail: { source: 'translation' }
+                                                    }));
+                                                }
+                                            }, type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translation-button__text", children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "translation-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M7 10L12 15", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M17 10L12 15", strokeWidth: "2", strokeLinecap: "round" })] })] }), isOpen && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "translation-dropdown-menu", children: Object.entries(TRANSLATION_NAMES).map(([key, name]) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: `translation-option ${currentTranslation === key ? 'translation-option--active' : ''}`, onClick: () => handleTranslationSelect(key), type: "button", children: name }, key))) }))] })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
 });
 VerseDisplay.displayName = 'VerseDisplay';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseDisplay);
@@ -65923,7 +65985,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const [contextLoading, setContextLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [chapterContent, setChapterContent] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [contextTranslation, setContextTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('KJV');
-    const [shouldAnimateLines, setShouldAnimateLines] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     // Authentication state
     const [showSignIn, setShowSignIn] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [showSignUp, setShowSignUp] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -66018,57 +66079,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             clearTimeout(timer);
         };
     }, []);
-    // Re-animate lines when returning from context view
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (shouldAnimateLines && verseDisplayRef.current) {
-            const refs = verseDisplayRef.current;
-            if (refs.leftLineRef.current && refs.rightLineRef.current) {
-                // Remove the animate class first
-                refs.leftLineRef.current.classList.remove('animate');
-                refs.rightLineRef.current.classList.remove('animate');
-                // Force a reflow to ensure the removal takes effect
-                void refs.leftLineRef.current.offsetWidth;
-                void refs.rightLineRef.current.offsetWidth;
-                // Set initial state with GSAP
-                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
-                    width: '0%'
-                });
-                // Animate lines expanding from center
-                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(refs.leftLineRef.current, {
-                    width: '40%',
-                    maxWidth: '200px',
-                    duration: 0.8,
-                    ease: "power2.out",
-                    delay: 0.5,
-                    onComplete: () => {
-                        // Add the animate class to maintain the state
-                        if (refs.leftLineRef.current) {
-                            refs.leftLineRef.current.classList.add('animate');
-                            // Clear inline styles since the class will handle the width
-                            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(refs.leftLineRef.current, { clearProps: 'width' });
-                        }
-                    }
-                });
-                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(refs.rightLineRef.current, {
-                    width: '40%',
-                    maxWidth: '200px',
-                    duration: 0.8,
-                    ease: "power2.out",
-                    delay: 0.5,
-                    onComplete: () => {
-                        // Add the animate class to maintain the state
-                        if (refs.rightLineRef.current) {
-                            refs.rightLineRef.current.classList.add('animate');
-                            // Clear inline styles since the class will handle the width
-                            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(refs.rightLineRef.current, { clearProps: 'width' });
-                        }
-                    }
-                });
-                // Reset the flag
-                setShouldAnimateLines(false);
-            }
-        }
-    }, [shouldAnimateLines, verseDisplayRef.current]);
+    // Removed line animation effect
     // GSAP Modal Entrance Animation with Backdrop Blur
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
         if (overlayRef.current && modalRef.current) {
@@ -66120,7 +66131,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         const refs = verseDisplayRef.current;
         if (!refs || !verseContentRef.current)
             return;
-        const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef, leftLineRef, rightLineRef } = refs;
+        const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef } = refs;
         // Split verse text into letters for letter-by-letter animation
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
@@ -66236,14 +66247,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     duration: 0.8,
                     ease: "power2.out",
                     clearProps: "opacity,transform,y,scale,display",
-                    stagger: 0.05, // Small stagger for smooth appearance
-                    onComplete: () => {
-                        // Animate the decorative lines after reference appears
-                        if (leftLineRef.current && rightLineRef.current) {
-                            leftLineRef.current.classList.add('animate');
-                            rightLineRef.current.classList.add('animate');
-                        }
-                    }
+                    stagger: 0.05 // Small stagger for smooth appearance
                 }, "-=0.4")
                     // Add final whole sentence glow effect - gradual build-up
                     .to([letterElements, openingQuote, closingQuote], {
@@ -66320,6 +66324,22 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         setShowSignUp(false);
         setShowEmailVerification(true);
     };
+    // Handle verse translation change
+    const handleVerseTranslationChange = async (newTranslation) => {
+        try {
+            const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[newTranslation];
+            // Fetch the verse in the new translation
+            const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(verse.reference, bibleId);
+            // Update the verse prop by calling parent's update mechanism
+            // Since we can't directly update the prop, we'll need to reload the page or update the stored verse
+            // For now, let's just reload the component with the new verse
+            window.location.reload();
+        }
+        catch (error) {
+            console.error('Error changing translation:', error);
+            showToast('Failed to change translation', 'error');
+        }
+    };
     // Handle context translation change
     const handleContextTranslationChange = async (newTranslation) => {
         // Store the current chapter reference before clearing content
@@ -66362,11 +66382,11 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         requestAnimationFrame(() => {
             // Wait one more frame to ensure React has rendered
             requestAnimationFrame(() => {
-                setShouldAnimateLines(true);
+                // Animation state cleaned up - lines removed
             });
         });
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: verse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: verse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
                                 /* Context view */
                                 (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_12__["default"], { verse: verse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
@@ -69712,6 +69732,297 @@ VerseService.parsers = new Map([
 
 /***/ }),
 
+/***/ "./src/styles/components/profile-dropdown.css.ts":
+/*!*******************************************************!*\
+  !*** ./src/styles/components/profile-dropdown.css.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   profileDropdownStyles: () => (/* binding */ profileDropdownStyles)
+/* harmony export */ });
+const profileDropdownStyles = `
+  /* Profile Dropdown Container */
+  .profile-dropdown {
+    position: relative !important;
+    z-index: 21 !important; /* Above the container but within modal */
+  }
+
+  /* Profile Button (Trigger) */
+  .profile-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: white;
+  }
+
+  .profile-button__name {
+    font-size: 14px;
+    color: white;
+  }
+
+  .profile-button__avatar {
+    width: 28px;
+    height: 28px;
+    background-color: black;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+  }
+
+  /* Dropdown Menu */
+  .profile-dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    margin-top: 0.5rem !important;
+    width: 14rem !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 0.5rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 0.5rem !important;
+    z-index: 100 !important;
+    /* Ensure it stays within viewport */
+    transform-origin: top right !important;
+  }
+
+  /* User Info Section */
+  .profile-dropdown-info {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.25rem;
+  }
+
+  .profile-dropdown-info__name {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile-dropdown-info__email {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    margin: 0;
+    margin-top: 0.125rem;
+    padding: 0;
+  }
+
+  /* Badges Container */
+  .profile-dropdown-badges {
+    margin-top: 0.375rem;
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  .profile-dropdown-badge {
+    display: inline-block;
+    padding: 0.125rem 0.375rem;
+    font-size: 12px;
+    border-radius: 0.25rem;
+  }
+
+  .profile-dropdown-badge--admin {
+    color: #86efac;
+  }
+
+  .profile-dropdown-badge--unverified {
+    color: #fde047;
+  }
+
+  /* Dropdown Action Buttons */
+  .profile-dropdown-action {
+    width: 100%;
+    text-align: left;
+    padding: 0.375rem 0.75rem;
+    color: white;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    display: block;
+  }
+
+  .profile-dropdown-action:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .profile-dropdown-action--signout {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0.25rem;
+    padding-top: 0.5rem;
+  }
+`;
+
+
+/***/ }),
+
+/***/ "./src/styles/components/translation-dropdown.css.ts":
+/*!***********************************************************!*\
+  !*** ./src/styles/components/translation-dropdown.css.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   translationDropdownStyles: () => (/* binding */ translationDropdownStyles)
+/* harmony export */ });
+const translationDropdownStyles = `
+  /* Translation Dropdown Container */
+  .translation-dropdown {
+    position: relative !important;
+    display: inline-block !important;
+    vertical-align: baseline !important;
+    margin-left: 8px !important; /* Add space between verse reference and translation */
+    z-index: 10 !important; /* Ensure proper stacking within modal */
+  }
+
+  /* Translation Button (Trigger) */
+  .translation-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: white;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: inherit; /* Inherit line height from parent */
+    cursor: pointer;
+    transition: opacity 0.2s ease-out, background-color 0.2s ease-out;
+    position: relative;
+    opacity: 1; /* Start at full opacity */
+    vertical-align: baseline; /* Match baseline with verse reference */
+  }
+
+  .translation-button:hover {
+    opacity: 0.7; /* Dim on hover */
+  }
+
+  .translation-button:focus {
+    outline: none;
+  }
+
+  /* Open state background */
+  .translation-button--open {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 4px 8px;
+    /* No negative margin - let it naturally expand */
+  }
+
+  /* Translation text */
+  .translation-button__text {
+    display: inline-block;
+    font-size: 20px;
+  }
+
+  /* Chevron Icon */
+  .translation-chevron {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    transform-origin: center;
+  }
+
+  .translation-button:hover .translation-chevron {
+    opacity: 1;
+  }
+
+  /* Rotate chevron when open */
+  .translation-button--open .translation-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown Menu */
+  .translation-dropdown-menu {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    min-width: 240px !important;
+    background-color: rgb(26, 26, 26) !important; /* Solid dark background */
+    background: rgb(26, 26, 26) !important; /* Fallback */
+    border-radius: 0.5rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 0.5rem !important;
+    z-index: 1000 !important; /* Higher z-index than modal content */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+    opacity: 1 !important; /* Ensure full opacity */
+  }
+
+  /* Translation Option Items */
+  .translation-option {
+    width: 100% !important;
+    text-align: left !important;
+    padding: 0.75rem 1rem !important; /* Increased vertical padding */
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 14px !important;
+    background: rgb(26, 26, 26) !important; /* Match menu background */
+    background-color: rgb(26, 26, 26) !important;
+    border: none !important;
+    border-radius: 0.25rem !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    display: block !important;
+    white-space: nowrap !important;
+    position: relative !important;
+    margin: 0.25rem 0 !important; /* Add vertical gap between options */
+  }
+
+  /* Add separator between options */
+  .translation-option:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem; /* Position in the gap */
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .translation-option:hover {
+    background-color: rgb(51, 51, 51) !important; /* Slightly lighter solid color */
+    color: white !important;
+  }
+
+  /* Active/selected translation with glow effect */
+  .translation-option--active {
+    background-color: rgb(51, 51, 51) !important; /* Solid color */
+    color: white !important;
+    font-weight: 500 !important;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1) !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .translation-option--active:hover {
+    background-color: rgb(64, 64, 64) !important; /* Slightly lighter on hover */
+  }
+`;
+
+
+/***/ }),
+
 /***/ "./src/styles/shadow-dom-styles.ts":
 /*!*****************************************!*\
   !*** ./src/styles/shadow-dom-styles.ts ***!
@@ -69722,6 +70033,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getShadowDomStyles: () => (/* binding */ getShadowDomStyles)
 /* harmony export */ });
+/* harmony import */ var _components_profile_dropdown_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/profile-dropdown.css */ "./src/styles/components/profile-dropdown.css.ts");
+/* harmony import */ var _components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/translation-dropdown.css */ "./src/styles/components/translation-dropdown.css.ts");
+/* harmony import */ var _shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/glassmorphic.css */ "./src/styles/shared/glassmorphic.css.ts");
+
+
+
 // Complete styles for Shadow DOM encapsulation
 const getShadowDomStyles = () => {
     return `
@@ -69780,11 +70097,9 @@ const getShadowDomStyles = () => {
       width: 90% !important;
       min-height: 400px !important;
       max-height: 85vh !important;
-      overflow: visible !important; /* Allow content to be visible during animations */
+      overflow: visible !important;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
       position: relative !important;
-      display: flex !important;
-      flex-direction: column !important;
     }
     
     /* Verse content container */
@@ -69850,7 +70165,7 @@ const getShadowDomStyles = () => {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
-      justify-content: center !important;
+      justify-content: flex-start !important;
       margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
       overflow: visible !important;
@@ -69858,8 +70173,8 @@ const getShadowDomStyles = () => {
     
     /* Verse reference */
     .verse-reference {
-      font-size: 20px !important;
-      line-height: 28px !important;
+      font-size: 25px !important;
+      line-height: 32px !important;
       font-style: italic !important;
       opacity: 0.9;
       font-weight: normal !important;
@@ -69868,8 +70183,8 @@ const getShadowDomStyles = () => {
       position: relative !important;
       z-index: 1 !important;
       display: flex !important;
-      align-items: center !important;
-      gap: 12px !important;
+      align-items: baseline !important;
+      gap: 1px !important;
     }
     
     /* Translation button with chevron */
@@ -69881,20 +70196,23 @@ const getShadowDomStyles = () => {
       border: none !important;
       padding: 0 !important;
       color: white !important;
-      font-size: 16px !important;
+      font-size: 20px !important;
       font-style: normal !important;
+      font-weight: normal !important;
+      line-height: 1 !important;
       cursor: pointer !important;
       transition: opacity 0.2s ease-out !important;
       position: relative !important;
       opacity: 0.9 !important;
+      vertical-align: middle !important;
     }
     
     .verse-translation-button:hover {
       opacity: 1 !important;
       background: rgba(255, 255, 255, 0.1) !important;
       border-radius: 4px !important;
-      padding: 2px 6px !important;
-      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+      padding: 4px 8px !important;
+      margin: -4px -8px !important; /* Compensate for padding to maintain alignment */
     }
     
     .verse-translation-button:focus {
@@ -69905,8 +70223,8 @@ const getShadowDomStyles = () => {
     .verse-translation-button.open {
       background: rgba(255, 255, 255, 0.1) !important;
       border-radius: 4px !important;
-      padding: 2px 6px !important;
-      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+      padding: 4px 8px !important;
+      margin: -4px -8px !important; /* Compensate for padding to maintain alignment */
     }
     
     /* Chevron SVG styling */
@@ -69914,76 +70232,22 @@ const getShadowDomStyles = () => {
       width: 20px !important;
       height: 20px !important;
       opacity: 0.8 !important;
-      transition: opacity 0.2s ease-out !important;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out !important;
+      transform-origin: center !important;
     }
     
     .verse-translation-button:hover .verse-chevron {
       opacity: 1 !important;
     }
     
-    /* Chevron path animations */
-    .verse-chevron path {
-      transition-property: translate, rotate, d, opacity, scale !important;
-      transition-duration: 0.2s !important;
-      transition-timing-function: ease-out !important;
-      transform-box: fill-box !important;
-      transform-origin: center center !important;
+    /* Rotate chevron when button is open */
+    .verse-translation-button.open .verse-chevron {
+      transform: rotate(180deg) !important;
     }
     
-    .chevron-top--left {
-      transform-origin: 0 0 !important;
-    }
-    
-    .chevron-bottom--right {
-      transform-origin: 0 100% !important;
-    }
-    
-    /* Open state animations (will be triggered by class) */
-    /* Creates a left arrow <- shape */
-    .verse-translation-button.open .chevron-top {
-      /* Move to form top part of < */
-      d: path('M14 6L10 12') !important;
-    }
-    
-    .verse-translation-button.open .chevron-top--left {
-      /* Move to form horizontal line through middle */
-      d: path('M22 12L10 12') !important;
-    }
-    
-    .verse-translation-button.open .chevron-bottom {
-      /* Move to form bottom part of < */
-      d: path('M14 18L10 12') !important;
-    }
-    
-    .verse-translation-button.open .chevron-bottom--right {
-      /* Also forms part of horizontal line (overlaps with top--left) */
-      d: path('M22 12L10 12') !important;
-    }
-    
-    /* Decorative lines */
-    .verse-reference-line {
-      position: absolute !important;
-      top: 50% !important;
-      height: 1px !important;
-      background-color: rgba(255, 255, 255, 0.3) !important;
-      width: 0 !important;
-      transition: width 0.8s ease-out !important;
-      transform: translateY(-50%) !important;
-    }
-    
-    .verse-reference-line.left {
-      right: 50% !important;
-      margin-right: 100px !important; /* Increased gap for better spacing */
-    }
-    
-    .verse-reference-line.right {
-      left: 50% !important;
-      margin-left: 100px !important; /* Increased gap for better spacing */
-    }
-    
-    .verse-reference-line.animate {
-      width: 40% !important;
-      max-width: 200px !important;
+    /* mb-10 class for verse display spacing */
+    .mb-10 {
+      margin-bottom: 2.5rem !important;
     }
 
     
@@ -70309,10 +70573,37 @@ const getShadowDomStyles = () => {
     .fixed { position: fixed !important; }
     .absolute { position: absolute !important; }
     
-    /* Ensure sign-in button container doesn't clip glow */
-    .absolute.top-4.right-4 {
-      overflow: visible !important;
+    /* Profile/Auth controls container - dedicated class for robust positioning */
+    .modal-controls-container {
+      /* Reset all inherited styles first */
+      all: initial;
+      /* Then apply our styles */
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
       z-index: 20 !important;
+      overflow: visible !important;
+      /* Ensure it's positioned relative to modal-inner, not viewport */
+      transform: none !important;
+      transform-origin: top right !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      height: auto !important;
+      display: block !important;
+      box-sizing: border-box !important;
+      /* Force positioning context */
+      left: auto !important;
+      bottom: auto !important;
+    }
+    
+    /* Legacy support for existing markup */
+    .absolute.top-4.right-4 {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      z-index: 20 !important;
+      overflow: visible !important;
     }
     .relative { position: relative !important; }
     .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
@@ -70693,8 +70984,8 @@ const getShadowDomStyles = () => {
     /* Responsive */
     @media (max-width: 768px) {
       .verse-modal {
-        padding: 32px !important;
         width: 95% !important;
+        padding: 32px !important;
       }
       
       .verse-text {
@@ -71468,6 +71759,7 @@ const getShadowDomStyles = () => {
     .verse-modal-expanded {
       max-height: 90vh !important;
       transition: all 0.4s ease-out !important;
+      overflow: hidden !important; /* Hide overflow when showing context view */
     }
     
     /* Ensure modal expanded properly manages overflow */
@@ -71848,8 +72140,43 @@ const getShadowDomStyles = () => {
       }
     }
 
+    /* Component-specific styles */
+    ${_components_profile_dropdown_css__WEBPACK_IMPORTED_MODULE_0__.profileDropdownStyles}
+    ${_components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__.translationDropdownStyles}
+    ${_shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__.glassmorphicStyles}
   `;
 };
+
+
+/***/ }),
+
+/***/ "./src/styles/shared/glassmorphic.css.ts":
+/*!***********************************************!*\
+  !*** ./src/styles/shared/glassmorphic.css.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   glassmorphicStyles: () => (/* binding */ glassmorphicStyles)
+/* harmony export */ });
+const glassmorphicStyles = `
+  /* Shared glassmorphic styles for consistent look */
+  .glassmorphic {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+  }
+
+  .glassmorphic--dark {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+`;
 
 
 /***/ }),

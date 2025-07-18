@@ -28,11 +28,19 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
       }
     };
 
+    // Listen for other dropdowns opening
+    const handleCloseDropdown = (event: CustomEvent) => {
+      if (event.detail.source !== 'profile') {
+        setShowDropdown(false);
+      }
+    };
 
     eventTarget.addEventListener('click', handleClickOutside);
+    document.addEventListener('dropdown-open', handleCloseDropdown as EventListener);
 
     return () => {
       eventTarget.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('dropdown-open', handleCloseDropdown as EventListener);
     };
   }, [showDropdown, shadowRoot]);
 
@@ -80,36 +88,42 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   };
 
   return (
-    <div className="relative profile-dropdown">
+    <div className="profile-dropdown">
       <button
-        onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center gap-2 text-white sign-in-glow"
+        onClick={() => {
+          const newState = !showDropdown;
+          setShowDropdown(newState);
+          if (newState) {
+            // Notify other dropdowns to close
+            document.dispatchEvent(new CustomEvent('dropdown-open', { 
+              detail: { source: 'profile' } 
+            }));
+          }
+        }}
+        className="profile-button sign-in-glow"
         aria-label="User menu"
       >
-        <span className="text-sm">{getFormattedName(user)}</span>
-        <div 
-          className="bg-black rounded-full flex items-center justify-center text-white text-sm font-semibold box-border"
-          style={{ width: '28px', height: '28px', border: '2px solid white' }}
-        >
+        <span className="profile-button__name">{getFormattedName(user)}</span>
+        <div className="profile-button__avatar">
           {getFirstInitial(user)}
         </div>
       </button>
 
       {/* Dropdown Menu */}
       {showDropdown && (
-        <div className="absolute top-12 right-0 w-56 bg-white bg-opacity-10 backdrop-blur-md rounded-lg border border-white border-opacity-20 p-2 z-20">
-          <div className="px-3 py-2 border-b border-white border-opacity-10 mb-1">
-            <p className="text-white text-sm">{user.displayName || user.email?.split('@')[0]}</p>
-            <p className="text-white text-opacity-60 text-xs mt-0.5">{user.email}</p>
+        <div className="profile-dropdown-menu">
+          <div className="profile-dropdown-info">
+            <p className="profile-dropdown-info__name">{user.displayName || user.email?.split('@')[0]}</p>
+            <p className="profile-dropdown-info__email">{user.email}</p>
             {(isAdmin || !isEmailVerified) && (
-              <div className="mt-1.5 flex gap-1.5">
+              <div className="profile-dropdown-badges">
                 {isAdmin && (
-                  <span className="inline-block px-1.5 py-0.5 text-green-300 text-xs rounded">
+                  <span className="profile-dropdown-badge profile-dropdown-badge--admin">
                     Admin
                   </span>
                 )}
                 {!isEmailVerified && (
-                  <span className="inline-block px-1.5 py-0.5 text-yellow-300 text-xs rounded">
+                  <span className="profile-dropdown-badge profile-dropdown-badge--unverified">
                     Unverified
                   </span>
                 )}
@@ -121,7 +135,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           {!isEmailVerified && (
             <button
               onClick={handleSendVerificationEmail}
-              className="w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity"
+              className="profile-dropdown-action"
             >
               Resend Verification Email
             </button>
@@ -130,7 +144,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
           
           <button
             onClick={handleLogout}
-            className="w-full text-left px-3 py-1.5 text-white text-sm hover:bg-white hover:bg-opacity-10 rounded transition-opacity border-t border-white border-opacity-10 mt-1 pt-1"
+            className="profile-dropdown-action profile-dropdown-action--signout"
           >
             Sign Out
           </button>

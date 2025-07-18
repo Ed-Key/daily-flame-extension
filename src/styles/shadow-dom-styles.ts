@@ -1,3 +1,7 @@
+import { profileDropdownStyles } from './components/profile-dropdown.css';
+import { translationDropdownStyles } from './components/translation-dropdown.css';
+import { glassmorphicStyles } from './shared/glassmorphic.css';
+
 // Complete styles for Shadow DOM encapsulation
 export const getShadowDomStyles = (): string => {
   return `
@@ -56,11 +60,9 @@ export const getShadowDomStyles = (): string => {
       width: 90% !important;
       min-height: 400px !important;
       max-height: 85vh !important;
-      overflow: visible !important; /* Allow content to be visible during animations */
+      overflow: visible !important;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
       position: relative !important;
-      display: flex !important;
-      flex-direction: column !important;
     }
     
     /* Verse content container */
@@ -126,7 +128,7 @@ export const getShadowDomStyles = (): string => {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
-      justify-content: center !important;
+      justify-content: flex-start !important;
       margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
       overflow: visible !important;
@@ -134,8 +136,8 @@ export const getShadowDomStyles = (): string => {
     
     /* Verse reference */
     .verse-reference {
-      font-size: 20px !important;
-      line-height: 28px !important;
+      font-size: 25px !important;
+      line-height: 32px !important;
       font-style: italic !important;
       opacity: 0.9;
       font-weight: normal !important;
@@ -144,8 +146,8 @@ export const getShadowDomStyles = (): string => {
       position: relative !important;
       z-index: 1 !important;
       display: flex !important;
-      align-items: center !important;
-      gap: 12px !important;
+      align-items: baseline !important;
+      gap: 1px !important;
     }
     
     /* Translation button with chevron */
@@ -157,20 +159,23 @@ export const getShadowDomStyles = (): string => {
       border: none !important;
       padding: 0 !important;
       color: white !important;
-      font-size: 16px !important;
+      font-size: 20px !important;
       font-style: normal !important;
+      font-weight: normal !important;
+      line-height: 1 !important;
       cursor: pointer !important;
       transition: opacity 0.2s ease-out !important;
       position: relative !important;
       opacity: 0.9 !important;
+      vertical-align: middle !important;
     }
     
     .verse-translation-button:hover {
       opacity: 1 !important;
       background: rgba(255, 255, 255, 0.1) !important;
       border-radius: 4px !important;
-      padding: 2px 6px !important;
-      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+      padding: 4px 8px !important;
+      margin: -4px -8px !important; /* Compensate for padding to maintain alignment */
     }
     
     .verse-translation-button:focus {
@@ -181,8 +186,8 @@ export const getShadowDomStyles = (): string => {
     .verse-translation-button.open {
       background: rgba(255, 255, 255, 0.1) !important;
       border-radius: 4px !important;
-      padding: 2px 6px !important;
-      margin: -2px -6px !important; /* Compensate for padding to maintain alignment */
+      padding: 4px 8px !important;
+      margin: -4px -8px !important; /* Compensate for padding to maintain alignment */
     }
     
     /* Chevron SVG styling */
@@ -190,76 +195,22 @@ export const getShadowDomStyles = (): string => {
       width: 20px !important;
       height: 20px !important;
       opacity: 0.8 !important;
-      transition: opacity 0.2s ease-out !important;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out !important;
+      transform-origin: center !important;
     }
     
     .verse-translation-button:hover .verse-chevron {
       opacity: 1 !important;
     }
     
-    /* Chevron path animations */
-    .verse-chevron path {
-      transition-property: translate, rotate, d, opacity, scale !important;
-      transition-duration: 0.2s !important;
-      transition-timing-function: ease-out !important;
-      transform-box: fill-box !important;
-      transform-origin: center center !important;
+    /* Rotate chevron when button is open */
+    .verse-translation-button.open .verse-chevron {
+      transform: rotate(180deg) !important;
     }
     
-    .chevron-top--left {
-      transform-origin: 0 0 !important;
-    }
-    
-    .chevron-bottom--right {
-      transform-origin: 0 100% !important;
-    }
-    
-    /* Open state animations (will be triggered by class) */
-    /* Creates a left arrow <- shape */
-    .verse-translation-button.open .chevron-top {
-      /* Move to form top part of < */
-      d: path('M14 6L10 12') !important;
-    }
-    
-    .verse-translation-button.open .chevron-top--left {
-      /* Move to form horizontal line through middle */
-      d: path('M22 12L10 12') !important;
-    }
-    
-    .verse-translation-button.open .chevron-bottom {
-      /* Move to form bottom part of < */
-      d: path('M14 18L10 12') !important;
-    }
-    
-    .verse-translation-button.open .chevron-bottom--right {
-      /* Also forms part of horizontal line (overlaps with top--left) */
-      d: path('M22 12L10 12') !important;
-    }
-    
-    /* Decorative lines */
-    .verse-reference-line {
-      position: absolute !important;
-      top: 50% !important;
-      height: 1px !important;
-      background-color: rgba(255, 255, 255, 0.3) !important;
-      width: 0 !important;
-      transition: width 0.8s ease-out !important;
-      transform: translateY(-50%) !important;
-    }
-    
-    .verse-reference-line.left {
-      right: 50% !important;
-      margin-right: 100px !important; /* Increased gap for better spacing */
-    }
-    
-    .verse-reference-line.right {
-      left: 50% !important;
-      margin-left: 100px !important; /* Increased gap for better spacing */
-    }
-    
-    .verse-reference-line.animate {
-      width: 40% !important;
-      max-width: 200px !important;
+    /* mb-10 class for verse display spacing */
+    .mb-10 {
+      margin-bottom: 2.5rem !important;
     }
 
     
@@ -585,10 +536,37 @@ export const getShadowDomStyles = (): string => {
     .fixed { position: fixed !important; }
     .absolute { position: absolute !important; }
     
-    /* Ensure sign-in button container doesn't clip glow */
-    .absolute.top-4.right-4 {
-      overflow: visible !important;
+    /* Profile/Auth controls container - dedicated class for robust positioning */
+    .modal-controls-container {
+      /* Reset all inherited styles first */
+      all: initial;
+      /* Then apply our styles */
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
       z-index: 20 !important;
+      overflow: visible !important;
+      /* Ensure it's positioned relative to modal-inner, not viewport */
+      transform: none !important;
+      transform-origin: top right !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: auto !important;
+      height: auto !important;
+      display: block !important;
+      box-sizing: border-box !important;
+      /* Force positioning context */
+      left: auto !important;
+      bottom: auto !important;
+    }
+    
+    /* Legacy support for existing markup */
+    .absolute.top-4.right-4 {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      z-index: 20 !important;
+      overflow: visible !important;
     }
     .relative { position: relative !important; }
     .inset-0 { top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; }
@@ -969,8 +947,8 @@ export const getShadowDomStyles = (): string => {
     /* Responsive */
     @media (max-width: 768px) {
       .verse-modal {
-        padding: 32px !important;
         width: 95% !important;
+        padding: 32px !important;
       }
       
       .verse-text {
@@ -1744,6 +1722,7 @@ export const getShadowDomStyles = (): string => {
     .verse-modal-expanded {
       max-height: 90vh !important;
       transition: all 0.4s ease-out !important;
+      overflow: hidden !important; /* Hide overflow when showing context view */
     }
     
     /* Ensure modal expanded properly manages overflow */
@@ -2124,5 +2103,9 @@ export const getShadowDomStyles = (): string => {
       }
     }
 
+    /* Component-specific styles */
+    ${profileDropdownStyles}
+    ${translationDropdownStyles}
+    ${glassmorphicStyles}
   `;
 };

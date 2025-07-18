@@ -22,6 +22,7 @@ export interface VerseDisplayProps {
   verse: VerseData;
   onDone: () => void;
   onMore: () => void;
+  onTranslationChange?: (translation: BibleTranslation) => void;
   shadowRoot?: ShadowRoot | null;
   isAdmin?: boolean;
 }

@@ -44,6 +44,40 @@ DailyFlame is a Chrome extension (Manifest V3) that displays daily Bible verses 
 ### Shadow DOM Implementation
 **CRITICAL**: All styles must be in `src/styles/shadow-dom-styles.ts` due to Shadow DOM isolation. Regular CSS imports will not work.
 
+### CSS Architecture (NO TAILWIND)
+**IMPORTANT**: This project does NOT use Tailwind CSS. We use component-specific CSS for better Shadow DOM compatibility and performance.
+
+#### CSS Structure:
+```
+src/styles/
+├── shadow-dom-styles.ts      # Main style injection (imports all component styles)
+├── components/               # Component-specific styles
+│   ├── profile-dropdown.css.ts
+│   ├── translation-dropdown.css.ts
+│   └── [component-name].css.ts
+└── shared/                   # Shared styles
+    └── glassmorphic.css.ts   # Reusable glassmorphic effects
+```
+
+#### CSS Guidelines:
+1. **Use semantic class names** (e.g., `.profile-button`, `.translation-dropdown-menu`)
+2. **Create component-specific CSS files** in `src/styles/components/`
+3. **Export styles as template strings** from `.css.ts` files
+4. **Import component styles** in `shadow-dom-styles.ts`
+5. **Never use Tailwind utility classes** - they're not available in Shadow DOM
+
+#### Example Component CSS:
+```typescript
+// src/styles/components/my-component.css.ts
+export const myComponentStyles = `
+  .my-component {
+    display: flex;
+    align-items: center;
+    /* Component-specific styles */
+  }
+`;
+```
+
 ### Bible Text Processing Architecture
 ```
 verse-service.ts (orchestrator)
@@ -85,6 +119,12 @@ The main VerseOverlay component is modularized:
 - Mock Chrome APIs for extension-specific code
 
 ## Recent Implementation Notes
+
+### CSS Migration from Tailwind (2025-07-17)
+- Migrated from Tailwind utility classes to component-specific CSS
+- Created modular CSS architecture in `src/styles/components/`
+- Improved performance by eliminating ~2,000 lines of unused Tailwind utilities
+- All components now use semantic class names for better maintainability
 
 ### ESV Bible Formatting (2025-07-07)
 - Large floating chapter numbers (e.g., "4" floats left of first verse)
