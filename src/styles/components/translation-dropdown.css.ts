@@ -74,12 +74,10 @@ export const translationDropdownStyles = `
     top: calc(100% + 8px) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    min-width: 240px !important;
     background-color: rgb(26, 26, 26) !important; /* Solid dark background */
     background: rgb(26, 26, 26) !important; /* Fallback */
     border-radius: 0.5rem !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    padding: 0.5rem !important;
     z-index: 1000 !important; /* Higher z-index than modal content */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
     opacity: 1 !important; /* Ensure full opacity */
@@ -95,20 +93,20 @@ export const translationDropdownStyles = `
     background: rgb(26, 26, 26) !important; /* Match menu background */
     background-color: rgb(26, 26, 26) !important;
     border: none !important;
-    border-radius: 0.25rem !important;
+    border-radius: 0 !important;
     cursor: pointer !important;
     transition: all 0.15s ease !important;
     display: block !important;
     white-space: nowrap !important;
     position: relative !important;
-    margin: 0.25rem 0 !important; /* Add vertical gap between options */
+    margin: 0 !important;
   }
 
   /* Add separator between options */
   .translation-option:not(:last-child)::after {
     content: '';
     position: absolute;
-    bottom: -0.25rem; /* Position in the gap */
+    bottom: 0;
     left: 0.75rem;
     right: 0.75rem;
     height: 1px;

@@ -43,7 +43,6 @@ export const profileDropdownStyles = `
     top: 100% !important;
     right: 0 !important;
     margin-top: 0.5rem !important;
-    width: 14rem !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
