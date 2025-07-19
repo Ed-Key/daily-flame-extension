@@ -4,7 +4,9 @@ import { BIBLE_VERSIONS, BibleTranslation } from '../../../types';
 
 export interface VerseDisplayRefs {
   verseTextRef: React.RefObject<HTMLParagraphElement | null>;
-  verseReferenceRef: React.RefObject<HTMLParagraphElement | null>;
+  verseReferenceRef: React.RefObject<HTMLDivElement | null>;
+  leftLineRef: React.RefObject<HTMLDivElement | null>;
+  rightLineRef: React.RefObject<HTMLDivElement | null>;
   doneButtonRef: React.RefObject<HTMLButtonElement | null>;
   moreButtonRef: React.RefObject<HTMLButtonElement | null>;
 }
@@ -25,11 +27,14 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
   onDone, 
   onMore,
   onTranslationChange,
+  shadowRoot,
   isAdmin = false 
 }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const verseTextRef = useRef<HTMLParagraphElement>(null);
-  const verseReferenceRef = useRef<HTMLParagraphElement>(null);
+  const verseReferenceRef = useRef<HTMLDivElement>(null);
+  const leftLineRef = useRef<HTMLDivElement>(null);
+  const rightLineRef = useRef<HTMLDivElement>(null);
   const doneButtonRef = useRef<HTMLButtonElement>(null);
   const moreButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -37,6 +42,8 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
   useImperativeHandle(ref, () => ({
     verseTextRef,
     verseReferenceRef,
+    leftLineRef,
+    rightLineRef,
     doneButtonRef,
     moreButtonRef
   }));
@@ -51,11 +58,15 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
 
   // Handle click outside to close dropdown - matching ProfileDropdown implementation
   useEffect(() => {
+    // Get the event target (shadowRoot or document)
+    const eventTarget = shadowRoot || document;
+
     // Click outside handler
     const handleClickOutside = (event: Event) => {
       if (isOpen) {
         const target = event.target as Element;
-        if (!target.closest('.translation-dropdown')) {
+        // Only close if clicking outside the dropdown menu AND the button
+        if (!target.closest('.translation-dropdown-menu') && !target.closest('.translation-button')) {
           setIsOpen(false);
         }
       }
@@ -68,14 +79,15 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
+    // Use capture phase to catch clicks before they bubble
+    eventTarget.addEventListener('click', handleClickOutside, true);
     document.addEventListener('dropdown-open', handleCloseDropdown as EventListener);
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      eventTarget.removeEventListener('click', handleClickOutside, true);
       document.removeEventListener('dropdown-open', handleCloseDropdown as EventListener);
     };
-  }, [isOpen]);
+  }, [isOpen, shadowRoot]);
 
   const handleTranslationSelect = (translation: BibleTranslation) => {
     if (onTranslationChange) {
@@ -88,7 +100,8 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
     <>
       <div className="mb-10">
         <div className="verse-reference-container">
-          <p ref={verseReferenceRef} className="verse-reference">
+          <div ref={verseReferenceRef} className="verse-reference">
+            <div ref={leftLineRef} className="verse-reference-line left" />
             <span>{verse.reference}</span>
             <span className="translation-dropdown">
               <button 
@@ -144,7 +157,8 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
                 </div>
               )}
             </span>
-          </p>
+            <div ref={rightLineRef} className="verse-reference-line right" />
+          </div>
         </div>
         <p ref={verseTextRef} className="verse-text">
           "{verse.text}"

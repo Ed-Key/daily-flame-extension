@@ -22,7 +22,8 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     const handleClickOutside = (event: Event) => {
       if (showDropdown) {
         const target = event.target as Element;
-        if (!target.closest('.profile-dropdown')) {
+        // Close if clicking outside the dropdown menu AND the button
+        if (!target.closest('.profile-dropdown-menu') && !target.closest('.profile-button')) {
           setShowDropdown(false);
         }
       }
@@ -35,11 +36,12 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
       }
     };
 
-    eventTarget.addEventListener('click', handleClickOutside);
+    // Use capture phase to catch clicks before they bubble
+    eventTarget.addEventListener('click', handleClickOutside, true);
     document.addEventListener('dropdown-open', handleCloseDropdown as EventListener);
 
     return () => {
-      eventTarget.removeEventListener('click', handleClickOutside);
+      eventTarget.removeEventListener('click', handleClickOutside, true);
       document.removeEventListener('dropdown-open', handleCloseDropdown as EventListener);
     };
   }, [showDropdown, shadowRoot]);

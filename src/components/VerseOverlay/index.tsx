@@ -201,7 +201,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     const refs = verseDisplayRef.current;
     if (!refs || !verseContentRef.current) return;
 
-    const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef } = refs;
+    const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
     
     // Split verse text into letters for letter-by-letter animation
     if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
@@ -336,6 +336,17 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           clearProps: "opacity,transform,y,scale,display",
           stagger: 0.05 // Small stagger for smooth appearance
         }, "-=0.4")
+        
+        // Animate decorative lines by adding the animate class
+        .set([leftLineRef.current, rightLineRef.current], {
+          onComplete: () => {
+            // Add the animate class to trigger CSS transition
+            if (leftLineRef.current && rightLineRef.current) {
+              leftLineRef.current.classList.add('animate');
+              rightLineRef.current.classList.add('animate');
+            }
+          }
+        }, "-=0.2")
         
         // Add final whole sentence glow effect - gradual build-up
         .to([letterElements, openingQuote, closingQuote], {

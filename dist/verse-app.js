@@ -65685,7 +65685,8 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
         const handleClickOutside = (event) => {
             if (showDropdown) {
                 const target = event.target;
-                if (!target.closest('.profile-dropdown')) {
+                // Close if clicking outside the dropdown menu AND the button
+                if (!target.closest('.profile-dropdown-menu') && !target.closest('.profile-button')) {
                     setShowDropdown(false);
                 }
             }
@@ -65696,10 +65697,11 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
                 setShowDropdown(false);
             }
         };
-        eventTarget.addEventListener('click', handleClickOutside);
+        // Use capture phase to catch clicks before they bubble
+        eventTarget.addEventListener('click', handleClickOutside, true);
         document.addEventListener('dropdown-open', handleCloseDropdown);
         return () => {
-            eventTarget.removeEventListener('click', handleClickOutside);
+            eventTarget.removeEventListener('click', handleClickOutside, true);
             document.removeEventListener('dropdown-open', handleCloseDropdown);
         };
     }, [showDropdown, shadowRoot]);
@@ -65787,16 +65789,20 @@ const TRANSLATION_NAMES = {
     'WEB_BRITISH': 'World English Bible (British)',
     'WEB_UPDATED': 'World English Bible (Updated)'
 };
-const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse, onDone, onMore, onTranslationChange, isAdmin = false }, ref) => {
+const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse, onDone, onMore, onTranslationChange, shadowRoot, isAdmin = false }, ref) => {
     const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const verseTextRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const verseReferenceRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const leftLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const rightLineRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const doneButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const moreButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     // Expose refs to parent
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useImperativeHandle)(ref, () => ({
         verseTextRef,
         verseReferenceRef,
+        leftLineRef,
+        rightLineRef,
         doneButtonRef,
         moreButtonRef
     }));
@@ -65808,11 +65814,14 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
     const currentTranslation = getTranslationName(verse.bibleId);
     // Handle click outside to close dropdown - matching ProfileDropdown implementation
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        // Get the event target (shadowRoot or document)
+        const eventTarget = shadowRoot || document;
         // Click outside handler
         const handleClickOutside = (event) => {
             if (isOpen) {
                 const target = event.target;
-                if (!target.closest('.translation-dropdown')) {
+                // Only close if clicking outside the dropdown menu AND the button
+                if (!target.closest('.translation-dropdown-menu') && !target.closest('.translation-button')) {
                     setIsOpen(false);
                 }
             }
@@ -65823,20 +65832,21 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
                 setIsOpen(false);
             }
         };
-        document.addEventListener('click', handleClickOutside);
+        // Use capture phase to catch clicks before they bubble
+        eventTarget.addEventListener('click', handleClickOutside, true);
         document.addEventListener('dropdown-open', handleCloseDropdown);
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+            eventTarget.removeEventListener('click', handleClickOutside, true);
             document.removeEventListener('dropdown-open', handleCloseDropdown);
         };
-    }, [isOpen]);
+    }, [isOpen, shadowRoot]);
     const handleTranslationSelect = (translation) => {
         if (onTranslationChange) {
             onTranslationChange(translation);
         }
         setIsOpen(false);
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "verse-reference-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseReferenceRef, className: "verse-reference", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: verse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "translation-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `translation-button ${isOpen ? 'translation-button--open' : ''}`, onClick: () => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "mb-10", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "verse-reference-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseReferenceRef, className: "verse-reference", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: leftLineRef, className: "verse-reference-line left" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: verse.reference }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "translation-dropdown", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `translation-button ${isOpen ? 'translation-button--open' : ''}`, onClick: () => {
                                                 const newState = !isOpen;
                                                 setIsOpen(newState);
                                                 if (newState) {
@@ -65845,7 +65855,7 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
                                                         detail: { source: 'translation' }
                                                     }));
                                                 }
-                                            }, type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translation-button__text", children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "translation-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M7 10L12 15", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M17 10L12 15", strokeWidth: "2", strokeLinecap: "round" })] })] }), isOpen && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "translation-dropdown-menu", children: Object.entries(TRANSLATION_NAMES).map(([key, name]) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: `translation-option ${currentTranslation === key ? 'translation-option--active' : ''}`, onClick: () => handleTranslationSelect(key), type: "button", children: name }, key))) }))] })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
+                                            }, type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translation-button__text", children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "translation-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M7 10L12 15", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M17 10L12 15", strokeWidth: "2", strokeLinecap: "round" })] })] }), isOpen && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "translation-dropdown-menu", children: Object.entries(TRANSLATION_NAMES).map(([key, name]) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: `translation-option ${currentTranslation === key ? 'translation-option--active' : ''}`, onClick: () => handleTranslationSelect(key), type: "button", children: name }, key))) }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
 });
 VerseDisplay.displayName = 'VerseDisplay';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseDisplay);
@@ -66131,7 +66141,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         const refs = verseDisplayRef.current;
         if (!refs || !verseContentRef.current)
             return;
-        const { verseTextRef, verseReferenceRef, doneButtonRef, moreButtonRef } = refs;
+        const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
         // Split verse text into letters for letter-by-letter animation
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
@@ -66249,6 +66259,16 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     clearProps: "opacity,transform,y,scale,display",
                     stagger: 0.05 // Small stagger for smooth appearance
                 }, "-=0.4")
+                    // Animate decorative lines by adding the animate class
+                    .set([leftLineRef.current, rightLineRef.current], {
+                    onComplete: () => {
+                        // Add the animate class to trigger CSS transition
+                        if (leftLineRef.current && rightLineRef.current) {
+                            leftLineRef.current.classList.add('animate');
+                            rightLineRef.current.classList.add('animate');
+                        }
+                    }
+                }, "-=0.2")
                     // Add final whole sentence glow effect - gradual build-up
                     .to([letterElements, openingQuote, closingQuote], {
                     opacity: 1,
@@ -69921,12 +69941,18 @@ const translationDropdownStyles = `
     outline: none;
   }
 
-  /* Open state background */
+  /* Open state background - maintain hover appearance */
   .translation-button--open {
+    opacity: 0.7; /* Same as hover state */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     padding: 4px 8px;
     /* No negative margin - let it naturally expand */
+  }
+  
+  /* Ensure open state maintains dim appearance even without hover */
+  .translation-button--open:not(:hover) {
+    opacity: 0.7;
   }
 
   /* Translation text */
@@ -69962,10 +69988,11 @@ const translationDropdownStyles = `
     background-color: rgb(26, 26, 26) !important; /* Solid dark background */
     background: rgb(26, 26, 26) !important; /* Fallback */
     border-radius: 0.5rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
     z-index: 1000 !important; /* Higher z-index than modal content */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
     opacity: 1 !important; /* Ensure full opacity */
+    padding: 1 !important; 
   }
 
   /* Translation Option Items */
@@ -70162,10 +70189,36 @@ const getShadowDomStyles = () => {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
-      justify-content: flex-start !important;
+      justify-content: center !important; /* Center the content */
       margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
       overflow: visible !important;
+    }
+    
+    /* Decorative lines for verse reference */
+    .verse-reference-line {
+      position: absolute !important;
+      top: 50% !important;
+      height: 1px !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      width: 0 !important; /* Start with no width for animation */
+      transition: width 0.8s ease-out !important;
+      transform: translateY(-50%) !important;
+    }
+    
+    .verse-reference-line.left {
+      right: calc(100% - 5px) !important; /* Account for parent padding */
+      margin-right: 0 !important; /* Start right at the edge */
+    }
+    
+    .verse-reference-line.right {
+      left: calc(100% - 5px) !important; /* Account for parent padding */
+      margin-left: 0 !important; /* Start right at the edge */
+    }
+    
+    .verse-reference-line.animate {
+      width: 70% !important;
+      max-width: 200px !important;
     }
     
     /* Verse reference */
@@ -70182,6 +70235,7 @@ const getShadowDomStyles = () => {
       display: flex !important;
       align-items: baseline !important;
       gap: 1px !important;
+      overflow: visible !important; /* Allow lines to extend outside */
     }
     
     /* Translation button with chevron */
@@ -71014,11 +71068,11 @@ const getShadowDomStyles = () => {
       }
       
       .verse-reference-line.left {
-        margin-right: 50px !important;
+        margin-right: 0 !important;
       }
       
       .verse-reference-line.right {
-        margin-left: 50px !important;
+        margin-left: 0 !important;
       }
       
       .verse-reference-line.animate {
@@ -71067,11 +71121,11 @@ const getShadowDomStyles = () => {
       }
       
       .verse-reference-line.left {
-        margin-right: 40px !important;
+        margin-right: 0 !important;
       }
       
       .verse-reference-line.right {
-        margin-left: 40px !important;
+        margin-left: 0 !important;
       }
       
       .verse-reference-line.animate {

@@ -128,10 +128,36 @@ export const getShadowDomStyles = (): string => {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
-      justify-content: flex-start !important;
+      justify-content: center !important; /* Center the content */
       margin-bottom: 20px !important; /* Space before verse text */
       width: 100% !important;
       overflow: visible !important;
+    }
+    
+    /* Decorative lines for verse reference */
+    .verse-reference-line {
+      position: absolute !important;
+      top: 50% !important;
+      height: 1px !important;
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      width: 0 !important; /* Start with no width for animation */
+      transition: width 0.8s ease-out !important;
+      transform: translateY(-50%) !important;
+    }
+    
+    .verse-reference-line.left {
+      right: calc(100% - 5px) !important; /* Account for parent padding */
+      margin-right: 0 !important; /* Start right at the edge */
+    }
+    
+    .verse-reference-line.right {
+      left: calc(100% - 5px) !important; /* Account for parent padding */
+      margin-left: 0 !important; /* Start right at the edge */
+    }
+    
+    .verse-reference-line.animate {
+      width: 70% !important;
+      max-width: 200px !important;
     }
     
     /* Verse reference */
@@ -148,6 +174,7 @@ export const getShadowDomStyles = (): string => {
       display: flex !important;
       align-items: baseline !important;
       gap: 1px !important;
+      overflow: visible !important; /* Allow lines to extend outside */
     }
     
     /* Translation button with chevron */
@@ -980,11 +1007,11 @@ export const getShadowDomStyles = (): string => {
       }
       
       .verse-reference-line.left {
-        margin-right: 50px !important;
+        margin-right: 0 !important;
       }
       
       .verse-reference-line.right {
-        margin-left: 50px !important;
+        margin-left: 0 !important;
       }
       
       .verse-reference-line.animate {
@@ -1033,11 +1060,11 @@ export const getShadowDomStyles = (): string => {
       }
       
       .verse-reference-line.left {
-        margin-right: 40px !important;
+        margin-right: 0 !important;
       }
       
       .verse-reference-line.right {
-        margin-left: 40px !important;
+        margin-left: 0 !important;
       }
       
       .verse-reference-line.animate {

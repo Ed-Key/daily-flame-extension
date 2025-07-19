@@ -36,12 +36,18 @@ export const translationDropdownStyles = `
     outline: none;
   }
 
-  /* Open state background */
+  /* Open state background - maintain hover appearance */
   .translation-button--open {
+    opacity: 0.7; /* Same as hover state */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     padding: 4px 8px;
     /* No negative margin - let it naturally expand */
+  }
+  
+  /* Ensure open state maintains dim appearance even without hover */
+  .translation-button--open:not(:hover) {
+    opacity: 0.7;
   }
 
   /* Translation text */
@@ -77,10 +83,11 @@ export const translationDropdownStyles = `
     background-color: rgb(26, 26, 26) !important; /* Solid dark background */
     background: rgb(26, 26, 26) !important; /* Fallback */
     border-radius: 0.5rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
     z-index: 1000 !important; /* Higher z-index than modal content */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
     opacity: 1 !important; /* Ensure full opacity */
+    padding: 1 !important; 
   }
 
   /* Translation Option Items */
