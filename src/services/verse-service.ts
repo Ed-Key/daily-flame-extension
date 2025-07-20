@@ -256,12 +256,16 @@ export class VerseService {
 
   static async getDailyVerse(): Promise<VerseData> {
     try {
+      // Get user's preferred translation
+      const preferredTranslation = await this.getTranslationPreference();
+      const bibleId = BIBLE_VERSIONS[preferredTranslation];
+      
       // First try to get today's verse from Firestore
       const todaysVerse = await FirestoreService.getTodaysVerse();
       
       if (todaysVerse) {
-        // Use the verse for today's date from Firestore
-        return await this.getVerse(todaysVerse.reference, 'ESV');
+        // Use the verse for today's date from Firestore with preferred translation
+        return await this.getVerse(todaysVerse.reference, bibleId);
       }
       
       // If no verse for today, try to get all verses and use modulo
@@ -274,7 +278,7 @@ export class VerseService {
         const verseIndex = dayOfYear % allVerses.length;
         const selectedVerse = allVerses[verseIndex];
         
-        return await this.getVerse(selectedVerse.reference, 'ESV');
+        return await this.getVerse(selectedVerse.reference, bibleId);
       }
       
       // Final fallback to stored verses
@@ -295,13 +299,17 @@ export class VerseService {
       throw new Error('No verses configured');
     }
     
+    // Get user's preferred translation
+    const preferredTranslation = await this.getTranslationPreference();
+    const bibleId = BIBLE_VERSIONS[preferredTranslation];
+    
     // Use date as seed for consistent daily verse (based on local timezone)
     const today = new Date();
     const dayOfYear = getDayOfYear(today);
     const verseIndex = dayOfYear % verses.length;
     
     const selectedVerse = verses[verseIndex];
-    return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
+    return await this.getVerse(selectedVerse.reference, bibleId);
   }
 
 
@@ -335,6 +343,24 @@ export class VerseService {
     return new Promise((resolve) => {
       chrome.storage.local.set({ verseList: verses }, () => {
         resolve(true);
+      });
+    });
+  }
+
+  // Translation preference methods
+  static async saveTranslationPreference(translation: BibleTranslation): Promise<void> {
+    return new Promise((resolve) => {
+      chrome.storage.local.set({ preferredTranslation: translation }, () => {
+        resolve();
+      });
+    });
+  }
+
+  static async getTranslationPreference(): Promise<BibleTranslation> {
+    return new Promise((resolve) => {
+      chrome.storage.local.get('preferredTranslation', (result) => {
+        // Default to ESV if no preference is saved
+        resolve(result.preferredTranslation || 'ESV');
       });
     });
   }

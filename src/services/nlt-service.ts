@@ -18,16 +18,31 @@ export class NLTService {
       
       const html = await response.text();
       
-      // Extract text using regex instead of DOMParser (which isn't available in background script)
-      // Match the verse content between <p> tags, excluding footnotes
-      const verseMatch = html.match(/<p[^>]*class="body[^"]*"[^>]*>(.*?)<\/p>/s);
+      // Extract text from verse_export tags which contain the verse content
+      const verseExportMatch = html.match(/<verse_export[^>]*>(.*?)<\/verse_export>/s);
       
-      if (!verseMatch || !verseMatch[1]) {
+      if (!verseExportMatch || !verseExportMatch[1]) {
         throw new Error('No verse content found');
       }
       
-      // Clean up the text: remove HTML tags, footnotes, etc.
-      let text = verseMatch[1]
+      // Extract all paragraph content within verse_export
+      // Handles both prose (class="body") and poetry (class="poet1", "poet2", etc.)
+      // Also handles cases where </p> might be missing (malformed HTML)
+      const paragraphs = verseExportMatch[1].matchAll(/<p[^>]*class="(?:body|poet\d*(?:-vn)?)[^"]*"[^>]*>(.*?)(?:<\/p>|$)/gs);
+      const textParts = [];
+      
+      for (const paragraph of paragraphs) {
+        if (paragraph[1]) {
+          textParts.push(paragraph[1]);
+        }
+      }
+      
+      if (textParts.length === 0) {
+        throw new Error('No verse content found in paragraphs');
+      }
+      
+      // Join all paragraph parts with spaces
+      let text = textParts.join(' ')
         .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a>/g, '') // Remove footnote markers
         .replace(/<span[^>]*class="tn"[^>]*>.*?<\/span>/g, '') // Remove footnote content
         .replace(/<span[^>]*class="vn"[^>]*>(\d+)<\/span>/g, '') // Remove verse numbers
@@ -85,7 +100,7 @@ export class NLTService {
   private static convertToNLTFormat(reference: string): string {
     // Convert "John 3:16" to "John.3.16" or "John 3:16-17" to "John.3.16-17"
     // Convert "John 3" to "John.3"
-    return reference.replace(/\s+(\d+):?/g, '.$1').replace(/\s+/g, '.');
+    return reference.replace(/\s+/g, '.').replace(/:/, '.');
   }
 
 }

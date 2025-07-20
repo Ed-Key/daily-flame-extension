@@ -17,6 +17,10 @@ export const profileDropdownStyles = `
     color: white;
   }
 
+  .profile-button:focus {
+    outline: none;
+  }
+
   .profile-button__name {
     font-size: 14px;
     color: white;

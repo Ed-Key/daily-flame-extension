@@ -65984,6 +65984,8 @@ __webpack_require__.r(__webpack_exports__);
 const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_5__.useAuth)();
     const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_6__.useToast)();
+    // Verse state - manage current verse for translation changes
+    const [currentVerse, setCurrentVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(verse);
     // Modal refs
     const overlayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
@@ -66053,17 +66055,17 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         setShowContext(true);
         setContextLoading(true);
         // Set initial translation based on current verse
-        const translationKey = Object.entries(_types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS).find(([_, id]) => id === verse.bibleId)?.[0] || 'ESV';
+        const translationKey = Object.entries(_types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS).find(([_, id]) => id === currentVerse.bibleId)?.[0] || 'ESV';
         setContextTranslation(translationKey);
         try {
             // Extract book and chapter from verse reference (e.g., "John 3:16" -> "John 3")
-            const chapterMatch = verse.reference.match(/^(.+?)\s+(\d+):/);
+            const chapterMatch = currentVerse.reference.match(/^(.+?)\s+(\d+):/);
             if (chapterMatch) {
                 const book = chapterMatch[1];
                 const chapter = chapterMatch[2];
                 const chapterRef = `${book} ${chapter}`;
                 // Fetch full chapter
-                const fullChapter = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getChapter(chapterRef, verse.bibleId);
+                const fullChapter = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getChapter(chapterRef, currentVerse.bibleId);
                 setChapterContent(fullChapter);
             }
         }
@@ -66171,22 +66173,13 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 const letters = word.split('').map((letter, letterIndex) => `<span class="verse-letter">${letter}</span>`).join('');
                 return `<span class="verse-word">${letters}</span>`;
             }).join(' '); // Join words with regular spaces
-            verseTextRef.current.innerHTML = `<span class="verse-quote opening-quote">"</span>${wordSpans}<span class="verse-quote closing-quote">"</span>`;
+            verseTextRef.current.innerHTML = wordSpans;
             // Get all animated elements
             const letterElements = verseContentRef.current.querySelectorAll('.verse-letter');
-            const openingQuote = verseContentRef.current.querySelector('.opening-quote');
-            const closingQuote = verseContentRef.current.querySelector('.closing-quote');
             console.log('Found elements:', {
-                letters: letterElements.length,
-                openingQuote: !!openingQuote,
-                closingQuote: !!closingQuote
+                letters: letterElements.length
             });
-            if (letterElements.length > 0 && openingQuote && closingQuote) {
-                // Set initial state for quotes
-                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set([openingQuote, closingQuote], {
-                    opacity: 0,
-                    display: 'inline-block'
-                });
+            if (letterElements.length > 0) {
                 // Set initial state for letters with minimal glow
                 gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(letterElements, {
                     opacity: 0,
@@ -66207,21 +66200,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                         console.log('GSAP timeline completed');
                     }
                 });
-                // Animate opening quote first with glow
-                tl.fromTo(openingQuote, {
-                    opacity: 0,
-                    textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
-                }, {
-                    opacity: 1,
-                    textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
-                    duration: 0.5,
-                    ease: "power2.out"
-                })
-                    .to(openingQuote, {
-                    textShadow: "0px 0px 0px rgba(255,255,255,0)",
-                    duration: 0.3,
-                    ease: "power2.out"
-                }, "-=0.1");
                 // Animate letters with staggered parallel execution matching CodePen
                 tl.to(letterElements, {
                     keyframes: [
@@ -66233,22 +66211,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     duration: 0.7,
                     ease: "none", // Linear to match CSS animation
                     stagger: 0.05 // 50ms delay between each letter start
-                }, "-=0.3");
-                // Animate closing quote with glow
-                tl.fromTo(closingQuote, {
-                    opacity: 0,
-                    textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
-                }, {
-                    opacity: 1,
-                    textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
-                    duration: 0.5,
-                    ease: "power2.out"
-                }, "-=0.2")
-                    .to(closingQuote, {
-                    textShadow: "0px 0px 0px rgba(255,255,255,0)",
-                    duration: 0.3,
-                    ease: "power2.out"
-                }, "-=0.1")
+                })
                     // Animate verse reference AND buttons together
                     .to([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                     opacity: 1,
@@ -66270,7 +66233,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     }
                 }, "-=0.2")
                     // Add final whole sentence glow effect - gradual build-up
-                    .to([letterElements, openingQuote, closingQuote], {
+                    .to(letterElements, {
                     opacity: 1,
                     textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
                     duration: 1.2, // Slower, more gradual glow build-up
@@ -66287,6 +66250,69 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             console.error('One or more refs are null');
         }
     }, { dependencies: [verse.text, verse.reference], scope: verseContentRef });
+    // Track initial mount for translation change animation
+    const isInitialMount = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(true);
+    // Separate animation for translation changes only
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        // Skip on initial mount
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            return;
+        }
+        // Only animate if we have the verse text ref
+        const refs = verseDisplayRef.current;
+        if (!refs || !refs.verseTextRef.current)
+            return;
+        const verseTextElement = refs.verseTextRef.current;
+        // Fade out current text
+        gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(verseTextElement, {
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.in",
+            onComplete: () => {
+                // Update the text content
+                const cleanText = currentVerse.text.replace(/\s+/g, ' ').trim();
+                const words = cleanText.split(' ').filter(word => word.length > 0);
+                const wordSpans = words.map((word) => {
+                    const letters = word.split('').map((letter) => `<span class="verse-letter">${letter}</span>`).join('');
+                    return `<span class="verse-word">${letters}</span>`;
+                }).join(' ');
+                verseTextElement.innerHTML = wordSpans;
+                // Get the new letter elements
+                const letterElements = verseTextElement.querySelectorAll('.verse-letter');
+                if (letterElements.length > 0) {
+                    // Set initial state for letters
+                    gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(letterElements, {
+                        opacity: 0,
+                        textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+                    });
+                    // Make container visible
+                    gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseTextElement, { opacity: 1 });
+                    // Animate letters with the same glow effect
+                    gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(letterElements, {
+                        keyframes: [
+                            { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
+                            { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 },
+                            { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.077 },
+                            { opacity: 0.7, textShadow: "0px 0px 20px rgba(255,255,255,0.0)", duration: 0.161 }
+                        ],
+                        duration: 0.7,
+                        ease: "none",
+                        stagger: 0.05,
+                        onComplete: () => {
+                            // Add final glow
+                            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(letterElements, {
+                                opacity: 1,
+                                textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
+                                duration: 1.2,
+                                ease: "power2.inOut"
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    }, [currentVerse.text]);
     // Custom shrink dismissal for backdrop click (temporary dismiss)
     const handleShrinkDismiss = () => {
         if (modalRef.current && overlayRef.current) {
@@ -66349,11 +66375,12 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         try {
             const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[newTranslation];
             // Fetch the verse in the new translation
-            const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(verse.reference, bibleId);
-            // Update the verse prop by calling parent's update mechanism
-            // Since we can't directly update the prop, we'll need to reload the page or update the stored verse
-            // For now, let's just reload the component with the new verse
-            window.location.reload();
+            const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(currentVerse.reference, bibleId);
+            // Save the translation preference
+            await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.saveTranslationPreference(newTranslation);
+            // Update the current verse state - this will trigger animation restart
+            setCurrentVerse(newVerse);
+            showToast(`Translation changed to ${newTranslation}`, 'success');
         }
         catch (error) {
             console.error('Error changing translation:', error);
@@ -66406,9 +66433,9 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
         });
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: verse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
                                 /* Context view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_12__["default"], { verse: verse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_12__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
                                     }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
@@ -68121,14 +68148,26 @@ class NLTService {
                 throw new Error(`NLT API request failed: ${response.status} - ${response.statusText}`);
             }
             const html = await response.text();
-            // Extract text using regex instead of DOMParser (which isn't available in background script)
-            // Match the verse content between <p> tags, excluding footnotes
-            const verseMatch = html.match(/<p[^>]*class="body[^"]*"[^>]*>(.*?)<\/p>/s);
-            if (!verseMatch || !verseMatch[1]) {
+            // Extract text from verse_export tags which contain the verse content
+            const verseExportMatch = html.match(/<verse_export[^>]*>(.*?)<\/verse_export>/s);
+            if (!verseExportMatch || !verseExportMatch[1]) {
                 throw new Error('No verse content found');
             }
-            // Clean up the text: remove HTML tags, footnotes, etc.
-            let text = verseMatch[1]
+            // Extract all paragraph content within verse_export
+            // Handles both prose (class="body") and poetry (class="poet1", "poet2", etc.)
+            // Also handles cases where </p> might be missing (malformed HTML)
+            const paragraphs = verseExportMatch[1].matchAll(/<p[^>]*class="(?:body|poet\d*(?:-vn)?)[^"]*"[^>]*>(.*?)(?:<\/p>|$)/gs);
+            const textParts = [];
+            for (const paragraph of paragraphs) {
+                if (paragraph[1]) {
+                    textParts.push(paragraph[1]);
+                }
+            }
+            if (textParts.length === 0) {
+                throw new Error('No verse content found in paragraphs');
+            }
+            // Join all paragraph parts with spaces
+            let text = textParts.join(' ')
                 .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a>/g, '') // Remove footnote markers
                 .replace(/<span[^>]*class="tn"[^>]*>.*?<\/span>/g, '') // Remove footnote content
                 .replace(/<span[^>]*class="vn"[^>]*>(\d+)<\/span>/g, '') // Remove verse numbers
@@ -68178,7 +68217,7 @@ class NLTService {
     static convertToNLTFormat(reference) {
         // Convert "John 3:16" to "John.3.16" or "John 3:16-17" to "John.3.16-17"
         // Convert "John 3" to "John.3"
-        return reference.replace(/\s+(\d+):?/g, '.$1').replace(/\s+/g, '.');
+        return reference.replace(/\s+/g, '.').replace(/:/, '.');
     }
 }
 NLTService.API_KEY = 'd74333ee-8951-45dc-9925-5074a8ad2f07';
@@ -69576,11 +69615,14 @@ class VerseService {
     }
     static async getDailyVerse() {
         try {
+            // Get user's preferred translation
+            const preferredTranslation = await this.getTranslationPreference();
+            const bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS[preferredTranslation];
             // First try to get today's verse from Firestore
             const todaysVerse = await _firestore_service__WEBPACK_IMPORTED_MODULE_3__.FirestoreService.getTodaysVerse();
             if (todaysVerse) {
-                // Use the verse for today's date from Firestore
-                return await this.getVerse(todaysVerse.reference, 'ESV');
+                // Use the verse for today's date from Firestore with preferred translation
+                return await this.getVerse(todaysVerse.reference, bibleId);
             }
             // If no verse for today, try to get all verses and use modulo
             const allVerses = await _firestore_service__WEBPACK_IMPORTED_MODULE_3__.FirestoreService.getAllVerses();
@@ -69590,7 +69632,7 @@ class VerseService {
                 const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
                 const verseIndex = dayOfYear % allVerses.length;
                 const selectedVerse = allVerses[verseIndex];
-                return await this.getVerse(selectedVerse.reference, 'ESV');
+                return await this.getVerse(selectedVerse.reference, bibleId);
             }
             // Final fallback to stored verses
             console.warn('Firestore unavailable, falling back to default verses');
@@ -69607,12 +69649,15 @@ class VerseService {
         if (!verses || verses.length === 0) {
             throw new Error('No verses configured');
         }
+        // Get user's preferred translation
+        const preferredTranslation = await this.getTranslationPreference();
+        const bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS[preferredTranslation];
         // Use date as seed for consistent daily verse (based on local timezone)
         const today = new Date();
         const dayOfYear = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_4__.getDayOfYear)(today);
         const verseIndex = dayOfYear % verses.length;
         const selectedVerse = verses[verseIndex];
-        return await this.getVerse(selectedVerse.reference, selectedVerse.bibleId);
+        return await this.getVerse(selectedVerse.reference, bibleId);
     }
     static async getStoredVerses() {
         // First try to get verses from Firestore
@@ -69642,6 +69687,22 @@ class VerseService {
         return new Promise((resolve) => {
             chrome.storage.local.set({ verseList: verses }, () => {
                 resolve(true);
+            });
+        });
+    }
+    // Translation preference methods
+    static async saveTranslationPreference(translation) {
+        return new Promise((resolve) => {
+            chrome.storage.local.set({ preferredTranslation: translation }, () => {
+                resolve();
+            });
+        });
+    }
+    static async getTranslationPreference() {
+        return new Promise((resolve) => {
+            chrome.storage.local.get('preferredTranslation', (result) => {
+                // Default to ESV if no preference is saved
+                resolve(result.preferredTranslation || 'ESV');
             });
         });
     }
@@ -69779,6 +69840,10 @@ const profileDropdownStyles = `
     cursor: pointer;
     padding: 0;
     color: white;
+  }
+
+  .profile-button:focus {
+    outline: none;
   }
 
   .profile-button__name {

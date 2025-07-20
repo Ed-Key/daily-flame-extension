@@ -22,6 +22,9 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = useAuth();
   const { showToast } = useToast();
   
+  // Verse state - manage current verse for translation changes
+  const [currentVerse, setCurrentVerse] = useState<VerseData>(verse);
+  
   // Modal refs
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -100,19 +103,19 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     setContextLoading(true);
     
     // Set initial translation based on current verse
-    const translationKey = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === verse.bibleId)?.[0] as BibleTranslation || 'ESV';
+    const translationKey = Object.entries(BIBLE_VERSIONS).find(([_, id]) => id === currentVerse.bibleId)?.[0] as BibleTranslation || 'ESV';
     setContextTranslation(translationKey);
     
     try {
       // Extract book and chapter from verse reference (e.g., "John 3:16" -> "John 3")
-      const chapterMatch = verse.reference.match(/^(.+?)\s+(\d+):/);
+      const chapterMatch = currentVerse.reference.match(/^(.+?)\s+(\d+):/);
       if (chapterMatch) {
         const book = chapterMatch[1];
         const chapter = chapterMatch[2];
         const chapterRef = `${book} ${chapter}`;
         
         // Fetch full chapter
-        const fullChapter = await VerseService.getChapter(chapterRef, verse.bibleId);
+        const fullChapter = await VerseService.getChapter(chapterRef, currentVerse.bibleId);
         setChapterContent(fullChapter);
       }
     } catch (error) {
@@ -239,24 +242,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         return `<span class="verse-word">${letters}</span>`;
       }).join(' '); // Join words with regular spaces
       
-      verseTextRef.current.innerHTML = `<span class="verse-quote opening-quote">"</span>${wordSpans}<span class="verse-quote closing-quote">"</span>`;
+      verseTextRef.current.innerHTML = wordSpans;
     
       // Get all animated elements
       const letterElements = verseContentRef.current.querySelectorAll('.verse-letter');
-      const openingQuote = verseContentRef.current.querySelector('.opening-quote');
-      const closingQuote = verseContentRef.current.querySelector('.closing-quote');
       console.log('Found elements:', {
-        letters: letterElements.length,
-        openingQuote: !!openingQuote,
-        closingQuote: !!closingQuote
+        letters: letterElements.length
       });
       
-      if (letterElements.length > 0 && openingQuote && closingQuote) {
-        // Set initial state for quotes
-        gsap.set([openingQuote, closingQuote], {
-          opacity: 0,
-          display: 'inline-block'
-        });
+      if (letterElements.length > 0) {
         
         // Set initial state for letters with minimal glow
         gsap.set(letterElements, {
@@ -281,22 +275,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           }
         });
         
-        // Animate opening quote first with glow
-        tl.fromTo(openingQuote, {
-          opacity: 0,
-          textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
-        }, {
-          opacity: 1,
-          textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
-          duration: 0.5,
-          ease: "power2.out"
-        })
-        .to(openingQuote, {
-          textShadow: "0px 0px 0px rgba(255,255,255,0)",
-          duration: 0.3,
-          ease: "power2.out"
-        }, "-=0.1");
-        
         // Animate letters with staggered parallel execution matching CodePen
         tl.to(letterElements, {
           keyframes: [
@@ -308,23 +286,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           duration: 0.7,
           ease: "none", // Linear to match CSS animation
           stagger: 0.05 // 50ms delay between each letter start
-        }, "-=0.3");
-        
-        // Animate closing quote with glow
-        tl.fromTo(closingQuote, {
-          opacity: 0,
-          textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
-        }, {
-          opacity: 1,
-          textShadow: "0px 0px 20px rgba(255,255,255,0.9)",
-          duration: 0.5,
-          ease: "power2.out"
-        }, "-=0.2")
-        .to(closingQuote, {
-          textShadow: "0px 0px 0px rgba(255,255,255,0)",
-          duration: 0.3,
-          ease: "power2.out"
-        }, "-=0.1")
+        })
         
         // Animate verse reference AND buttons together
         .to([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
@@ -349,7 +311,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         }, "-=0.2")
         
         // Add final whole sentence glow effect - gradual build-up
-        .to([letterElements, openingQuote, closingQuote], {
+        .to(letterElements, {
           opacity: 1,
           textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
           duration: 1.2,  // Slower, more gradual glow build-up
@@ -366,6 +328,80 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     }
 
   }, { dependencies: [verse.text, verse.reference], scope: verseContentRef });
+
+  // Track initial mount for translation change animation
+  const isInitialMount = useRef(true);
+
+  // Separate animation for translation changes only
+  useEffect(() => {
+    // Skip on initial mount
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    // Only animate if we have the verse text ref
+    const refs = verseDisplayRef.current;
+    if (!refs || !refs.verseTextRef.current) return;
+
+    const verseTextElement = refs.verseTextRef.current;
+
+    // Fade out current text
+    gsap.to(verseTextElement, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        // Update the text content
+        const cleanText = currentVerse.text.replace(/\s+/g, ' ').trim();
+        const words = cleanText.split(' ').filter(word => word.length > 0);
+        const wordSpans = words.map((word) => {
+          const letters = word.split('').map((letter) => 
+            `<span class="verse-letter">${letter}</span>`
+          ).join('');
+          return `<span class="verse-word">${letters}</span>`;
+        }).join(' ');
+        
+        verseTextElement.innerHTML = wordSpans;
+
+        // Get the new letter elements
+        const letterElements = verseTextElement.querySelectorAll('.verse-letter');
+        
+        if (letterElements.length > 0) {
+          // Set initial state for letters
+          gsap.set(letterElements, {
+            opacity: 0,
+            textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
+          });
+
+          // Make container visible
+          gsap.set(verseTextElement, { opacity: 1 });
+
+          // Animate letters with the same glow effect
+          gsap.to(letterElements, {
+            keyframes: [
+              { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
+              { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 },
+              { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.077 },
+              { opacity: 0.7, textShadow: "0px 0px 20px rgba(255,255,255,0.0)", duration: 0.161 }
+            ],
+            duration: 0.7,
+            ease: "none",
+            stagger: 0.05,
+            onComplete: () => {
+              // Add final glow
+              gsap.to(letterElements, {
+                opacity: 1,
+                textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
+                duration: 1.2,
+                ease: "power2.inOut"
+              });
+            }
+          });
+        }
+      }
+    });
+  }, [currentVerse.text]);
 
   // Custom shrink dismissal for backdrop click (temporary dismiss)
   const handleShrinkDismiss = () => {
@@ -437,12 +473,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     try {
       const bibleId = BIBLE_VERSIONS[newTranslation];
       // Fetch the verse in the new translation
-      const newVerse = await VerseService.getVerse(verse.reference, bibleId);
+      const newVerse = await VerseService.getVerse(currentVerse.reference, bibleId);
       
-      // Update the verse prop by calling parent's update mechanism
-      // Since we can't directly update the prop, we'll need to reload the page or update the stored verse
-      // For now, let's just reload the component with the new verse
-      window.location.reload();
+      // Save the translation preference
+      await VerseService.saveTranslationPreference(newTranslation);
+      
+      // Update the current verse state - this will trigger animation restart
+      setCurrentVerse(newVerse);
+      
+      showToast(`Translation changed to ${newTranslation}`, 'success');
     } catch (error) {
       console.error('Error changing translation:', error);
       showToast('Failed to change translation', 'error');
@@ -535,7 +574,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
             {!showContext ? (
               <VerseDisplay
                 ref={verseDisplayRef}
-                verse={verse}
+                verse={currentVerse}
                 onDone={handleAnimatedDismiss}
                 onMore={handleMoreClick}
                 onTranslationChange={handleVerseTranslationChange}
@@ -545,7 +584,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
             ) : (
               /* Context view */
               <ContextView
-                verse={verse}
+                verse={currentVerse}
                 chapterContent={chapterContent}
                 contextLoading={contextLoading}
                 contextTranslation={contextTranslation}
