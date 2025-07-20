@@ -44,16 +44,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const result = await chrome.storage.local.get(['authUser', 'authTimestamp']);
         
         if (result.authUser && result.authTimestamp) {
-          // Check if auth state is still valid (24 hours)
-          const isExpired = Date.now() - result.authTimestamp > 24 * 60 * 60 * 1000;
-          
-          if (!isExpired) {
-            console.log('✅ [DEBUG] Restored valid auth state from storage:', result.authUser);
-            setUser(result.authUser);
-          } else {
-            console.log('⏰ [DEBUG] Stored auth state expired');
-            await chrome.storage.local.remove(['authUser', 'authTimestamp']);
-          }
+          // Auth state persists indefinitely until user signs out
+          console.log('✅ [DEBUG] Restored auth state from storage:', result.authUser);
+          // Log how long user has been signed in (for debugging)
+          const hoursSignedIn = Math.floor((Date.now() - result.authTimestamp) / (1000 * 60 * 60));
+          console.log(`⏱️ [DEBUG] User has been signed in for ${hoursSignedIn} hours`);
+          setUser(result.authUser);
         } else {
           console.log('🚪 [DEBUG] No stored auth state found');
         }

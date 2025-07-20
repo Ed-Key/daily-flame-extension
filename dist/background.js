@@ -211,16 +211,12 @@ async function storeAuthState(user) {
 async function getStoredAuthState() {
     const result = await chrome.storage.local.get(['authUser', 'authTimestamp']);
     if (result.authUser && result.authTimestamp) {
-        // Check if auth state is still valid (24 hours)
-        const isExpired = Date.now() - result.authTimestamp > 24 * 60 * 60 * 1000;
-        if (!isExpired) {
-            console.log('Background: Retrieved valid auth state from Chrome storage');
-            return result.authUser;
-        }
-        else {
-            console.log('Background: Stored auth state expired');
-            await chrome.storage.local.remove(['authUser', 'authTimestamp']);
-        }
+        // Auth state persists indefinitely until user signs out
+        console.log('Background: Retrieved auth state from Chrome storage');
+        // Log how long user has been signed in (for debugging)
+        const hoursSignedIn = Math.floor((Date.now() - result.authTimestamp) / (1000 * 60 * 60));
+        console.log(`Background: User has been signed in for ${hoursSignedIn} hours`);
+        return result.authUser;
     }
     return null;
 }

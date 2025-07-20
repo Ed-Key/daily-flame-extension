@@ -14,7 +14,7 @@ import {
   sendEmailVerification,
   signOut,
   setPersistence,
-  browserSessionPersistence
+  browserLocalPersistence
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
 // Your Firebase configuration
@@ -37,9 +37,9 @@ console.log(`[${new Date().toISOString()}] Auth handler initialized`);
 let authReady = false;
 let currentPopupOperation = null;
 
-// Set persistence to session only to avoid stale auth states
-setPersistence(auth, browserSessionPersistence).then(() => {
-  console.log(`[${new Date().toISOString()}] Auth persistence set to session only`);
+// Set persistence to local storage for persistent sign-in
+setPersistence(auth, browserLocalPersistence).then(() => {
+  console.log(`[${new Date().toISOString()}] Auth persistence set to local storage (persistent)`);
 }).catch((error) => {
   console.error(`[${new Date().toISOString()}] Error setting persistence:`, error);
 });
