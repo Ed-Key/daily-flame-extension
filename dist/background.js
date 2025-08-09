@@ -475,36 +475,6 @@ async function handleAuthAction(action, data) {
         });
     });
 }
-// Periodically verify auth state is still valid
-async function verifyAuthState() {
-    if (!currentUser)
-        return;
-    try {
-        console.log('Background: Verifying auth state...');
-        const result = await handleAuthAction('verifyAuthState', {});
-        if (!result.isValid) {
-            console.log('Background: Auth state is no longer valid, clearing...');
-            currentUser = null;
-            await chrome.storage.local.remove(['authUser', 'authTimestamp']);
-            // Notify all tabs
-            chrome.tabs.query({}, (tabs) => {
-                tabs.forEach(tab => {
-                    if (tab.id) {
-                        chrome.tabs.sendMessage(tab.id, {
-                            action: 'authStateChanged',
-                            user: null
-                        }).catch(() => { });
-                    }
-                });
-            });
-        }
-    }
-    catch (error) {
-        console.error('Background: Error verifying auth state:', error);
-    }
-}
-// Set up periodic auth verification (every 5 minutes)
-setInterval(verifyAuthState, 5 * 60 * 1000);
 // Handle extension icon clicks - always show verse overlay first
 chrome.action.onClicked.addListener((tab) => {
     if (!tab.id || !tab.url) {

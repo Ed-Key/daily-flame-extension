@@ -121,7 +121,7 @@ class PreferencesService {
 - Clear examples/explanations in UI about how acknowledgment works
 
 **Implementation Steps**:
-1. Add Settings button to ProfileDropdown
+1. Add these settings to ProfileDropdown
 2. Create PreferencesModal component
 3. Implement PreferencesService for storage
 4. Update monitor.ts to check acknowledgment periods

@@ -36,3 +36,8 @@ export interface ContextViewProps {
   onDone: () => void;
   onTranslationChange: (translation: string) => void;
 }
+
+export interface ThemeToggleProps {
+  theme?: 'light' | 'dark';
+  onToggle: () => void;
+}

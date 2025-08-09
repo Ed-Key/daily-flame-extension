@@ -137,4 +137,19 @@ export const translationDropdownStyles = `
   .translation-option--active:hover {
     background-color: rgb(64, 64, 64) !important; /* Slightly lighter on hover */
   }
+
+  /* Round corners for first option to match menu */
+  .translation-option:first-child {
+    border-radius: 0.5rem 0.5rem 0 0 !important; /* top-left top-right bottom-right bottom-left */
+  }
+
+  /* Round corners for last option to match menu */
+  .translation-option:last-child {
+    border-radius: 0 0 0.5rem 0.5rem !important;
+  }
+
+  /* If there's only one option, round all corners */
+  .translation-option:only-child {
+    border-radius: 0.5rem !important;
+  }
 `;

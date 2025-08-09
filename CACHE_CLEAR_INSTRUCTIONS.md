@@ -41,3 +41,4 @@ After clearing cache, you should see these logs in the console:
 - Use Incognito mode to test with a fresh environment
 - Hold Ctrl+F5 (Windows) or Cmd+Shift+R (Mac) for hard reload
 - Check the Network tab in DevTools to ensure fresh files are loaded
+

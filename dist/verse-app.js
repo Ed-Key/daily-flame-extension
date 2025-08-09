@@ -65758,6 +65758,26 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
 
 /***/ }),
 
+/***/ "./src/components/VerseOverlay/components/ThemeToggle.tsx":
+/*!****************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/ThemeToggle.tsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+const ThemeToggle = ({ theme = 'dark', onToggle }) => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "theme-toggle", onClick: onToggle, "aria-label": `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "theme-toggle__track", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: `theme-toggle__thumb ${theme === 'light' ? 'theme-toggle__thumb--light' : ''}`, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "theme-toggle__icon theme-toggle__icon--sun", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.591a.75.75 0 001.06 1.06l1.591-1.591zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06L6.166 5.106a.75.75 0 00-1.06 1.06l1.591 1.591z" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "theme-toggle__icon theme-toggle__icon--moon", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z", clipRule: "evenodd" }) })] }) }) }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ThemeToggle);
+
+
+/***/ }),
+
 /***/ "./src/components/VerseOverlay/components/VerseDisplay.tsx":
 /*!*****************************************************************!*\
   !*** ./src/components/VerseOverlay/components/VerseDisplay.tsx ***!
@@ -65950,7 +65970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var _gsap_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @gsap/react */ "./node_modules/@gsap/react/src/index.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
 /* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/verse-service */ "./src/services/verse-service.ts");
@@ -65962,6 +65982,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_AdminControls__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/AdminControls */ "./src/components/VerseOverlay/components/AdminControls.tsx");
 /* harmony import */ var _components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/VerseDisplay */ "./src/components/VerseOverlay/components/VerseDisplay.tsx");
 /* harmony import */ var _components_ContextView__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ContextView */ "./src/components/VerseOverlay/components/ContextView.tsx");
+/* harmony import */ var _components_ThemeToggle__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/ThemeToggle */ "./src/components/VerseOverlay/components/ThemeToggle.tsx");
 
 
 
@@ -65972,6 +65993,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Import modularized components
+
 
 
 
@@ -65988,6 +66010,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const verseContentRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const verseDisplayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const entranceDirectionRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)('left');
+    const topControlsRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     // Context view state
     const [showContext, setShowContext] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [contextLoading, setContextLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -65998,6 +66021,8 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const [showSignUp, setShowSignUp] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [showEmailVerification, setShowEmailVerification] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [verificationEmail, setVerificationEmail] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    // Theme state (for now, just UI - no functionality yet)
+    const [theme, setTheme] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('dark');
     // Debug logging
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         console.log('VerseOverlay: Auth state changed', { user, isAdmin });
@@ -66006,7 +66031,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleAnimatedDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create exit animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(true); // Pass true for permanent dismissal (Done button)
                 }
@@ -66039,7 +66064,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleMoreClick = async () => {
         // Animate modal expansion
         if (modalRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(modalRef.current, {
                 maxHeight: '90vh',
                 duration: 0.4,
                 ease: "power2.out",
@@ -66095,18 +66120,18 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             const direction = Math.random() > 0.5 ? 'left' : 'right';
             entranceDirectionRef.current = direction;
             // Set initial states - backdrop visible but no blur
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(overlayRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(overlayRef.current, {
                 opacity: 1,
                 className: 'verse-overlay' // No backdrop-blur class initially
             });
             // Set modal initial state - start small and off-screen
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(modalRef.current, {
                 xPercent: direction === 'left' ? -100 : 100,
                 scale: 0.85, // Start at 85% scale
                 opacity: 0
             });
             // Create animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
                 onComplete: () => {
                     console.log('Modal entrance animation completed');
                 }
@@ -66140,16 +66165,24 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         if (!refs || !verseContentRef.current)
             return;
         const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
+        // Initially hide top controls for animation
+        if (topControlsRef.current) {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(topControlsRef.current, {
+                opacity: 0,
+                y: -10,
+                visibility: 'visible'
+            });
+        }
         // Split verse text into letters for letter-by-letter animation
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseContentRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseContentRef.current, {
                 opacity: 1,
                 visibility: 'visible'
             });
             // Set initial states for animation elements
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                 opacity: 0,
                 y: 30,
                 scale: 0.95,
@@ -66157,7 +66190,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 display: 'block'
             });
             // Keep the verse text container hidden initially
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseTextRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseTextRef.current, {
                 opacity: 0,
                 visibility: 'visible'
             });
@@ -66177,17 +66210,17 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
             if (letterElements.length > 0) {
                 // Set initial state for letters with minimal glow
-                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(letterElements, {
+                gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(letterElements, {
                     opacity: 0,
                     display: 'inline-block',
                     textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                 });
                 // Now make the container visible after all elements are hidden
-                gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseTextRef.current, {
+                gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseTextRef.current, {
                     opacity: 1
                 });
                 // Create timeline for smooth verse reveal
-                const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
+                const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
                     delay: 0.9, // Delayed to start after overlay entrance animation
                     onStart: () => {
                         console.log('GSAP timeline started');
@@ -66235,6 +66268,16 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     duration: 1.2, // Slower, more gradual glow build-up
                     ease: "power2.inOut"
                 }, "+=0.3"); // Wait after reference settles before starting glow
+                // Animate top controls as the final element
+                if (topControlsRef.current) {
+                    tl.to(topControlsRef.current, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        clearProps: "opacity,transform,y,visibility"
+                    }, "-=0.5"); // Start slightly before glow completes for smooth flow
+                }
                 // Force play the timeline
                 tl.play();
             }
@@ -66261,7 +66304,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             return;
         const verseTextElement = refs.verseTextRef.current;
         // Fade out current text
-        gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(verseTextElement, {
+        gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(verseTextElement, {
             opacity: 0,
             duration: 0.3,
             ease: "power2.in",
@@ -66278,14 +66321,14 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 const letterElements = verseTextElement.querySelectorAll('.verse-letter');
                 if (letterElements.length > 0) {
                     // Set initial state for letters
-                    gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(letterElements, {
+                    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(letterElements, {
                         opacity: 0,
                         textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                     });
                     // Make container visible
-                    gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.set(verseTextElement, { opacity: 1 });
+                    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseTextElement, { opacity: 1 });
                     // Animate letters with the same glow effect
-                    gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(letterElements, {
+                    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(letterElements, {
                         keyframes: [
                             { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
                             { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 },
@@ -66297,7 +66340,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                         stagger: 0.05,
                         onComplete: () => {
                             // Add final glow
-                            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(letterElements, {
+                            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(letterElements, {
                                 opacity: 1,
                                 textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
                                 duration: 1.2,
@@ -66313,7 +66356,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleShrinkDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create shrink animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(false); // Temporary dismissal
                 }
@@ -66414,7 +66457,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         // Animate modal back to original size
         if (modalRef.current) {
             modalRef.current.classList.remove('verse-modal-expanded');
-            gsap__WEBPACK_IMPORTED_MODULE_13__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(modalRef.current, {
                 maxHeight: '85vh',
                 duration: 0.4,
                 ease: "power2.out"
@@ -66425,11 +66468,26 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         requestAnimationFrame(() => {
             // Wait one more frame to ensure React has rendered
             requestAnimationFrame(() => {
-                // Animation state cleaned up - lines removed
+                // Re-animate the decorative lines
+                const refs = verseDisplayRef.current;
+                if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
+                    // First remove the animate class if it exists
+                    refs.leftLineRef.current.classList.remove('animate');
+                    refs.rightLineRef.current.classList.remove('animate');
+                    // Force a reflow to ensure the removal is processed
+                    void refs.leftLineRef.current.offsetWidth;
+                    // Add the animate class back to trigger the CSS transition
+                    setTimeout(() => {
+                        if (refs.leftLineRef.current && refs.rightLineRef.current) {
+                            refs.leftLineRef.current.classList.add('animate');
+                            refs.rightLineRef.current.classList.add('animate');
+                        }
+                    }, 100); // Small delay to ensure smooth animation
+                }
             });
         });
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute top-4 right-4", children: !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: topControlsRef, className: "top-controls", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ThemeToggle__WEBPACK_IMPORTED_MODULE_13__["default"], { theme: theme, onToggle: () => setTheme(theme === 'dark' ? 'light' : 'dark') }), !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
                                 /* Context view */
                                 (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_12__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
@@ -69896,7 +69954,7 @@ const profileDropdownStyles = `
     -webkit-backdrop-filter: blur(12px) !important;
     border-radius: 0.5rem !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    padding: 0.5rem !important;
+    padding: 0.5rem 0 !important; /* Only vertical padding on container */
     z-index: 100 !important;
     /* Ensure it stays within viewport */
     transform-origin: top right !important;
@@ -69904,7 +69962,7 @@ const profileDropdownStyles = `
 
   /* User Info Section */
   .profile-dropdown-info {
-    padding: 0.75rem;
+    padding: 0.75rem 1rem; /* Consistent horizontal padding with buttons */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 0.25rem;
   }
@@ -69950,12 +70008,13 @@ const profileDropdownStyles = `
   .profile-dropdown-action {
     width: 100%;
     text-align: left;
-    padding: 0.375rem 0.75rem;
+    padding: 0.5rem 1rem; /* Increased padding to match info section */
+    padding-left: 20px !important; /* Override global button padding */
     color: white;
     font-size: 14px;
     background: transparent;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 0;
     cursor: pointer;
     transition: background-color 0.15s ease;
     display: block;
@@ -69968,7 +70027,117 @@ const profileDropdownStyles = `
   .profile-dropdown-action--signout {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 0.25rem;
-    padding-top: 0.5rem;
+    padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
+  }
+`;
+
+
+/***/ }),
+
+/***/ "./src/styles/components/theme-toggle.css.ts":
+/*!***************************************************!*\
+  !*** ./src/styles/components/theme-toggle.css.ts ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   themeToggleStyles: () => (/* binding */ themeToggleStyles)
+/* harmony export */ });
+const themeToggleStyles = `
+  /* Theme Toggle Container */
+  .theme-toggle {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 4px; /* Subtle push down */
+    margin-right: 16px; /* Space between toggle and sign-in button */
+  }
+
+  .theme-toggle:focus {
+    outline: none;
+  }
+
+  /* Toggle Track (Background) */
+  .theme-toggle__track {
+    position: relative;
+    width: 42px;
+    height: 21px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10.5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .theme-toggle:hover .theme-toggle__track {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Toggle Thumb (Sliding Circle) */
+  .theme-toggle__thumb {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 17px;
+    height: 17px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Light mode - slide thumb to right */
+  .theme-toggle__thumb--light {
+    transform: translateX(20px);
+  }
+
+  /* Icons */
+  .theme-toggle__icon {
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Sun icon - visible in light mode */
+  .theme-toggle__icon--sun {
+    color: #FDB813;
+    opacity: 0;
+    transform: scale(0.8) rotate(-180deg);
+  }
+
+  .theme-toggle__thumb--light .theme-toggle__icon--sun {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Moon icon - visible in dark mode */
+  .theme-toggle__icon--moon {
+    color: #6B7280;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .theme-toggle__thumb--light .theme-toggle__icon--moon {
+    opacity: 0;
+    transform: scale(0.8) rotate(180deg);
+  }
+
+  /* Top controls container for toggle and auth */
+  .top-controls {
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    z-index: 20 !important;
   }
 `;
 
@@ -70124,6 +70293,21 @@ const translationDropdownStyles = `
   .translation-option--active:hover {
     background-color: rgb(64, 64, 64) !important; /* Slightly lighter on hover */
   }
+
+  /* Round corners for first option to match menu */
+  .translation-option:first-child {
+    border-radius: 0.5rem 0.5rem 0 0 !important; /* top-left top-right bottom-right bottom-left */
+  }
+
+  /* Round corners for last option to match menu */
+  .translation-option:last-child {
+    border-radius: 0 0 0.5rem 0.5rem !important;
+  }
+
+  /* If there's only one option, round all corners */
+  .translation-option:only-child {
+    border-radius: 0.5rem !important;
+  }
 `;
 
 
@@ -70142,6 +70326,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_profile_dropdown_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/profile-dropdown.css */ "./src/styles/components/profile-dropdown.css.ts");
 /* harmony import */ var _components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/translation-dropdown.css */ "./src/styles/components/translation-dropdown.css.ts");
 /* harmony import */ var _shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/glassmorphic.css */ "./src/styles/shared/glassmorphic.css.ts");
+/* harmony import */ var _components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/theme-toggle.css */ "./src/styles/components/theme-toggle.css.ts");
+
 
 
 
@@ -72277,6 +72463,7 @@ const getShadowDomStyles = () => {
     ${_components_profile_dropdown_css__WEBPACK_IMPORTED_MODULE_0__.profileDropdownStyles}
     ${_components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__.translationDropdownStyles}
     ${_shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__.glassmorphicStyles}
+    ${_components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__.themeToggleStyles}
   `;
 };
 

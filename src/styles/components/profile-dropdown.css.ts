@@ -54,7 +54,7 @@ export const profileDropdownStyles = `
     -webkit-backdrop-filter: blur(12px) !important;
     border-radius: 0.5rem !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    padding: 0.5rem !important;
+    padding: 0.5rem 0 !important; /* Only vertical padding on container */
     z-index: 100 !important;
     /* Ensure it stays within viewport */
     transform-origin: top right !important;
@@ -62,7 +62,7 @@ export const profileDropdownStyles = `
 
   /* User Info Section */
   .profile-dropdown-info {
-    padding: 0.75rem;
+    padding: 0.75rem 1rem; /* Consistent horizontal padding with buttons */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 0.25rem;
   }
@@ -108,12 +108,13 @@ export const profileDropdownStyles = `
   .profile-dropdown-action {
     width: 100%;
     text-align: left;
-    padding: 0.375rem 0.75rem;
+    padding: 0.5rem 1rem; /* Increased padding to match info section */
+    padding-left: 20px !important; /* Override global button padding */
     color: white;
     font-size: 14px;
     background: transparent;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 0;
     cursor: pointer;
     transition: background-color 0.15s ease;
     display: block;
@@ -126,6 +127,6 @@ export const profileDropdownStyles = `
   .profile-dropdown-action--signout {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 0.25rem;
-    padding-top: 0.5rem;
+    padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
   }
 `;

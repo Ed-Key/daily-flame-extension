@@ -1,6 +1,7 @@
 import { profileDropdownStyles } from './components/profile-dropdown.css';
 import { translationDropdownStyles } from './components/translation-dropdown.css';
 import { glassmorphicStyles } from './shared/glassmorphic.css';
+import { themeToggleStyles } from './components/theme-toggle.css';
 
 // Complete styles for Shadow DOM encapsulation
 export const getShadowDomStyles = (): string => {
@@ -2134,5 +2135,6 @@ export const getShadowDomStyles = (): string => {
     ${profileDropdownStyles}
     ${translationDropdownStyles}
     ${glassmorphicStyles}
+    ${themeToggleStyles}
   `;
 };

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Daily Flame",
-  "version": "1.0",
-  "description": "Display a daily Bible verse as a fullscreen overlay for spiritual checkpoints",
+  "version": "1.0.0",
+  "description": "Daily Bible verses as a beautiful fullscreen overlay. Shows inspiring scripture once daily on any website with multiple translations (KJV, ESV, NLT). Needs site access to display verses wherever you browse.",
   "permissions": [
     "storage",
     "activeTab",

@@ -13,6 +13,7 @@ import AuthButtons from './components/AuthButtons';
 import AdminControls from './components/AdminControls';
 import VerseDisplay, { VerseDisplayRefs } from './components/VerseDisplay';
 import ContextView from './components/ContextView';
+import ThemeToggle from './components/ThemeToggle';
 
 const VerseOverlay: React.FC<VerseOverlayProps> = ({ 
   verse, 
@@ -31,6 +32,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const verseContentRef = useRef<HTMLDivElement>(null);
   const verseDisplayRef = useRef<VerseDisplayRefs>(null);
   const entranceDirectionRef = useRef<'left' | 'right'>('left');
+  const topControlsRef = useRef<HTMLDivElement>(null);
   
   // Context view state
   const [showContext, setShowContext] = useState(false);
@@ -43,6 +45,9 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const [showSignUp, setShowSignUp] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState<string | null>(null);
+  
+  // Theme state (for now, just UI - no functionality yet)
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   
   // Debug logging
   useEffect(() => {
@@ -206,6 +211,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
     const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
     
+    // Initially hide top controls for animation
+    if (topControlsRef.current) {
+      gsap.set(topControlsRef.current, {
+        opacity: 0,
+        y: -10,
+        visibility: 'visible'
+      });
+    }
+    
     // Split verse text into letters for letter-by-letter animation
     if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
       console.log('All refs are available, setting up animation');
@@ -317,6 +331,17 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           duration: 1.2,  // Slower, more gradual glow build-up
           ease: "power2.inOut"
         }, "+=0.3"); // Wait after reference settles before starting glow
+        
+        // Animate top controls as the final element
+        if (topControlsRef.current) {
+          tl.to(topControlsRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+            clearProps: "opacity,transform,y,visibility"
+          }, "-=0.5"); // Start slightly before glow completes for smooth flow
+        }
         
         // Force play the timeline
         tl.play();
@@ -534,7 +559,24 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     requestAnimationFrame(() => {
       // Wait one more frame to ensure React has rendered
       requestAnimationFrame(() => {
-        // Animation state cleaned up - lines removed
+        // Re-animate the decorative lines
+        const refs = verseDisplayRef.current;
+        if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
+          // First remove the animate class if it exists
+          refs.leftLineRef.current.classList.remove('animate');
+          refs.rightLineRef.current.classList.remove('animate');
+          
+          // Force a reflow to ensure the removal is processed
+          void refs.leftLineRef.current.offsetWidth;
+          
+          // Add the animate class back to trigger the CSS transition
+          setTimeout(() => {
+            if (refs.leftLineRef.current && refs.rightLineRef.current) {
+              refs.leftLineRef.current.classList.add('animate');
+              refs.rightLineRef.current.classList.add('animate');
+            }
+          }, 100); // Small delay to ensure smooth animation
+        }
       });
     });
   };
@@ -550,19 +592,23 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         {/* Modal Container */}
         <div ref={modalRef} className="verse-modal" onClick={handleModalClick}>
           {/* Top-Right Controls */}
-          <div className="absolute top-4 right-4">
-              {!user ? (
-                <AuthButtons onSignInClick={() => setShowSignIn(true)} />
-              ) : (
-                <ProfileDropdown
-                  user={user}
-                  isAdmin={isAdmin}
-                  isEmailVerified={isEmailVerified}
-                  onSignOut={signOut}
-                  shadowRoot={shadowRoot}
-                />
-              )}
-            </div>
+          <div ref={topControlsRef} className="top-controls">
+            <ThemeToggle 
+              theme={theme} 
+              onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} 
+            />
+            {!user ? (
+              <AuthButtons onSignInClick={() => setShowSignIn(true)} />
+            ) : (
+              <ProfileDropdown
+                user={user}
+                isAdmin={isAdmin}
+                isEmailVerified={isEmailVerified}
+                onSignOut={signOut}
+                shadowRoot={shadowRoot}
+              />
+            )}
+          </div>
 
             <div ref={verseContentRef} className="verse-content">
             {/* Admin Controls - Only visible to authenticated admins */}
