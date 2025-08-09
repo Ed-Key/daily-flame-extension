@@ -64959,16 +64959,12 @@ const AuthProvider = ({ children }) => {
                 // Get auth state from Chrome storage
                 const result = await chrome.storage.local.get(['authUser', 'authTimestamp']);
                 if (result.authUser && result.authTimestamp) {
-                    // Check if auth state is still valid (24 hours)
-                    const isExpired = Date.now() - result.authTimestamp > 24 * 60 * 60 * 1000;
-                    if (!isExpired) {
-                        console.log('✅ [DEBUG] Restored valid auth state from storage:', result.authUser);
-                        setUser(result.authUser);
-                    }
-                    else {
-                        console.log('⏰ [DEBUG] Stored auth state expired');
-                        await chrome.storage.local.remove(['authUser', 'authTimestamp']);
-                    }
+                    // Auth state persists indefinitely until user signs out
+                    console.log('✅ [DEBUG] Restored auth state from storage:', result.authUser);
+                    // Log how long user has been signed in (for debugging)
+                    const hoursSignedIn = Math.floor((Date.now() - result.authTimestamp) / (1000 * 60 * 60));
+                    console.log(`⏱️ [DEBUG] User has been signed in for ${hoursSignedIn} hours`);
+                    setUser(result.authUser);
                 }
                 else {
                     console.log('🚪 [DEBUG] No stored auth state found');
@@ -68160,16 +68156,37 @@ class NLTService {
             const textParts = [];
             for (const paragraph of paragraphs) {
                 if (paragraph[1]) {
-                    textParts.push(paragraph[1]);
+                    // Clean footnotes and other tags from paragraph content before adding
+                    // Handle footnotes: remove from <a class="a-tn"> through the entire footnote span
+                    // This pattern handles nested spans within footnotes (like <span class="tn-ref">)
+                    let cleanedParagraph = paragraph[1]
+                        .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a><span[^>]*class="tn"[^>]*>.*?<span[^>]*class="tn-ref"[^>]*>.*?<\/span>.*?<\/span>/g, '') // Remove complete footnote with nested ref span
+                        .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a><span[^>]*class="tn"[^>]*>.*?<\/span>/g, ''); // Remove simpler footnotes
+                    textParts.push(cleanedParagraph);
                 }
             }
             if (textParts.length === 0) {
-                throw new Error('No verse content found in paragraphs');
+                // Fallback: Some verses (like John 3:17) have content directly in verse_export
+                // without paragraph tags, just span elements
+                const directContent = verseExportMatch[1]
+                    .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a><span[^>]*class="tn"[^>]*>.*?<span[^>]*class="tn-ref"[^>]*>.*?<\/span>.*?<\/span>/g, '') // Remove complete footnote with nested ref span
+                    .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a><span[^>]*class="tn"[^>]*>.*?<\/span>/g, '') // Remove simpler footnotes
+                    .replace(/<span[^>]*class="vn"[^>]*>\d+<\/span>/g, '') // Remove verse numbers
+                    .replace(/<span[^>]*class="red"[^>]*>(.*?)<\/span>/g, '$1') // Keep red letter content
+                    .replace(/<[^>]+>/g, ' ') // Replace other tags with spaces
+                    .replace(/\s+/g, ' ') // Normalize whitespace
+                    .trim();
+                if (directContent) {
+                    textParts.push(directContent);
+                }
+                else {
+                    throw new Error('No verse content found in paragraphs');
+                }
             }
             // Join all paragraph parts with spaces
             let text = textParts.join(' ')
-                .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a>/g, '') // Remove footnote markers
-                .replace(/<span[^>]*class="tn"[^>]*>.*?<\/span>/g, '') // Remove footnote content
+                .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a><span[^>]*class="tn"[^>]*>.*?<span[^>]*class="tn-ref"[^>]*>.*?<\/span>.*?<\/span>/g, '') // Remove complete footnote with nested ref span
+                .replace(/<a[^>]*class="a-tn"[^>]*>.*?<\/a><span[^>]*class="tn"[^>]*>.*?<\/span>/g, '') // Remove simpler footnotes
                 .replace(/<span[^>]*class="vn"[^>]*>(\d+)<\/span>/g, '') // Remove verse numbers
                 .replace(/<span[^>]*class="red"[^>]*>(.*?)<\/span>/g, '$1') // Keep red letter text
                 .replace(/<[^>]+>/g, '') // Remove all other HTML tags
