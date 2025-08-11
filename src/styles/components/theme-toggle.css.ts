@@ -19,16 +19,16 @@ export const themeToggleStyles = `
     position: relative;
     width: 42px;
     height: 21px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--toggle-track-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--toggle-track-border);
     border-radius: 10.5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
   .theme-toggle:hover .theme-toggle__track {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--toggle-track-hover);
   }
 
   /* Toggle Thumb (Sliding Circle) */
@@ -38,9 +38,9 @@ export const themeToggleStyles = `
     left: 2px;
     width: 17px;
     height: 17px;
-    background-color: white;
+    background-color: var(--toggle-thumb-bg);
     border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;

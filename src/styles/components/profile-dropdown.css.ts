@@ -14,7 +14,7 @@ export const profileDropdownStyles = `
     border: none;
     cursor: pointer;
     padding: 0;
-    color: white;
+    color: var(--profile-text);
   }
 
   .profile-button:focus {
@@ -23,19 +23,19 @@ export const profileDropdownStyles = `
 
   .profile-button__name {
     font-size: 14px;
-    color: white;
+    color: var(--profile-text);
   }
 
   .profile-button__avatar {
     width: 28px;
     height: 28px;
-    background-color: black;
+    background-color: var(--avatar-bg);
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid var(--avatar-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--avatar-text);
     font-size: 14px;
     font-weight: 600;
     box-sizing: border-box;
@@ -49,11 +49,11 @@ export const profileDropdownStyles = `
     margin-top: 0.5rem !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: var(--profile-menu-bg) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     border-radius: 0.5rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid var(--profile-menu-border) !important;
     padding: 0.5rem 0 !important; /* Only vertical padding on container */
     z-index: 100 !important;
     /* Ensure it stays within viewport */
@@ -63,19 +63,19 @@ export const profileDropdownStyles = `
   /* User Info Section */
   .profile-dropdown-info {
     padding: 0.75rem 1rem; /* Consistent horizontal padding with buttons */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--profile-menu-divider);
     margin-bottom: 0.25rem;
   }
 
   .profile-dropdown-info__name {
-    color: white;
+    color: var(--profile-text);
     font-size: 14px;
     margin: 0;
     padding: 0;
   }
 
   .profile-dropdown-info__email {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--profile-email);
     font-size: 12px;
     margin: 0;
     margin-top: 0.125rem;
@@ -110,7 +110,7 @@ export const profileDropdownStyles = `
     text-align: left;
     padding: 0.5rem 1rem; /* Increased padding to match info section */
     padding-left: 20px !important; /* Override global button padding */
-    color: white;
+    color: var(--profile-text) !important;
     font-size: 14px;
     background: transparent;
     border: none;
@@ -121,11 +121,11 @@ export const profileDropdownStyles = `
   }
 
   .profile-dropdown-action:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--profile-menu-hover);
   }
 
   .profile-dropdown-action--signout {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--profile-menu-divider);
     margin-top: 0.25rem;
     padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
   }

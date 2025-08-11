@@ -66021,7 +66021,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const [showSignUp, setShowSignUp] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [showEmailVerification, setShowEmailVerification] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [verificationEmail, setVerificationEmail] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    // Theme state (for now, just UI - no functionality yet)
+    // Theme state with persistence
     const [theme, setTheme] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('dark');
     // Debug logging
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
@@ -66112,6 +66112,37 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             clearTimeout(timer);
         };
     }, []);
+    // Apply theme to Shadow DOM host element
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        if (shadowRoot && shadowRoot.host) {
+            const host = shadowRoot.host;
+            if (theme === 'light') {
+                host.setAttribute('data-theme', 'light');
+            }
+            else {
+                host.removeAttribute('data-theme');
+            }
+        }
+    }, [theme, shadowRoot]);
+    // Load theme preference from Chrome storage on mount
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        chrome.storage.local.get('themePreference', (result) => {
+            if (result.themePreference) {
+                setTheme(result.themePreference);
+            }
+        });
+    }, []);
+    // Save theme preference to Chrome storage when it changes
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        chrome.storage.local.set({ themePreference: theme }, () => {
+            if (chrome.runtime.lastError) {
+                console.error('Daily Flame: Error saving theme preference:', chrome.runtime.lastError);
+            }
+            else {
+                console.log(`Daily Flame: Theme preference saved: ${theme}`);
+            }
+        });
+    }, [theme]);
     // Removed line animation effect
     // GSAP Modal Entrance Animation with Backdrop Blur
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
@@ -69914,7 +69945,7 @@ const profileDropdownStyles = `
     border: none;
     cursor: pointer;
     padding: 0;
-    color: white;
+    color: var(--profile-text);
   }
 
   .profile-button:focus {
@@ -69923,19 +69954,19 @@ const profileDropdownStyles = `
 
   .profile-button__name {
     font-size: 14px;
-    color: white;
+    color: var(--profile-text);
   }
 
   .profile-button__avatar {
     width: 28px;
     height: 28px;
-    background-color: black;
+    background-color: var(--avatar-bg);
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid var(--avatar-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--avatar-text);
     font-size: 14px;
     font-weight: 600;
     box-sizing: border-box;
@@ -69949,11 +69980,11 @@ const profileDropdownStyles = `
     margin-top: 0.5rem !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: var(--profile-menu-bg) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     border-radius: 0.5rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid var(--profile-menu-border) !important;
     padding: 0.5rem 0 !important; /* Only vertical padding on container */
     z-index: 100 !important;
     /* Ensure it stays within viewport */
@@ -69963,19 +69994,19 @@ const profileDropdownStyles = `
   /* User Info Section */
   .profile-dropdown-info {
     padding: 0.75rem 1rem; /* Consistent horizontal padding with buttons */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--profile-menu-divider);
     margin-bottom: 0.25rem;
   }
 
   .profile-dropdown-info__name {
-    color: white;
+    color: var(--profile-text);
     font-size: 14px;
     margin: 0;
     padding: 0;
   }
 
   .profile-dropdown-info__email {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--profile-email);
     font-size: 12px;
     margin: 0;
     margin-top: 0.125rem;
@@ -70010,7 +70041,7 @@ const profileDropdownStyles = `
     text-align: left;
     padding: 0.5rem 1rem; /* Increased padding to match info section */
     padding-left: 20px !important; /* Override global button padding */
-    color: white;
+    color: var(--profile-text) !important;
     font-size: 14px;
     background: transparent;
     border: none;
@@ -70021,11 +70052,11 @@ const profileDropdownStyles = `
   }
 
   .profile-dropdown-action:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--profile-menu-hover);
   }
 
   .profile-dropdown-action--signout {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--profile-menu-divider);
     margin-top: 0.25rem;
     padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
   }
@@ -70065,16 +70096,16 @@ const themeToggleStyles = `
     position: relative;
     width: 42px;
     height: 21px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--toggle-track-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--toggle-track-border);
     border-radius: 10.5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
   .theme-toggle:hover .theme-toggle__track {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--toggle-track-hover);
   }
 
   /* Toggle Thumb (Sliding Circle) */
@@ -70084,9 +70115,9 @@ const themeToggleStyles = `
     left: 2px;
     width: 17px;
     height: 17px;
-    background-color: white;
+    background-color: var(--toggle-thumb-bg);
     border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70327,6 +70358,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/translation-dropdown.css */ "./src/styles/components/translation-dropdown.css.ts");
 /* harmony import */ var _shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/glassmorphic.css */ "./src/styles/shared/glassmorphic.css.ts");
 /* harmony import */ var _components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/theme-toggle.css */ "./src/styles/components/theme-toggle.css.ts");
+/* harmony import */ var _theme_variables_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-variables.css */ "./src/styles/theme-variables.css.ts");
+
 
 
 
@@ -70334,6 +70367,7 @@ __webpack_require__.r(__webpack_exports__);
 // Complete styles for Shadow DOM encapsulation
 const getShadowDomStyles = () => {
     return `
+    ${_theme_variables_css__WEBPACK_IMPORTED_MODULE_4__.themeVariables}
     /* CSS Reset for Shadow DOM */
     :host {
       all: initial;
@@ -70362,7 +70396,7 @@ const getShadowDomStyles = () => {
     .verse-overlay {
       position: fixed !important;
       inset: 0 !important;
-      background-color: rgba(0, 0, 0, 0.8) !important;
+      background-color: var(--bg-overlay) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -70371,18 +70405,18 @@ const getShadowDomStyles = () => {
       width: 100% !important;
       height: 100% !important;
       overflow: visible !important; /* Allow modal animations to show */
-      transition: backdrop-filter 0.3s ease-out !important;
+      transition: backdrop-filter 0.3s ease-out, background-color 0.3s ease-out !important;
     }
     
     /* Blurred backdrop state */
     .verse-overlay.backdrop-blur {
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
+      backdrop-filter: var(--backdrop-blur) !important;
+      -webkit-backdrop-filter: var(--backdrop-blur) !important;
     }
     
     /* Modal container */
     .verse-modal {
-      background-color: rgba(0, 0, 0, 0.95) !important;
+      background-color: var(--bg-primary) !important;
       border-radius: 16px !important;
       padding: 90px 48px 48px 48px !important;
       max-width: 840px !important;
@@ -70390,15 +70424,16 @@ const getShadowDomStyles = () => {
       min-height: 400px !important;
       max-height: 85vh !important;
       overflow: visible !important;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+      box-shadow: var(--shadow-lg) !important;
       position: relative !important;
+      transition: background-color 0.3s ease-out !important;
     }
     
     /* Verse content container */
     .verse-content {
       width: 100% !important;
       text-align: center !important;
-      color: white !important;
+      color: var(--text-primary) !important;
       position: relative !important;
       flex: 1 !important;
       display: flex !important;
@@ -70413,18 +70448,18 @@ const getShadowDomStyles = () => {
       line-height: 40px !important;
       margin-bottom: 20px !important;
       font-weight: 300 !important;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-      color: white !important;
+      text-shadow: var(--text-shadow) !important;
+      color: var(--text-primary) !important;
     }
     
     /* Words of Jesus - Red Letter styling */
     .words-of-jesus {
-      color: #ff4444 !important;
+      color: var(--red-letter) !important;
     }
     
     /* ESV HTML format uses 'woc' class */
     .woc {
-      color: #ff4444 !important;
+      color: var(--red-letter) !important;
     }
     
     .verse-word {
@@ -70468,7 +70503,7 @@ const getShadowDomStyles = () => {
       position: absolute !important;
       top: 50% !important;
       height: 1px !important;
-      background-color: rgba(255, 255, 255, 0.3) !important;
+      background-color: var(--border-primary) !important;
       width: 0 !important; /* Start with no width for animation */
       transition: width 0.8s ease-out !important;
       transform: translateY(-50%) !important;
@@ -70496,7 +70531,7 @@ const getShadowDomStyles = () => {
       font-style: italic !important;
       opacity: 0.9;
       font-weight: normal !important;
-      color: white !important;
+      color: var(--text-primary) !important;
       padding: 0 20px !important;
       position: relative !important;
       z-index: 1 !important;
@@ -70581,8 +70616,8 @@ const getShadowDomStyles = () => {
     
     /* Shared button styles */
     .verse-btn {
-      background-color: white !important;
-      color: black !important;
+      background-color: var(--button-bg) !important;
+      color: var(--button-text) !important;
       border: none !important;
       padding: 16px 40px !important;
       font-size: 18px !important;
@@ -70591,7 +70626,7 @@ const getShadowDomStyles = () => {
       cursor: pointer !important;
       transition: all 0.2s !important;
       min-width: 120px !important;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2) !important;
+      box-shadow: var(--shadow-sm) !important;
       display: inline-block !important;
       text-align: center !important;
       line-height: 1 !important;
@@ -70599,32 +70634,32 @@ const getShadowDomStyles = () => {
     }
     
     .verse-btn:hover {
-      background-color: #f3f4f6 !important;
+      background-color: var(--button-bg-hover) !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+      box-shadow: var(--shadow-md) !important;
     }
     
     .verse-btn:active {
       transform: translateY(0) !important;
-      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2) !important;
+      box-shadow: var(--shadow-sm) !important;
     }
     
     .verse-btn:focus {
       outline: none !important;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+      box-shadow: 0 0 0 3px var(--border-active) !important;
     }
     
     /* More button specific styles */
     .verse-more-btn {
-      background-color: transparent !important;
-      color: white !important;
-      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      background-color: var(--button-secondary-bg) !important;
+      color: var(--button-secondary-text) !important;
+      border: 2px solid var(--button-secondary-border) !important;
       padding: 14px 36px !important;
     }
     
     .verse-more-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
-      border-color: rgba(255, 255, 255, 0.5) !important;
+      background-color: var(--button-secondary-bg-hover) !important;
+      border-color: var(--border-active) !important;
     }
     
     /* Modal styles */
@@ -71251,25 +71286,26 @@ const getShadowDomStyles = () => {
     /* Sign-in button hover effect - brightens text */
     .sign-in-glow {
       transition: all 0.3s ease !important;
-      color: rgba(255,255,255,0.6) !important; /* Dimmer default state */
+      color: var(--sign-in-text) !important; /* Dimmer default state */
     }
     
     .sign-in-glow span {
-      color: rgba(255,255,255,0.6) !important; /* Ensure span inherits dimmer color */
+      color: var(--sign-in-text) !important; /* Ensure span inherits dimmer color */
     }
     
     .sign-in-glow svg {
-      opacity: 0.6 !important; /* Dim the icon too */
+      opacity: 1 !important; /* Full opacity for better visibility */
+      color: var(--sign-in-text) !important; /* Ensure color matches text */
     }
     
     .sign-in-glow:hover {
-      color: rgba(255,255,255,1) !important; /* Full white on hover */
+      color: var(--sign-in-text-hover) !important; /* Full opacity on hover */
       transform: translateY(-1px) !important; /* Keep the subtle lift */
     }
     
     /* Apply brightness to all child elements on hover */
     .sign-in-glow:hover * {
-      color: rgba(255,255,255,1) !important; /* Full white */
+      color: var(--sign-in-text-hover) !important; /* Full opacity */
     }
     
     /* Special handling for the SVG icon */
@@ -72495,6 +72531,172 @@ const glassmorphicStyles = `
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+`;
+
+
+/***/ }),
+
+/***/ "./src/styles/theme-variables.css.ts":
+/*!*******************************************!*\
+  !*** ./src/styles/theme-variables.css.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   themeVariables: () => (/* binding */ themeVariables)
+/* harmony export */ });
+const themeVariables = `
+  /* Theme Variables - CSS Custom Properties */
+  :host {
+    /* Dark Theme (Default) */
+    --bg-primary: rgba(0, 0, 0, 0.95);
+    --bg-overlay: rgba(0, 0, 0, 0.8);
+    --bg-secondary: rgba(0, 0, 0, 0.5);
+    
+    --text-primary: white;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.6);
+    
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-bg-hover: rgba(255, 255, 255, 0.15);
+    --glass-bg-active: rgba(255, 255, 255, 0.2);
+    
+    --border-primary: rgba(255, 255, 255, 0.2);
+    --border-secondary: rgba(255, 255, 255, 0.1);
+    --border-active: rgba(255, 255, 255, 0.3);
+    
+    --button-bg: white;
+    --button-text: black;
+    --button-bg-hover: #f3f4f6;
+    --button-border: rgba(255, 255, 255, 0.3);
+    
+    --button-secondary-bg: transparent;
+    --button-secondary-text: white;
+    --button-secondary-border: rgba(255, 255, 255, 0.3);
+    --button-secondary-bg-hover: rgba(255, 255, 255, 0.1);
+    
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --input-border: rgba(255, 255, 255, 0.2);
+    --input-text: white;
+    --input-placeholder: rgba(255, 255, 255, 0.5);
+    
+    --dropdown-bg: rgba(255, 255, 255, 0.1);
+    --dropdown-border: rgba(255, 255, 255, 0.2);
+    --dropdown-item-hover: rgba(255, 255, 255, 0.1);
+    
+    --red-letter: #ff4444;
+    --error-color: #ef4444;
+    --success-color: #10b981;
+    
+    --shadow-sm: 0 2px 10px rgba(255, 255, 255, 0.2);
+    --shadow-md: 0 4px 15px rgba(255, 255, 255, 0.3);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+    
+    --avatar-bg: black;
+    --avatar-border: white;
+    --avatar-text: white;
+    
+    /* Top Controls Specific */
+    --toggle-track-bg: rgba(255, 255, 255, 0.1);
+    --toggle-track-border: rgba(255, 255, 255, 0.2);
+    --toggle-track-hover: rgba(255, 255, 255, 0.15);
+    --toggle-thumb-bg: white;
+    
+    --sign-in-text: rgba(255, 255, 255, 0.6);
+    --sign-in-text-hover: rgba(255, 255, 255, 1);
+    
+    --profile-text: white;
+    --profile-email: rgba(255, 255, 255, 0.6);
+    --profile-menu-bg: rgba(255, 255, 255, 0.1);
+    --profile-menu-border: rgba(255, 255, 255, 0.2);
+    --profile-menu-divider: rgba(255, 255, 255, 0.1);
+    --profile-menu-hover: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Light Theme */
+  :host([data-theme="light"]) {
+    --bg-primary: rgba(255, 255, 255, 0.98);
+    --bg-overlay: rgba(0, 0, 0, 0.8);  /* Keep same as dark mode for consistency */
+    --bg-secondary: rgba(255, 255, 255, 0.9);
+    
+    --text-primary: #1a1a1a;
+    --text-secondary: rgba(0, 0, 0, 0.7);
+    --text-muted: rgba(0, 0, 0, 0.6);
+    
+    --glass-bg: rgba(0, 0, 0, 0.05);
+    --glass-bg-hover: rgba(0, 0, 0, 0.08);
+    --glass-bg-active: rgba(0, 0, 0, 0.1);
+    
+    --border-primary: rgba(0, 0, 0, 0.15);
+    --border-secondary: rgba(0, 0, 0, 0.1);
+    --border-active: rgba(0, 0, 0, 0.2);
+    
+    --button-bg: #1a1a1a;
+    --button-text: white;
+    --button-bg-hover: #333333;
+    --button-border: rgba(0, 0, 0, 0.2);
+    
+    --button-secondary-bg: transparent;
+    --button-secondary-text: #1a1a1a;
+    --button-secondary-border: rgba(0, 0, 0, 0.2);
+    --button-secondary-bg-hover: rgba(0, 0, 0, 0.05);
+    
+    --input-bg: rgba(0, 0, 0, 0.03);
+    --input-border: rgba(0, 0, 0, 0.15);
+    --input-text: #1a1a1a;
+    --input-placeholder: rgba(0, 0, 0, 0.4);
+    
+    --dropdown-bg: rgba(255, 255, 255, 0.98);
+    --dropdown-border: rgba(0, 0, 0, 0.15);
+    --dropdown-item-hover: rgba(0, 0, 0, 0.05);
+    
+    --red-letter: #cc0000;
+    --error-color: #dc2626;
+    --success-color: #059669;
+    
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.2);
+    
+    --avatar-bg: white;
+    --avatar-border: #1a1a1a;
+    --avatar-text: #1a1a1a;
+    
+    /* Top Controls Specific - Light Mode */
+    --toggle-track-bg: rgba(0, 0, 0, 0.1);
+    --toggle-track-border: rgba(0, 0, 0, 0.2);
+    --toggle-track-hover: rgba(0, 0, 0, 0.15);
+    --toggle-thumb-bg: white;
+    
+    --sign-in-text: #6B7280;
+    --sign-in-text-hover: #000000;
+    
+    --profile-text: #1a1a1a;
+    --profile-email: rgba(0, 0, 0, 0.6);
+    --profile-menu-bg: rgba(255, 255, 255, 0.98);
+    --profile-menu-border: rgba(0, 0, 0, 0.15);
+    --profile-menu-divider: rgba(0, 0, 0, 0.1);
+    --profile-menu-hover: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Theme-aware text shadow */
+  :host {
+    --text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  :host([data-theme="light"]) {
+    --text-shadow: none;
+  }
+  
+  /* Backdrop filter - consistent across themes */
+  :host {
+    --backdrop-blur: blur(4px);
+  }
+  
+  :host([data-theme="light"]) {
+    --backdrop-blur: blur(4px);  /* Keep same blur effect as dark mode */
   }
 `;
 

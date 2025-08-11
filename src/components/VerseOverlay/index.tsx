@@ -46,7 +46,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState<string | null>(null);
   
-  // Theme state (for now, just UI - no functionality yet)
+  // Theme state with persistence
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   
   // Debug logging
@@ -147,6 +147,38 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       clearTimeout(timer);
     };
   }, []);
+
+  // Apply theme to Shadow DOM host element
+  useEffect(() => {
+    if (shadowRoot && shadowRoot.host) {
+      const host = shadowRoot.host as HTMLElement;
+      if (theme === 'light') {
+        host.setAttribute('data-theme', 'light');
+      } else {
+        host.removeAttribute('data-theme');
+      }
+    }
+  }, [theme, shadowRoot]);
+
+  // Load theme preference from Chrome storage on mount
+  useEffect(() => {
+    chrome.storage.local.get('themePreference', (result) => {
+      if (result.themePreference) {
+        setTheme(result.themePreference as 'light' | 'dark');
+      }
+    });
+  }, []);
+
+  // Save theme preference to Chrome storage when it changes
+  useEffect(() => {
+    chrome.storage.local.set({ themePreference: theme }, () => {
+      if (chrome.runtime.lastError) {
+        console.error('Daily Flame: Error saving theme preference:', chrome.runtime.lastError);
+      } else {
+        console.log(`Daily Flame: Theme preference saved: ${theme}`);
+      }
+    });
+  }, [theme]);
 
   // Removed line animation effect
 

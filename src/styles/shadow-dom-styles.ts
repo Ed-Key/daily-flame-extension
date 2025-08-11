@@ -2,10 +2,12 @@ import { profileDropdownStyles } from './components/profile-dropdown.css';
 import { translationDropdownStyles } from './components/translation-dropdown.css';
 import { glassmorphicStyles } from './shared/glassmorphic.css';
 import { themeToggleStyles } from './components/theme-toggle.css';
+import { themeVariables } from './theme-variables.css';
 
 // Complete styles for Shadow DOM encapsulation
 export const getShadowDomStyles = (): string => {
   return `
+    ${themeVariables}
     /* CSS Reset for Shadow DOM */
     :host {
       all: initial;
@@ -34,7 +36,7 @@ export const getShadowDomStyles = (): string => {
     .verse-overlay {
       position: fixed !important;
       inset: 0 !important;
-      background-color: rgba(0, 0, 0, 0.8) !important;
+      background-color: var(--bg-overlay) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -43,18 +45,18 @@ export const getShadowDomStyles = (): string => {
       width: 100% !important;
       height: 100% !important;
       overflow: visible !important; /* Allow modal animations to show */
-      transition: backdrop-filter 0.3s ease-out !important;
+      transition: backdrop-filter 0.3s ease-out, background-color 0.3s ease-out !important;
     }
     
     /* Blurred backdrop state */
     .verse-overlay.backdrop-blur {
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
+      backdrop-filter: var(--backdrop-blur) !important;
+      -webkit-backdrop-filter: var(--backdrop-blur) !important;
     }
     
     /* Modal container */
     .verse-modal {
-      background-color: rgba(0, 0, 0, 0.95) !important;
+      background-color: var(--bg-primary) !important;
       border-radius: 16px !important;
       padding: 90px 48px 48px 48px !important;
       max-width: 840px !important;
@@ -62,15 +64,16 @@ export const getShadowDomStyles = (): string => {
       min-height: 400px !important;
       max-height: 85vh !important;
       overflow: visible !important;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+      box-shadow: var(--shadow-lg) !important;
       position: relative !important;
+      transition: background-color 0.3s ease-out !important;
     }
     
     /* Verse content container */
     .verse-content {
       width: 100% !important;
       text-align: center !important;
-      color: white !important;
+      color: var(--text-primary) !important;
       position: relative !important;
       flex: 1 !important;
       display: flex !important;
@@ -85,18 +88,18 @@ export const getShadowDomStyles = (): string => {
       line-height: 40px !important;
       margin-bottom: 20px !important;
       font-weight: 300 !important;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-      color: white !important;
+      text-shadow: var(--text-shadow) !important;
+      color: var(--text-primary) !important;
     }
     
     /* Words of Jesus - Red Letter styling */
     .words-of-jesus {
-      color: #ff4444 !important;
+      color: var(--red-letter) !important;
     }
     
     /* ESV HTML format uses 'woc' class */
     .woc {
-      color: #ff4444 !important;
+      color: var(--red-letter) !important;
     }
     
     .verse-word {
@@ -140,7 +143,7 @@ export const getShadowDomStyles = (): string => {
       position: absolute !important;
       top: 50% !important;
       height: 1px !important;
-      background-color: rgba(255, 255, 255, 0.3) !important;
+      background-color: var(--border-primary) !important;
       width: 0 !important; /* Start with no width for animation */
       transition: width 0.8s ease-out !important;
       transform: translateY(-50%) !important;
@@ -168,7 +171,7 @@ export const getShadowDomStyles = (): string => {
       font-style: italic !important;
       opacity: 0.9;
       font-weight: normal !important;
-      color: white !important;
+      color: var(--text-primary) !important;
       padding: 0 20px !important;
       position: relative !important;
       z-index: 1 !important;
@@ -253,8 +256,8 @@ export const getShadowDomStyles = (): string => {
     
     /* Shared button styles */
     .verse-btn {
-      background-color: white !important;
-      color: black !important;
+      background-color: var(--button-bg) !important;
+      color: var(--button-text) !important;
       border: none !important;
       padding: 16px 40px !important;
       font-size: 18px !important;
@@ -263,7 +266,7 @@ export const getShadowDomStyles = (): string => {
       cursor: pointer !important;
       transition: all 0.2s !important;
       min-width: 120px !important;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2) !important;
+      box-shadow: var(--shadow-sm) !important;
       display: inline-block !important;
       text-align: center !important;
       line-height: 1 !important;
@@ -271,32 +274,32 @@ export const getShadowDomStyles = (): string => {
     }
     
     .verse-btn:hover {
-      background-color: #f3f4f6 !important;
+      background-color: var(--button-bg-hover) !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+      box-shadow: var(--shadow-md) !important;
     }
     
     .verse-btn:active {
       transform: translateY(0) !important;
-      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2) !important;
+      box-shadow: var(--shadow-sm) !important;
     }
     
     .verse-btn:focus {
       outline: none !important;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+      box-shadow: 0 0 0 3px var(--border-active) !important;
     }
     
     /* More button specific styles */
     .verse-more-btn {
-      background-color: transparent !important;
-      color: white !important;
-      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      background-color: var(--button-secondary-bg) !important;
+      color: var(--button-secondary-text) !important;
+      border: 2px solid var(--button-secondary-border) !important;
       padding: 14px 36px !important;
     }
     
     .verse-more-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
-      border-color: rgba(255, 255, 255, 0.5) !important;
+      background-color: var(--button-secondary-bg-hover) !important;
+      border-color: var(--border-active) !important;
     }
     
     /* Modal styles */
@@ -923,25 +926,26 @@ export const getShadowDomStyles = (): string => {
     /* Sign-in button hover effect - brightens text */
     .sign-in-glow {
       transition: all 0.3s ease !important;
-      color: rgba(255,255,255,0.6) !important; /* Dimmer default state */
+      color: var(--sign-in-text) !important; /* Dimmer default state */
     }
     
     .sign-in-glow span {
-      color: rgba(255,255,255,0.6) !important; /* Ensure span inherits dimmer color */
+      color: var(--sign-in-text) !important; /* Ensure span inherits dimmer color */
     }
     
     .sign-in-glow svg {
-      opacity: 0.6 !important; /* Dim the icon too */
+      opacity: 1 !important; /* Full opacity for better visibility */
+      color: var(--sign-in-text) !important; /* Ensure color matches text */
     }
     
     .sign-in-glow:hover {
-      color: rgba(255,255,255,1) !important; /* Full white on hover */
+      color: var(--sign-in-text-hover) !important; /* Full opacity on hover */
       transform: translateY(-1px) !important; /* Keep the subtle lift */
     }
     
     /* Apply brightness to all child elements on hover */
     .sign-in-glow:hover * {
-      color: rgba(255,255,255,1) !important; /* Full white */
+      color: var(--sign-in-text-hover) !important; /* Full opacity */
     }
     
     /* Special handling for the SVG icon */
