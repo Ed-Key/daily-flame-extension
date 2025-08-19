@@ -3,6 +3,7 @@ import {
   doc, 
   getDoc, 
   getDocs, 
+  setDoc,
   query, 
   where, 
   orderBy, 
@@ -12,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase-config';
 import { getLocalDateString } from '../utils/date-utils';
+import { UserPreferences } from '../types';
 
 export interface FirestoreVerse {
   reference: string;
@@ -147,6 +149,53 @@ export class FirestoreService {
     } catch (error) {
       console.error('Firestore not available:', error);
       return false;
+    }
+  }
+
+  /**
+   * Save user preferences to Firestore
+   */
+  static async saveUserPreferences(userId: string, preferences: Partial<UserPreferences>): Promise<void> {
+    try {
+      const userDocRef = doc(db, 'users', userId);
+      
+      // Add timestamp
+      const preferencesWithTimestamp = {
+        ...preferences,
+        lastModified: Date.now(),
+        lastSynced: Date.now()
+      };
+      
+      // Use merge to only update specified fields
+      await setDoc(userDocRef, {
+        preferences: preferencesWithTimestamp
+      }, { merge: true });
+      
+      console.log('Preferences saved to Firestore:', preferencesWithTimestamp);
+    } catch (error) {
+      console.error('Error saving preferences to Firestore:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get user preferences from Firestore
+   */
+  static async getUserPreferences(userId: string): Promise<UserPreferences | null> {
+    try {
+      const userDocRef = doc(db, 'users', userId);
+      const userDoc = await getDoc(userDocRef);
+      
+      if (!userDoc.exists()) {
+        console.log('No user preferences found in Firestore');
+        return null;
+      }
+      
+      const data = userDoc.data();
+      return data?.preferences || null;
+    } catch (error) {
+      console.error('Error fetching user preferences from Firestore:', error);
+      return null;
     }
   }
 }

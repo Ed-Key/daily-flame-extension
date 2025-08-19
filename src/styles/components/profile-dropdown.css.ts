@@ -129,4 +129,27 @@ export const profileDropdownStyles = `
     margin-top: 0.25rem;
     padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
   }
+
+  /* Settings button with icon */
+  .profile-dropdown-action--settings {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  /* Icon styling */
+  .profile-dropdown-icon {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.15s ease !important;
+  }
+
+  .profile-dropdown-action:hover .profile-dropdown-icon {
+    opacity: 1 !important;
+  }
 `;

@@ -93,5 +93,23 @@ export const BIBLE_VERSIONS = {
 
 export type BibleTranslation = keyof typeof BIBLE_VERSIONS;
 
+// User Preferences types
+export interface UserPreferences {
+  bibleTranslation: BibleTranslation;
+  theme: 'light' | 'dark';
+  // Future settings
+  autoDisplay?: boolean;
+  displayTime?: string;
+  // Metadata
+  lastSynced?: number;
+  lastModified?: number;
+}
+
+export interface PreferenceSyncStatus {
+  isSyncing: boolean;
+  lastSyncTime?: number;
+  syncError?: string;
+}
+
 // Export unified Bible format types
 export * from './bible-formats';

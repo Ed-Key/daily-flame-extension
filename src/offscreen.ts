@@ -1,6 +1,23 @@
 // URL of the hosted authentication handler
 const AUTH_HANDLER_BASE_URL = 'https://daily-flame.web.app/auth-handler.html';
 
+// Import Firebase functions for preference sync
+import { doc, setDoc } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { db } from './services/firebase-config';
+
+// Get auth instance
+const auth = getAuth();
+
+// Listen for auth state changes
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log('Offscreen: Firebase Auth state changed - user signed in:', user.uid);
+  } else {
+    console.log('Offscreen: Firebase Auth state changed - user signed out');
+  }
+});
+
 // Create iframe for authentication
 let iframe: HTMLIFrameElement | null = null;
 let isIframeReady = false;
@@ -134,6 +151,19 @@ initializeAuthFrame();
 
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  // Handle ID token requests
+  if (request.action === 'getIdToken') {
+    handleGetIdToken(sendResponse);
+    return true; // Will respond asynchronously
+  }
+  
+  // Handle preference sync requests
+  if (request.action === 'syncPreferences') {
+    handlePreferenceSync(request, sendResponse);
+    return true; // Will respond asynchronously
+  }
+  
+  // Handle auth requests
   if (request.target !== 'offscreen-auth') {
     return false;
   }
@@ -148,6 +178,219 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   
   return true; // Will respond asynchronously
 });
+
+// Handle ID token requests
+async function handleGetIdToken(sendResponse: (response: any) => void) {
+  console.log('Offscreen: Getting ID token from iframe auth handler');
+  
+  // Ensure iframe is initialized
+  if (!iframe) {
+    console.log('Offscreen: Initializing iframe for ID token request');
+    initializeAuthFrame();
+  }
+  
+  // Wait for iframe to be ready
+  if (!isIframeReady) {
+    console.log('Offscreen: Waiting for iframe to be ready...');
+    await new Promise(resolve => {
+      const checkReady = setInterval(() => {
+        if (isIframeReady) {
+          clearInterval(checkReady);
+          resolve(true);
+        }
+      }, 100);
+      // Timeout after 5 seconds
+      setTimeout(() => {
+        clearInterval(checkReady);
+        resolve(false);
+      }, 5000);
+    });
+  }
+  
+  if (!isIframeReady || !iframe || !iframe.contentWindow) {
+    console.error('Offscreen: Iframe not ready for ID token request');
+    sendResponse({
+      success: false,
+      error: 'Authentication iframe not ready'
+    });
+    return;
+  }
+  
+  let responseReceived = false;
+  let responseHandler: ((event: MessageEvent) => void) | null = null;
+  let broadcastChannel: BroadcastChannel | null = null;
+  let broadcastHandler: ((event: MessageEvent) => void) | null = null;
+  
+  // Set up BroadcastChannel listener
+  try {
+    broadcastChannel = new BroadcastChannel('dailyflame-auth');
+    broadcastHandler = (event: MessageEvent) => {
+      console.log('Offscreen: Received ID token response via BroadcastChannel');
+      
+      // Check if this is the ID token response
+      if (event.data && event.data.idToken) {
+        responseReceived = true;
+        
+        // Clean up listeners
+        if (broadcastChannel) {
+          broadcastChannel.removeEventListener('message', broadcastHandler!);
+          broadcastChannel.close();
+        }
+        if (responseHandler) {
+          window.removeEventListener('message', responseHandler);
+        }
+        
+        console.log('Offscreen: ID token received for user:', event.data.userId);
+        sendResponse(event.data);
+      }
+    };
+    broadcastChannel.addEventListener('message', broadcastHandler);
+  } catch (error) {
+    console.warn('Offscreen: BroadcastChannel not available:', error);
+  }
+  
+  // Set up message listener for the response
+  responseHandler = (event: MessageEvent) => {
+    if (event.origin !== new URL(AUTH_HANDLER_BASE_URL).origin) {
+      return;
+    }
+    
+    // Check if this is the ID token response
+    if (event.data && event.data.idToken) {
+      responseReceived = true;
+      
+      // Clean up listeners
+      window.removeEventListener('message', responseHandler!);
+      if (broadcastChannel) {
+        broadcastChannel.removeEventListener('message', broadcastHandler!);
+        broadcastChannel.close();
+      }
+      
+      console.log('Offscreen: ID token received via postMessage for user:', event.data.userId);
+      sendResponse(event.data);
+    }
+  };
+  
+  window.addEventListener('message', responseHandler);
+  
+  // Send request to iframe
+  const message = {
+    action: 'getIdToken'
+  };
+  
+  console.log('Offscreen: Sending getIdToken request to iframe');
+  iframe.contentWindow.postMessage(message, new URL(AUTH_HANDLER_BASE_URL).origin);
+  
+  // Set timeout for response
+  setTimeout(() => {
+    if (!responseReceived) {
+      // Clean up listeners
+      if (responseHandler) {
+        window.removeEventListener('message', responseHandler);
+      }
+      if (broadcastChannel && broadcastHandler) {
+        broadcastChannel.removeEventListener('message', broadcastHandler);
+        broadcastChannel.close();
+      }
+      
+      console.error('Offscreen: No response from iframe for ID token request');
+      sendResponse({
+        success: false,
+        error: 'Failed to get ID token from authentication iframe'
+      });
+    }
+  }, 5000); // 5 second timeout
+}
+
+// Temporary workaround: Sign in the user in offscreen document when needed
+async function ensureAuthenticatedForUser(userId: string, request: any): Promise<boolean> {
+  const currentUser = auth.currentUser;
+  
+  // If already authenticated as the right user, we're good
+  if (currentUser && currentUser.uid === userId) {
+    console.log('Offscreen: Already authenticated as user:', userId);
+    return true;
+  }
+  
+  console.log('Offscreen: Need to authenticate for user:', userId);
+  
+  // Check if we have auth credentials in the request (temporary solution)
+  if (request.authCredentials) {
+    const { email, password } = request.authCredentials;
+    try {
+      console.log('Offscreen: Attempting to sign in with provided credentials');
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('Offscreen: ✅ Successfully authenticated:', userCredential.user.uid);
+      return userCredential.user.uid === userId;
+    } catch (error) {
+      console.error('Offscreen: Failed to authenticate:', error);
+    }
+  }
+  
+  // As a last resort, check if we have a recent auth from the iframe
+  // This won't help with Firestore but at least we can log the situation
+  const stored = await chrome.storage.local.get(['authUser']);
+  if (stored.authUser && stored.authUser.uid === userId) {
+    console.log('Offscreen: User is authenticated elsewhere but not in this context');
+    console.log('Offscreen: Firestore write will likely fail due to missing auth');
+  }
+  
+  return false;
+}
+
+// Handle preference sync to Firestore
+async function handlePreferenceSync(request: any, sendResponse: (response: any) => void) {
+  console.log('Offscreen: Handling preference sync request for user:', request.data?.userId);
+  console.log('Offscreen: Preferences to sync:', request.data?.preferences);
+  
+  const { userId, preferences } = request.data;
+  
+  try {
+    // Check if Firebase is initialized
+    if (!db) {
+      throw new Error('Firestore database not initialized');
+    }
+    
+    // Check auth state for this user
+    const isAuthenticated = await ensureAuthenticatedForUser(userId, request.data);
+    
+    // Check current auth state after initialization attempt
+    const currentUser = auth.currentUser;
+    console.log('Offscreen: Current auth user after init:', currentUser?.uid || 'none');
+    
+    if (!currentUser || currentUser.uid !== userId) {
+      console.warn('Offscreen: Auth mismatch - requested userId:', userId, 'current user:', currentUser?.uid);
+      console.warn('Offscreen: Proceeding anyway - Firestore rules should handle authorization');
+    }
+    
+    // Create reference to user document
+    const userDocRef = doc(db, 'users', userId);
+    console.log('Offscreen: Writing to Firestore path: users/' + userId);
+    
+    // Add timestamps
+    const preferencesWithTimestamp = {
+      ...preferences,
+      lastModified: preferences.lastModified || Date.now(),
+      lastSynced: Date.now()
+    };
+    
+    // Save to Firestore with merge to not overwrite other fields
+    await setDoc(userDocRef, {
+      preferences: preferencesWithTimestamp,
+      updatedAt: Date.now() // Add document-level timestamp
+    }, { merge: true });
+    
+    console.log('Offscreen: ✅ Preferences synced to Firestore successfully');
+    console.log('Offscreen: Synced data:', preferencesWithTimestamp);
+    sendResponse({ success: true, syncedAt: Date.now() });
+  } catch (error) {
+    console.error('Offscreen: ❌ Error syncing preferences to Firestore:', error);
+    sendResponse({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+}
 
 async function handleAuthRequest(request: any, sendResponse: (response: any) => void) {
   console.log('Offscreen: Handling auth request:', request.action);
@@ -327,5 +570,10 @@ window.addEventListener('message', (event) => {
       action: 'authStateChanged',
       user: event.data.user
     });
+    
+    // Store the auth result for later use if needed
+    if (event.data.user) {
+      console.log('Offscreen: User authenticated via iframe:', event.data.user.uid);
+    }
   }
 });

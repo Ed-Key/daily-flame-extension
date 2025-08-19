@@ -7,6 +7,7 @@ export interface ProfileDropdownProps {
   isAdmin: boolean;
   isEmailVerified: boolean;
   onSignOut: () => void;
+  onSettingsClick?: () => void;
   shadowRoot?: ShadowRoot | null;
 }
 

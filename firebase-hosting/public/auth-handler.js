@@ -235,6 +235,21 @@ window.addEventListener('message', async (event) => {
         }
         break;
         
+      case 'getIdToken':
+        console.log('Getting ID token for current user...');
+        if (auth.currentUser) {
+          const idToken = await auth.currentUser.getIdToken();
+          result = { 
+            success: true, 
+            idToken: idToken,
+            userId: auth.currentUser.uid
+          };
+          console.log('ID token retrieved successfully for user:', auth.currentUser.uid);
+        } else {
+          throw new Error('No authenticated user');
+        }
+        break;
+        
       default:
         throw new Error(`Unknown action: ${action}`);
     }
@@ -254,7 +269,9 @@ window.addEventListener('message', async (event) => {
       user: userData,
       needsVerification: action === 'signUpWithEmail' && email !== 'admin@dailyflame.com',
       // Include isValid for verifyAuthState action
-      ...(action === 'verifyAuthState' && { isValid: result.isValid })
+      ...(action === 'verifyAuthState' && { isValid: result.isValid }),
+      // Include idToken for getIdToken action
+      ...(action === 'getIdToken' && { idToken: result.idToken, userId: result.userId })
     };
     
     console.log('Sending success response:', response);

@@ -7,11 +7,13 @@ import {
   BibleTranslation,
   BibleVersion,
   UnifiedChapter,
-  BibleParser
+  BibleParser,
+  FirebaseUser
 } from '../types';
 import { ESVService } from './esv-service';
 import { NLTService } from './nlt-service';
 import { FirestoreService, FirestoreVerse } from './firestore-service';
+import { UserPreferencesService } from './user-preferences-service';
 import { getDayOfYear } from '../utils/date-utils';
 
 // Import parsers
@@ -254,10 +256,10 @@ export class VerseService {
     }
   }
 
-  static async getDailyVerse(): Promise<VerseData> {
+  static async getDailyVerse(user: FirebaseUser | null = null): Promise<VerseData> {
     try {
-      // Get user's preferred translation
-      const preferredTranslation = await this.getTranslationPreference();
+      // Get user's preferred translation using UserPreferencesService
+      const preferredTranslation = await UserPreferencesService.getBibleTranslation(user);
       const bibleId = BIBLE_VERSIONS[preferredTranslation];
       
       // First try to get today's verse from Firestore
@@ -283,24 +285,24 @@ export class VerseService {
       
       // Final fallback to stored verses
       console.warn('Firestore unavailable, falling back to default verses');
-      return this.getDailyVerseFromStored();
+      return this.getDailyVerseFromStored(user);
       
     } catch (error) {
       console.error('Error getting daily verse:', error);
       // Fallback to stored verses on any error
-      return this.getDailyVerseFromStored();
+      return this.getDailyVerseFromStored(user);
     }
   }
 
-  private static async getDailyVerseFromStored(): Promise<VerseData> {
+  private static async getDailyVerseFromStored(user: FirebaseUser | null = null): Promise<VerseData> {
     const verses = await this.getStoredVerses();
     
     if (!verses || verses.length === 0) {
       throw new Error('No verses configured');
     }
     
-    // Get user's preferred translation
-    const preferredTranslation = await this.getTranslationPreference();
+    // Get user's preferred translation using UserPreferencesService
+    const preferredTranslation = await UserPreferencesService.getBibleTranslation(user);
     const bibleId = BIBLE_VERSIONS[preferredTranslation];
     
     // Use date as seed for consistent daily verse (based on local timezone)
@@ -347,22 +349,13 @@ export class VerseService {
     });
   }
 
-  // Translation preference methods
-  static async saveTranslationPreference(translation: BibleTranslation): Promise<void> {
-    return new Promise((resolve) => {
-      chrome.storage.local.set({ preferredTranslation: translation }, () => {
-        resolve();
-      });
-    });
+  // Translation preference methods (now delegates to UserPreferencesService)
+  static async saveTranslationPreference(translation: BibleTranslation, user: FirebaseUser | null = null): Promise<void> {
+    return UserPreferencesService.saveBibleTranslation(translation, user);
   }
 
-  static async getTranslationPreference(): Promise<BibleTranslation> {
-    return new Promise((resolve) => {
-      chrome.storage.local.get('preferredTranslation', (result) => {
-        // Default to ESV if no preference is saved
-        resolve(result.preferredTranslation || 'ESV');
-      });
-    });
+  static async getTranslationPreference(user: FirebaseUser | null = null): Promise<BibleTranslation> {
+    return UserPreferencesService.getBibleTranslation(user);
   }
 
   static getDefaultVerses(): StoredVerse[] {

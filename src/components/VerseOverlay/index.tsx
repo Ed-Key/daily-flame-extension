@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { VerseOverlayProps, BIBLE_VERSIONS, BibleTranslation, VerseData } from '../../types';
 import { VerseService } from '../../services/verse-service';
+import { UserPreferencesService } from '../../services/user-preferences-service';
 import { useAuth } from '../AuthContext';
 import { useToast } from '../ToastContext';
 import { SignInForm, SignUpForm, VerificationReminder } from '../forms';
@@ -48,6 +49,10 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   
   // Theme state with persistence
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  
+  // Settings modal state
+  const [showSettings, setShowSettings] = useState(false);
+  const [currentTranslation, setCurrentTranslation] = useState<BibleTranslation>('ESV');
   
   // Debug logging
   useEffect(() => {
@@ -160,25 +165,139 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     }
   }, [theme, shadowRoot]);
 
-  // Load theme preference from Chrome storage on mount
+  // Load preferences from UserPreferencesService on mount
   useEffect(() => {
-    chrome.storage.local.get('themePreference', (result) => {
-      if (result.themePreference) {
-        setTheme(result.themePreference as 'light' | 'dark');
+    const loadPreferences = async () => {
+      try {
+        // Load theme preference
+        const savedTheme = await UserPreferencesService.getTheme(user);
+        setTheme(savedTheme);
+        
+        // Load translation preference
+        const savedTranslation = await UserPreferencesService.getBibleTranslation(user);
+        setCurrentTranslation(savedTranslation);
+      } catch (error) {
+        console.error('Error loading preferences:', error);
       }
-    });
-  }, []);
+    };
+    
+    loadPreferences();
+  }, [user]); // Re-load when user changes
 
-  // Save theme preference to Chrome storage when it changes
+  // Handle user sign-in/out for preference syncing
   useEffect(() => {
-    chrome.storage.local.set({ themePreference: theme }, () => {
-      if (chrome.runtime.lastError) {
-        console.error('Daily Flame: Error saving theme preference:', chrome.runtime.lastError);
-      } else {
-        console.log(`Daily Flame: Theme preference saved: ${theme}`);
-      }
-    });
-  }, [theme]);
+    if (user) {
+      // User signed in, trigger sync and then reload preferences to UI
+      UserPreferencesService.onSignIn(user).then(async () => {
+        // After syncing, reload preferences to update UI
+        try {
+          const savedTranslation = await UserPreferencesService.getBibleTranslation(user);
+          const savedTheme = await UserPreferencesService.getTheme(user);
+          
+          console.log('VerseOverlay: Updating UI with synced preferences:', { 
+            translation: savedTranslation, 
+            theme: savedTheme 
+          });
+          
+          // Update the UI state with the loaded preferences
+          setCurrentTranslation(savedTranslation);
+          setTheme(savedTheme);
+          
+          // If the translation changed, fetch the verse in the new translation
+          if (savedTranslation !== currentTranslation) {
+            const bibleId = BIBLE_VERSIONS[savedTranslation];
+            const newVerse = await VerseService.getVerse(currentVerse.reference, bibleId);
+            setCurrentVerse(newVerse);
+          }
+        } catch (error) {
+          console.error('Error updating UI after sign-in sync:', error);
+        }
+      }).catch(error => {
+        console.error('Error syncing preferences on sign-in:', error);
+      });
+    } else {
+      // User signed out, clear cache
+      UserPreferencesService.onSignOut().catch(error => {
+        console.error('Error clearing preference cache on sign-out:', error);
+      });
+    }
+  }, [user]);
+
+  // Load translation preference and animate when Settings opens
+  useEffect(() => {
+    if (showSettings) {
+      // Load translation preference from UserPreferencesService
+      UserPreferencesService.getBibleTranslation(user).then((translation) => {
+        setCurrentTranslation(translation);
+      });
+      
+      // Animate settings container fade in with smooth scale and translate
+      setTimeout(() => {
+        const settingsContainer = shadowRoot?.querySelector('.settings-view-container') as HTMLElement;
+        if (settingsContainer) {
+          gsap.fromTo(settingsContainer, 
+            { 
+              opacity: 0,
+              y: 10,
+              scale: 0.98
+            },
+            { 
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.4,
+              ease: "power2.out" 
+            }
+          );
+        }
+      }, 10); // Reduced delay for smoother transition
+    } else if (!showSettings && !showContext) {
+      // Animate verse content fade in with smooth scale and translate when returning from settings
+      setTimeout(() => {
+        if (verseContentRef.current) {
+          const verseElements = verseContentRef.current.querySelector('.verse-display-container') || 
+                               verseContentRef.current.children[0];
+          if (verseElements) {
+            gsap.fromTo(verseElements,
+              { 
+                opacity: 0,
+                y: 10,
+                scale: 0.98
+              },
+              { 
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.4,
+                ease: "power2.out" 
+              }
+            );
+          }
+        }
+        
+        // Re-animate the decorative lines when returning from settings with better timing
+        setTimeout(() => {
+          const refs = verseDisplayRef.current;
+          if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
+            // First remove the animate class if it exists
+            refs.leftLineRef.current.classList.remove('animate');
+            refs.rightLineRef.current.classList.remove('animate');
+            
+            // Force a reflow to ensure the removal is processed
+            void refs.leftLineRef.current.offsetWidth;
+            
+            // Add the animate class back to trigger the CSS transition
+            requestAnimationFrame(() => {
+              if (refs.leftLineRef.current && refs.rightLineRef.current) {
+                refs.leftLineRef.current.classList.add('animate');
+                refs.rightLineRef.current.classList.add('animate');
+              }
+            });
+          }
+        }, 200); // Delay to let verse animation start first
+      }, 10); // Reduced delay for smoother transition
+    }
+  }, [showSettings, showContext]);
 
   // Removed line animation effect
 
@@ -532,8 +651,8 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       // Fetch the verse in the new translation
       const newVerse = await VerseService.getVerse(currentVerse.reference, bibleId);
       
-      // Save the translation preference
-      await VerseService.saveTranslationPreference(newTranslation);
+      // Save the translation preference using UserPreferencesService
+      await UserPreferencesService.saveBibleTranslation(newTranslation, user);
       
       // Update the current verse state - this will trigger animation restart
       setCurrentVerse(newVerse);
@@ -627,7 +746,12 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           <div ref={topControlsRef} className="top-controls">
             <ThemeToggle 
               theme={theme} 
-              onToggle={() => setTheme(theme === 'dark' ? 'light' : 'dark')} 
+              onToggle={async () => {
+                const newTheme = theme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+                // Save theme preference using UserPreferencesService
+                await UserPreferencesService.saveTheme(newTheme, user);
+              }} 
             />
             {!user ? (
               <AuthButtons onSignInClick={() => setShowSignIn(true)} />
@@ -637,10 +761,68 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 isAdmin={isAdmin}
                 isEmailVerified={isEmailVerified}
                 onSignOut={signOut}
+                onSettingsClick={() => {
+                  // Fade out verse content with smooth scale and translate, then switch to settings
+                  if (verseContentRef.current) {
+                    const verseElements = verseContentRef.current.querySelector('.verse-display-container') || 
+                                         verseContentRef.current.children[0];
+                    if (verseElements) {
+                      gsap.to(verseElements, {
+                        opacity: 0,
+                        y: -10,
+                        scale: 0.98,
+                        duration: 0.4,
+                        ease: "power2.in",
+                        onComplete: () => {
+                          setShowSettings(true);
+                        }
+                      });
+                    } else {
+                      setShowSettings(true);
+                    }
+                  } else {
+                    setShowSettings(true);
+                  }
+                }}
                 shadowRoot={shadowRoot}
               />
             )}
           </div>
+
+          {/* Settings header when settings is active - INSIDE modal */}
+          {showSettings && (
+            <>
+              {/* Settings title */}
+              <h2 className="settings-title">
+                Settings
+              </h2>
+              
+              {/* Back button - positioned below the title */}
+              <button 
+                className="settings-back-button"
+                onClick={() => {
+                  // Fade out settings with smooth scale and translate, then switch back to verse
+                  const settingsContainer = shadowRoot?.querySelector('.settings-view-container') as HTMLElement;
+                  if (settingsContainer) {
+                    gsap.to(settingsContainer, {
+                      opacity: 0,
+                      y: -10,
+                      scale: 0.98,
+                      duration: 0.4,
+                      ease: "power2.in",
+                      onComplete: () => {
+                        setShowSettings(false);
+                      }
+                    });
+                  } else {
+                    setShowSettings(false);
+                  }
+                }}
+              >
+                ← Back to Verse
+              </button>
+            </>
+          )}
 
             <div ref={verseContentRef} className="verse-content">
             {/* Admin Controls - Only visible to authenticated admins */}
@@ -648,8 +830,9 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
               <AdminControls />
             )}
 
-            {/* Main verse view */}
-            {!showContext ? (
+            {/* Main content - conditionally render based on view state */}
+            {!showSettings && !showContext ? (
+              /* Main verse view */
               <VerseDisplay
                 ref={verseDisplayRef}
                 verse={currentVerse}
@@ -659,7 +842,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 shadowRoot={shadowRoot}
                 isAdmin={isAdmin}
               />
-            ) : (
+            ) : showContext ? (
               /* Context view */
               <ContextView
                 verse={currentVerse}
@@ -670,7 +853,52 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 onDone={handleAnimatedDismiss}
                 onTranslationChange={handleContextTranslationChange}
               />
-            )}
+            ) : showSettings ? (
+              /* Settings view */
+              <div className="settings-view-container">
+                {/* Bible Translation Preference */}
+                <div className="settings-section">
+                  <label className="settings-label">
+                    Default Bible Translation
+                  </label>
+                  
+                  <select 
+                    className="settings-translation-select"
+                    value={currentTranslation}
+                    onChange={async (e) => {
+                      const newTranslation = e.target.value as BibleTranslation;
+                      setCurrentTranslation(newTranslation);
+                      
+                      // Save the preference using UserPreferencesService
+                      await UserPreferencesService.saveBibleTranslation(newTranslation, user);
+                      
+                      // Fetch the current verse in the new translation
+                      try {
+                        const bibleId = BIBLE_VERSIONS[newTranslation];
+                        const newVerse = await VerseService.getVerse(currentVerse.reference, bibleId);
+                        setCurrentVerse(newVerse);
+                        showToast(`Default translation set to ${newTranslation}`, 'success');
+                      } catch (error) {
+                        console.error('Error fetching verse in new translation:', error);
+                        showToast('Failed to load verse in new translation', 'error');
+                      }
+                    }}
+                  >
+                    <option value="ESV">ESV - English Standard Version</option>
+                    <option value="NLT">NLT - New Living Translation</option>
+                    <option value="KJV">KJV - King James Version</option>
+                    <option value="ASV">ASV - American Standard Version</option>
+                    <option value="WEB">WEB - World English Bible</option>
+                    <option value="WEB_BRITISH">WEB - British Edition</option>
+                    <option value="WEB_UPDATED">WEB - Updated</option>
+                  </select>
+                  
+                  <p className="settings-description">
+                    This translation will be used for your daily verses
+                  </p>
+                </div>
+              </div>
+            ) : null}
             </div>
           </div>
       </div>
@@ -726,6 +954,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           </div>
         </div>
       )}
+
     </>
   );
 };

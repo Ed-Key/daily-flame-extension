@@ -20,8 +20,9 @@ async function initVerseOverlay() {
     
     try {
         // Get today's verse directly from VerseService
+        // Note: User context not available yet, will sync preferences after auth
         console.log('Daily Flame: Fetching daily verse...');
-        const verse = await VerseService.getDailyVerse();
+        const verse = await VerseService.getDailyVerse(null);
         
         if (verse) {
             renderOverlay(verse);
