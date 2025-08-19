@@ -65670,7 +65670,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot }) => {
+const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, onSettingsClick, shadowRoot }) => {
     const { sendVerificationEmail } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_2__.useAuth)();
     const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_3__.useToast)();
     const [showDropdown, setShowDropdown] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -65751,7 +65751,10 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, shadowRoot
                             detail: { source: 'profile' }
                         }));
                     }
-                }, className: "profile-button sign-in-glow", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-button__name", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "profile-button__avatar", children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-info", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "profile-dropdown-info__name", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "profile-dropdown-info__email", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-badges", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-dropdown-badge profile-dropdown-badge--admin", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-dropdown-badge profile-dropdown-badge--unverified", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "profile-dropdown-action", children: "Resend Verification Email" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "profile-dropdown-action profile-dropdown-action--signout", children: "Sign Out" })] }))] }));
+                }, className: "profile-button sign-in-glow", "aria-label": "User menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-button__name", children: getFormattedName(user) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "profile-button__avatar", children: getFirstInitial(user) })] }), showDropdown && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-menu", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-info", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "profile-dropdown-info__name", children: user.displayName || user.email?.split('@')[0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "profile-dropdown-info__email", children: user.email }), (isAdmin || !isEmailVerified) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "profile-dropdown-badges", children: [isAdmin && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-dropdown-badge profile-dropdown-badge--admin", children: "Admin" })), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "profile-dropdown-badge profile-dropdown-badge--unverified", children: "Unverified" }))] }))] }), !isEmailVerified && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleSendVerificationEmail, className: "profile-dropdown-action", children: "Resend Verification Email" })), onSettingsClick && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { onClick: () => {
+                            onSettingsClick();
+                            setShowDropdown(false);
+                        }, className: "profile-dropdown-action profile-dropdown-action--settings", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "profile-dropdown-icon", viewBox: "0 0 20 20", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round", strokeLinejoin: "round" }) }), "Settings"] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: handleLogout, className: "profile-dropdown-action profile-dropdown-action--signout", children: "Sign Out" })] }))] }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProfileDropdown);
 
@@ -65970,19 +65973,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var _gsap_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @gsap/react */ "./node_modules/@gsap/react/src/index.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
 /* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/verse-service */ "./src/services/verse-service.ts");
-/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../AuthContext */ "./src/components/AuthContext.tsx");
-/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ToastContext */ "./src/components/ToastContext.tsx");
-/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../forms */ "./src/components/forms/index.ts");
-/* harmony import */ var _components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ProfileDropdown */ "./src/components/VerseOverlay/components/ProfileDropdown.tsx");
-/* harmony import */ var _components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/AuthButtons */ "./src/components/VerseOverlay/components/AuthButtons.tsx");
-/* harmony import */ var _components_AdminControls__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/AdminControls */ "./src/components/VerseOverlay/components/AdminControls.tsx");
-/* harmony import */ var _components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/VerseDisplay */ "./src/components/VerseOverlay/components/VerseDisplay.tsx");
-/* harmony import */ var _components_ContextView__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/ContextView */ "./src/components/VerseOverlay/components/ContextView.tsx");
-/* harmony import */ var _components_ThemeToggle__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/ThemeToggle */ "./src/components/VerseOverlay/components/ThemeToggle.tsx");
+/* harmony import */ var _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/user-preferences-service */ "./src/services/user-preferences-service.ts");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../AuthContext */ "./src/components/AuthContext.tsx");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ToastContext */ "./src/components/ToastContext.tsx");
+/* harmony import */ var _forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../forms */ "./src/components/forms/index.ts");
+/* harmony import */ var _components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/ProfileDropdown */ "./src/components/VerseOverlay/components/ProfileDropdown.tsx");
+/* harmony import */ var _components_AuthButtons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/AuthButtons */ "./src/components/VerseOverlay/components/AuthButtons.tsx");
+/* harmony import */ var _components_AdminControls__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/AdminControls */ "./src/components/VerseOverlay/components/AdminControls.tsx");
+/* harmony import */ var _components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/VerseDisplay */ "./src/components/VerseOverlay/components/VerseDisplay.tsx");
+/* harmony import */ var _components_ContextView__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/ContextView */ "./src/components/VerseOverlay/components/ContextView.tsx");
+/* harmony import */ var _components_ThemeToggle__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/ThemeToggle */ "./src/components/VerseOverlay/components/ThemeToggle.tsx");
+
 
 
 
@@ -66000,8 +66005,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
-    const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_5__.useAuth)();
-    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_6__.useToast)();
+    const { user, isAdmin, signIn, signUp, signInWithGoogle, signOut, sendVerificationEmail, isEmailVerified } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_6__.useAuth)();
+    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_7__.useToast)();
     // Verse state - manage current verse for translation changes
     const [currentVerse, setCurrentVerse] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(verse);
     // Modal refs
@@ -66023,6 +66028,9 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const [verificationEmail, setVerificationEmail] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     // Theme state with persistence
     const [theme, setTheme] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('dark');
+    // Settings modal state
+    const [showSettings, setShowSettings] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [currentTranslation, setCurrentTranslation] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('ESV');
     // Debug logging
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         console.log('VerseOverlay: Auth state changed', { user, isAdmin });
@@ -66031,7 +66039,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleAnimatedDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create exit animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(true); // Pass true for permanent dismissal (Done button)
                 }
@@ -66064,7 +66072,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleMoreClick = async () => {
         // Animate modal expansion
         if (modalRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(modalRef.current, {
                 maxHeight: '90vh',
                 duration: 0.4,
                 ease: "power2.out",
@@ -66124,25 +66132,126 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             }
         }
     }, [theme, shadowRoot]);
-    // Load theme preference from Chrome storage on mount
+    // Load preferences from UserPreferencesService on mount
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        chrome.storage.local.get('themePreference', (result) => {
-            if (result.themePreference) {
-                setTheme(result.themePreference);
+        const loadPreferences = async () => {
+            try {
+                // Load theme preference
+                const savedTheme = await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.getTheme(user);
+                setTheme(savedTheme);
+                // Load translation preference
+                const savedTranslation = await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.getBibleTranslation(user);
+                setCurrentTranslation(savedTranslation);
             }
-        });
-    }, []);
-    // Save theme preference to Chrome storage when it changes
+            catch (error) {
+                console.error('Error loading preferences:', error);
+            }
+        };
+        loadPreferences();
+    }, [user]); // Re-load when user changes
+    // Handle user sign-in/out for preference syncing
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        chrome.storage.local.set({ themePreference: theme }, () => {
-            if (chrome.runtime.lastError) {
-                console.error('Daily Flame: Error saving theme preference:', chrome.runtime.lastError);
-            }
-            else {
-                console.log(`Daily Flame: Theme preference saved: ${theme}`);
-            }
-        });
-    }, [theme]);
+        if (user) {
+            // User signed in, trigger sync and then reload preferences to UI
+            _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.onSignIn(user).then(async () => {
+                // After syncing, reload preferences to update UI
+                try {
+                    const savedTranslation = await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.getBibleTranslation(user);
+                    const savedTheme = await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.getTheme(user);
+                    console.log('VerseOverlay: Updating UI with synced preferences:', {
+                        translation: savedTranslation,
+                        theme: savedTheme
+                    });
+                    // Update the UI state with the loaded preferences
+                    setCurrentTranslation(savedTranslation);
+                    setTheme(savedTheme);
+                    // If the translation changed, fetch the verse in the new translation
+                    if (savedTranslation !== currentTranslation) {
+                        const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[savedTranslation];
+                        const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(currentVerse.reference, bibleId);
+                        setCurrentVerse(newVerse);
+                    }
+                }
+                catch (error) {
+                    console.error('Error updating UI after sign-in sync:', error);
+                }
+            }).catch(error => {
+                console.error('Error syncing preferences on sign-in:', error);
+            });
+        }
+        else {
+            // User signed out, clear cache
+            _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.onSignOut().catch(error => {
+                console.error('Error clearing preference cache on sign-out:', error);
+            });
+        }
+    }, [user]);
+    // Load translation preference and animate when Settings opens
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        if (showSettings) {
+            // Load translation preference from UserPreferencesService
+            _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.getBibleTranslation(user).then((translation) => {
+                setCurrentTranslation(translation);
+            });
+            // Animate settings container fade in with smooth scale and translate
+            setTimeout(() => {
+                const settingsContainer = shadowRoot?.querySelector('.settings-view-container');
+                if (settingsContainer) {
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo(settingsContainer, {
+                        opacity: 0,
+                        y: 10,
+                        scale: 0.98
+                    }, {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                }
+            }, 10); // Reduced delay for smoother transition
+        }
+        else if (!showSettings && !showContext) {
+            // Animate verse content fade in with smooth scale and translate when returning from settings
+            setTimeout(() => {
+                if (verseContentRef.current) {
+                    const verseElements = verseContentRef.current.querySelector('.verse-display-container') ||
+                        verseContentRef.current.children[0];
+                    if (verseElements) {
+                        gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo(verseElements, {
+                            opacity: 0,
+                            y: 10,
+                            scale: 0.98
+                        }, {
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                    }
+                }
+                // Re-animate the decorative lines when returning from settings with better timing
+                setTimeout(() => {
+                    const refs = verseDisplayRef.current;
+                    if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
+                        // First remove the animate class if it exists
+                        refs.leftLineRef.current.classList.remove('animate');
+                        refs.rightLineRef.current.classList.remove('animate');
+                        // Force a reflow to ensure the removal is processed
+                        void refs.leftLineRef.current.offsetWidth;
+                        // Add the animate class back to trigger the CSS transition
+                        requestAnimationFrame(() => {
+                            if (refs.leftLineRef.current && refs.rightLineRef.current) {
+                                refs.leftLineRef.current.classList.add('animate');
+                                refs.rightLineRef.current.classList.add('animate');
+                            }
+                        });
+                    }
+                }, 200); // Delay to let verse animation start first
+            }, 10); // Reduced delay for smoother transition
+        }
+    }, [showSettings, showContext]);
     // Removed line animation effect
     // GSAP Modal Entrance Animation with Backdrop Blur
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
@@ -66151,18 +66260,18 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             const direction = Math.random() > 0.5 ? 'left' : 'right';
             entranceDirectionRef.current = direction;
             // Set initial states - backdrop visible but no blur
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(overlayRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(overlayRef.current, {
                 opacity: 1,
                 className: 'verse-overlay' // No backdrop-blur class initially
             });
             // Set modal initial state - start small and off-screen
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(modalRef.current, {
                 xPercent: direction === 'left' ? -100 : 100,
                 scale: 0.85, // Start at 85% scale
                 opacity: 0
             });
             // Create animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
                 onComplete: () => {
                     console.log('Modal entrance animation completed');
                 }
@@ -66198,7 +66307,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
         // Initially hide top controls for animation
         if (topControlsRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(topControlsRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(topControlsRef.current, {
                 opacity: 0,
                 y: -10,
                 visibility: 'visible'
@@ -66208,12 +66317,12 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseContentRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseContentRef.current, {
                 opacity: 1,
                 visibility: 'visible'
             });
             // Set initial states for animation elements
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                 opacity: 0,
                 y: 30,
                 scale: 0.95,
@@ -66221,7 +66330,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 display: 'block'
             });
             // Keep the verse text container hidden initially
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseTextRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextRef.current, {
                 opacity: 0,
                 visibility: 'visible'
             });
@@ -66241,17 +66350,17 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
             if (letterElements.length > 0) {
                 // Set initial state for letters with minimal glow
-                gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(letterElements, {
+                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(letterElements, {
                     opacity: 0,
                     display: 'inline-block',
                     textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                 });
                 // Now make the container visible after all elements are hidden
-                gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseTextRef.current, {
+                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextRef.current, {
                     opacity: 1
                 });
                 // Create timeline for smooth verse reveal
-                const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
+                const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
                     delay: 0.9, // Delayed to start after overlay entrance animation
                     onStart: () => {
                         console.log('GSAP timeline started');
@@ -66335,7 +66444,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             return;
         const verseTextElement = refs.verseTextRef.current;
         // Fade out current text
-        gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(verseTextElement, {
+        gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(verseTextElement, {
             opacity: 0,
             duration: 0.3,
             ease: "power2.in",
@@ -66352,14 +66461,14 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 const letterElements = verseTextElement.querySelectorAll('.verse-letter');
                 if (letterElements.length > 0) {
                     // Set initial state for letters
-                    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(letterElements, {
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(letterElements, {
                         opacity: 0,
                         textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                     });
                     // Make container visible
-                    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.set(verseTextElement, { opacity: 1 });
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextElement, { opacity: 1 });
                     // Animate letters with the same glow effect
-                    gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(letterElements, {
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(letterElements, {
                         keyframes: [
                             { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
                             { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 },
@@ -66371,7 +66480,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                         stagger: 0.05,
                         onComplete: () => {
                             // Add final glow
-                            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(letterElements, {
+                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(letterElements, {
                                 opacity: 1,
                                 textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
                                 duration: 1.2,
@@ -66387,7 +66496,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleShrinkDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create shrink animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(false); // Temporary dismissal
                 }
@@ -66446,8 +66555,8 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[newTranslation];
             // Fetch the verse in the new translation
             const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(currentVerse.reference, bibleId);
-            // Save the translation preference
-            await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.saveTranslationPreference(newTranslation);
+            // Save the translation preference using UserPreferencesService
+            await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveBibleTranslation(newTranslation, user);
             // Update the current verse state - this will trigger animation restart
             setCurrentVerse(newVerse);
             showToast(`Translation changed to ${newTranslation}`, 'success');
@@ -66488,7 +66597,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         // Animate modal back to original size
         if (modalRef.current) {
             modalRef.current.classList.remove('verse-modal-expanded');
-            gsap__WEBPACK_IMPORTED_MODULE_14__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(modalRef.current, {
                 maxHeight: '85vh',
                 duration: 0.4,
                 ease: "power2.out"
@@ -66518,9 +66627,76 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
         });
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: topControlsRef, className: "top-controls", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ThemeToggle__WEBPACK_IMPORTED_MODULE_13__["default"], { theme: theme, onToggle: () => setTheme(theme === 'dark' ? 'light' : 'dark') }), !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_9__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_8__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, shadowRoot: shadowRoot }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_10__["default"], {})), !showContext ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_11__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : (
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: topControlsRef, className: "top-controls", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ThemeToggle__WEBPACK_IMPORTED_MODULE_14__["default"], { theme: theme, onToggle: async () => {
+                                        const newTheme = theme === 'dark' ? 'light' : 'dark';
+                                        setTheme(newTheme);
+                                        // Save theme preference using UserPreferencesService
+                                        await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveTheme(newTheme, user);
+                                    } }), !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_10__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_9__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, onSettingsClick: () => {
+                                        // Fade out verse content with smooth scale and translate, then switch to settings
+                                        if (verseContentRef.current) {
+                                            const verseElements = verseContentRef.current.querySelector('.verse-display-container') ||
+                                                verseContentRef.current.children[0];
+                                            if (verseElements) {
+                                                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(verseElements, {
+                                                    opacity: 0,
+                                                    y: -10,
+                                                    scale: 0.98,
+                                                    duration: 0.4,
+                                                    ease: "power2.in",
+                                                    onComplete: () => {
+                                                        setShowSettings(true);
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                setShowSettings(true);
+                                            }
+                                        }
+                                        else {
+                                            setShowSettings(true);
+                                        }
+                                    }, shadowRoot: shadowRoot }))] }), showSettings && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "settings-back-button", onClick: () => {
+                                        // Fade out settings with smooth scale and translate, then switch back to verse
+                                        const settingsContainer = shadowRoot?.querySelector('.settings-view-container');
+                                        if (settingsContainer) {
+                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(settingsContainer, {
+                                                opacity: 0,
+                                                y: -10,
+                                                scale: 0.98,
+                                                duration: 0.4,
+                                                ease: "power2.in",
+                                                onComplete: () => {
+                                                    setShowSettings(false);
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            setShowSettings(false);
+                                        }
+                                    }, children: "\u2190 Back to Verse" })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showSettings && !showContext ? (
+                                /* Main verse view */
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : showContext ? (
                                 /* Context view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_12__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_7__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_13__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange })) : showSettings ? (
+                                /* Settings view */
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-view-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { className: "settings-label", children: "Default Bible Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { className: "settings-translation-select", value: currentTranslation, onChange: async (e) => {
+                                                    const newTranslation = e.target.value;
+                                                    setCurrentTranslation(newTranslation);
+                                                    // Save the preference using UserPreferencesService
+                                                    await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveBibleTranslation(newTranslation, user);
+                                                    // Fetch the current verse in the new translation
+                                                    try {
+                                                        const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[newTranslation];
+                                                        const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(currentVerse.reference, bibleId);
+                                                        setCurrentVerse(newVerse);
+                                                        showToast(`Default translation set to ${newTranslation}`, 'success');
+                                                    }
+                                                    catch (error) {
+                                                        console.error('Error fetching verse in new translation:', error);
+                                                        showToast('Failed to load verse in new translation', 'error');
+                                                    }
+                                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "ESV - English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "NLT", children: "NLT - New Living Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "KJV - King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "ASV - American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "WEB - World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB - British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB - Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "settings-description", children: "This translation will be used for your daily verses" })] }) })) : null] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
                                     }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
@@ -67827,6 +68003,163 @@ const useAuthForm = () => {
 
 /***/ }),
 
+/***/ "./src/services/cloud-functions-service.ts":
+/*!*************************************************!*\
+  !*** ./src/services/cloud-functions-service.ts ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * Service to handle all Cloud Function calls
+ * This replaces direct Firestore access
+ * Uses direct HTTP calls with Authorization headers instead of httpsCallable
+ * to work around Firebase Auth context isolation in Chrome extensions
+ */
+class CloudFunctionsService {
+    /**
+     * Get ID token from offscreen document
+     */
+    static async getIdToken() {
+        try {
+            // Send message to offscreen document to get ID token
+            const response = await chrome.runtime.sendMessage({
+                action: 'getIdToken'
+            });
+            if (response && response.success && response.idToken) {
+                return response.idToken;
+            }
+            console.error('CloudFunctionsService: Failed to get ID token:', response?.error);
+            return null;
+        }
+        catch (error) {
+            console.error('CloudFunctionsService: Error getting ID token:', error);
+            return null;
+        }
+    }
+    /**
+     * Sync user preferences to Firestore via Cloud Function
+     * @param preferences The user preferences to sync
+     * @param user The authenticated Firebase user (used for context, token fetched separately)
+     */
+    static async syncPreferences(preferences, user) {
+        console.log('CloudFunctionsService: Starting preference sync');
+        if (!user) {
+            console.error('CloudFunctionsService: No user provided');
+            return false;
+        }
+        try {
+            // Get ID token from offscreen document
+            const idToken = await this.getIdToken();
+            if (!idToken) {
+                console.error('CloudFunctionsService: Failed to get ID token');
+                return false;
+            }
+            console.log('CloudFunctionsService: Got ID token for user:', user.uid);
+            // Make direct HTTP request with Authorization header
+            // This bypasses the httpsCallable authentication issues
+            const response = await fetch('https://us-central1-daily-flame.cloudfunctions.net/syncUserPreferences', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${idToken}`,
+                },
+                body: JSON.stringify({
+                    data: { preferences }
+                })
+            });
+            console.log('CloudFunctionsService: Response status:', response.status);
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('CloudFunctionsService: HTTP error:', response.status, errorText);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const responseData = await response.json();
+            console.log('CloudFunctionsService: Response data:', responseData);
+            // Handle the response - it might be wrapped in a result object
+            const result = responseData.result || responseData;
+            if (result.success) {
+                console.log('CloudFunctionsService: ✅ Sync successful');
+                return true;
+            }
+            else {
+                console.error('CloudFunctionsService: ❌ Sync failed:', result.message);
+                return false;
+            }
+        }
+        catch (error) {
+            console.error('CloudFunctionsService: Error during sync:', error);
+            // Handle specific error codes
+            if (error.message?.includes('unauthenticated')) {
+                console.error('CloudFunctionsService: User is not authenticated');
+            }
+            else if (error.message?.includes('invalid-argument')) {
+                console.error('CloudFunctionsService: Invalid preferences data');
+            }
+            else if (error.message?.includes('internal')) {
+                console.error('CloudFunctionsService: Server error');
+            }
+            return false;
+        }
+    }
+    /**
+     * Get user preferences from Firestore via Cloud Function
+     * @param user The authenticated Firebase user (used for context, token fetched separately)
+     */
+    static async getPreferences(user) {
+        console.log('CloudFunctionsService: Fetching preferences');
+        try {
+            // Get ID token from offscreen document  
+            const idToken = await this.getIdToken();
+            if (!idToken) {
+                console.error('CloudFunctionsService: Failed to get ID token for fetching preferences');
+                return null;
+            }
+            console.log('CloudFunctionsService: Got ID token for fetching preferences');
+            // Make direct HTTP request with Authorization header
+            const response = await fetch('https://us-central1-daily-flame.cloudfunctions.net/getUserPreferences', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${idToken}`,
+                },
+                body: JSON.stringify({
+                    data: {}
+                })
+            });
+            console.log('CloudFunctionsService: Get response status:', response.status);
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('CloudFunctionsService: HTTP error:', response.status, errorText);
+                return null;
+            }
+            const responseData = await response.json();
+            console.log('CloudFunctionsService: Get response data:', responseData);
+            // Handle the response - it might be wrapped in a result object
+            const result = responseData.result || responseData;
+            if (result.exists && result.preferences) {
+                console.log('CloudFunctionsService: ✅ Preferences retrieved');
+                return result.preferences;
+            }
+            else {
+                console.log('CloudFunctionsService: No preferences found');
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('CloudFunctionsService: Failed to get preferences:', error);
+            return null;
+        }
+    }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CloudFunctionsService);
+
+
+/***/ }),
+
 /***/ "./src/services/esv-service.ts":
 /*!*************************************!*\
   !*** ./src/services/esv-service.ts ***!
@@ -68202,6 +68535,48 @@ class FirestoreService {
         catch (error) {
             console.error('Firestore not available:', error);
             return false;
+        }
+    }
+    /**
+     * Save user preferences to Firestore
+     */
+    static async saveUserPreferences(userId, preferences) {
+        try {
+            const userDocRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.doc)(_firebase_config__WEBPACK_IMPORTED_MODULE_1__.db, 'users', userId);
+            // Add timestamp
+            const preferencesWithTimestamp = {
+                ...preferences,
+                lastModified: Date.now(),
+                lastSynced: Date.now()
+            };
+            // Use merge to only update specified fields
+            await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.setDoc)(userDocRef, {
+                preferences: preferencesWithTimestamp
+            }, { merge: true });
+            console.log('Preferences saved to Firestore:', preferencesWithTimestamp);
+        }
+        catch (error) {
+            console.error('Error saving preferences to Firestore:', error);
+            throw error;
+        }
+    }
+    /**
+     * Get user preferences from Firestore
+     */
+    static async getUserPreferences(userId) {
+        try {
+            const userDocRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.doc)(_firebase_config__WEBPACK_IMPORTED_MODULE_1__.db, 'users', userId);
+            const userDoc = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getDoc)(userDocRef);
+            if (!userDoc.exists()) {
+                console.log('No user preferences found in Firestore');
+                return null;
+            }
+            const data = userDoc.data();
+            return data?.preferences || null;
+        }
+        catch (error) {
+            console.error('Error fetching user preferences from Firestore:', error);
+            return null;
         }
     }
 }
@@ -69508,6 +69883,352 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
 
 /***/ }),
 
+/***/ "./src/services/user-preferences-service.ts":
+/*!**************************************************!*\
+  !*** ./src/services/user-preferences-service.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   UserPreferencesService: () => (/* binding */ UserPreferencesService)
+/* harmony export */ });
+/* harmony import */ var _cloud_functions_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cloud-functions-service */ "./src/services/cloud-functions-service.ts");
+
+class UserPreferencesService {
+    /**
+     * Get default preferences
+     */
+    static getDefaultPreferences() {
+        return {
+            bibleTranslation: 'ESV',
+            theme: 'dark',
+            lastModified: Date.now()
+        };
+    }
+    /**
+     * Load preferences (hybrid approach)
+     * 1. Return cached if fresh
+     * 2. Load from local storage
+     * 3. If signed in, fetch from Firebase and merge
+     */
+    static async loadPreferences(user) {
+        // Check in-memory cache first
+        if (this.cachedPreferences && (Date.now() - this.lastCacheTime) < this.CACHE_DURATION) {
+            console.log('UserPreferences: Using cached preferences');
+            return this.cachedPreferences;
+        }
+        try {
+            // Load from local storage first (instant)
+            const localPrefs = await this.getLocalPreferences();
+            // If user is not signed in, use local preferences only
+            if (!user) {
+                console.log('UserPreferences: Using local preferences (not signed in)');
+                this.cachedPreferences = localPrefs;
+                this.lastCacheTime = Date.now();
+                return localPrefs;
+            }
+            // User is signed in, try to fetch from Firebase via Cloud Function
+            try {
+                const cloudPrefs = await _cloud_functions_service__WEBPACK_IMPORTED_MODULE_0__["default"].getPreferences(user);
+                if (cloudPrefs) {
+                    // Cloud preferences exist
+                    // Check if local preferences are just defaults (fresh browser context)
+                    if (localPrefs.isDefault) {
+                        // Local is just defaults, always use cloud preferences
+                        console.log('UserPreferences: Local is default, using cloud preferences');
+                        await this.saveLocalPreferences(cloudPrefs);
+                        this.cachedPreferences = cloudPrefs;
+                        this.lastCacheTime = Date.now();
+                        return cloudPrefs;
+                    }
+                    // Local preferences exist (not defaults), check which is newer
+                    const localModified = localPrefs.lastModified || 0;
+                    const cloudModified = cloudPrefs.lastModified || 0;
+                    if (cloudModified >= localModified) {
+                        // Cloud is newer or same, use cloud preferences
+                        console.log('UserPreferences: Using cloud preferences (newer or same)');
+                        await this.saveLocalPreferences(cloudPrefs);
+                        this.cachedPreferences = cloudPrefs;
+                        this.lastCacheTime = Date.now();
+                        return cloudPrefs;
+                    }
+                    else {
+                        // Local is newer (user made changes while offline), sync to cloud
+                        console.log('UserPreferences: Local is newer, syncing to cloud');
+                        await this.syncToFirebase(user.uid, localPrefs, user);
+                        this.cachedPreferences = localPrefs;
+                        this.lastCacheTime = Date.now();
+                        return localPrefs;
+                    }
+                }
+                else {
+                    // No cloud preferences yet
+                    // Only upload local if they're not just defaults
+                    if (!localPrefs.isDefault) {
+                        console.log('UserPreferences: No cloud preferences, uploading local (user-modified)');
+                        await this.syncToFirebase(user.uid, localPrefs, user);
+                    }
+                    else {
+                        console.log('UserPreferences: No cloud preferences, using local defaults (not syncing)');
+                    }
+                    this.cachedPreferences = localPrefs;
+                    this.lastCacheTime = Date.now();
+                    return localPrefs;
+                }
+            }
+            catch (error) {
+                console.error('UserPreferences: Error fetching from Firebase, using local:', error);
+                this.cachedPreferences = localPrefs;
+                this.lastCacheTime = Date.now();
+                return localPrefs;
+            }
+        }
+        catch (error) {
+            console.error('UserPreferences: Error loading preferences, using defaults:', error);
+            const defaults = this.getDefaultPreferences();
+            this.cachedPreferences = defaults;
+            this.lastCacheTime = Date.now();
+            return defaults;
+        }
+    }
+    /**
+     * Save a preference (hybrid approach)
+     */
+    static async savePreference(key, value, user) {
+        try {
+            // Get current preferences
+            const currentPrefs = await this.getLocalPreferences();
+            // Update the specific preference
+            const updatedPrefs = {
+                ...currentPrefs,
+                [key]: value,
+                lastModified: Date.now()
+            };
+            // Save to local storage immediately
+            await this.saveLocalPreferences(updatedPrefs);
+            // Update cache
+            this.cachedPreferences = updatedPrefs;
+            this.lastCacheTime = Date.now();
+            // If user is signed in, sync to Firebase
+            if (user) {
+                // Don't await this - let it happen in background
+                this.syncToFirebase(user.uid, updatedPrefs, user).catch(error => {
+                    console.error('UserPreferences: Background sync failed:', error);
+                });
+            }
+            console.log(`UserPreferences: Saved ${key} = ${value}`);
+        }
+        catch (error) {
+            console.error('UserPreferences: Error saving preference:', error);
+            throw error;
+        }
+    }
+    /**
+     * Save Bible translation preference
+     */
+    static async saveBibleTranslation(translation, user) {
+        return this.savePreference('bibleTranslation', translation, user);
+    }
+    /**
+     * Save theme preference
+     */
+    static async saveTheme(theme, user) {
+        return this.savePreference('theme', theme, user);
+    }
+    /**
+     * Get Bible translation preference
+     */
+    static async getBibleTranslation(user) {
+        const prefs = await this.loadPreferences(user);
+        return prefs.bibleTranslation;
+    }
+    /**
+     * Get theme preference
+     */
+    static async getTheme(user) {
+        const prefs = await this.loadPreferences(user);
+        return prefs.theme;
+    }
+    /**
+     * Sync all preferences when user signs in
+     */
+    static async onSignIn(user) {
+        console.log('UserPreferences: User signed in, clearing cache and syncing preferences');
+        // Clear cache to force fresh load from cloud
+        this.cachedPreferences = null;
+        this.lastCacheTime = 0;
+        try {
+            // Load preferences from cloud (this will check cloud first due to cleared cache)
+            const prefs = await this.loadPreferences(user);
+            console.log('UserPreferences: Loaded preferences on sign-in:', prefs);
+            // Also migrate old individual preference keys if they exist
+            await this.migrateOldPreferences(user);
+        }
+        catch (error) {
+            console.error('UserPreferences: Error during sign-in sync:', error);
+        }
+    }
+    /**
+     * Clear cache when user signs out
+     */
+    static async onSignOut() {
+        console.log('UserPreferences: User signed out, clearing cache and local storage');
+        this.cachedPreferences = null;
+        this.lastCacheTime = 0;
+        // Clear local storage to ensure fresh load on next sign-in
+        await chrome.storage.local.remove([this.PREFERENCES_KEY, this.SYNC_TIMESTAMP_KEY]);
+        console.log('UserPreferences: Local storage cleared');
+    }
+    // Private helper methods
+    static async getLocalPreferences() {
+        return new Promise((resolve) => {
+            chrome.storage.local.get([this.PREFERENCES_KEY], (result) => {
+                if (result[this.PREFERENCES_KEY]) {
+                    // User has saved preferences locally
+                    resolve(result[this.PREFERENCES_KEY]);
+                }
+                else {
+                    // Check for old preference keys and migrate
+                    chrome.storage.local.get(['preferredTranslation', 'themePreference'], (oldResult) => {
+                        const prefs = this.getDefaultPreferences();
+                        let hasUserModifications = false;
+                        if (oldResult.preferredTranslation) {
+                            prefs.bibleTranslation = oldResult.preferredTranslation;
+                            hasUserModifications = true;
+                        }
+                        if (oldResult.themePreference) {
+                            prefs.theme = oldResult.themePreference;
+                            hasUserModifications = true;
+                        }
+                        // Mark as default if no user modifications were found
+                        if (!hasUserModifications) {
+                            prefs.isDefault = true;
+                        }
+                        resolve(prefs);
+                    });
+                }
+            });
+        });
+    }
+    static async saveLocalPreferences(preferences) {
+        return new Promise((resolve, reject) => {
+            // Remove the isDefault flag when saving (it's no longer default once saved)
+            const prefsToSave = { ...preferences };
+            delete prefsToSave.isDefault;
+            chrome.storage.local.set({ [this.PREFERENCES_KEY]: prefsToSave }, () => {
+                if (chrome.runtime.lastError) {
+                    reject(chrome.runtime.lastError);
+                }
+                else {
+                    resolve();
+                }
+            });
+        });
+    }
+    static async syncToFirebase(userId, preferences, user) {
+        console.log('UserPreferences: Starting Cloud Function sync for user:', userId);
+        try {
+            // Use Cloud Function with user object
+            const success = await _cloud_functions_service__WEBPACK_IMPORTED_MODULE_0__["default"].syncPreferences(preferences, user);
+            if (success) {
+                console.log('UserPreferences: ✅ Preferences synced via Cloud Function');
+                // Update sync timestamp in local storage
+                await chrome.storage.local.set({
+                    [this.SYNC_TIMESTAMP_KEY]: Date.now()
+                });
+            }
+            else {
+                console.error('UserPreferences: ❌ Cloud Function sync failed');
+                // Note: Local storage still has the preferences, so app continues to work
+            }
+        }
+        catch (error) {
+            console.error('UserPreferences: Failed to sync preferences:', error);
+            // Silent fail - user can still use the extension with local storage
+            // Don't throw - this is a background operation
+        }
+    }
+    static async migrateOldPreferences(user) {
+        return new Promise((resolve) => {
+            chrome.storage.local.get(['preferredTranslation', 'themePreference'], async (result) => {
+                let migrationNeeded = false;
+                const currentPrefs = await this.loadPreferences(user);
+                if (result.preferredTranslation && !currentPrefs.bibleTranslation) {
+                    currentPrefs.bibleTranslation = result.preferredTranslation;
+                    migrationNeeded = true;
+                }
+                if (result.themePreference && !currentPrefs.theme) {
+                    currentPrefs.theme = result.themePreference;
+                    migrationNeeded = true;
+                }
+                if (migrationNeeded) {
+                    console.log('UserPreferences: Migrating old preferences');
+                    await this.saveLocalPreferences(currentPrefs);
+                    await this.syncToFirebase(user.uid, currentPrefs, user);
+                    // Clean up old keys
+                    chrome.storage.local.remove(['preferredTranslation', 'themePreference']);
+                }
+                resolve();
+            });
+        });
+    }
+    /**
+     * Load preferences from Cloud Function
+     */
+    static async loadFromCloud(userId, user) {
+        try {
+            console.log('UserPreferences: Loading from cloud for user:', userId);
+            const cloudPrefs = await _cloud_functions_service__WEBPACK_IMPORTED_MODULE_0__["default"].getPreferences(user);
+            if (cloudPrefs) {
+                // Save to local storage for offline access
+                await this.saveLocalPreferences(cloudPrefs);
+                console.log('UserPreferences: ✅ Loaded from cloud and cached locally');
+                return cloudPrefs;
+            }
+            return null;
+        }
+        catch (error) {
+            console.error('UserPreferences: Failed to load from cloud:', error);
+            return null;
+        }
+    }
+    /**
+     * Force sync preferences (for testing)
+     */
+    static async forceSync(user) {
+        if (!user) {
+            console.log('UserPreferences: Cannot force sync without user');
+            return;
+        }
+        const prefs = await this.getLocalPreferences();
+        await this.syncToFirebase(user.uid, prefs, user);
+        console.log('UserPreferences: Force sync completed');
+    }
+    /**
+     * Clear all preferences (for testing)
+     */
+    static async clearAll() {
+        return new Promise((resolve) => {
+            chrome.storage.local.remove([this.PREFERENCES_KEY, this.SYNC_TIMESTAMP_KEY], () => {
+                this.cachedPreferences = null;
+                this.lastCacheTime = 0;
+                console.log('UserPreferences: All preferences cleared');
+                resolve();
+            });
+        });
+    }
+}
+UserPreferencesService.PREFERENCES_KEY = 'userPreferences';
+UserPreferencesService.SYNC_TIMESTAMP_KEY = 'preferencesSyncTimestamp';
+UserPreferencesService.CACHE_DURATION = 30 * 1000; // 30 seconds cache (reduced for testing)
+// In-memory cache for current session
+UserPreferencesService.cachedPreferences = null;
+UserPreferencesService.lastCacheTime = 0;
+
+
+/***/ }),
+
 /***/ "./src/services/verse-service.ts":
 /*!***************************************!*\
   !*** ./src/services/verse-service.ts ***!
@@ -69522,10 +70243,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _esv_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./esv-service */ "./src/services/esv-service.ts");
 /* harmony import */ var _nlt_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nlt-service */ "./src/services/nlt-service.ts");
 /* harmony import */ var _firestore_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./firestore-service */ "./src/services/firestore-service.ts");
-/* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
-/* harmony import */ var _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./parsers/standard-parser */ "./src/services/parsers/standard-parser.ts");
-/* harmony import */ var _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parsers/esv-parser */ "./src/services/parsers/esv-parser.ts");
-/* harmony import */ var _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./parsers/nlt-parser */ "./src/services/parsers/nlt-parser.ts");
+/* harmony import */ var _user_preferences_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user-preferences-service */ "./src/services/user-preferences-service.ts");
+/* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
+/* harmony import */ var _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parsers/standard-parser */ "./src/services/parsers/standard-parser.ts");
+/* harmony import */ var _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./parsers/esv-parser */ "./src/services/parsers/esv-parser.ts");
+/* harmony import */ var _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./parsers/nlt-parser */ "./src/services/parsers/nlt-parser.ts");
+
 
 
 
@@ -69719,10 +70442,10 @@ class VerseService {
             throw error;
         }
     }
-    static async getDailyVerse() {
+    static async getDailyVerse(user = null) {
         try {
-            // Get user's preferred translation
-            const preferredTranslation = await this.getTranslationPreference();
+            // Get user's preferred translation using UserPreferencesService
+            const preferredTranslation = await _user_preferences_service__WEBPACK_IMPORTED_MODULE_4__.UserPreferencesService.getBibleTranslation(user);
             const bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS[preferredTranslation];
             // First try to get today's verse from Firestore
             const todaysVerse = await _firestore_service__WEBPACK_IMPORTED_MODULE_3__.FirestoreService.getTodaysVerse();
@@ -69742,25 +70465,25 @@ class VerseService {
             }
             // Final fallback to stored verses
             console.warn('Firestore unavailable, falling back to default verses');
-            return this.getDailyVerseFromStored();
+            return this.getDailyVerseFromStored(user);
         }
         catch (error) {
             console.error('Error getting daily verse:', error);
             // Fallback to stored verses on any error
-            return this.getDailyVerseFromStored();
+            return this.getDailyVerseFromStored(user);
         }
     }
-    static async getDailyVerseFromStored() {
+    static async getDailyVerseFromStored(user = null) {
         const verses = await this.getStoredVerses();
         if (!verses || verses.length === 0) {
             throw new Error('No verses configured');
         }
-        // Get user's preferred translation
-        const preferredTranslation = await this.getTranslationPreference();
+        // Get user's preferred translation using UserPreferencesService
+        const preferredTranslation = await _user_preferences_service__WEBPACK_IMPORTED_MODULE_4__.UserPreferencesService.getBibleTranslation(user);
         const bibleId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS[preferredTranslation];
         // Use date as seed for consistent daily verse (based on local timezone)
         const today = new Date();
-        const dayOfYear = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_4__.getDayOfYear)(today);
+        const dayOfYear = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_5__.getDayOfYear)(today);
         const verseIndex = dayOfYear % verses.length;
         const selectedVerse = verses[verseIndex];
         return await this.getVerse(selectedVerse.reference, bibleId);
@@ -69796,21 +70519,12 @@ class VerseService {
             });
         });
     }
-    // Translation preference methods
-    static async saveTranslationPreference(translation) {
-        return new Promise((resolve) => {
-            chrome.storage.local.set({ preferredTranslation: translation }, () => {
-                resolve();
-            });
-        });
+    // Translation preference methods (now delegates to UserPreferencesService)
+    static async saveTranslationPreference(translation, user = null) {
+        return _user_preferences_service__WEBPACK_IMPORTED_MODULE_4__.UserPreferencesService.saveBibleTranslation(translation, user);
     }
-    static async getTranslationPreference() {
-        return new Promise((resolve) => {
-            chrome.storage.local.get('preferredTranslation', (result) => {
-                // Default to ESV if no preference is saved
-                resolve(result.preferredTranslation || 'ESV');
-            });
-        });
+    static async getTranslationPreference(user = null) {
+        return _user_preferences_service__WEBPACK_IMPORTED_MODULE_4__.UserPreferencesService.getBibleTranslation(user);
     }
     static getDefaultVerses() {
         const esvId = _types__WEBPACK_IMPORTED_MODULE_0__.BIBLE_VERSIONS.ESV;
@@ -69907,13 +70621,13 @@ VerseService.API_KEY = '58410e50f19ea158ea4902e05191db02';
 VerseService.BASE_URL = 'https://api.scripture.api.bible/v1';
 // Parser registry
 VerseService.parsers = new Map([
-    ['ESV', new _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_6__.ESVBibleParser()],
-    ['NLT', new _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_7__.NLTBibleParser()],
-    ['KJV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('KJV')],
-    ['ASV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('ASV')],
-    ['WEB', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('WEB')],
-    ['WEB_BRITISH', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('WEB_BRITISH')],
-    ['WEB_UPDATED', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_5__.StandardBibleParser('WEB_UPDATED')]
+    ['ESV', new _parsers_esv_parser__WEBPACK_IMPORTED_MODULE_7__.ESVBibleParser()],
+    ['NLT', new _parsers_nlt_parser__WEBPACK_IMPORTED_MODULE_8__.NLTBibleParser()],
+    ['KJV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_6__.StandardBibleParser('KJV')],
+    ['ASV', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_6__.StandardBibleParser('ASV')],
+    ['WEB', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_6__.StandardBibleParser('WEB')],
+    ['WEB_BRITISH', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_6__.StandardBibleParser('WEB_BRITISH')],
+    ['WEB_UPDATED', new _parsers_standard_parser__WEBPACK_IMPORTED_MODULE_6__.StandardBibleParser('WEB_UPDATED')]
 ]);
 
 
@@ -70059,6 +70773,132 @@ const profileDropdownStyles = `
     border-top: 1px solid var(--profile-menu-divider);
     margin-top: 0.25rem;
     padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
+  }
+
+  /* Settings button with icon */
+  .profile-dropdown-action--settings {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  /* Icon styling */
+  .profile-dropdown-icon {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.15s ease !important;
+  }
+
+  .profile-dropdown-action:hover .profile-dropdown-icon {
+    opacity: 1 !important;
+  }
+`;
+
+
+/***/ }),
+
+/***/ "./src/styles/components/settings-view.css.ts":
+/*!****************************************************!*\
+  !*** ./src/styles/components/settings-view.css.ts ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   settingsViewStyles: () => (/* binding */ settingsViewStyles)
+/* harmony export */ });
+const settingsViewStyles = `
+  /* Settings View Container */
+  .settings-view-container {
+    padding: 20px 0;
+    opacity: 1; /* Default visible as fallback if animation fails */
+  }
+
+  /* Settings Title */
+  .settings-title {
+    position: absolute;
+    top: 30px;
+    left: 48px;
+    font-size: 32px;
+    font-weight: 300;
+    color: white;
+    margin: 0;
+    z-index: 10;
+  }
+
+  /* Settings Back Button */
+  .settings-back-button {
+    position: absolute;
+    top: 80px;
+    left: 48px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 10;
+    transition: all 0.2s ease;
+  }
+
+  .settings-back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Settings Section */
+  .settings-section {
+    margin-bottom: 32px;
+  }
+
+  /* Settings Label */
+  .settings-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    opacity: 0.9;
+    color: white;
+    text-align: left;
+  }
+
+  /* Settings Description */
+  .settings-description {
+    margin-top: 8px;
+    font-size: 12px;
+    opacity: 0.7;
+    line-height: 1.4;
+    color: white;
+    text-align: left;
+  }
+
+  /* Light theme adjustments */
+  :host([data-theme="light"]) .settings-title {
+    color: #333;
+  }
+
+  :host([data-theme="light"]) .settings-back-button {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: #333;
+  }
+
+  :host([data-theme="light"]) .settings-back-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.4);
+  }
+
+  :host([data-theme="light"]) .settings-label {
+    color: #333;
+  }
+
+  :host([data-theme="light"]) .settings-description {
+    color: #666;
   }
 `;
 
@@ -70359,6 +71199,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/glassmorphic.css */ "./src/styles/shared/glassmorphic.css.ts");
 /* harmony import */ var _components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/theme-toggle.css */ "./src/styles/components/theme-toggle.css.ts");
 /* harmony import */ var _theme_variables_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-variables.css */ "./src/styles/theme-variables.css.ts");
+/* harmony import */ var _components_settings_view_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/settings-view.css */ "./src/styles/components/settings-view.css.ts");
+
 
 
 
@@ -71872,6 +72714,56 @@ const getShadowDomStyles = () => {
       color: white !important;
     }
 
+    /* Settings translation dropdown */
+    .settings-translation-select {
+      width: 100% !important;
+      padding: 12px 16px !important;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 8px !important;
+      color: white !important;
+      font-size: 16px !important;
+      font-family: inherit !important;
+      cursor: pointer !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      transition: all 0.2s ease !important;
+      outline: none !important;
+    }
+    
+    .settings-translation-select:hover {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .settings-translation-select:focus {
+      border-color: rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .settings-translation-select option {
+      background-color: #2a2a2a !important;
+      color: white !important;
+      padding: 8px !important;
+    }
+    
+    /* Light theme adjustments for settings dropdown */
+    :host([data-theme="light"]) .settings-translation-select {
+      background-color: rgba(0, 0, 0, 0.05) !important;
+      border-color: rgba(0, 0, 0, 0.2) !important;
+      color: #333 !important;
+    }
+    
+    :host([data-theme="light"]) .settings-translation-select:hover {
+      background-color: rgba(0, 0, 0, 0.08) !important;
+      border-color: rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    :host([data-theme="light"]) .settings-translation-select option {
+      background-color: white !important;
+      color: #333 !important;
+    }
+
     .context-title {
       font-size: 32px !important;
       font-weight: 300 !important;
@@ -72495,11 +73387,69 @@ const getShadowDomStyles = () => {
       }
     }
 
+    /* Settings View - Minimal */
+    .settings-view {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      padding: 48px !important;
+      opacity: 0 !important;
+      animation: fadeIn 0.3s ease-out forwards !important;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .settings-header-simple {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+    }
+
+    .settings-title-simple {
+      font-size: 32px !important;
+      font-weight: 300 !important;
+      color: var(--text-primary) !important;
+      margin: 0 !important;
+      text-align: left !important;
+    }
+
+    .settings-close-btn {
+      background: transparent !important;
+      border: none !important;
+      color: var(--text-primary) !important;
+      font-size: 24px !important;
+      cursor: pointer !important;
+      opacity: 0.6 !important;
+      transition: opacity 0.2s !important;
+      padding: 0 !important;
+      width: 32px !important;
+      height: 32px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .settings-close-btn:hover {
+      opacity: 1 !important;
+    }
+
+    .settings-options {
+      margin-top: 40px !important;
+      color: var(--text-primary) !important;
+    }
+
     /* Component-specific styles */
     ${_components_profile_dropdown_css__WEBPACK_IMPORTED_MODULE_0__.profileDropdownStyles}
     ${_components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__.translationDropdownStyles}
     ${_shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__.glassmorphicStyles}
     ${_components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__.themeToggleStyles}
+    ${_components_settings_view_css__WEBPACK_IMPORTED_MODULE_5__.settingsViewStyles}
   `;
 };
 
@@ -72919,8 +73869,9 @@ async function initVerseOverlay() {
     }
     try {
         // Get today's verse directly from VerseService
+        // Note: User context not available yet, will sync preferences after auth
         console.log('Daily Flame: Fetching daily verse...');
-        const verse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_6__.VerseService.getDailyVerse();
+        const verse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_6__.VerseService.getDailyVerse(null);
         if (verse) {
             renderOverlay(verse);
         }
