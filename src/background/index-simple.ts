@@ -141,6 +141,78 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
     return true; // Will respond asynchronously
   }
   
+  // Handle save preferences to iframe
+  if (request.action === 'savePreferencesToIframe') {
+    console.log('Background: Forwarding save preferences request to offscreen document');
+    setupOffscreenDocument()
+      .then(() => {
+        return new Promise((resolve) => {
+          chrome.runtime.sendMessage({
+            action: 'savePreferencesToIframe',
+            data: request.data
+          }, (response) => {
+            if (chrome.runtime.lastError) {
+              console.error('Background: Chrome runtime error:', chrome.runtime.lastError);
+              resolve({ 
+                success: false, 
+                error: chrome.runtime.lastError.message 
+              });
+            } else {
+              resolve(response || { success: false, error: 'No response from offscreen document' });
+            }
+          });
+        });
+      })
+      .then(response => {
+        console.log('Background: Received save preferences response:', response);
+        sendResponse(response);
+      })
+      .catch(error => {
+        console.error('Background: Error saving preferences:', error);
+        sendResponse({ 
+          success: false, 
+          error: error.message || 'Failed to save preferences' 
+        });
+      });
+    return true; // Will respond asynchronously
+  }
+  
+  // Handle load preferences from iframe
+  if (request.action === 'loadPreferencesFromIframe') {
+    console.log('Background: Forwarding load preferences request to offscreen document');
+    setupOffscreenDocument()
+      .then(() => {
+        return new Promise((resolve) => {
+          chrome.runtime.sendMessage({
+            action: 'loadPreferencesFromIframe',
+            data: request.data
+          }, (response) => {
+            if (chrome.runtime.lastError) {
+              console.error('Background: Chrome runtime error:', chrome.runtime.lastError);
+              resolve({ 
+                success: false, 
+                error: chrome.runtime.lastError.message 
+              });
+            } else {
+              resolve(response || { success: false, error: 'No response from offscreen document' });
+            }
+          });
+        });
+      })
+      .then(response => {
+        console.log('Background: Received load preferences response:', response);
+        sendResponse(response);
+      })
+      .catch(error => {
+        console.error('Background: Error loading preferences:', error);
+        sendResponse({ 
+          success: false, 
+          error: error.message || 'Failed to load preferences' 
+        });
+      });
+    return true; // Will respond asynchronously
+  }
+  
   if (request.action === 'injectVerseApp') {
     // Inject the verse app script into the current tab
     if (!sender.tab?.id) {

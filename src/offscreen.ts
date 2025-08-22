@@ -163,6 +163,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     return true; // Will respond asynchronously
   }
   
+  // Handle save preferences to iframe
+  if (request.action === 'savePreferencesToIframe') {
+    handleSavePreferencesToIframe(request, sendResponse);
+    return true; // Will respond asynchronously
+  }
+  
+  // Handle load preferences from iframe
+  if (request.action === 'loadPreferencesFromIframe') {
+    handleLoadPreferencesFromIframe(request, sendResponse);
+    return true; // Will respond asynchronously
+  }
+  
   // Handle auth requests
   if (request.target !== 'offscreen-auth') {
     return false;
@@ -550,6 +562,243 @@ async function handleAuthRequest(request: any, sendResponse: (response: any) => 
   }
   
   attemptAuth();
+}
+
+// Handle save preferences to iframe
+async function handleSavePreferencesToIframe(request: any, sendResponse: (response: any) => void) {
+  console.log('Offscreen: Forwarding save preferences to iframe');
+  
+  // Ensure iframe is initialized
+  if (!iframe) {
+    console.log('Offscreen: Initializing iframe for save preferences');
+    initializeAuthFrame();
+  }
+  
+  // Wait for iframe to be ready
+  if (!isIframeReady) {
+    console.log('Offscreen: Waiting for iframe to be ready...');
+    await new Promise(resolve => {
+      const checkReady = setInterval(() => {
+        if (isIframeReady) {
+          clearInterval(checkReady);
+          resolve(true);
+        }
+      }, 100);
+      setTimeout(() => {
+        clearInterval(checkReady);
+        resolve(false);
+      }, 5000);
+    });
+  }
+  
+  if (!isIframeReady || !iframe || !iframe.contentWindow) {
+    console.error('Offscreen: Iframe not ready for save preferences');
+    sendResponse({
+      success: false,
+      error: 'Authentication iframe not ready'
+    });
+    return;
+  }
+  
+  let responseReceived = false;
+  let responseHandler: ((event: MessageEvent) => void) | null = null;
+  let broadcastChannel: BroadcastChannel | null = null;
+  let broadcastHandler: ((event: MessageEvent) => void) | null = null;
+  
+  // Set up BroadcastChannel listener
+  try {
+    broadcastChannel = new BroadcastChannel('dailyflame-auth');
+    broadcastHandler = (event: MessageEvent) => {
+      if (event.data && event.data.success && event.data.message === 'Preferences saved successfully') {
+        responseReceived = true;
+        
+        // Clean up listeners
+        if (broadcastChannel) {
+          broadcastChannel.removeEventListener('message', broadcastHandler!);
+          broadcastChannel.close();
+        }
+        if (responseHandler) {
+          window.removeEventListener('message', responseHandler);
+        }
+        
+        console.log('Offscreen: Preferences saved via BroadcastChannel');
+        sendResponse(event.data);
+      }
+    };
+    broadcastChannel.addEventListener('message', broadcastHandler);
+  } catch (error) {
+    console.warn('Offscreen: BroadcastChannel not available:', error);
+  }
+  
+  // Set up message listener for the response
+  responseHandler = (event: MessageEvent) => {
+    if (event.origin !== new URL(AUTH_HANDLER_BASE_URL).origin) {
+      return;
+    }
+    
+    if (event.data && event.data.success && event.data.message === 'Preferences saved successfully') {
+      responseReceived = true;
+      
+      // Clean up listeners
+      window.removeEventListener('message', responseHandler!);
+      if (broadcastChannel && broadcastHandler) {
+        broadcastChannel.removeEventListener('message', broadcastHandler);
+        broadcastChannel.close();
+      }
+      
+      console.log('Offscreen: Preferences saved via postMessage');
+      sendResponse(event.data);
+    }
+  };
+  
+  window.addEventListener('message', responseHandler);
+  
+  // Send request to iframe
+  const message = {
+    action: 'savePreferences',
+    preferences: request.data.preferences
+  };
+  
+  console.log('Offscreen: Sending savePreferences to iframe');
+  iframe.contentWindow.postMessage(message, new URL(AUTH_HANDLER_BASE_URL).origin);
+  
+  // Set timeout for response
+  setTimeout(() => {
+    if (!responseReceived) {
+      // Clean up listeners
+      if (responseHandler) {
+        window.removeEventListener('message', responseHandler);
+      }
+      if (broadcastChannel && broadcastHandler) {
+        broadcastChannel.removeEventListener('message', broadcastHandler);
+        broadcastChannel.close();
+      }
+      
+      console.error('Offscreen: No response from iframe for save preferences');
+      sendResponse({
+        success: false,
+        error: 'Failed to save preferences - no response from iframe'
+      });
+    }
+  }, 5000);
+}
+
+// Handle load preferences from iframe
+async function handleLoadPreferencesFromIframe(request: any, sendResponse: (response: any) => void) {
+  console.log('Offscreen: Forwarding load preferences to iframe');
+  
+  // Ensure iframe is initialized
+  if (!iframe) {
+    console.log('Offscreen: Initializing iframe for load preferences');
+    initializeAuthFrame();
+  }
+  
+  // Wait for iframe to be ready
+  if (!isIframeReady) {
+    console.log('Offscreen: Waiting for iframe to be ready...');
+    await new Promise(resolve => {
+      const checkReady = setInterval(() => {
+        if (isIframeReady) {
+          clearInterval(checkReady);
+          resolve(true);
+        }
+      }, 100);
+      setTimeout(() => {
+        clearInterval(checkReady);
+        resolve(false);
+      }, 5000);
+    });
+  }
+  
+  if (!isIframeReady || !iframe || !iframe.contentWindow) {
+    console.error('Offscreen: Iframe not ready for load preferences');
+    sendResponse({
+      success: false,
+      error: 'Authentication iframe not ready'
+    });
+    return;
+  }
+  
+  let responseReceived = false;
+  let responseHandler: ((event: MessageEvent) => void) | null = null;
+  let broadcastChannel: BroadcastChannel | null = null;
+  let broadcastHandler: ((event: MessageEvent) => void) | null = null;
+  
+  // Set up BroadcastChannel listener
+  try {
+    broadcastChannel = new BroadcastChannel('dailyflame-auth');
+    broadcastHandler = (event: MessageEvent) => {
+      if (event.data && event.data.success !== undefined && (event.data.preferences || event.data.exists === false)) {
+        responseReceived = true;
+        
+        // Clean up listeners
+        if (broadcastChannel) {
+          broadcastChannel.removeEventListener('message', broadcastHandler!);
+          broadcastChannel.close();
+        }
+        if (responseHandler) {
+          window.removeEventListener('message', responseHandler);
+        }
+        
+        console.log('Offscreen: Preferences loaded via BroadcastChannel');
+        sendResponse(event.data);
+      }
+    };
+    broadcastChannel.addEventListener('message', broadcastHandler);
+  } catch (error) {
+    console.warn('Offscreen: BroadcastChannel not available:', error);
+  }
+  
+  // Set up message listener for the response
+  responseHandler = (event: MessageEvent) => {
+    if (event.origin !== new URL(AUTH_HANDLER_BASE_URL).origin) {
+      return;
+    }
+    
+    if (event.data && event.data.success !== undefined && (event.data.preferences || event.data.exists === false)) {
+      responseReceived = true;
+      
+      // Clean up listeners
+      window.removeEventListener('message', responseHandler!);
+      if (broadcastChannel && broadcastHandler) {
+        broadcastChannel.removeEventListener('message', broadcastHandler);
+        broadcastChannel.close();
+      }
+      
+      console.log('Offscreen: Preferences loaded via postMessage');
+      sendResponse(event.data);
+    }
+  };
+  
+  window.addEventListener('message', responseHandler);
+  
+  // Send request to iframe
+  const message = {
+    action: 'loadPreferences'
+  };
+  
+  console.log('Offscreen: Sending loadPreferences to iframe');
+  iframe.contentWindow.postMessage(message, new URL(AUTH_HANDLER_BASE_URL).origin);
+  
+  // Set timeout for response
+  setTimeout(() => {
+    if (!responseReceived) {
+      // Clean up listeners
+      if (responseHandler) {
+        window.removeEventListener('message', responseHandler);
+      }
+      if (broadcastChannel && broadcastHandler) {
+        broadcastChannel.removeEventListener('message', broadcastHandler);
+        broadcastChannel.close();
+      }
+      
+      console.error('Offscreen: No response from iframe for load preferences');
+      sendResponse({
+        success: false,
+        error: 'Failed to load preferences - no response from iframe'
+      });
+    }
+  }, 5000);
 }
 
 // Listen for auth state changes from the iframe and forward to background

@@ -223,6 +223,100 @@ async function getStoredAuthState() {
 // Handle messages from content script and other parts of the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Background: Received message:', request.action);
+    // Handle ID token requests - forward to offscreen document
+    if (request.action === 'getIdToken') {
+        console.log('Background: Forwarding getIdToken request to offscreen document');
+        setupOffscreenDocument()
+            .then(() => {
+            return chrome.runtime.sendMessage({
+                action: 'getIdToken'
+            });
+        })
+            .then(response => {
+            console.log('Background: Received ID token response:', response.success ? 'success' : 'failed');
+            sendResponse(response);
+        })
+            .catch(error => {
+            console.error('Background: Error getting ID token:', error);
+            sendResponse({
+                success: false,
+                error: error.message || 'Failed to get ID token'
+            });
+        });
+        return true; // Will respond asynchronously
+    }
+    // Handle save preferences to iframe
+    if (request.action === 'savePreferencesToIframe') {
+        console.log('Background: Forwarding save preferences request to offscreen document');
+        setupOffscreenDocument()
+            .then(() => {
+            return new Promise((resolve) => {
+                chrome.runtime.sendMessage({
+                    action: 'savePreferencesToIframe',
+                    data: request.data
+                }, (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error('Background: Chrome runtime error:', chrome.runtime.lastError);
+                        resolve({
+                            success: false,
+                            error: chrome.runtime.lastError.message
+                        });
+                    }
+                    else {
+                        resolve(response || { success: false, error: 'No response from offscreen document' });
+                    }
+                });
+            });
+        })
+            .then(response => {
+            console.log('Background: Received save preferences response:', response);
+            sendResponse(response);
+        })
+            .catch(error => {
+            console.error('Background: Error saving preferences:', error);
+            sendResponse({
+                success: false,
+                error: error.message || 'Failed to save preferences'
+            });
+        });
+        return true; // Will respond asynchronously
+    }
+    // Handle load preferences from iframe
+    if (request.action === 'loadPreferencesFromIframe') {
+        console.log('Background: Forwarding load preferences request to offscreen document');
+        setupOffscreenDocument()
+            .then(() => {
+            return new Promise((resolve) => {
+                chrome.runtime.sendMessage({
+                    action: 'loadPreferencesFromIframe',
+                    data: request.data
+                }, (response) => {
+                    if (chrome.runtime.lastError) {
+                        console.error('Background: Chrome runtime error:', chrome.runtime.lastError);
+                        resolve({
+                            success: false,
+                            error: chrome.runtime.lastError.message
+                        });
+                    }
+                    else {
+                        resolve(response || { success: false, error: 'No response from offscreen document' });
+                    }
+                });
+            });
+        })
+            .then(response => {
+            console.log('Background: Received load preferences response:', response);
+            sendResponse(response);
+        })
+            .catch(error => {
+            console.error('Background: Error loading preferences:', error);
+            sendResponse({
+                success: false,
+                error: error.message || 'Failed to load preferences'
+            });
+        });
+        return true; // Will respond asynchronously
+    }
     if (request.action === 'injectVerseApp') {
         // Inject the verse app script into the current tab
         if (!sender.tab?.id) {
@@ -307,6 +401,49 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             });
         });
         return false; // No response needed
+    }
+    // Handle preference sync requests
+    if (request.action === 'syncPreferences') {
+        console.log('Background: Handling preference sync request from:', sender.tab?.id || 'extension');
+        // Create a promise to handle the async response properly
+        (async () => {
+            try {
+                // Ensure offscreen document exists
+                await setupOffscreenDocument();
+                console.log('Background: Offscreen document ready, forwarding sync request');
+                // Forward to offscreen document and wait for response
+                // Using a Promise wrapper to handle the async response correctly
+                const response = await new Promise((resolve) => {
+                    chrome.runtime.sendMessage({
+                        action: 'syncPreferences',
+                        data: request.data
+                    }, (response) => {
+                        // Check for Chrome runtime errors
+                        if (chrome.runtime.lastError) {
+                            console.error('Background: Chrome runtime error:', chrome.runtime.lastError);
+                            resolve({
+                                success: false,
+                                error: chrome.runtime.lastError.message
+                            });
+                        }
+                        else {
+                            console.log('Background: Received sync response from offscreen:', response);
+                            resolve(response || { success: false, error: 'No response from offscreen document' });
+                        }
+                    });
+                });
+                console.log('Background: Sending sync response back to sender:', response);
+                sendResponse(response);
+            }
+            catch (error) {
+                console.error('Background: Error in preference sync:', error);
+                sendResponse({
+                    success: false,
+                    error: error instanceof Error ? error.message : 'Failed to sync preferences'
+                });
+            }
+        })();
+        return true; // Keep message channel open for async response
     }
     // Handle direct auth requests
     if (request.action === 'auth') {

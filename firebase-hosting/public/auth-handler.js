@@ -17,6 +17,14 @@ import {
   browserLocalPersistence
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
+// Import Firestore modules for direct database access
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyANFOOgSGPLhyzri5jaPOYmAv-CeGIv4zs",
@@ -30,8 +38,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-console.log(`[${new Date().toISOString()}] Auth handler initialized`);
+console.log(`[${new Date().toISOString()}] Auth handler initialized with Firestore`);
 
 // Track auth readiness and current popup operation
 let authReady = false;
@@ -250,6 +259,65 @@ window.addEventListener('message', async (event) => {
         }
         break;
         
+      case 'savePreferences':
+        console.log('Saving preferences to Firestore...');
+        if (!auth.currentUser) {
+          throw new Error('No authenticated user');
+        }
+        
+        const preferences = event.data.preferences;
+        if (!preferences) {
+          throw new Error('No preferences provided');
+        }
+        
+        // Save directly to Firestore
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+        await setDoc(userDocRef, {
+          preferences: {
+            ...preferences,
+            lastModified: preferences.lastModified || Date.now(),
+            lastSynced: Date.now()
+          },
+          email: auth.currentUser.email,
+          updatedAt: Date.now()
+        }, { merge: true });
+        
+        console.log('Preferences saved to Firestore for user:', auth.currentUser.uid);
+        result = { 
+          success: true, 
+          message: 'Preferences saved successfully',
+          syncedAt: Date.now()
+        };
+        break;
+        
+      case 'loadPreferences':
+        console.log('Loading preferences from Firestore...');
+        if (!auth.currentUser) {
+          throw new Error('No authenticated user');
+        }
+        
+        // Load directly from Firestore
+        const userDoc = doc(db, 'users', auth.currentUser.uid);
+        const docSnap = await getDoc(userDoc);
+        
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          console.log('Preferences loaded from Firestore for user:', auth.currentUser.uid);
+          result = {
+            success: true,
+            preferences: data.preferences || null,
+            exists: true
+          };
+        } else {
+          console.log('No preferences found in Firestore for user:', auth.currentUser.uid);
+          result = {
+            success: true,
+            preferences: null,
+            exists: false
+          };
+        }
+        break;
+        
       default:
         throw new Error(`Unknown action: ${action}`);
     }
@@ -271,7 +339,11 @@ window.addEventListener('message', async (event) => {
       // Include isValid for verifyAuthState action
       ...(action === 'verifyAuthState' && { isValid: result.isValid }),
       // Include idToken for getIdToken action
-      ...(action === 'getIdToken' && { idToken: result.idToken, userId: result.userId })
+      ...(action === 'getIdToken' && { idToken: result.idToken, userId: result.userId }),
+      // Include preferences for loadPreferences action
+      ...(action === 'loadPreferences' && { preferences: result.preferences, exists: result.exists }),
+      // Include sync info for savePreferences action
+      ...(action === 'savePreferences' && { message: result.message, syncedAt: result.syncedAt })
     };
     
     console.log('Sending success response:', response);

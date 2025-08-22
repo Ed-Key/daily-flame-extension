@@ -77,22 +77,34 @@ export class UserPreferencesService {
             this.lastCacheTime = Date.now();
             return cloudPrefs;
           } else {
-            // Local is newer (user made changes while offline), sync to cloud
-            console.log('UserPreferences: Local is newer, syncing to cloud');
-            await this.syncToFirebase(user.uid, localPrefs, user);
-            this.cachedPreferences = localPrefs;
-            this.lastCacheTime = Date.now();
-            return localPrefs;
+            // Local is newer by timestamp, but check if content actually differs
+            if (!this.arePreferencesEqual(localPrefs, cloudPrefs)) {
+              // Content actually differs, sync to cloud
+              console.log('UserPreferences: Local is newer and different, syncing to cloud');
+              await this.syncToFirebase(user.uid, localPrefs, user);
+              this.cachedPreferences = localPrefs;
+              this.lastCacheTime = Date.now();
+              return localPrefs;
+            } else {
+              // Content is the same, just use cloud version (don't sync)
+              console.log('UserPreferences: Local is newer but identical to cloud, using cloud');
+              // Update local with cloud to sync timestamps
+              await this.saveLocalPreferences(cloudPrefs);
+              this.cachedPreferences = cloudPrefs;
+              this.lastCacheTime = Date.now();
+              return cloudPrefs;
+            }
           }
         } else {
           // No cloud preferences yet
           
-          // Only upload local if they're not just defaults
-          if (!(localPrefs as any).isDefault) {
-            console.log('UserPreferences: No cloud preferences, uploading local (user-modified)');
+          // Only upload local if they differ from defaults
+          const defaults = this.getDefaultPreferences();
+          if (!this.arePreferencesEqual(localPrefs, defaults)) {
+            console.log('UserPreferences: No cloud preferences, local differs from defaults, syncing');
             await this.syncToFirebase(user.uid, localPrefs, user);
           } else {
-            console.log('UserPreferences: No cloud preferences, using local defaults (not syncing)');
+            console.log('UserPreferences: No cloud preferences, local matches defaults (not syncing)');
           }
           
           this.cachedPreferences = localPrefs;
@@ -227,6 +239,15 @@ export class UserPreferencesService {
   }
 
   // Private helper methods
+
+  /**
+   * Compare two preference objects for equality (ignoring timestamps)
+   */
+  private static arePreferencesEqual(prefs1: UserPreferences, prefs2: UserPreferences): boolean {
+    // Compare actual preference values, not timestamps
+    return prefs1.bibleTranslation === prefs2.bibleTranslation &&
+           prefs1.theme === prefs2.theme;
+  }
 
   private static async getLocalPreferences(): Promise<UserPreferences & { isDefault?: boolean }> {
     return new Promise((resolve) => {
