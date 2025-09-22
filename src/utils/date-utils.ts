@@ -1,5 +1,5 @@
 /**
- * Date utility functions for DailyFlame
+ * Date utility functions for Daily Bread
  * Ensures consistent date handling across the application
  */
 

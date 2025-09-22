@@ -70243,7 +70243,7 @@ class VerseService {
         try {
             const apiReference = this.convertReferenceToApiFormat(reference);
             const url = `${this.BASE_URL}/bibles/${bibleId}/passages/${apiReference}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false`;
-            console.log('Daily Flame API Call:', {
+            console.log('Daily Bread API Call:', {
                 reference: reference,
                 apiReference: apiReference,
                 bibleId: bibleId,
@@ -73661,7 +73661,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   parseLocalDateString: () => (/* binding */ parseLocalDateString)
 /* harmony export */ });
 /**
- * Date utility functions for DailyFlame
+ * Date utility functions for Daily Bread
  * Ensures consistent date handling across the application
  */
 /**
@@ -73815,16 +73815,16 @@ __webpack_require__.r(__webpack_exports__);
 
 // Initialize the verse overlay when this script is injected
 async function initVerseOverlay() {
-    console.log('Daily Flame: Verse app module loaded');
+    console.log('Daily Bread: Verse app module loaded');
     // Check if overlay already exists
     if (document.getElementById('daily-flame-extension-root')) {
-        console.log('Daily Flame: Overlay already exists');
+        console.log('Daily Bread: Overlay already exists');
         return;
     }
     try {
         // Get today's verse directly from VerseService
         // Note: User context not available yet, will sync preferences after auth
-        console.log('Daily Flame: Fetching daily verse...');
+        console.log('Daily Bread: Fetching daily verse...');
         const verse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_6__.VerseService.getDailyVerse(null);
         if (verse) {
             renderOverlay(verse);
@@ -73840,7 +73840,7 @@ async function initVerseOverlay() {
         }
     }
     catch (error) {
-        console.error('Daily Flame: Error creating overlay:', error);
+        console.error('Daily Bread: Error creating overlay:', error);
         // Still show overlay with fallback verse
         const fallbackVerse = {
             text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
@@ -73853,7 +73853,7 @@ async function initVerseOverlay() {
 function renderOverlay(verse) {
     // Create high-specificity container for CSS isolation
     const overlayContainer = document.createElement('div');
-    overlayContainer.id = 'daily-flame-extension-root';
+    overlayContainer.id = 'daily-bread-extension-root';
     // Apply initial styles to ensure proper isolation
     overlayContainer.style.cssText = `
         position: fixed !important;
@@ -73874,7 +73874,7 @@ function renderOverlay(verse) {
     shadowRoot.appendChild(shadowStyles);
     // Create inner container for React app inside Shadow DOM
     const reactContainer = document.createElement('div');
-    reactContainer.id = 'daily-flame-overlay';
+    reactContainer.id = 'daily-bread-overlay';
     shadowRoot.appendChild(reactContainer);
     // Prevent scrolling on the body
     document.body.style.overflow = 'hidden';
@@ -73890,7 +73890,7 @@ function renderOverlay(verse) {
             return { hasError: true };
         }
         componentDidCatch(error, errorInfo) {
-            console.error('Daily Flame: React error caught:', error, errorInfo);
+            console.error('Daily Bread: React error caught:', error, errorInfo);
         }
         render() {
             if (this.state.hasError) {
@@ -73908,7 +73908,7 @@ function renderOverlay(verse) {
                         justifyContent: 'center',
                         zIndex: 999999
                     }
-                }, 'Daily Flame encountered an error. Please refresh the page.');
+                }, 'Daily Bread encountered an error. Please refresh the page.');
             }
             return this.props.children;
         }
@@ -73933,9 +73933,9 @@ function renderOverlay(verse) {
 }
 function dismissOverlay(permanent = false) {
     try {
-        const overlay = document.getElementById('daily-flame-extension-root');
+        const overlay = document.getElementById('daily-bread-extension-root');
         if (overlay) {
-            console.log(`Daily Flame: Dismissing verse overlay (permanent: ${permanent})`);
+            console.log(`Daily Bread: Dismissing verse overlay (permanent: ${permanent})`);
             // Clean up styles first
             document.body.style.overflow = '';
             // Remove overlay with a small delay to allow React cleanup
@@ -73947,20 +73947,20 @@ function dismissOverlay(permanent = false) {
                 const today = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_7__.getLocalDateString)();
                 chrome.storage.local.set({ verseShownDate: today }, () => {
                     if (chrome.runtime.lastError) {
-                        console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
+                        console.error('Daily Bread: Error setting verse shown date:', chrome.runtime.lastError);
                     }
                     else {
-                        console.log('Daily Flame: Verse marked as done for today');
+                        console.log('Daily Bread: Verse marked as done for today');
                     }
                 });
             }
             else {
-                console.log('Daily Flame: Temporary dismissal - verse will show again on next tab/reload');
+                console.log('Daily Bread: Temporary dismissal - verse will show again on next tab/reload');
             }
         }
     }
     catch (error) {
-        console.error('Daily Flame: Error dismissing overlay:', error);
+        console.error('Daily Bread: Error dismissing overlay:', error);
     }
 }
 // Initialize the verse overlay when this script is injected

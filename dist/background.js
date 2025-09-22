@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   parseLocalDateString: () => (/* binding */ parseLocalDateString)
 /* harmony export */ });
 /**
- * Date utility functions for DailyFlame
+ * Date utility functions for Daily Bread
  * Ensures consistent date handling across the application
  */
 /**
@@ -115,7 +115,7 @@ var __webpack_exports__ = {};
   \****************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
-// Simplified background script for Daily Flame Chrome Extension
+// Simplified background script for Daily Bread Chrome Extension
 // Handles message routing and extension functionality
 
 // Offscreen document management
@@ -350,14 +350,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'setVerseShownDate') {
         const today = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_0__.getLocalDateString)();
         chrome.storage.local.set({ verseShownDate: today }, () => {
-            console.log('Daily Flame: Verse shown for', today);
+            console.log('Daily Bread: Verse shown for', today);
             sendResponse({ success: true });
         });
         return true; // Keep message channel open for async response
     }
     if (request.action === 'clearStorage') {
         chrome.storage.local.clear(() => {
-            console.log('Daily Flame: Storage cleared');
+            console.log('Daily Bread: Storage cleared');
             sendResponse({ success: true });
         });
         return true;
@@ -678,7 +678,7 @@ chrome.action.onClicked.addListener((tab) => {
     }
 });
 chrome.runtime.onInstalled.addListener(() => {
-    console.log('Daily Flame extension installed');
+    console.log('Daily Bread extension installed');
     // Check for stored auth state on extension startup
     getStoredAuthState().then(storedUser => {
         if (storedUser) {

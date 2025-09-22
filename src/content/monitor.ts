@@ -3,7 +3,7 @@
 
 import { getLocalDateString } from '../utils/date-utils';
 
-console.log('Daily Flame: Monitor initialized');
+console.log('Daily Bread: Monitor initialized');
 
 async function checkAndLoadVerse() {
   try {
@@ -12,7 +12,7 @@ async function checkAndLoadVerse() {
     const today = getLocalDateString();
     
     if (result.verseShownDate === today) {
-      console.log('Daily Flame: Verse already shown today');
+      console.log('Daily Bread: Verse already shown today');
       return; // Exit early - no need to load anything
     }
     
@@ -36,29 +36,29 @@ async function checkAndLoadVerse() {
     ];
     
     if (skipSites.some(site => window.location.href.includes(site))) {
-      console.log('Daily Flame: Skipping restricted/auth URL:', window.location.href);
+      console.log('Daily Bread: Skipping restricted/auth URL:', window.location.href);
       return;
     }
     
-    console.log('Daily Flame: Loading verse module...');
+    console.log('Daily Bread: Loading verse module...');
     
     // Send message to background script to inject verse app
     chrome.runtime.sendMessage({ action: 'injectVerseApp' }, (response) => {
       if (chrome.runtime.lastError) {
-        console.error('Daily Flame: Failed to inject verse app:', chrome.runtime.lastError);
+        console.error('Daily Bread: Failed to inject verse app:', chrome.runtime.lastError);
         return;
       }
       
       if (response && response.success) {
-        console.log('Daily Flame: Verse app injected successfully');
+        console.log('Daily Bread: Verse app injected successfully');
         // The injected script will handle initialization
       } else {
-        console.error('Daily Flame: Failed to inject verse app:', response?.error || 'Unknown error');
+        console.error('Daily Bread: Failed to inject verse app:', response?.error || 'Unknown error');
       }
     });
     
   } catch (error) {
-    console.error('Daily Flame: Error in monitor script:', error);
+    console.error('Daily Bread: Error in monitor script:', error);
   }
 }
 
@@ -66,8 +66,8 @@ async function checkAndLoadVerse() {
 checkAndLoadVerse();
 
 // Global function to reset and show verse (for extension icon clicks)
-(window as any).resetDailyFlame = async function() {
-  console.log('Daily Flame: Manual reset triggered');
+(window as any).resetDailyBread = async function() {
+  console.log('Daily Bread: Manual reset triggered');
   
   try {
     // Clear the storage to force showing verse
@@ -76,17 +76,17 @@ checkAndLoadVerse();
     // Send message to background script to inject verse app
     chrome.runtime.sendMessage({ action: 'injectVerseApp' }, (response) => {
       if (chrome.runtime.lastError) {
-        console.error('Daily Flame: Failed to inject verse app:', chrome.runtime.lastError);
+        console.error('Daily Bread: Failed to inject verse app:', chrome.runtime.lastError);
         return;
       }
       
       if (response && response.success) {
-        console.log('Daily Flame: Verse app injected after reset');
+        console.log('Daily Bread: Verse app injected after reset');
       } else {
-        console.error('Daily Flame: Failed to inject verse app:', response?.error || 'Unknown error');
+        console.error('Daily Bread: Failed to inject verse app:', response?.error || 'Unknown error');
       }
     });
   } catch (error) {
-    console.error('Daily Flame: Error during reset:', error);
+    console.error('Daily Bread: Error during reset:', error);
   }
 };

@@ -6,7 +6,7 @@ See "MANDATORY: Always Use SuperClaude Tools" section below.
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-DailyFlame is a Chrome extension (Manifest V3) that displays daily Bible verses with beautiful animations. It features Firebase authentication, multiple Bible translation support, and a modular React/TypeScript architecture.
+Daily Bread is a Chrome extension (Manifest V3) that displays daily Bible verses with beautiful animations. It features Firebase authentication, multiple Bible translation support, and a modular React/TypeScript architecture.
 
 ## Development Commands
 

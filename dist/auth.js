@@ -177,7 +177,7 @@ function toggleAuthMode(e) {
     }
     else {
         if (h2)
-            h2.textContent = 'Sign in to Daily Flame';
+            h2.textContent = 'Sign in to Daily Bread';
         if (submitBtn)
             submitBtn.textContent = 'Sign in with Email';
         if (showSignupLink && showSignupLink.parentElement) {

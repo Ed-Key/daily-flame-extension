@@ -74,6 +74,10 @@ module.exports = {
           from: 'src/offscreen.html',
           to: 'offscreen.html',
         },
+        {
+          from: 'public/icon-*.png',
+          to: '[name][ext]',
+        },
       ],
     }),
   ],

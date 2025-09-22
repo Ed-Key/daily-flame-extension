@@ -1,4 +1,4 @@
-// Simplified background script for Daily Flame Chrome Extension
+// Simplified background script for Daily Bread Chrome Extension
 // Handles message routing and extension functionality
 
 import { getLocalDateString } from '../utils/date-utils';
@@ -251,7 +251,7 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
   if (request.action === 'setVerseShownDate') {
     const today = getLocalDateString();
     chrome.storage.local.set({ verseShownDate: today }, () => {
-      console.log('Daily Flame: Verse shown for', today);
+      console.log('Daily Bread: Verse shown for', today);
       sendResponse({ success: true });
     });
     return true; // Keep message channel open for async response
@@ -259,7 +259,7 @@ chrome.runtime.onMessage.addListener((request: any, sender, sendResponse) => {
   
   if (request.action === 'clearStorage') {
     chrome.storage.local.clear(() => {
-      console.log('Daily Flame: Storage cleared');
+      console.log('Daily Bread: Storage cleared');
       sendResponse({ success: true });
     });
     return true;
@@ -603,7 +603,7 @@ chrome.action.onClicked.addListener((tab) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Daily Flame extension installed');
+  console.log('Daily Bread extension installed');
   
   // Check for stored auth state on extension startup
   getStoredAuthState().then(storedUser => {

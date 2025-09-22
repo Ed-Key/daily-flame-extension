@@ -71,7 +71,7 @@ export class VerseService {
       const apiReference = this.convertReferenceToApiFormat(reference);
       const url = `${this.BASE_URL}/bibles/${bibleId}/passages/${apiReference}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false`;
       
-      console.log('Daily Flame API Call:', {
+      console.log('Daily Bread API Call:', {
         reference: reference,
         apiReference: apiReference,
         bibleId: bibleId,

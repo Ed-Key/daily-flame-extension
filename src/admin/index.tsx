@@ -194,7 +194,7 @@ const AdminPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <span className="text-4xl">🔥</span>
               <div>
-                <h1 className="text-2xl font-semibold text-gray-800">Daily Flame Admin</h1>
+                <h1 className="text-2xl font-semibold text-gray-800">Daily Bread Admin</h1>
                 <p className="text-gray-600">Manage your daily Bible verses</p>
               </div>
             </div>

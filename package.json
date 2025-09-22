@@ -1,7 +1,7 @@
 {
-  "name": "dailyflame",
+  "name": "dailybread",
   "version": "1.0.0",
-  "description": "Daily Flame Chrome Extension - React + TypeScript + Tailwind CSS",
+  "description": "Daily Bread Chrome Extension - React + TypeScript + Tailwind CSS",
   "main": "dist/background.js",
   "scripts": {
     "build": "webpack",

@@ -15,7 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   parseLocalDateString: () => (/* binding */ parseLocalDateString)
 /* harmony export */ });
 /**
- * Date utility functions for DailyFlame
+ * Date utility functions for Daily Bread
  * Ensures consistent date handling across the application
  */
 /**
@@ -118,14 +118,14 @@ __webpack_require__.r(__webpack_exports__);
 // Minimal monitor script - only checks if verse should be shown
 // No heavy imports - just Chrome API calls
 
-console.log('Daily Flame: Monitor initialized');
+console.log('Daily Bread: Monitor initialized');
 async function checkAndLoadVerse() {
     try {
         // Check if verse was already shown today
         const result = await chrome.storage.local.get(['verseShownDate']);
         const today = (0,_utils_date_utils__WEBPACK_IMPORTED_MODULE_0__.getLocalDateString)();
         if (result.verseShownDate === today) {
-            console.log('Daily Flame: Verse already shown today');
+            console.log('Daily Bread: Verse already shown today');
             return; // Exit early - no need to load anything
         }
         // Check if we're on a restricted URL or OAuth page
@@ -147,53 +147,53 @@ async function checkAndLoadVerse() {
             "login.live.com"
         ];
         if (skipSites.some(site => window.location.href.includes(site))) {
-            console.log('Daily Flame: Skipping restricted/auth URL:', window.location.href);
+            console.log('Daily Bread: Skipping restricted/auth URL:', window.location.href);
             return;
         }
-        console.log('Daily Flame: Loading verse module...');
+        console.log('Daily Bread: Loading verse module...');
         // Send message to background script to inject verse app
         chrome.runtime.sendMessage({ action: 'injectVerseApp' }, (response) => {
             if (chrome.runtime.lastError) {
-                console.error('Daily Flame: Failed to inject verse app:', chrome.runtime.lastError);
+                console.error('Daily Bread: Failed to inject verse app:', chrome.runtime.lastError);
                 return;
             }
             if (response && response.success) {
-                console.log('Daily Flame: Verse app injected successfully');
+                console.log('Daily Bread: Verse app injected successfully');
                 // The injected script will handle initialization
             }
             else {
-                console.error('Daily Flame: Failed to inject verse app:', response?.error || 'Unknown error');
+                console.error('Daily Bread: Failed to inject verse app:', response?.error || 'Unknown error');
             }
         });
     }
     catch (error) {
-        console.error('Daily Flame: Error in monitor script:', error);
+        console.error('Daily Bread: Error in monitor script:', error);
     }
 }
 // Check on page load
 checkAndLoadVerse();
 // Global function to reset and show verse (for extension icon clicks)
-window.resetDailyFlame = async function () {
-    console.log('Daily Flame: Manual reset triggered');
+window.resetDailyBread = async function () {
+    console.log('Daily Bread: Manual reset triggered');
     try {
         // Clear the storage to force showing verse
         await chrome.storage.local.remove(['verseShownDate']);
         // Send message to background script to inject verse app
         chrome.runtime.sendMessage({ action: 'injectVerseApp' }, (response) => {
             if (chrome.runtime.lastError) {
-                console.error('Daily Flame: Failed to inject verse app:', chrome.runtime.lastError);
+                console.error('Daily Bread: Failed to inject verse app:', chrome.runtime.lastError);
                 return;
             }
             if (response && response.success) {
-                console.log('Daily Flame: Verse app injected after reset');
+                console.log('Daily Bread: Verse app injected after reset');
             }
             else {
-                console.error('Daily Flame: Failed to inject verse app:', response?.error || 'Unknown error');
+                console.error('Daily Bread: Failed to inject verse app:', response?.error || 'Unknown error');
             }
         });
     }
     catch (error) {
-        console.error('Daily Flame: Error during reset:', error);
+        console.error('Daily Bread: Error during reset:', error);
     }
 };
 

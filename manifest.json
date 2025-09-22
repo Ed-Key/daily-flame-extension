@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Daily Flame",
+  "name": "Daily Bread",
   "version": "1.0.0",
   "description": "Daily Bible verses as a beautiful fullscreen overlay. Shows inspiring scripture once daily on any website with multiple translations (KJV, ESV, NLT). Needs site access to display verses wherever you browse.",
   "permissions": [
@@ -37,17 +37,17 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Open Daily Flame",
+    "default_title": "Open Daily Bread",
     "default_icon": {
-      "16": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E🔥%3C/text%3E%3C/svg%3E",
-      "48": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='36' font-size='36'%3E🔥%3C/text%3E%3C/svg%3E",
-      "128": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ctext y='96' font-size='96'%3E🔥%3C/text%3E%3C/svg%3E"
+      "16": "icon-16.png",
+      "48": "icon-48.png",
+      "128": "icon-128.png"
     }
   },
   "icons": {
-    "16": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E🔥%3C/text%3E%3C/svg%3E",
-    "48": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ctext y='36' font-size='36'%3E🔥%3C/text%3E%3C/svg%3E",
-    "128": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ctext y='96' font-size='96'%3E🔥%3C/text%3E%3C/svg%3E"
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
   },
   "web_accessible_resources": [
     {

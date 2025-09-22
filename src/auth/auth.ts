@@ -180,7 +180,7 @@ function toggleAuthMode(e: Event) {
       document.getElementById('show-signup')?.addEventListener('click', toggleAuthMode);
     }
   } else {
-    if (h2) h2.textContent = 'Sign in to Daily Flame';
+    if (h2) h2.textContent = 'Sign in to Daily Bread';
     if (submitBtn) submitBtn.textContent = 'Sign in with Email';
     if (showSignupLink && showSignupLink.parentElement) {
       showSignupLink.parentElement.innerHTML = 'Don\'t have an account? <a href="#" id="show-signup">Sign up</a>';

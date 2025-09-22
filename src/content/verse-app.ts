@@ -10,18 +10,18 @@ import { getLocalDateString } from '../utils/date-utils';
 
 // Initialize the verse overlay when this script is injected
 async function initVerseOverlay() {
-    console.log('Daily Flame: Verse app module loaded');
+    console.log('Daily Bread: Verse app module loaded');
     
     // Check if overlay already exists
     if (document.getElementById('daily-flame-extension-root')) {
-        console.log('Daily Flame: Overlay already exists');
+        console.log('Daily Bread: Overlay already exists');
         return;
     }
     
     try {
         // Get today's verse directly from VerseService
         // Note: User context not available yet, will sync preferences after auth
-        console.log('Daily Flame: Fetching daily verse...');
+        console.log('Daily Bread: Fetching daily verse...');
         const verse = await VerseService.getDailyVerse(null);
         
         if (verse) {
@@ -37,7 +37,7 @@ async function initVerseOverlay() {
         }
         
     } catch (error) {
-        console.error('Daily Flame: Error creating overlay:', error);
+        console.error('Daily Bread: Error creating overlay:', error);
         // Still show overlay with fallback verse
         const fallbackVerse: VerseData = {
             text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
@@ -51,7 +51,7 @@ async function initVerseOverlay() {
 function renderOverlay(verse: VerseData) {
     // Create high-specificity container for CSS isolation
     const overlayContainer = document.createElement('div');
-    overlayContainer.id = 'daily-flame-extension-root';
+    overlayContainer.id = 'daily-bread-extension-root';
     
     // Apply initial styles to ensure proper isolation
     overlayContainer.style.cssText = `
@@ -77,7 +77,7 @@ function renderOverlay(verse: VerseData) {
     
     // Create inner container for React app inside Shadow DOM
     const reactContainer = document.createElement('div');
-    reactContainer.id = 'daily-flame-overlay';
+    reactContainer.id = 'daily-bread-overlay';
     shadowRoot.appendChild(reactContainer);
     
     // Prevent scrolling on the body
@@ -98,7 +98,7 @@ function renderOverlay(verse: VerseData) {
         }
         
         componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-            console.error('Daily Flame: React error caught:', error, errorInfo);
+            console.error('Daily Bread: React error caught:', error, errorInfo);
         }
         
         render() {
@@ -117,7 +117,7 @@ function renderOverlay(verse: VerseData) {
                         justifyContent: 'center',
                         zIndex: 999999
                     }
-                }, 'Daily Flame encountered an error. Please refresh the page.');
+                }, 'Daily Bread encountered an error. Please refresh the page.');
             }
             
             return this.props.children;
@@ -147,9 +147,9 @@ function renderOverlay(verse: VerseData) {
 
 function dismissOverlay(permanent: boolean = false) {
     try {
-        const overlay = document.getElementById('daily-flame-extension-root');
+        const overlay = document.getElementById('daily-bread-extension-root');
         if (overlay) {
-            console.log(`Daily Flame: Dismissing verse overlay (permanent: ${permanent})`);
+            console.log(`Daily Bread: Dismissing verse overlay (permanent: ${permanent})`);
             
             // Clean up styles first
             document.body.style.overflow = '';
@@ -164,17 +164,17 @@ function dismissOverlay(permanent: boolean = false) {
                 const today = getLocalDateString();
                 chrome.storage.local.set({ verseShownDate: today }, () => {
                     if (chrome.runtime.lastError) {
-                        console.error('Daily Flame: Error setting verse shown date:', chrome.runtime.lastError);
+                        console.error('Daily Bread: Error setting verse shown date:', chrome.runtime.lastError);
                     } else {
-                        console.log('Daily Flame: Verse marked as done for today');
+                        console.log('Daily Bread: Verse marked as done for today');
                     }
                 });
             } else {
-                console.log('Daily Flame: Temporary dismissal - verse will show again on next tab/reload');
+                console.log('Daily Bread: Temporary dismissal - verse will show again on next tab/reload');
             }
         }
     } catch (error) {
-        console.error('Daily Flame: Error dismissing overlay:', error);
+        console.error('Daily Bread: Error dismissing overlay:', error);
     }
 }
 

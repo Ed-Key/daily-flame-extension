@@ -111,9 +111,9 @@
   }
 }
 
-/* Daily Flame CSS Isolation - Maximum Specificity */
+/* Daily Bread CSS Isolation - Maximum Specificity */
 /* Uses exact values from compiled Tailwind to preserve appearance */
-#daily-flame-extension-root {
+#daily-bread-extension-root {
   /* CSS Custom Properties with exact Tailwind values */
   --df-bg-white-10: rgba(255, 255, 255, 0.1);
   --df-bg-white-20: rgba(255, 255, 255, 0.2);
@@ -125,28 +125,28 @@
 }
 
 /* Glassmorphism elements with maximum specificity */
-#daily-flame-extension-root .df-glassmorphism-element {
+#daily-bread-extension-root .df-glassmorphism-element {
   background-color: var(--df-bg-white-20) !important;
   backdrop-filter: var(--df-backdrop-blur-sm) !important;
   border-color: var(--df-border-white-30) !important;
 }
 
-#daily-flame-extension-root .df-glassmorphism-element:hover {
+#daily-bread-extension-root .df-glassmorphism-element:hover {
   background-color: var(--df-bg-white-30) !important;
 }
 
-#daily-flame-extension-root .df-glassmorphism-modal {
+#daily-bread-extension-root .df-glassmorphism-modal {
   background-color: var(--df-bg-white-10) !important;
   backdrop-filter: var(--df-backdrop-blur-md) !important;
   border-color: var(--df-border-white-20) !important;
 }
 
-#daily-flame-extension-root .df-glassmorphism-input {
+#daily-bread-extension-root .df-glassmorphism-input {
   background-color: var(--df-bg-white-20) !important;
   border-color: var(--df-border-white-30) !important;
 }
 
-#daily-flame-extension-root .df-glassmorphism-dropdown {
+#daily-bread-extension-root .df-glassmorphism-dropdown {
   background-color: var(--df-bg-white-10) !important;
   backdrop-filter: var(--df-backdrop-blur-md) !important;
   border-color: var(--df-border-white-20) !important;
