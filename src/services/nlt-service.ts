@@ -119,9 +119,33 @@ export class NLTService {
   }
 
   private static convertToNLTFormat(reference: string): string {
-    // Convert "John 3:16" to "John.3.16" or "John 3:16-17" to "John.3.16-17"
-    // Convert "John 3" to "John.3"
-    return reference.replace(/\s+/g, '.').replace(/:/, '.');
+    // NLT API format discovered through testing:
+    // - Books with spaces in names keep the space: "2 Chronicles 7:14" -> "2 Chronicles.7.14"
+    // - Single-word books have no spaces: "John 3:16" -> "John.3.16"
+    // - Colons become dots: ":" -> "."
+    // - Verse ranges keep their dash: "16-17" stays "16-17"
+
+    // First, replace colons with dots
+    let formatted = reference.replace(/:/g, '.');
+
+    // For numbered books (1, 2, 3, I, II, III), keep the space after the number
+    // This matches patterns like "1 Kings", "2 Chronicles", "3 John", etc.
+    if (/^[123I]\s+/.test(formatted)) {
+      // Keep the first space after the number, replace others with dots
+      const parts = formatted.split(/\s+/);
+      if (parts.length >= 2) {
+        // Keep space between number and book name
+        const bookName = parts[0] + ' ' + parts[1];
+        // Add chapter/verse with dots
+        const rest = parts.slice(2).join('.');
+        formatted = rest ? bookName + '.' + rest : bookName;
+      }
+    } else {
+      // For other books, replace all spaces with dots
+      formatted = formatted.replace(/\s+/g, '.');
+    }
+
+    return formatted;
   }
 
 }

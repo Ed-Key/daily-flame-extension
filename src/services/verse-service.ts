@@ -99,9 +99,11 @@ export class VerseService {
       text = text.replace(/[\r\n]+/g, ' ').trim();
       text = text.replace(/\s+/g, ' ');
       
+      // For verse requests, always use the original reference
+      // The API sometimes returns incomplete references (e.g., "2 Chronicles" instead of "2 Chronicles 7:14")
       return {
         text: text,
-        reference: data.data.reference || reference,
+        reference: reference,  // Always use the original reference for verses
         bibleId: bibleId
       };
       
@@ -386,13 +388,33 @@ export class VerseService {
       '2 samuel': '2SA', '2samuel': '2SA', '2sa': '2SA', '2 sam': '2SA', '2sam': '2SA',
       '1 kings': '1KI', '1kings': '1KI', '1ki': '1KI', '1 kgs': '1KI', '1kgs': '1KI',
       '2 kings': '2KI', '2kings': '2KI', '2ki': '2KI', '2 kgs': '2KI', '2kgs': '2KI',
-      'psalms': 'PSA', 'psalm': 'PSA', 'psa': 'PSA', 'ps': 'PSA',
+      '1 chronicles': '1CH', '1chronicles': '1CH', '1ch': '1CH', '1 chr': '1CH', '1chr': '1CH',
+      '2 chronicles': '2CH', '2chronicles': '2CH', '2ch': '2CH', '2 chr': '2CH', '2chr': '2CH',
+      'ezra': 'EZR', 'ezr': 'EZR',
+      'nehemiah': 'NEH', 'neh': 'NEH',
+      'esther': 'EST', 'est': 'EST',
+      'job': 'JOB',
+      'psalms': 'PSA', 'psalm': 'PSA', 'psa': 'PSA', 'ps': 'PSA', 
       'proverbs': 'PRO', 'prov': 'PRO', 'pro': 'PRO',
       'ecclesiastes': 'ECC', 'eccl': 'ECC', 'ecc': 'ECC',
+      'song of solomon': 'SNG', 'song of songs': 'SNG', 'songs': 'SNG', 'sng': 'SNG', 'sos': 'SNG',
       'isaiah': 'ISA', 'isa': 'ISA',
       'jeremiah': 'JER', 'jer': 'JER',
+      'lamentations': 'LAM', 'lam': 'LAM',
       'ezekiel': 'EZK', 'ezek': 'EZK', 'ezk': 'EZK',
       'daniel': 'DAN', 'dan': 'DAN',
+      'hosea': 'HOS', 'hos': 'HOS',
+      'joel': 'JOL', 'jol': 'JOL',
+      'amos': 'AMO', 'amo': 'AMO',
+      'obadiah': 'OBA', 'oba': 'OBA',
+      'jonah': 'JON', 'jon': 'JON',
+      'micah': 'MIC', 'mic': 'MIC',
+      'nahum': 'NAM', 'nam': 'NAM',
+      'habakkuk': 'HAB', 'hab': 'HAB',
+      'zephaniah': 'ZEP', 'zep': 'ZEP',
+      'haggai': 'HAG', 'hag': 'HAG',
+      'zechariah': 'ZEC', 'zec': 'ZEC',
+      'malachi': 'MAL', 'mal': 'MAL',
       // New Testament
       'matthew': 'MAT', 'matt': 'MAT', 'mat': 'MAT', 'mt': 'MAT',
       'mark': 'MRK', 'mrk': 'MRK', 'mk': 'MRK',

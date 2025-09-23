@@ -68629,9 +68629,31 @@ class NLTService {
         }
     }
     static convertToNLTFormat(reference) {
-        // Convert "John 3:16" to "John.3.16" or "John 3:16-17" to "John.3.16-17"
-        // Convert "John 3" to "John.3"
-        return reference.replace(/\s+/g, '.').replace(/:/, '.');
+        // NLT API format discovered through testing:
+        // - Books with spaces in names keep the space: "2 Chronicles 7:14" -> "2 Chronicles.7.14"
+        // - Single-word books have no spaces: "John 3:16" -> "John.3.16"
+        // - Colons become dots: ":" -> "."
+        // - Verse ranges keep their dash: "16-17" stays "16-17"
+        // First, replace colons with dots
+        let formatted = reference.replace(/:/g, '.');
+        // For numbered books (1, 2, 3, I, II, III), keep the space after the number
+        // This matches patterns like "1 Kings", "2 Chronicles", "3 John", etc.
+        if (/^[123I]\s+/.test(formatted)) {
+            // Keep the first space after the number, replace others with dots
+            const parts = formatted.split(/\s+/);
+            if (parts.length >= 2) {
+                // Keep space between number and book name
+                const bookName = parts[0] + ' ' + parts[1];
+                // Add chapter/verse with dots
+                const rest = parts.slice(2).join('.');
+                formatted = rest ? bookName + '.' + rest : bookName;
+            }
+        }
+        else {
+            // For other books, replace all spaces with dots
+            formatted = formatted.replace(/\s+/g, '.');
+        }
+        return formatted;
     }
 }
 NLTService.API_KEY = 'd74333ee-8951-45dc-9925-5074a8ad2f07';
@@ -70265,9 +70287,11 @@ class VerseService {
             let text = data.data.content;
             text = text.replace(/[\r\n]+/g, ' ').trim();
             text = text.replace(/\s+/g, ' ');
+            // For verse requests, always use the original reference
+            // The API sometimes returns incomplete references (e.g., "2 Chronicles" instead of "2 Chronicles 7:14")
             return {
                 text: text,
-                reference: data.data.reference || reference,
+                reference: reference, // Always use the original reference for verses
                 bibleId: bibleId
             };
         }
@@ -70507,13 +70531,33 @@ class VerseService {
             '2 samuel': '2SA', '2samuel': '2SA', '2sa': '2SA', '2 sam': '2SA', '2sam': '2SA',
             '1 kings': '1KI', '1kings': '1KI', '1ki': '1KI', '1 kgs': '1KI', '1kgs': '1KI',
             '2 kings': '2KI', '2kings': '2KI', '2ki': '2KI', '2 kgs': '2KI', '2kgs': '2KI',
+            '1 chronicles': '1CH', '1chronicles': '1CH', '1ch': '1CH', '1 chr': '1CH', '1chr': '1CH',
+            '2 chronicles': '2CH', '2chronicles': '2CH', '2ch': '2CH', '2 chr': '2CH', '2chr': '2CH',
+            'ezra': 'EZR', 'ezr': 'EZR',
+            'nehemiah': 'NEH', 'neh': 'NEH',
+            'esther': 'EST', 'est': 'EST',
+            'job': 'JOB',
             'psalms': 'PSA', 'psalm': 'PSA', 'psa': 'PSA', 'ps': 'PSA',
             'proverbs': 'PRO', 'prov': 'PRO', 'pro': 'PRO',
             'ecclesiastes': 'ECC', 'eccl': 'ECC', 'ecc': 'ECC',
+            'song of solomon': 'SNG', 'song of songs': 'SNG', 'songs': 'SNG', 'sng': 'SNG', 'sos': 'SNG',
             'isaiah': 'ISA', 'isa': 'ISA',
             'jeremiah': 'JER', 'jer': 'JER',
+            'lamentations': 'LAM', 'lam': 'LAM',
             'ezekiel': 'EZK', 'ezek': 'EZK', 'ezk': 'EZK',
             'daniel': 'DAN', 'dan': 'DAN',
+            'hosea': 'HOS', 'hos': 'HOS',
+            'joel': 'JOL', 'jol': 'JOL',
+            'amos': 'AMO', 'amo': 'AMO',
+            'obadiah': 'OBA', 'oba': 'OBA',
+            'jonah': 'JON', 'jon': 'JON',
+            'micah': 'MIC', 'mic': 'MIC',
+            'nahum': 'NAM', 'nam': 'NAM',
+            'habakkuk': 'HAB', 'hab': 'HAB',
+            'zephaniah': 'ZEP', 'zep': 'ZEP',
+            'haggai': 'HAG', 'hag': 'HAG',
+            'zechariah': 'ZEC', 'zec': 'ZEC',
+            'malachi': 'MAL', 'mal': 'MAL',
             // New Testament
             'matthew': 'MAT', 'matt': 'MAT', 'mat': 'MAT', 'mt': 'MAT',
             'mark': 'MRK', 'mrk': 'MRK', 'mk': 'MRK',

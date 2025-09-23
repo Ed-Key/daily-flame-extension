@@ -8,6 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 Daily Bread is a Chrome extension (Manifest V3) that displays daily Bible verses with beautiful animations. It features Firebase authentication, multiple Bible translation support, and a modular React/TypeScript architecture.
 
+## Code Quality Standards
+
+**IMPORTANT DIRECTIVE**: When implementing features or fixing issues in this codebase:
+- **Think hard and write elegant code** that completes the task thoroughly
+- Focus on clean, maintainable, and performant solutions
+- Do NOT add backwards compatibility unless explicitly requested
+- Prioritize modern patterns and current best practices
+
 ## Development Commands
 
 ### Build & Development
