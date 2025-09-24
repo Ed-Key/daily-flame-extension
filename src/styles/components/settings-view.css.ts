@@ -8,7 +8,7 @@ export const settingsViewStyles = `
   /* Settings Title */
   .settings-title {
     position: absolute;
-    top: 30px;
+    top: 55px;
     left: 48px;
     font-size: 32px;
     font-weight: 300;
@@ -20,7 +20,7 @@ export const settingsViewStyles = `
   /* Settings Back Button */
   .settings-back-button {
     position: absolute;
-    top: 80px;
+    top: 105px;
     left: 48px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.3);

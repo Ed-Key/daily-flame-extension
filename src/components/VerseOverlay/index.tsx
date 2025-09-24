@@ -276,23 +276,33 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           }
         }
         
-        // Re-animate the decorative lines when returning from settings with better timing
+        // Re-animate the decorative lines when returning from settings with GSAP
         setTimeout(() => {
           const refs = verseDisplayRef.current;
           if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-            // First remove the animate class if it exists
-            refs.leftLineRef.current.classList.remove('animate');
-            refs.rightLineRef.current.classList.remove('animate');
-            
-            // Force a reflow to ensure the removal is processed
-            void refs.leftLineRef.current.offsetWidth;
-            
-            // Add the animate class back to trigger the CSS transition
-            requestAnimationFrame(() => {
-              if (refs.leftLineRef.current && refs.rightLineRef.current) {
-                refs.leftLineRef.current.classList.add('animate');
-                refs.rightLineRef.current.classList.add('animate');
-              }
+            // First ensure lines are at 0 width
+            gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
+              width: "0%"
+            });
+
+            // Then animate lines from 0 to responsive width using GSAP (matching initial animation)
+            gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
+              width: "0%"
+            }, {
+              width: () => {
+                // Responsive width based on viewport (matching initial animation)
+                if (window.innerWidth <= 480) return "30%";
+                if (window.innerWidth <= 768) return "35%";
+                return "70%";  // Changed from 40% to match initial animation
+              },
+              maxWidth: () => {
+                // Responsive max-width based on viewport (matching initial animation)
+                if (window.innerWidth <= 480) return "100px";
+                if (window.innerWidth <= 768) return "150px";
+                return "200px";
+              },
+              duration: 0.8,
+              ease: "power2.out"
             });
           }
         }, 200); // Delay to let verse animation start first
@@ -399,7 +409,14 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         visibility: 'visible',
         display: 'block'
       });
-      
+
+      // Explicitly set lines to 0 width before animation
+      if (leftLineRef.current && rightLineRef.current) {
+        gsap.set([leftLineRef.current, rightLineRef.current], {
+          width: "0%"
+        });
+      }
+
       // Keep the verse text container hidden initially
       gsap.set(verseTextRef.current, {
         opacity: 0,
@@ -473,9 +490,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           clearProps: "opacity,transform,y,scale,display"
         }, "-=0.4")
 
+        // Set lines to 0 width at this point in the timeline
+        .set([leftLineRef.current, rightLineRef.current], {
+          width: "0%"
+        }, "-=0.4")  // Set at the same time as verse reference starts
+
         // Animate decorative lines with GSAP (replicating CSS animation)
         .fromTo([leftLineRef.current, rightLineRef.current], {
-          width: "0%"
+          width: "0%",
+          immediateRender: true  // Force immediate application of the from state
         }, {
           width: () => {
             // Responsive width based on viewport
@@ -491,7 +514,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           },
           duration: 0.8,
           ease: "power2.out"
-        }, "-=0.2")
+        }, "-=0.6")  // Start slightly after the .set() to ensure lines are at 0
 
         // Animate buttons and top controls together after lines complete
         .to([doneButtonRef.current, moreButtonRef.current, topControlsRef.current], {
