@@ -145,8 +145,8 @@ export const getShadowDomStyles = (): string => {
       top: 50% !important;
       height: 1px !important;
       background-color: var(--border-primary) !important;
-      width: 0 !important; /* Start with no width for animation */
-      transition: width 0.8s ease-out !important;
+      width: 0; /* Start with no width for animation - removed !important for GSAP */
+      /* Removed transition since GSAP handles animation */
       transform: translateY(-50%) !important;
     }
     
@@ -160,10 +160,7 @@ export const getShadowDomStyles = (): string => {
       margin-left: 0 !important; /* Start right at the edge */
     }
     
-    .verse-reference-line.animate {
-      width: 70% !important;
-      max-width: 200px !important;
-    }
+    /* Removed .animate class - GSAP handles animation directly */
     
     /* Verse reference */
     .verse-reference {
@@ -255,6 +252,35 @@ export const getShadowDomStyles = (): string => {
       margin-top: -15px !important; /* Move buttons up slightly to overlap with verse */
     }
     
+    /* Logo in top-left corner */
+    .modal-logo {
+      position: absolute !important;
+      top: 20px !important;
+      left: 20px !important;
+      width: 45px !important;
+      height: 45px !important;
+      object-fit: contain !important;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2)) !important;
+      z-index: 10 !important;
+      /* Removed !important from opacity and transform to allow GSAP animation */
+      opacity: 0; /* Start hidden for animation */
+      /* Removed transform from CSS - let GSAP handle all transforms */
+      transition: filter 0.3s ease !important;
+    }
+
+    .modal-logo:hover {
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) !important;
+    }
+
+    /* Light theme adjustment for logo */
+    [data-theme="light"] .modal-logo {
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1)) !important;
+    }
+
+    [data-theme="light"] .modal-logo:hover {
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15)) !important;
+    }
+
     /* Shared button styles */
     .verse-btn {
       background-color: var(--button-bg) !important;
@@ -1011,7 +1037,13 @@ export const getShadowDomStyles = (): string => {
       .verse-more-btn {
         padding: 10px 28px !important;
       }
-      
+
+      /* Smaller logo on mobile */
+      .modal-logo {
+        width: 40px !important;
+        height: 40px !important;
+      }
+
       .verse-reference-line.left {
         margin-right: 0 !important;
       }
@@ -1020,12 +1052,17 @@ export const getShadowDomStyles = (): string => {
         margin-left: 0 !important;
       }
       
-      .verse-reference-line.animate {
-        width: 35% !important;
-        max-width: 150px !important;
+      /* Removed .animate class - GSAP handles responsive animation */
+
+      /* Even smaller logo on very small screens */
+      .modal-logo {
+        width: 35px !important;
+        height: 35px !important;
+        top: 15px !important;
+        left: 15px !important;
       }
     }
-    
+
     @media (max-width: 480px) {
       .verse-modal {
         padding: 24px !important;
@@ -1073,10 +1110,7 @@ export const getShadowDomStyles = (): string => {
         margin-left: 0 !important;
       }
       
-      .verse-reference-line.animate {
-        width: 30% !important;
-        max-width: 100px !important;
-      }
+      /* Removed .animate class - GSAP handles responsive animation */
     }
     
     /* Animation classes */

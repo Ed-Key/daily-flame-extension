@@ -34,6 +34,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const verseDisplayRef = useRef<VerseDisplayRefs>(null);
   const entranceDirectionRef = useRef<'left' | 'right'>('left');
   const topControlsRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
   
   // Context view state
   const [showContext, setShowContext] = useState(false);
@@ -362,11 +363,20 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
 
     const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
     
-    // Initially hide top controls for animation
+    // Initially hide top controls and logo for animation
     if (topControlsRef.current) {
       gsap.set(topControlsRef.current, {
         opacity: 0,
         y: -10,
+        visibility: 'visible'
+      });
+    }
+
+    if (logoRef.current) {
+      gsap.set(logoRef.current, {
+        opacity: 0,  // Start hidden for animation
+        y: -20,  // Start higher up for more dramatic entrance
+        scale: 0.9,  // More noticeable scale change (was 0.95)
         visibility: 'visible'
       });
     }
@@ -453,27 +463,57 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           stagger: 0.05 // 50ms delay between each letter start
         })
         
-        // Animate verse reference AND buttons together
-        .to([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
+        // Animate verse reference only (without buttons)
+        .to(verseReferenceRef.current, {
           opacity: 1,
           y: 0,
           scale: 1,
           duration: 0.8,
           ease: "power2.out",
-          clearProps: "opacity,transform,y,scale,display",
-          stagger: 0.05 // Small stagger for smooth appearance
+          clearProps: "opacity,transform,y,scale,display"
         }, "-=0.4")
-        
-        // Animate decorative lines by adding the animate class
-        .set([leftLineRef.current, rightLineRef.current], {
-          onComplete: () => {
-            // Add the animate class to trigger CSS transition
-            if (leftLineRef.current && rightLineRef.current) {
-              leftLineRef.current.classList.add('animate');
-              rightLineRef.current.classList.add('animate');
-            }
-          }
+
+        // Animate decorative lines with GSAP (replicating CSS animation)
+        .fromTo([leftLineRef.current, rightLineRef.current], {
+          width: "0%"
+        }, {
+          width: () => {
+            // Responsive width based on viewport
+            if (window.innerWidth <= 480) return "30%";
+            if (window.innerWidth <= 768) return "35%";
+            return "70%";
+          },
+          maxWidth: () => {
+            // Responsive max-width based on viewport
+            if (window.innerWidth <= 480) return "100px";
+            if (window.innerWidth <= 768) return "150px";
+            return "200px";
+          },
+          duration: 0.8,
+          ease: "power2.out"
         }, "-=0.2")
+
+        // Animate buttons and top controls together after lines complete
+        .to([doneButtonRef.current, moreButtonRef.current, topControlsRef.current], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.out",
+          clearProps: "opacity,transform,y,scale,display,visibility",
+          stagger: 0 // All animate together
+        }, "+=0.1")
+
+        // Animate logo separately without clearing opacity
+        .to(logoRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.out",
+          // Don't clear opacity so it stays visible
+          clearProps: "transform,y,scale,display,visibility"
+        }, "-=0.5") // Start at same time as buttons
         
         // Add final whole sentence glow effect - gradual build-up
         .to(letterElements, {
@@ -481,18 +521,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
           duration: 1.2,  // Slower, more gradual glow build-up
           ease: "power2.inOut"
-        }, "+=0.3"); // Wait after reference settles before starting glow
-        
-        // Animate top controls as the final element
-        if (topControlsRef.current) {
-          tl.to(topControlsRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            clearProps: "opacity,transform,y,visibility"
-          }, "-=0.5"); // Start slightly before glow completes for smooth flow
-        }
+        }, "+=0.3"); // Wait after buttons/controls settle before starting glow
         
         // Force play the timeline
         tl.play();
@@ -710,23 +739,29 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     requestAnimationFrame(() => {
       // Wait one more frame to ensure React has rendered
       requestAnimationFrame(() => {
-        // Re-animate the decorative lines
+        // Re-animate the decorative lines with GSAP
         const refs = verseDisplayRef.current;
         if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-          // First remove the animate class if it exists
-          refs.leftLineRef.current.classList.remove('animate');
-          refs.rightLineRef.current.classList.remove('animate');
-          
-          // Force a reflow to ensure the removal is processed
-          void refs.leftLineRef.current.offsetWidth;
-          
-          // Add the animate class back to trigger the CSS transition
-          setTimeout(() => {
-            if (refs.leftLineRef.current && refs.rightLineRef.current) {
-              refs.leftLineRef.current.classList.add('animate');
-              refs.rightLineRef.current.classList.add('animate');
-            }
-          }, 100); // Small delay to ensure smooth animation
+          // Animate lines from 0 to responsive width using GSAP
+          gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
+            width: "0%"
+          }, {
+            width: () => {
+              // Responsive width based on viewport
+              if (window.innerWidth <= 480) return "30%";
+              if (window.innerWidth <= 768) return "35%";
+              return "70%";
+            },
+            maxWidth: () => {
+              // Responsive max-width based on viewport
+              if (window.innerWidth <= 480) return "100px";
+              if (window.innerWidth <= 768) return "150px";
+              return "200px";
+            },
+            duration: 0.8,
+            ease: "power2.out",
+            delay: 0.1 // Small delay for smooth appearance
+          });
         }
       });
     });
@@ -742,6 +777,14 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       >
         {/* Modal Container */}
         <div ref={modalRef} className="verse-modal" onClick={handleModalClick}>
+          {/* Logo in Top-Left */}
+          <img
+            ref={logoRef}
+            src={chrome.runtime.getURL('icon-1024.png')}
+            className="modal-logo"
+            alt="Daily Bread"
+          />
+
           {/* Top-Right Controls */}
           <div ref={topControlsRef} className="top-controls">
             <ThemeToggle 
