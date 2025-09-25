@@ -253,60 +253,36 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         }
       }, 10); // Reduced delay for smoother transition
     } else if (!showSettings && !showContext) {
-      // Animate verse content fade in with smooth scale and translate when returning from settings
+      // Re-animate the decorative lines when returning from settings with GSAP
       setTimeout(() => {
-        if (verseContentRef.current) {
-          const verseElements = verseContentRef.current.querySelector('.verse-display-container') || 
-                               verseContentRef.current.children[0];
-          if (verseElements) {
-            gsap.fromTo(verseElements,
-              { 
-                opacity: 0,
-                y: 10,
-                scale: 0.98
-              },
-              { 
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.4,
-                ease: "power2.out" 
-              }
-            );
-          }
-        }
-        
-        // Re-animate the decorative lines when returning from settings with GSAP
-        setTimeout(() => {
-          const refs = verseDisplayRef.current;
-          if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-            // First ensure lines are at 0 width
-            gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
-              width: "0%"
-            });
+        const refs = verseDisplayRef.current;
+        if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
+          // First ensure lines are at 0 width
+          gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
+            width: "0%"
+          });
 
-            // Then animate lines from 0 to responsive width using GSAP (matching initial animation)
-            gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
-              width: "0%"
-            }, {
-              width: () => {
-                // Responsive width based on viewport (matching initial animation)
-                if (window.innerWidth <= 480) return "30%";
-                if (window.innerWidth <= 768) return "35%";
-                return "70%";  // Changed from 40% to match initial animation
-              },
-              maxWidth: () => {
-                // Responsive max-width based on viewport (matching initial animation)
-                if (window.innerWidth <= 480) return "100px";
-                if (window.innerWidth <= 768) return "150px";
-                return "200px";
-              },
-              duration: 0.8,
-              ease: "power2.out"
-            });
-          }
-        }, 200); // Delay to let verse animation start first
-      }, 10); // Reduced delay for smoother transition
+          // Then animate lines from 0 to responsive width using GSAP (matching initial animation)
+          gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
+            width: "0%"
+          }, {
+            width: () => {
+              // Responsive width based on viewport (matching initial animation)
+              if (window.innerWidth <= 480) return "30%";
+              if (window.innerWidth <= 768) return "35%";
+              return "70%";  // Changed from 40% to match initial animation
+            },
+            maxWidth: () => {
+              // Responsive max-width based on viewport (matching initial animation)
+              if (window.innerWidth <= 480) return "100px";
+              if (window.innerWidth <= 768) return "150px";
+              return "200px";
+            },
+            duration: 0.8,
+            ease: "power2.out"
+          });
+        }
+      }, 50); // Small delay for smooth transition
     }
   }, [showSettings, showContext]);
 
@@ -864,7 +840,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
               </h2>
               
               {/* Back button - positioned below the title */}
-              <button 
+              <button
                 className="settings-back-button"
                 onClick={() => {
                   // Fade out settings with smooth scale and translate, then switch back to verse
@@ -884,8 +860,47 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                     setShowSettings(false);
                   }
                 }}
+                onMouseEnter={(e) => {
+                  // Optional: Add GSAP animation for smoother effect
+                  const arrow = e.currentTarget.querySelector('.settings-back-arrow');
+                  const text = e.currentTarget.querySelector('.settings-back-text');
+                  if (arrow && text) {
+                    gsap.to(arrow, {
+                      opacity: 1,
+                      x: 0,
+                      marginRight: 6,
+                      duration: 0.3,
+                      ease: "power2.out"
+                    });
+                    gsap.to(text, {
+                      x: 2,
+                      duration: 0.3,
+                      ease: "power2.out"
+                    });
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  // Reset animation on mouse leave
+                  const arrow = e.currentTarget.querySelector('.settings-back-arrow');
+                  const text = e.currentTarget.querySelector('.settings-back-text');
+                  if (arrow && text) {
+                    gsap.to(arrow, {
+                      opacity: 0,
+                      x: -10,
+                      marginRight: 0,
+                      duration: 0.3,
+                      ease: "power2.in"
+                    });
+                    gsap.to(text, {
+                      x: 0,
+                      duration: 0.3,
+                      ease: "power2.in"
+                    });
+                  }
+                }}
               >
-                ← Back to Verse
+                <span className="settings-back-arrow">←</span>
+                <span className="settings-back-text">Back to Verse</span>
               </button>
             </>
           )}
@@ -924,20 +939,25 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
               <div className="settings-view-container">
                 {/* Bible Translation Preference */}
                 <div className="settings-section">
-                  <label className="settings-label">
-                    Default Bible Translation
-                  </label>
-                  
-                  <select 
+                  <div className="settings-label-row">
+                    <label className="settings-label">
+                      Default Bible Translation
+                    </label>
+                    <p className="settings-description">
+                      This translation will be used for your daily verses
+                    </p>
+                  </div>
+
+                  <select
                     className="settings-translation-select"
                     value={currentTranslation}
                     onChange={async (e) => {
                       const newTranslation = e.target.value as BibleTranslation;
                       setCurrentTranslation(newTranslation);
-                      
+
                       // Save the preference using UserPreferencesService
                       await UserPreferencesService.saveBibleTranslation(newTranslation, user);
-                      
+
                       // Fetch the current verse in the new translation
                       try {
                         const bibleId = BIBLE_VERSIONS[newTranslation];
@@ -958,10 +978,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                     <option value="WEB_BRITISH">WEB - British Edition</option>
                     <option value="WEB_UPDATED">WEB - Updated</option>
                   </select>
-                  
-                  <p className="settings-description">
-                    This translation will be used for your daily verses
-                  </p>
                 </div>
               </div>
             ) : null}

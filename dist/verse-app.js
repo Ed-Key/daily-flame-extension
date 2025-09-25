@@ -65874,7 +65874,7 @@ const VerseDisplay = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(({ verse,
                                                         detail: { source: 'translation' }
                                                     }));
                                                 }
-                                            }, type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translation-button__text", children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "translation-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M7 10L12 15", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M17 10L12 15", strokeWidth: "2", strokeLinecap: "round" })] })] }), isOpen && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "translation-dropdown-menu", children: Object.entries(TRANSLATION_NAMES).map(([key, name]) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: `translation-option ${currentTranslation === key ? 'translation-option--active' : ''}`, onClick: () => handleTranslationSelect(key), type: "button", children: name }, key))) }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { ref: verseTextRef, className: "verse-text", children: ["\"", verse.text, "\""] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
+                                            }, type: "button", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "translation-button__text", children: currentTranslation }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", { className: "translation-chevron", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", stroke: "currentColor", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M7 10L12 15", strokeWidth: "2", strokeLinecap: "round" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M17 10L12 15", strokeWidth: "2", strokeLinecap: "round" })] })] }), isOpen && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "translation-dropdown-menu", children: Object.entries(TRANSLATION_NAMES).map(([key, name]) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: `translation-option ${currentTranslation === key ? 'translation-option--active' : ''}`, onClick: () => handleTranslationSelect(key), type: "button", children: name }, key))) }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: rightLineRef, className: "verse-reference-line right" })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { ref: verseTextRef, className: "verse-text", children: verse.text })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-button-container", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: doneButtonRef, className: "verse-btn", onClick: onDone, type: "button", children: "Done" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { ref: moreButtonRef, className: "verse-btn verse-more-btn", onClick: onMore, type: "button", children: "More" })] })] }));
 });
 VerseDisplay.displayName = 'VerseDisplay';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VerseDisplay);
@@ -66016,6 +66016,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const verseDisplayRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const entranceDirectionRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)('left');
     const topControlsRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const logoRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     // Context view state
     const [showContext, setShowContext] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [contextLoading, setContextLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -66212,44 +66213,39 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             }, 10); // Reduced delay for smoother transition
         }
         else if (!showSettings && !showContext) {
-            // Animate verse content fade in with smooth scale and translate when returning from settings
+            // Re-animate the decorative lines when returning from settings with GSAP
             setTimeout(() => {
-                if (verseContentRef.current) {
-                    const verseElements = verseContentRef.current.querySelector('.verse-display-container') ||
-                        verseContentRef.current.children[0];
-                    if (verseElements) {
-                        gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo(verseElements, {
-                            opacity: 0,
-                            y: 10,
-                            scale: 0.98
-                        }, {
-                            opacity: 1,
-                            y: 0,
-                            scale: 1,
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                    }
+                const refs = verseDisplayRef.current;
+                if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
+                    // First ensure lines are at 0 width
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
+                        width: "0%"
+                    });
+                    // Then animate lines from 0 to responsive width using GSAP (matching initial animation)
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
+                        width: "0%"
+                    }, {
+                        width: () => {
+                            // Responsive width based on viewport (matching initial animation)
+                            if (window.innerWidth <= 480)
+                                return "30%";
+                            if (window.innerWidth <= 768)
+                                return "35%";
+                            return "70%"; // Changed from 40% to match initial animation
+                        },
+                        maxWidth: () => {
+                            // Responsive max-width based on viewport (matching initial animation)
+                            if (window.innerWidth <= 480)
+                                return "100px";
+                            if (window.innerWidth <= 768)
+                                return "150px";
+                            return "200px";
+                        },
+                        duration: 0.8,
+                        ease: "power2.out"
+                    });
                 }
-                // Re-animate the decorative lines when returning from settings with better timing
-                setTimeout(() => {
-                    const refs = verseDisplayRef.current;
-                    if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-                        // First remove the animate class if it exists
-                        refs.leftLineRef.current.classList.remove('animate');
-                        refs.rightLineRef.current.classList.remove('animate');
-                        // Force a reflow to ensure the removal is processed
-                        void refs.leftLineRef.current.offsetWidth;
-                        // Add the animate class back to trigger the CSS transition
-                        requestAnimationFrame(() => {
-                            if (refs.leftLineRef.current && refs.rightLineRef.current) {
-                                refs.leftLineRef.current.classList.add('animate');
-                                refs.rightLineRef.current.classList.add('animate');
-                            }
-                        });
-                    }
-                }, 200); // Delay to let verse animation start first
-            }, 10); // Reduced delay for smoother transition
+            }, 50); // Small delay for smooth transition
         }
     }, [showSettings, showContext]);
     // Removed line animation effect
@@ -66305,11 +66301,19 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         if (!refs || !verseContentRef.current)
             return;
         const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
-        // Initially hide top controls for animation
+        // Initially hide top controls and logo for animation
         if (topControlsRef.current) {
             gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(topControlsRef.current, {
                 opacity: 0,
                 y: -10,
+                visibility: 'visible'
+            });
+        }
+        if (logoRef.current) {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(logoRef.current, {
+                opacity: 0, // Start hidden for animation
+                y: -20, // Start higher up for more dramatic entrance
+                scale: 0.9, // More noticeable scale change (was 0.95)
                 visibility: 'visible'
             });
         }
@@ -66329,6 +66333,12 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 visibility: 'visible',
                 display: 'block'
             });
+            // Explicitly set lines to 0 width before animation
+            if (leftLineRef.current && rightLineRef.current) {
+                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([leftLineRef.current, rightLineRef.current], {
+                    width: "0%"
+                });
+            }
             // Keep the verse text container hidden initially
             gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextRef.current, {
                 opacity: 0,
@@ -66381,43 +66391,70 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     ease: "none", // Linear to match CSS animation
                     stagger: 0.05 // 50ms delay between each letter start
                 })
-                    // Animate verse reference AND buttons together
-                    .to([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
+                    // Animate verse reference only (without buttons)
+                    .to(verseReferenceRef.current, {
                     opacity: 1,
                     y: 0,
                     scale: 1,
                     duration: 0.8,
                     ease: "power2.out",
-                    clearProps: "opacity,transform,y,scale,display",
-                    stagger: 0.05 // Small stagger for smooth appearance
+                    clearProps: "opacity,transform,y,scale,display"
                 }, "-=0.4")
-                    // Animate decorative lines by adding the animate class
+                    // Set lines to 0 width at this point in the timeline
                     .set([leftLineRef.current, rightLineRef.current], {
-                    onComplete: () => {
-                        // Add the animate class to trigger CSS transition
-                        if (leftLineRef.current && rightLineRef.current) {
-                            leftLineRef.current.classList.add('animate');
-                            rightLineRef.current.classList.add('animate');
-                        }
-                    }
-                }, "-=0.2")
+                    width: "0%"
+                }, "-=0.4") // Set at the same time as verse reference starts
+                    // Animate decorative lines with GSAP (replicating CSS animation)
+                    .fromTo([leftLineRef.current, rightLineRef.current], {
+                    width: "0%",
+                    immediateRender: true // Force immediate application of the from state
+                }, {
+                    width: () => {
+                        // Responsive width based on viewport
+                        if (window.innerWidth <= 480)
+                            return "30%";
+                        if (window.innerWidth <= 768)
+                            return "35%";
+                        return "70%";
+                    },
+                    maxWidth: () => {
+                        // Responsive max-width based on viewport
+                        if (window.innerWidth <= 480)
+                            return "100px";
+                        if (window.innerWidth <= 768)
+                            return "150px";
+                        return "200px";
+                    },
+                    duration: 0.8,
+                    ease: "power2.out"
+                }, "-=0.6") // Start slightly after the .set() to ensure lines are at 0
+                    // Animate buttons and top controls together after lines complete
+                    .to([doneButtonRef.current, moreButtonRef.current, topControlsRef.current], {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    clearProps: "opacity,transform,y,scale,display,visibility",
+                    stagger: 0 // All animate together
+                }, "+=0.1")
+                    // Animate logo separately without clearing opacity
+                    .to(logoRef.current, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    // Don't clear opacity so it stays visible
+                    clearProps: "transform,y,scale,display,visibility"
+                }, "-=0.5") // Start at same time as buttons
                     // Add final whole sentence glow effect - gradual build-up
                     .to(letterElements, {
                     opacity: 1,
                     textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
                     duration: 1.2, // Slower, more gradual glow build-up
                     ease: "power2.inOut"
-                }, "+=0.3"); // Wait after reference settles before starting glow
-                // Animate top controls as the final element
-                if (topControlsRef.current) {
-                    tl.to(topControlsRef.current, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.5,
-                        ease: "power2.out",
-                        clearProps: "opacity,transform,y,visibility"
-                    }, "-=0.5"); // Start slightly before glow completes for smooth flow
-                }
+                }, "+=0.3"); // Wait after buttons/controls settle before starting glow
                 // Force play the timeline
                 tl.play();
             }
@@ -66608,26 +66645,38 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         requestAnimationFrame(() => {
             // Wait one more frame to ensure React has rendered
             requestAnimationFrame(() => {
-                // Re-animate the decorative lines
+                // Re-animate the decorative lines with GSAP
                 const refs = verseDisplayRef.current;
                 if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-                    // First remove the animate class if it exists
-                    refs.leftLineRef.current.classList.remove('animate');
-                    refs.rightLineRef.current.classList.remove('animate');
-                    // Force a reflow to ensure the removal is processed
-                    void refs.leftLineRef.current.offsetWidth;
-                    // Add the animate class back to trigger the CSS transition
-                    setTimeout(() => {
-                        if (refs.leftLineRef.current && refs.rightLineRef.current) {
-                            refs.leftLineRef.current.classList.add('animate');
-                            refs.rightLineRef.current.classList.add('animate');
-                        }
-                    }, 100); // Small delay to ensure smooth animation
+                    // Animate lines from 0 to responsive width using GSAP
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
+                        width: "0%"
+                    }, {
+                        width: () => {
+                            // Responsive width based on viewport
+                            if (window.innerWidth <= 480)
+                                return "30%";
+                            if (window.innerWidth <= 768)
+                                return "35%";
+                            return "70%";
+                        },
+                        maxWidth: () => {
+                            // Responsive max-width based on viewport
+                            if (window.innerWidth <= 480)
+                                return "100px";
+                            if (window.innerWidth <= 768)
+                                return "150px";
+                            return "200px";
+                        },
+                        duration: 0.8,
+                        ease: "power2.out",
+                        delay: 0.1 // Small delay for smooth appearance
+                    });
                 }
             });
         });
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: topControlsRef, className: "top-controls", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ThemeToggle__WEBPACK_IMPORTED_MODULE_14__["default"], { theme: theme, onToggle: async () => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { ref: overlayRef, className: "verse-overlay", onClick: handleOverlayClick, tabIndex: 0, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: modalRef, className: "verse-modal", onClick: handleModalClick, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", { ref: logoRef, src: chrome.runtime.getURL('icon-1024.png'), className: "modal-logo", alt: "Daily Bread" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: topControlsRef, className: "top-controls", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ThemeToggle__WEBPACK_IMPORTED_MODULE_14__["default"], { theme: theme, onToggle: async () => {
                                         const newTheme = theme === 'dark' ? 'light' : 'dark';
                                         setTheme(newTheme);
                                         // Save theme preference using UserPreferencesService
@@ -66656,7 +66705,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                         else {
                                             setShowSettings(true);
                                         }
-                                    }, shadowRoot: shadowRoot }))] }), showSettings && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "settings-back-button", onClick: () => {
+                                    }, shadowRoot: shadowRoot }))] }), showSettings && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "settings-back-button", onClick: () => {
                                         // Fade out settings with smooth scale and translate, then switch back to verse
                                         const settingsContainer = shadowRoot?.querySelector('.settings-view-container');
                                         if (settingsContainer) {
@@ -66674,13 +66723,49 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                         else {
                                             setShowSettings(false);
                                         }
-                                    }, children: "\u2190 Back to Verse" })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showSettings && !showContext ? (
+                                    }, onMouseEnter: (e) => {
+                                        // Optional: Add GSAP animation for smoother effect
+                                        const arrow = e.currentTarget.querySelector('.settings-back-arrow');
+                                        const text = e.currentTarget.querySelector('.settings-back-text');
+                                        if (arrow && text) {
+                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(arrow, {
+                                                opacity: 1,
+                                                x: 0,
+                                                marginRight: 6,
+                                                duration: 0.3,
+                                                ease: "power2.out"
+                                            });
+                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(text, {
+                                                x: 2,
+                                                duration: 0.3,
+                                                ease: "power2.out"
+                                            });
+                                        }
+                                    }, onMouseLeave: (e) => {
+                                        // Reset animation on mouse leave
+                                        const arrow = e.currentTarget.querySelector('.settings-back-arrow');
+                                        const text = e.currentTarget.querySelector('.settings-back-text');
+                                        if (arrow && text) {
+                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(arrow, {
+                                                opacity: 0,
+                                                x: -10,
+                                                marginRight: 0,
+                                                duration: 0.3,
+                                                ease: "power2.in"
+                                            });
+                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(text, {
+                                                x: 0,
+                                                duration: 0.3,
+                                                ease: "power2.in"
+                                            });
+                                        }
+                                    }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-back-arrow", children: "\u2190" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-back-text", children: "Back to Verse" })] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showSettings && !showContext ? (
                                 /* Main verse view */
                                 (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : showContext ? (
                                 /* Context view */
                                 (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_13__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange })) : showSettings ? (
                                 /* Settings view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-view-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { className: "settings-label", children: "Default Bible Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { className: "settings-translation-select", value: currentTranslation, onChange: async (e) => {
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-view-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-label-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { className: "settings-label", children: "Default Bible Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "settings-description", children: "This translation will be used for your daily verses" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { className: "settings-translation-select", value: currentTranslation, onChange: async (e) => {
                                                     const newTranslation = e.target.value;
                                                     setCurrentTranslation(newTranslation);
                                                     // Save the preference using UserPreferencesService
@@ -66696,7 +66781,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                                         console.error('Error fetching verse in new translation:', error);
                                                         showToast('Failed to load verse in new translation', 'error');
                                                     }
-                                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "ESV - English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "NLT", children: "NLT - New Living Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "KJV - King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "ASV - American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "WEB - World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB - British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB - Updated" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "settings-description", children: "This translation will be used for your daily verses" })] }) })) : null] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+                                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "ESV - English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "NLT", children: "NLT - New Living Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "KJV - King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "ASV - American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "WEB - World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB - British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB - Updated" })] })] }) })) : null] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
                                     }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
@@ -70820,7 +70905,7 @@ const settingsViewStyles = `
   /* Settings Title */
   .settings-title {
     position: absolute;
-    top: 30px;
+    top: 65px;
     left: 48px;
     font-size: 32px;
     font-weight: 300;
@@ -70829,25 +70914,58 @@ const settingsViewStyles = `
     z-index: 10;
   }
 
-  /* Settings Back Button */
+  /* Settings Back Button - Positioned next to logo */
   .settings-back-button {
     position: absolute;
-    top: 80px;
-    left: 48px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    top: 24px; /* Aligned with logo */
+    left: 80px; /* Next to the logo (logo is 60px + some spacing) */
+    background: rgba(255, 255, 255, 0.1); /* Start with background */
+    border: none;
     color: white;
-    padding: 8px 16px;
+    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 400;
     z-index: 10;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    opacity: 1; /* Start at full opacity */
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Hide arrow when it's off to the left */
+  }
+
+  /* Arrow element */
+  .settings-back-arrow {
+    display: inline-block;
+    margin-right: 0px; /* Start with no margin */
+    opacity: 0; /* Start invisible */
+    transform: translateX(-10px); /* Start off to the left */
+    transition: opacity 0.3s ease, transform 0.3s ease, margin-right 0.3s ease;
+  }
+
+  /* Text element */
+  .settings-back-text {
+    display: inline-block;
+    transition: transform 0.3s ease;
   }
 
   .settings-back-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
+    opacity: 0.7; /* Dimmed opacity on hover */
+    background: transparent; /* Remove background on hover */
+    border-radius: 4px;
+  }
+
+  /* Arrow animation on hover */
+  .settings-back-button:hover .settings-back-arrow {
+    opacity: 1; /* Fade in arrow */
+    transform: translateX(0); /* Slide arrow to position */
+    margin-right: 6px; /* Add space between arrow and text */
+  }
+
+  /* Text slides right on hover */
+  .settings-back-button:hover .settings-back-text {
+    transform: translateX(2px); /* Slight slide to make room */
   }
 
   /* Settings Section */
@@ -70855,25 +70973,34 @@ const settingsViewStyles = `
     margin-bottom: 32px;
   }
 
+  /* Settings Label Row - Container for label and description */
+  .settings-label-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between; /* Push items to opposite ends */
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
   /* Settings Label */
   .settings-label {
-    display: block;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 500;
-    margin-bottom: 12px;
     opacity: 0.9;
     color: white;
-    text-align: left;
+    flex-shrink: 0;
   }
 
   /* Settings Description */
   .settings-description {
-    margin-top: 8px;
     font-size: 12px;
     opacity: 0.7;
     line-height: 1.4;
     color: white;
-    text-align: left;
+    margin: 0;
+    padding-top: 3px; /* Slight adjustment to align baselines */
+    text-align: right; /* Right-align the text */
+    flex: 1; /* Take up remaining space */
   }
 
   /* Light theme adjustments */
@@ -70882,13 +71009,14 @@ const settingsViewStyles = `
   }
 
   :host([data-theme="light"]) .settings-back-button {
-    border-color: rgba(0, 0, 0, 0.3);
     color: #333;
+    background: rgba(0, 0, 0, 0.05); /* Start with background in light mode */
+    opacity: 1;
   }
 
   :host([data-theme="light"]) .settings-back-button:hover {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.4);
+    opacity: 0.7; /* Dimmed on hover */
+    background: transparent; /* Remove background on hover */
   }
 
   :host([data-theme="light"]) .settings-label {
@@ -71344,8 +71472,8 @@ const getShadowDomStyles = () => {
       top: 50% !important;
       height: 1px !important;
       background-color: var(--border-primary) !important;
-      width: 0 !important; /* Start with no width for animation */
-      transition: width 0.8s ease-out !important;
+      width: 0; /* Start with no width for animation - removed !important for GSAP */
+      /* Removed transition since GSAP handles animation */
       transform: translateY(-50%) !important;
     }
     
@@ -71359,10 +71487,7 @@ const getShadowDomStyles = () => {
       margin-left: 0 !important; /* Start right at the edge */
     }
     
-    .verse-reference-line.animate {
-      width: 70% !important;
-      max-width: 200px !important;
-    }
+    /* Removed .animate class - GSAP handles animation directly */
     
     /* Verse reference */
     .verse-reference {
@@ -71454,6 +71579,35 @@ const getShadowDomStyles = () => {
       margin-top: -15px !important; /* Move buttons up slightly to overlap with verse */
     }
     
+    /* Logo in top-left corner */
+    .modal-logo {
+      position: absolute !important;
+      top: 20px !important;
+      left: 20px !important;
+      width: 45px !important;
+      height: 45px !important;
+      object-fit: contain !important;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2)) !important;
+      z-index: 10 !important;
+      /* Removed !important from opacity and transform to allow GSAP animation */
+      opacity: 0; /* Start hidden for animation */
+      /* Removed transform from CSS - let GSAP handle all transforms */
+      transition: filter 0.3s ease !important;
+    }
+
+    .modal-logo:hover {
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3)) !important;
+    }
+
+    /* Light theme adjustment for logo */
+    [data-theme="light"] .modal-logo {
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1)) !important;
+    }
+
+    [data-theme="light"] .modal-logo:hover {
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15)) !important;
+    }
+
     /* Shared button styles */
     .verse-btn {
       background-color: var(--button-bg) !important;
@@ -72210,7 +72364,13 @@ const getShadowDomStyles = () => {
       .verse-more-btn {
         padding: 10px 28px !important;
       }
-      
+
+      /* Smaller logo on mobile */
+      .modal-logo {
+        width: 40px !important;
+        height: 40px !important;
+      }
+
       .verse-reference-line.left {
         margin-right: 0 !important;
       }
@@ -72219,12 +72379,17 @@ const getShadowDomStyles = () => {
         margin-left: 0 !important;
       }
       
-      .verse-reference-line.animate {
-        width: 35% !important;
-        max-width: 150px !important;
+      /* Removed .animate class - GSAP handles responsive animation */
+
+      /* Even smaller logo on very small screens */
+      .modal-logo {
+        width: 35px !important;
+        height: 35px !important;
+        top: 15px !important;
+        left: 15px !important;
       }
     }
-    
+
     @media (max-width: 480px) {
       .verse-modal {
         padding: 24px !important;
@@ -72272,10 +72437,7 @@ const getShadowDomStyles = () => {
         margin-left: 0 !important;
       }
       
-      .verse-reference-line.animate {
-        width: 30% !important;
-        max-width: 100px !important;
-      }
+      /* Removed .animate class - GSAP handles responsive animation */
     }
     
     /* Animation classes */

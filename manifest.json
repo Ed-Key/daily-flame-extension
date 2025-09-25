@@ -47,11 +47,12 @@
   "icons": {
     "16": "icon-16.png",
     "48": "icon-48.png",
-    "128": "icon-128.png"
+    "128": "icon-128.png",
+    "1024": "icon-1024.png"
   },
   "web_accessible_resources": [
     {
-      "resources": ["auth.html", "auth.js", "auth.css", "*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map"],
+      "resources": ["auth.html", "auth.js", "auth.css", "*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map", "*.png"],
       "matches": ["<all_urls>"]
     }
   ]

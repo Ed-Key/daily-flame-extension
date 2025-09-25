@@ -161,7 +161,7 @@ const VerseDisplay = forwardRef<VerseDisplayRefs, VerseDisplayProps>(({
           </div>
         </div>
         <p ref={verseTextRef} className="verse-text">
-          "{verse.text}"
+          {verse.text}
         </p>
       </div>
       <div className="verse-button-container">
