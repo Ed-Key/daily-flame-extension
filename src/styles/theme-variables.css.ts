@@ -63,7 +63,7 @@ export const themeVariables = `
     --profile-menu-bg: rgba(255, 255, 255, 0.1);
     --profile-menu-border: rgba(255, 255, 255, 0.2);
     --profile-menu-divider: rgba(255, 255, 255, 0.1);
-    --profile-menu-hover: rgba(255, 255, 255, 0.1);
+    --profile-menu-hover: rgba(255, 255, 255, 0.25); /* More visible white overlay on hover */
   }
   
   /* Light Theme */
@@ -129,7 +129,7 @@ export const themeVariables = `
     --profile-menu-bg: rgba(255, 255, 255, 0.98);
     --profile-menu-border: rgba(0, 0, 0, 0.15);
     --profile-menu-divider: rgba(0, 0, 0, 0.1);
-    --profile-menu-hover: rgba(0, 0, 0, 0.05);
+    --profile-menu-hover: #f3f4f6; /* Light gray background on hover */
   }
   
   /* Theme-aware text shadow */

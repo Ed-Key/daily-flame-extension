@@ -49,13 +49,14 @@ export const profileDropdownStyles = `
     margin-top: 0.5rem !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
-    background-color: var(--profile-menu-bg) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
+    background-color: rgb(26, 26, 26) !important; /* Solid dark background like translation */
+    background: rgb(26, 26, 26) !important; /* Fallback */
     border-radius: 0.5rem !important;
-    border: 1px solid var(--profile-menu-border) !important;
-    padding: 0.5rem 0 !important; /* Only vertical padding on container */
+    border: 2px solid rgba(255, 255, 255, 0.2) !important; /* Match translation dropdown border */
+    padding: 0 !important; /* Remove padding for seamless button appearance */
     z-index: 100 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important; /* Add shadow like translation */
+    opacity: 1 !important; /* Ensure full opacity */
     /* Ensure it stays within viewport */
     transform-origin: top right !important;
   }
@@ -106,28 +107,31 @@ export const profileDropdownStyles = `
 
   /* Dropdown Action Buttons */
   .profile-dropdown-action {
-    width: 100%;
+    width: 100%; /* Full width, no gaps */
     text-align: left;
     padding: 0.5rem 1rem; /* Increased padding to match info section */
     padding-left: 20px !important; /* Override global button padding */
+    margin: 0; /* No margin for seamless appearance */
     color: var(--profile-text) !important;
     font-size: 14px;
-    background: transparent;
+    background: transparent; /* Transparent base for glassmorphic feel */
     border: none;
-    border-radius: 0;
+    border-radius: 0; /* No border radius for seamless look */
     cursor: pointer;
     transition: background-color 0.15s ease;
     display: block;
   }
 
   .profile-dropdown-action:hover {
-    background-color: var(--profile-menu-hover);
+    background-color: rgba(255, 255, 255, 0.15) !important; /* Visible white overlay on hover */
   }
 
   .profile-dropdown-action--signout {
     border-top: 1px solid var(--profile-menu-divider);
     margin-top: 0.25rem;
-    padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
+    padding: 0.5rem 1rem !important;
+    padding-top: 0.75rem;
+    /* margin-bottom: 10px; */
   }
 
   /* Settings button with icon */
@@ -151,5 +155,17 @@ export const profileDropdownStyles = `
 
   .profile-dropdown-action:hover .profile-dropdown-icon {
     opacity: 1 !important;
+  }
+
+  /* Light theme overrides */
+  :host([data-theme="light"]) .profile-dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.98) !important; /* Near-white for light theme */
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 2px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  :host([data-theme="light"]) .profile-dropdown-action:hover {
+    background-color: rgba(0, 0, 0, 0.08) !important; /* Subtle dark overlay for light theme */
   }
 `;

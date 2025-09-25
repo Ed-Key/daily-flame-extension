@@ -70704,13 +70704,14 @@ const profileDropdownStyles = `
     margin-top: 0.5rem !important;
     max-height: 80vh !important;
     overflow-y: auto !important;
-    background-color: var(--profile-menu-bg) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
+    background-color: rgb(26, 26, 26) !important; /* Solid dark background like translation */
+    background: rgb(26, 26, 26) !important; /* Fallback */
     border-radius: 0.5rem !important;
-    border: 1px solid var(--profile-menu-border) !important;
-    padding: 0.5rem 0 !important; /* Only vertical padding on container */
+    border: 2px solid rgba(255, 255, 255, 0.2) !important; /* Match translation dropdown border */
+    padding: 0 !important; /* Remove padding for seamless button appearance */
     z-index: 100 !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important; /* Add shadow like translation */
+    opacity: 1 !important; /* Ensure full opacity */
     /* Ensure it stays within viewport */
     transform-origin: top right !important;
   }
@@ -70761,28 +70762,31 @@ const profileDropdownStyles = `
 
   /* Dropdown Action Buttons */
   .profile-dropdown-action {
-    width: 100%;
+    width: 100%; /* Full width, no gaps */
     text-align: left;
     padding: 0.5rem 1rem; /* Increased padding to match info section */
     padding-left: 20px !important; /* Override global button padding */
+    margin: 0; /* No margin for seamless appearance */
     color: var(--profile-text) !important;
     font-size: 14px;
-    background: transparent;
+    background: transparent; /* Transparent base for glassmorphic feel */
     border: none;
-    border-radius: 0;
+    border-radius: 0; /* No border radius for seamless look */
     cursor: pointer;
     transition: background-color 0.15s ease;
     display: block;
   }
 
   .profile-dropdown-action:hover {
-    background-color: var(--profile-menu-hover);
+    background-color: rgba(255, 255, 255, 0.15) !important; /* Visible white overlay on hover */
   }
 
   .profile-dropdown-action--signout {
     border-top: 1px solid var(--profile-menu-divider);
     margin-top: 0.25rem;
-    padding-top: 0.75rem; /* Adjusted to maintain consistent spacing */
+    padding: 0.5rem 1rem !important;
+    padding-top: 0.75rem;
+    /* margin-bottom: 10px; */
   }
 
   /* Settings button with icon */
@@ -70806,6 +70810,18 @@ const profileDropdownStyles = `
 
   .profile-dropdown-action:hover .profile-dropdown-icon {
     opacity: 1 !important;
+  }
+
+  /* Light theme overrides */
+  :host([data-theme="light"]) .profile-dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.98) !important; /* Near-white for light theme */
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 2px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  :host([data-theme="light"]) .profile-dropdown-action:hover {
+    background-color: rgba(0, 0, 0, 0.08) !important; /* Subtle dark overlay for light theme */
   }
 `;
 
@@ -70851,10 +70867,15 @@ const settingsSidebarStyles = `
     width: 40%;     /* Takes 40% of modal width */
     min-width: 300px;
     max-width: 450px;
-    background: white; /* White like the example */
+    /* Glassmorphic effect - inspired by original profile dropdown */
+    background: rgba(255, 255, 255, 0.08); /* Semi-transparent white */
+    backdrop-filter: blur(16px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(16px); /* Safari support */
     z-index: 101;
-    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15), /* Subtle shadow for depth */
-                -2px 0 8px rgba(0, 0, 0, 0.1);
+    /* Enhanced glassmorphic shadow and border */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3), /* Ambient shadow */
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* Subtle inner border */
+    border-left: 1px solid rgba(255, 255, 255, 0.2); /* Left edge highlight */
     border-radius: 0 20px 20px 0; /* Round RIGHT corners to match modal's shape */
     transform: translateX(100%); /* Start fully hidden to the right */
     opacity: 1; /* Keep fully opaque, only slide animation */
@@ -70866,21 +70887,22 @@ const settingsSidebarStyles = `
     padding: 48px 30px 30px 30px; /* Extra top padding for close button */
     height: 100%;
     overflow-y: auto;
-    color: #333; /* Dark text for white background */
+    color: rgba(255, 255, 255, 0.95); /* White text for glassmorphic background */
   }
 
   .settings-sidebar-title {
     font-size: 24px;
     font-weight: 500;
     margin: 0 0 10px 0;
-    color: #333;
+    color: rgba(255, 255, 255, 1); /* Pure white for title */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
   }
 
   .settings-sidebar-description {
     font-size: 14px;
     margin: 0 0 20px 0;
-    opacity: 0.7;
-    color: #666;
+    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.9); /* Slightly dimmed white */
   }
 
   /* Close button */
@@ -70890,9 +70912,11 @@ const settingsSidebarStyles = `
     right: 20px;
     width: 32px;
     height: 32px;
-    border: none;
-    background: rgba(0, 0, 0, 0.05);
-    color: #666;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphic button */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 24px;
     line-height: 1;
     border-radius: 50%;
@@ -70900,12 +70924,16 @@ const settingsSidebarStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .settings-sidebar-close:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: #333;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   /* Responsive adjustments */
@@ -70921,6 +70949,42 @@ const settingsSidebarStyles = `
       width: 85%;
       min-width: 200px;
     }
+  }
+
+  /* Light Theme Overrides */
+  :host([data-theme="light"]) .settings-sidebar-panel {
+    /* Light theme glassmorphic effect */
+    background: rgba(0, 0, 0, 0.04); /* Very light dark overlay */
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  :host([data-theme="light"]) .settings-sidebar-content {
+    color: rgba(0, 0, 0, 0.9); /* Dark text for light theme */
+  }
+
+  :host([data-theme="light"]) .settings-sidebar-title {
+    color: rgba(0, 0, 0, 1);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  }
+
+  :host([data-theme="light"]) .settings-sidebar-description {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  :host([data-theme="light"]) .settings-sidebar-close {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  :host([data-theme="light"]) .settings-sidebar-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -73772,7 +73836,7 @@ const themeVariables = `
     --profile-menu-bg: rgba(255, 255, 255, 0.1);
     --profile-menu-border: rgba(255, 255, 255, 0.2);
     --profile-menu-divider: rgba(255, 255, 255, 0.1);
-    --profile-menu-hover: rgba(255, 255, 255, 0.1);
+    --profile-menu-hover: rgba(255, 255, 255, 0.25); /* More visible white overlay on hover */
   }
   
   /* Light Theme */
@@ -73838,7 +73902,7 @@ const themeVariables = `
     --profile-menu-bg: rgba(255, 255, 255, 0.98);
     --profile-menu-border: rgba(0, 0, 0, 0.15);
     --profile-menu-divider: rgba(0, 0, 0, 0.1);
-    --profile-menu-hover: rgba(0, 0, 0, 0.05);
+    --profile-menu-hover: #f3f4f6; /* Light gray background on hover */
   }
   
   /* Theme-aware text shadow */
