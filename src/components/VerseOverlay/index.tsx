@@ -231,60 +231,38 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       UserPreferencesService.getBibleTranslation(user).then((translation) => {
         setCurrentTranslation(translation);
       });
-      
-      // Animate settings container fade in with smooth scale and translate
+
+      // Add class to modal for overflow control
+      const modal = shadowRoot?.querySelector('.verse-modal');
+      modal?.classList.add('settings-open');
+
+      // Animate sidebar panel sliding in from right
       setTimeout(() => {
-        const settingsContainer = shadowRoot?.querySelector('.settings-view-container') as HTMLElement;
-        if (settingsContainer) {
-          gsap.fromTo(settingsContainer, 
-            { 
-              opacity: 0,
-              y: 10,
-              scale: 0.98
-            },
-            { 
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: 0.4,
-              ease: "power2.out" 
-            }
-          );
-        }
-      }, 10); // Reduced delay for smoother transition
-    } else if (!showSettings && !showContext) {
-      // Re-animate the decorative lines when returning from settings with GSAP
-      setTimeout(() => {
-        const refs = verseDisplayRef.current;
-        if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-          // First ensure lines are at 0 width
-          gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
-            width: "0%"
+        const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
+        const backdrop = shadowRoot?.querySelector('.settings-sidebar-backdrop') as HTMLElement;
+
+        if (sidebarPanel) {
+          // Set initial state - fully hidden to the right
+          gsap.set(sidebarPanel, {
+            x: '100%' // Start position: fully hidden to the right
           });
 
-          // Then animate lines from 0 to responsive width using GSAP (matching initial animation)
-          gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
-            width: "0%"
-          }, {
-            width: () => {
-              // Responsive width based on viewport (matching initial animation)
-              if (window.innerWidth <= 480) return "30%";
-              if (window.innerWidth <= 768) return "35%";
-              return "70%";  // Changed from 40% to match initial animation
-            },
-            maxWidth: () => {
-              // Responsive max-width based on viewport (matching initial animation)
-              if (window.innerWidth <= 480) return "100px";
-              if (window.innerWidth <= 768) return "150px";
-              return "200px";
-            },
-            duration: 0.8,
+          // Slide in to visible position
+          gsap.to(sidebarPanel, {
+            x: '0%', // Slide to visible position
+            duration: 0.4,
             ease: "power2.out"
           });
         }
-      }, 50); // Small delay for smooth transition
+
+        // No backdrop animation needed since it's transparent
+      }, 10);
+    } else {
+      // Remove settings-open class when closing
+      const modal = shadowRoot?.querySelector('.verse-modal');
+      modal?.classList.remove('settings-open');
     }
-  }, [showSettings, showContext]);
+  }, [showSettings, shadowRoot]);
 
   // Removed line animation effect
 
@@ -806,106 +784,28 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 isEmailVerified={isEmailVerified}
                 onSignOut={signOut}
                 onSettingsClick={() => {
-                  // Fade out verse content with smooth scale and translate, then switch to settings
-                  if (verseContentRef.current) {
-                    const verseElements = verseContentRef.current.querySelector('.verse-display-container') || 
-                                         verseContentRef.current.children[0];
-                    if (verseElements) {
-                      gsap.to(verseElements, {
-                        opacity: 0,
-                        y: -10,
-                        scale: 0.98,
-                        duration: 0.4,
-                        ease: "power2.in",
-                        onComplete: () => {
-                          setShowSettings(true);
-                        }
+                  // Show settings and trigger slide-in animation
+                  setShowSettings(true);
+
+                  // Animate the settings panel sliding in after a brief delay
+                  setTimeout(() => {
+                    const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
+                    if (sidebarPanel) {
+                      gsap.fromTo(sidebarPanel, {
+                        x: '100%' // Start off-screen to the right
+                      }, {
+                        x: '0%', // Slide to visible position
+                        duration: 0.3,
+                        ease: "power2.out"
                       });
-                    } else {
-                      setShowSettings(true);
                     }
-                  } else {
-                    setShowSettings(true);
-                  }
+                  }, 10); // Small delay to ensure DOM is ready
                 }}
                 shadowRoot={shadowRoot}
               />
             )}
           </div>
 
-          {/* Settings header when settings is active - INSIDE modal */}
-          {showSettings && (
-            <>
-              {/* Settings title */}
-              <h2 className="settings-title">
-                Settings
-              </h2>
-              
-              {/* Back button - positioned below the title */}
-              <button
-                className="settings-back-button"
-                onClick={() => {
-                  // Fade out settings with smooth scale and translate, then switch back to verse
-                  const settingsContainer = shadowRoot?.querySelector('.settings-view-container') as HTMLElement;
-                  if (settingsContainer) {
-                    gsap.to(settingsContainer, {
-                      opacity: 0,
-                      y: -10,
-                      scale: 0.98,
-                      duration: 0.4,
-                      ease: "power2.in",
-                      onComplete: () => {
-                        setShowSettings(false);
-                      }
-                    });
-                  } else {
-                    setShowSettings(false);
-                  }
-                }}
-                onMouseEnter={(e) => {
-                  // Optional: Add GSAP animation for smoother effect
-                  const arrow = e.currentTarget.querySelector('.settings-back-arrow');
-                  const text = e.currentTarget.querySelector('.settings-back-text');
-                  if (arrow && text) {
-                    gsap.to(arrow, {
-                      opacity: 1,
-                      x: 0,
-                      marginRight: 6,
-                      duration: 0.3,
-                      ease: "power2.out"
-                    });
-                    gsap.to(text, {
-                      x: 2,
-                      duration: 0.3,
-                      ease: "power2.out"
-                    });
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  // Reset animation on mouse leave
-                  const arrow = e.currentTarget.querySelector('.settings-back-arrow');
-                  const text = e.currentTarget.querySelector('.settings-back-text');
-                  if (arrow && text) {
-                    gsap.to(arrow, {
-                      opacity: 0,
-                      x: -10,
-                      marginRight: 0,
-                      duration: 0.3,
-                      ease: "power2.in"
-                    });
-                    gsap.to(text, {
-                      x: 0,
-                      duration: 0.3,
-                      ease: "power2.in"
-                    });
-                  }
-                }}
-              >
-                <span className="settings-back-arrow">←</span>
-                <span className="settings-back-text">Back to Verse</span>
-              </button>
-            </>
-          )}
 
             <div ref={verseContentRef} className="verse-content">
             {/* Admin Controls - Only visible to authenticated admins */}
@@ -913,19 +813,21 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
               <AdminControls />
             )}
 
-            {/* Main content - conditionally render based on view state */}
-            {!showSettings && !showContext ? (
-              /* Main verse view */
-              <VerseDisplay
-                ref={verseDisplayRef}
-                verse={currentVerse}
-                onDone={handleAnimatedDismiss}
-                onMore={handleMoreClick}
-                onTranslationChange={handleVerseTranslationChange}
-                shadowRoot={shadowRoot}
-                isAdmin={isAdmin}
-              />
-            ) : showContext ? (
+            {/* Main content - always show verse or context, never hide for settings */}
+            {!showContext ? (
+              /* Main verse view - always visible even when settings are open */
+              <div className={showSettings ? 'verse-dimmed' : ''}>
+                <VerseDisplay
+                  ref={verseDisplayRef}
+                  verse={currentVerse}
+                  onDone={handleAnimatedDismiss}
+                  onMore={handleMoreClick}
+                  onTranslationChange={handleVerseTranslationChange}
+                  shadowRoot={shadowRoot}
+                  isAdmin={isAdmin}
+                />
+              </div>
+            ) : (
               /* Context view */
               <ContextView
                 verse={currentVerse}
@@ -936,57 +838,70 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 onDone={handleAnimatedDismiss}
                 onTranslationChange={handleContextTranslationChange}
               />
-            ) : showSettings ? (
-              /* Settings view */
-              <div className="settings-view-container">
-                {/* Bible Translation Preference */}
-                <div className="settings-section">
-                  <div className="settings-label-row">
-                    <label className="settings-label">
-                      Default Bible Translation
-                    </label>
-                    <p className="settings-description">
-                      This translation will be used for your daily verses
-                    </p>
-                  </div>
+            )}
+            </div>
 
-                  <select
-                    className="settings-translation-select"
-                    value={currentTranslation}
-                    onChange={async (e) => {
-                      const newTranslation = e.target.value as BibleTranslation;
-                      setCurrentTranslation(newTranslation);
+          {/* Settings Sidebar Panel - Overlays inside modal for drawer effect */}
+          {showSettings && (
+            <>
+              {/* Invisible backdrop for click-outside-to-close */}
+              <div
+                className="settings-sidebar-backdrop"
+                onClick={() => {
+                  // Animate sidebar sliding out before closing
+                  const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
 
-                      // Save the preference using UserPreferencesService
-                      await UserPreferencesService.saveBibleTranslation(newTranslation, user);
-
-                      // Fetch the current verse in the new translation
-                      try {
-                        const bibleId = BIBLE_VERSIONS[newTranslation];
-                        const newVerse = await VerseService.getVerse(currentVerse.reference, bibleId);
-                        setCurrentVerse(newVerse);
-                        showToast(`Default translation set to ${newTranslation}`, 'success');
-                      } catch (error) {
-                        console.error('Error fetching verse in new translation:', error);
-                        showToast('Failed to load verse in new translation', 'error');
+                  if (sidebarPanel) {
+                    gsap.to(sidebarPanel, {
+                      x: '100%', // Slide back out to the right
+                      duration: 0.3,
+                      ease: "power2.in",
+                      onComplete: () => {
+                        setShowSettings(false);
                       }
-                    }}
-                  >
-                    <option value="ESV">ESV - English Standard Version</option>
-                    <option value="NLT">NLT - New Living Translation</option>
-                    <option value="KJV">KJV - King James Version</option>
-                    <option value="ASV">ASV - American Standard Version</option>
-                    <option value="WEB">WEB - World English Bible</option>
-                    <option value="WEB_BRITISH">WEB - British Edition</option>
-                    <option value="WEB_UPDATED">WEB - Updated</option>
-                  </select>
+                    });
+                  } else {
+                    setShowSettings(false);
+                  }
+                }}
+              />
+
+              {/* Settings Panel - Slides in from right */}
+              <div className="settings-sidebar-panel">
+                {/* Close button */}
+                <button
+                  className="settings-sidebar-close"
+                    onClick={() => {
+                      const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
+
+                      if (sidebarPanel) {
+                        gsap.to(sidebarPanel, {
+                          x: '100%',
+                          duration: 0.3,
+                          ease: "power2.in",
+                          onComplete: () => {
+                            setShowSettings(false);
+                          }
+                        });
+                      } else {
+                        setShowSettings(false);
+                      }
+                  }}
+                >
+                  ×
+                </button>
+
+                <div className="settings-sidebar-content">
+                  <h2 className="settings-sidebar-title">Settings</h2>
+                  <p className="settings-sidebar-description">Customize your Daily Bread experience</p>
                 </div>
               </div>
-            ) : null}
-            </div>
+            </>
+          )}
           </div>
+
       </div>
-      
+
       {/* Auth Modals - Rendered outside verse overlay for proper layering */}
       {showSignIn && (
         <SignInForm

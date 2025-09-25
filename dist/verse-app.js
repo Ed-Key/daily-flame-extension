@@ -66194,60 +66194,34 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.getBibleTranslation(user).then((translation) => {
                 setCurrentTranslation(translation);
             });
-            // Animate settings container fade in with smooth scale and translate
+            // Add class to modal for overflow control
+            const modal = shadowRoot?.querySelector('.verse-modal');
+            modal?.classList.add('settings-open');
+            // Animate sidebar panel sliding in from right
             setTimeout(() => {
-                const settingsContainer = shadowRoot?.querySelector('.settings-view-container');
-                if (settingsContainer) {
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo(settingsContainer, {
-                        opacity: 0,
-                        y: 10,
-                        scale: 0.98
-                    }, {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
+                const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
+                const backdrop = shadowRoot?.querySelector('.settings-sidebar-backdrop');
+                if (sidebarPanel) {
+                    // Set initial state - fully hidden to the right
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(sidebarPanel, {
+                        x: '100%' // Start position: fully hidden to the right
+                    });
+                    // Slide in to visible position
+                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(sidebarPanel, {
+                        x: '0%', // Slide to visible position
                         duration: 0.4,
                         ease: "power2.out"
                     });
                 }
-            }, 10); // Reduced delay for smoother transition
+                // No backdrop animation needed since it's transparent
+            }, 10);
         }
-        else if (!showSettings && !showContext) {
-            // Re-animate the decorative lines when returning from settings with GSAP
-            setTimeout(() => {
-                const refs = verseDisplayRef.current;
-                if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
-                    // First ensure lines are at 0 width
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([refs.leftLineRef.current, refs.rightLineRef.current], {
-                        width: "0%"
-                    });
-                    // Then animate lines from 0 to responsive width using GSAP (matching initial animation)
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
-                        width: "0%"
-                    }, {
-                        width: () => {
-                            // Responsive width based on viewport (matching initial animation)
-                            if (window.innerWidth <= 480)
-                                return "30%";
-                            if (window.innerWidth <= 768)
-                                return "35%";
-                            return "70%"; // Changed from 40% to match initial animation
-                        },
-                        maxWidth: () => {
-                            // Responsive max-width based on viewport (matching initial animation)
-                            if (window.innerWidth <= 480)
-                                return "100px";
-                            if (window.innerWidth <= 768)
-                                return "150px";
-                            return "200px";
-                        },
-                        duration: 0.8,
-                        ease: "power2.out"
-                    });
-                }
-            }, 50); // Small delay for smooth transition
+        else {
+            // Remove settings-open class when closing
+            const modal = shadowRoot?.querySelector('.verse-modal');
+            modal?.classList.remove('settings-open');
         }
-    }, [showSettings, showContext]);
+    }, [showSettings, shadowRoot]);
     // Removed line animation effect
     // GSAP Modal Entrance Animation with Backdrop Blur
     (0,_gsap_react__WEBPACK_IMPORTED_MODULE_2__.useGSAP)(() => {
@@ -66684,38 +66658,32 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                         // Save theme preference using UserPreferencesService
                                         await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveTheme(newTheme, user);
                                     } }), !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_10__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_9__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, onSettingsClick: () => {
-                                        // Fade out verse content with smooth scale and translate, then switch to settings
-                                        if (verseContentRef.current) {
-                                            const verseElements = verseContentRef.current.querySelector('.verse-display-container') ||
-                                                verseContentRef.current.children[0];
-                                            if (verseElements) {
-                                                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(verseElements, {
-                                                    opacity: 0,
-                                                    y: -10,
-                                                    scale: 0.98,
-                                                    duration: 0.4,
-                                                    ease: "power2.in",
-                                                    onComplete: () => {
-                                                        setShowSettings(true);
-                                                    }
+                                        // Show settings and trigger slide-in animation
+                                        setShowSettings(true);
+                                        // Animate the settings panel sliding in after a brief delay
+                                        setTimeout(() => {
+                                            const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
+                                            if (sidebarPanel) {
+                                                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo(sidebarPanel, {
+                                                    x: '100%' // Start off-screen to the right
+                                                }, {
+                                                    x: '0%', // Slide to visible position
+                                                    duration: 0.3,
+                                                    ease: "power2.out"
                                                 });
                                             }
-                                            else {
-                                                setShowSettings(true);
-                                            }
-                                        }
-                                        else {
-                                            setShowSettings(true);
-                                        }
-                                    }, shadowRoot: shadowRoot }))] }), showSettings && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: "settings-back-button", onClick: () => {
-                                        // Fade out settings with smooth scale and translate, then switch back to verse
-                                        const settingsContainer = shadowRoot?.querySelector('.settings-view-container');
-                                        if (settingsContainer) {
-                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(settingsContainer, {
-                                                opacity: 0,
-                                                y: -10,
-                                                scale: 0.98,
-                                                duration: 0.4,
+                                        }, 10); // Small delay to ensure DOM is ready
+                                    }, shadowRoot: shadowRoot }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showContext ? (
+                                /* Main verse view - always visible even when settings are open */
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: showSettings ? 'verse-dimmed' : '', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin }) })) : (
+                                /* Context view */
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_13__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] }), showSettings && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-sidebar-backdrop", onClick: () => {
+                                        // Animate sidebar sliding out before closing
+                                        const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
+                                        if (sidebarPanel) {
+                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(sidebarPanel, {
+                                                x: '100%', // Slide back out to the right
+                                                duration: 0.3,
                                                 ease: "power2.in",
                                                 onComplete: () => {
                                                     setShowSettings(false);
@@ -66725,65 +66693,22 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                         else {
                                             setShowSettings(false);
                                         }
-                                    }, onMouseEnter: (e) => {
-                                        // Optional: Add GSAP animation for smoother effect
-                                        const arrow = e.currentTarget.querySelector('.settings-back-arrow');
-                                        const text = e.currentTarget.querySelector('.settings-back-text');
-                                        if (arrow && text) {
-                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(arrow, {
-                                                opacity: 1,
-                                                x: 0,
-                                                marginRight: 6,
-                                                duration: 0.3,
-                                                ease: "power2.out"
-                                            });
-                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(text, {
-                                                x: 2,
-                                                duration: 0.3,
-                                                ease: "power2.out"
-                                            });
-                                        }
-                                    }, onMouseLeave: (e) => {
-                                        // Reset animation on mouse leave
-                                        const arrow = e.currentTarget.querySelector('.settings-back-arrow');
-                                        const text = e.currentTarget.querySelector('.settings-back-text');
-                                        if (arrow && text) {
-                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(arrow, {
-                                                opacity: 0,
-                                                x: -10,
-                                                marginRight: 0,
-                                                duration: 0.3,
-                                                ease: "power2.in"
-                                            });
-                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(text, {
-                                                x: 0,
-                                                duration: 0.3,
-                                                ease: "power2.in"
-                                            });
-                                        }
-                                    }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-back-arrow", children: "\u2190" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-back-text", children: "Back to Verse" })] })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showSettings && !showContext ? (
-                                /* Main verse view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin })) : showContext ? (
-                                /* Context view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_13__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange })) : showSettings ? (
-                                /* Settings view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-view-container", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-label-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { className: "settings-label", children: "Default Bible Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "settings-description", children: "This translation will be used for your daily verses" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { className: "settings-translation-select", value: currentTranslation, onChange: async (e) => {
-                                                    const newTranslation = e.target.value;
-                                                    setCurrentTranslation(newTranslation);
-                                                    // Save the preference using UserPreferencesService
-                                                    await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveBibleTranslation(newTranslation, user);
-                                                    // Fetch the current verse in the new translation
-                                                    try {
-                                                        const bibleId = _types__WEBPACK_IMPORTED_MODULE_3__.BIBLE_VERSIONS[newTranslation];
-                                                        const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(currentVerse.reference, bibleId);
-                                                        setCurrentVerse(newVerse);
-                                                        showToast(`Default translation set to ${newTranslation}`, 'success');
-                                                    }
-                                                    catch (error) {
-                                                        console.error('Error fetching verse in new translation:', error);
-                                                        showToast('Failed to load verse in new translation', 'error');
-                                                    }
-                                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "ESV - English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "NLT", children: "NLT - New Living Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "KJV - King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "ASV - American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "WEB - World English Bible" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_BRITISH", children: "WEB - British Edition" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB_UPDATED", children: "WEB - Updated" })] })] }) })) : null] })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+                                    } }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-sidebar-panel", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "settings-sidebar-close", onClick: () => {
+                                                const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
+                                                if (sidebarPanel) {
+                                                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(sidebarPanel, {
+                                                        x: '100%',
+                                                        duration: 0.3,
+                                                        ease: "power2.in",
+                                                        onComplete: () => {
+                                                            setShowSettings(false);
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    setShowSettings(false);
+                                                }
+                                            }, children: "\u00D7" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-sidebar-content", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-sidebar-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "settings-sidebar-description", children: "Customize your Daily Bread experience" })] })] })] }))] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
                                     }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
@@ -70887,6 +70812,121 @@ const profileDropdownStyles = `
 
 /***/ }),
 
+/***/ "./src/styles/components/settings-sidebar.css.ts":
+/*!*******************************************************!*\
+  !*** ./src/styles/components/settings-sidebar.css.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   settingsSidebarStyles: () => (/* binding */ settingsSidebarStyles)
+/* harmony export */ });
+const settingsSidebarStyles = `
+  /* Dimming effect for verse content when settings are open */
+  .verse-dimmed {
+    filter: brightness(0.7);
+    transition: filter 0.3s ease;
+    pointer-events: none; /* Disable interaction with verse content */
+  }
+
+  /* Backdrop overlay - transparent, just for click detection */
+  .settings-sidebar-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent; /* No visual effect, just click detection */
+    z-index: 100;
+    cursor: default;
+  }
+
+  /* Sidebar Panel - slides in from right, extends to modal edges */
+  .settings-sidebar-panel {
+    position: absolute;
+    top: 0;         /* Extend to top edge of modal */
+    right: 0;       /* Extend to right edge of modal */
+    bottom: 0;      /* Extend to bottom edge of modal */
+    width: 40%;     /* Takes 40% of modal width */
+    min-width: 300px;
+    max-width: 450px;
+    background: white; /* White like the example */
+    z-index: 101;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15), /* Subtle shadow for depth */
+                -2px 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0 20px 20px 0; /* Round RIGHT corners to match modal's shape */
+    transform: translateX(100%); /* Start fully hidden to the right */
+    opacity: 1; /* Keep fully opaque, only slide animation */
+    overflow: hidden; /* Ensure content respects rounded corners */
+  }
+
+  /* Content inside the settings panel */
+  .settings-sidebar-content {
+    padding: 48px 30px 30px 30px; /* Extra top padding for close button */
+    height: 100%;
+    overflow-y: auto;
+    color: #333; /* Dark text for white background */
+  }
+
+  .settings-sidebar-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+
+  .settings-sidebar-description {
+    font-size: 14px;
+    margin: 0 0 20px 0;
+    opacity: 0.7;
+    color: #666;
+  }
+
+  /* Close button */
+  .settings-sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: #666;
+    font-size: 24px;
+    line-height: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .settings-sidebar-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .settings-sidebar-panel {
+      width: 70%;
+      min-width: 250px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .settings-sidebar-panel {
+      width: 85%;
+      min-width: 200px;
+    }
+  }
+`;
+
+
+/***/ }),
+
 /***/ "./src/styles/components/settings-view.css.ts":
 /*!****************************************************!*\
   !*** ./src/styles/components/settings-view.css.ts ***!
@@ -71328,6 +71368,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/theme-toggle.css */ "./src/styles/components/theme-toggle.css.ts");
 /* harmony import */ var _theme_variables_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-variables.css */ "./src/styles/theme-variables.css.ts");
 /* harmony import */ var _components_settings_view_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/settings-view.css */ "./src/styles/components/settings-view.css.ts");
+/* harmony import */ var _components_settings_sidebar_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/settings-sidebar.css */ "./src/styles/components/settings-sidebar.css.ts");
+
 
 
 
@@ -71398,7 +71440,12 @@ const getShadowDomStyles = () => {
       position: relative !important;
       transition: background-color 0.3s ease-out !important;
     }
-    
+
+    /* Modal with settings open - clips content to boundaries */
+    .verse-modal.settings-open {
+      overflow: hidden !important;
+    }
+
     /* Verse content container */
     .verse-content {
       width: 100% !important;
@@ -73612,6 +73659,7 @@ const getShadowDomStyles = () => {
     ${_shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__.glassmorphicStyles}
     ${_components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__.themeToggleStyles}
     ${_components_settings_view_css__WEBPACK_IMPORTED_MODULE_5__.settingsViewStyles}
+    ${_components_settings_sidebar_css__WEBPACK_IMPORTED_MODULE_6__.settingsSidebarStyles}
   `;
 };
 

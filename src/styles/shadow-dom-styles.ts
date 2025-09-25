@@ -4,6 +4,7 @@ import { glassmorphicStyles } from './shared/glassmorphic.css';
 import { themeToggleStyles } from './components/theme-toggle.css';
 import { themeVariables } from './theme-variables.css';
 import { settingsViewStyles } from './components/settings-view.css';
+import { settingsSidebarStyles } from './components/settings-sidebar.css';
 
 // Complete styles for Shadow DOM encapsulation
 export const getShadowDomStyles = (): string => {
@@ -69,7 +70,12 @@ export const getShadowDomStyles = (): string => {
       position: relative !important;
       transition: background-color 0.3s ease-out !important;
     }
-    
+
+    /* Modal with settings open - clips content to boundaries */
+    .verse-modal.settings-open {
+      overflow: hidden !important;
+    }
+
     /* Verse content container */
     .verse-content {
       width: 100% !important;
@@ -2283,5 +2289,6 @@ export const getShadowDomStyles = (): string => {
     ${glassmorphicStyles}
     ${themeToggleStyles}
     ${settingsViewStyles}
+    ${settingsSidebarStyles}
   `;
 };
