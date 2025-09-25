@@ -66301,6 +66301,13 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         if (!refs || !verseContentRef.current)
             return;
         const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
+        // IMMEDIATELY set lines to 0 width to prevent flash
+        if (leftLineRef.current && rightLineRef.current) {
+            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([leftLineRef.current, rightLineRef.current], {
+                width: "0%",
+                immediateRender: true
+            });
+        }
         // Initially hide top controls and logo for animation
         if (topControlsRef.current) {
             gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(topControlsRef.current, {
@@ -66400,14 +66407,9 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     ease: "power2.out",
                     clearProps: "opacity,transform,y,scale,display"
                 }, "-=0.4")
-                    // Set lines to 0 width at this point in the timeline
-                    .set([leftLineRef.current, rightLineRef.current], {
-                    width: "0%"
-                }, "-=0.4") // Set at the same time as verse reference starts
-                    // Animate decorative lines with GSAP (replicating CSS animation)
+                    // Animate decorative lines with GSAP - starting from 0 width
                     .fromTo([leftLineRef.current, rightLineRef.current], {
-                    width: "0%",
-                    immediateRender: true // Force immediate application of the from state
+                    width: "0%"
                 }, {
                     width: () => {
                         // Responsive width based on viewport
@@ -66427,7 +66429,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                     },
                     duration: 0.8,
                     ease: "power2.out"
-                }, "-=0.6") // Start slightly after the .set() to ensure lines are at 0
+                }, "-=0.7") // Start shortly after verse reference begins appearing
                     // Animate buttons and top controls together after lines complete
                     .to([doneButtonRef.current, moreButtonRef.current, topControlsRef.current], {
                     opacity: 1,
@@ -74011,6 +74013,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_shadow_dom_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/shadow-dom-styles */ "./src/styles/shadow-dom-styles.ts");
 /* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/verse-service */ "./src/services/verse-service.ts");
 /* harmony import */ var _utils_date_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/date-utils */ "./src/utils/date-utils.ts");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+
 
 
 
@@ -74023,8 +74027,9 @@ __webpack_require__.r(__webpack_exports__);
 async function initVerseOverlay() {
     console.log('Daily Bread: Verse app module loaded');
     // Check if overlay already exists
-    if (document.getElementById('daily-bread-extension-root')) {
-        console.log('Daily Bread: Overlay already exists');
+    const existingOverlay = document.getElementById('daily-bread-extension-root');
+    if (existingOverlay) {
+        pulseExistingModal(existingOverlay);
         return;
     }
     try {
@@ -74055,6 +74060,28 @@ async function initVerseOverlay() {
         };
         renderOverlay(fallbackVerse);
     }
+}
+// Pulse animation for when overlay already exists
+function pulseExistingModal(overlayElement) {
+    // Access the shadow root and find the modal
+    const shadowRoot = overlayElement.shadowRoot;
+    if (!shadowRoot)
+        return;
+    const modal = shadowRoot.querySelector('.verse-modal');
+    if (!modal)
+        return;
+    // Perform a subtle pulse animation
+    gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.to(modal, {
+        scale: 1.03,
+        duration: 0.2,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1,
+        onComplete: () => {
+            // Ensure modal returns to exact original scale
+            gsap__WEBPACK_IMPORTED_MODULE_8__.gsap.set(modal, { scale: 1 });
+        }
+    });
 }
 function renderOverlay(verse) {
     // Create high-specificity container for CSS isolation

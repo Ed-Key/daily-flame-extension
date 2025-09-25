@@ -348,7 +348,15 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     if (!refs || !verseContentRef.current) return;
 
     const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
-    
+
+    // IMMEDIATELY set lines to 0 width to prevent flash
+    if (leftLineRef.current && rightLineRef.current) {
+      gsap.set([leftLineRef.current, rightLineRef.current], {
+        width: "0%",
+        immediateRender: true
+      });
+    }
+
     // Initially hide top controls and logo for animation
     if (topControlsRef.current) {
       gsap.set(topControlsRef.current, {
@@ -466,15 +474,9 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           clearProps: "opacity,transform,y,scale,display"
         }, "-=0.4")
 
-        // Set lines to 0 width at this point in the timeline
-        .set([leftLineRef.current, rightLineRef.current], {
-          width: "0%"
-        }, "-=0.4")  // Set at the same time as verse reference starts
-
-        // Animate decorative lines with GSAP (replicating CSS animation)
+        // Animate decorative lines with GSAP - starting from 0 width
         .fromTo([leftLineRef.current, rightLineRef.current], {
-          width: "0%",
-          immediateRender: true  // Force immediate application of the from state
+          width: "0%"
         }, {
           width: () => {
             // Responsive width based on viewport
@@ -490,7 +492,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           },
           duration: 0.8,
           ease: "power2.out"
-        }, "-=0.6")  // Start slightly after the .set() to ensure lines are at 0
+        }, "-=0.7")  // Start shortly after verse reference begins appearing
 
         // Animate buttons and top controls together after lines complete
         .to([doneButtonRef.current, moreButtonRef.current, topControlsRef.current], {

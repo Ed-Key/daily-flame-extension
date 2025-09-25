@@ -7,14 +7,16 @@ import { VerseData, ChromeMessage, ChromeResponse } from '../types';
 import { getShadowDomStyles } from '../styles/shadow-dom-styles';
 import { VerseService } from '../services/verse-service';
 import { getLocalDateString } from '../utils/date-utils';
+import { gsap } from 'gsap';
 
 // Initialize the verse overlay when this script is injected
 async function initVerseOverlay() {
     console.log('Daily Bread: Verse app module loaded');
-    
+
     // Check if overlay already exists
-    if (document.getElementById('daily-bread-extension-root')) {
-        console.log('Daily Bread: Overlay already exists');
+    const existingOverlay = document.getElementById('daily-bread-extension-root');
+    if (existingOverlay) {
+        pulseExistingModal(existingOverlay);
         return;
     }
     
@@ -46,6 +48,29 @@ async function initVerseOverlay() {
         };
         renderOverlay(fallbackVerse);
     }
+}
+
+// Pulse animation for when overlay already exists
+function pulseExistingModal(overlayElement: HTMLElement) {
+    // Access the shadow root and find the modal
+    const shadowRoot = overlayElement.shadowRoot;
+    if (!shadowRoot) return;
+
+    const modal = shadowRoot.querySelector('.verse-modal') as HTMLElement;
+    if (!modal) return;
+
+    // Perform a subtle pulse animation
+    gsap.to(modal, {
+        scale: 1.03,
+        duration: 0.2,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1,
+        onComplete: () => {
+            // Ensure modal returns to exact original scale
+            gsap.set(modal, { scale: 1 });
+        }
+    });
 }
 
 function renderOverlay(verse: VerseData) {
