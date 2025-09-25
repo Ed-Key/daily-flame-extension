@@ -74023,7 +74023,7 @@ __webpack_require__.r(__webpack_exports__);
 async function initVerseOverlay() {
     console.log('Daily Bread: Verse app module loaded');
     // Check if overlay already exists
-    if (document.getElementById('daily-flame-extension-root')) {
+    if (document.getElementById('daily-bread-extension-root')) {
         console.log('Daily Bread: Overlay already exists');
         return;
     }
