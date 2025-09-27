@@ -65761,6 +65761,136 @@ const ProfileDropdown = ({ user, isAdmin, isEmailVerified, onSignOut, onSettings
 
 /***/ }),
 
+/***/ "./src/components/VerseOverlay/components/SettingsContent.tsx":
+/*!********************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/SettingsContent.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/user-preferences-service */ "./src/services/user-preferences-service.ts");
+/* harmony import */ var _AuthContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../AuthContext */ "./src/components/AuthContext.tsx");
+/* harmony import */ var _ToastContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../ToastContext */ "./src/components/ToastContext.tsx");
+
+
+
+
+
+const SettingsContent = ({ currentTheme, currentTranslation, onThemeChange, onTranslationChange }) => {
+    const { user } = (0,_AuthContext__WEBPACK_IMPORTED_MODULE_3__.useAuth)();
+    const { showToast } = (0,_ToastContext__WEBPACK_IMPORTED_MODULE_4__.useToast)();
+    const [saving, setSaving] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    // Handle theme change with save
+    const handleThemeChange = async (newTheme) => {
+        setSaving(true);
+        try {
+            onThemeChange(newTheme);
+            await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_2__.UserPreferencesService.saveTheme(newTheme, user);
+            showToast(`Theme changed to ${newTheme} mode`, 'success');
+        }
+        catch (error) {
+            console.error('Error saving theme preference:', error);
+            showToast('Failed to save theme preference', 'error');
+        }
+        finally {
+            setSaving(false);
+        }
+    };
+    // Handle translation change with save
+    const handleTranslationChange = async (newTranslation) => {
+        setSaving(true);
+        try {
+            await onTranslationChange(newTranslation);
+            // onTranslationChange handles the save internally
+        }
+        catch (error) {
+            console.error('Error changing translation:', error);
+            showToast('Failed to change translation', 'error');
+        }
+        finally {
+            setSaving(false);
+        }
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-content", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "settings-section-title", children: "Appearance" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-item", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { className: "settings-label", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-label-text", children: "Theme" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-label-description", children: "Choose your visual preference" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-theme-toggle", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `settings-theme-option ${currentTheme === 'light' ? 'settings-theme-option--active settings-theme-option--light' : ''}`, onClick: () => handleThemeChange('light'), disabled: saving, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "settings-theme-icon", viewBox: "0 0 24 24", fill: "currentColor", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.591-1.591a.75.75 0 10-1.06 1.06l1.591 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.591a.75.75 0 001.06 1.06l1.591-1.591zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06L6.166 5.106a.75.75 0 00-1.06 1.06l1.591 1.591z" }) }), "Light"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("button", { className: `settings-theme-option ${currentTheme === 'dark' ? 'settings-theme-option--active settings-theme-option--dark' : ''}`, onClick: () => handleThemeChange('dark'), disabled: saving, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "settings-theme-icon", viewBox: "0 0 24 24", fill: "currentColor", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { fillRule: "evenodd", d: "M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z", clipRule: "evenodd" }) }), "Dark"] })] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "settings-section-title", children: "Reading" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-item", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { className: "settings-label", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-label-text", children: "Bible Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-label-description", children: "Select your preferred translation" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { className: "settings-select", value: currentTranslation, onChange: (e) => handleTranslationChange(e.target.value), disabled: saving, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ESV", children: "ESV - English Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "KJV", children: "KJV - King James Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "NLT", children: "NLT - New Living Translation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "ASV", children: "ASV - American Standard Version" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "WEB", children: "WEB - World English Bible" })] })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-section", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "settings-section-title", children: "Schedule" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-item settings-item--disabled", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { className: "settings-label", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-label-text", children: "Auto Display" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-label-description", children: "Show verse automatically at set time" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-placeholder", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { children: "Coming Soon" }) })] })] }), saving && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-saving-indicator", children: "Saving..." }))] }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsContent);
+
+
+/***/ }),
+
+/***/ "./src/components/VerseOverlay/components/SettingsSidebar.tsx":
+/*!********************************************************************!*\
+  !*** ./src/components/VerseOverlay/components/SettingsSidebar.tsx ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var _SettingsContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SettingsContent */ "./src/components/VerseOverlay/components/SettingsContent.tsx");
+
+
+
+
+const SettingsSidebar = ({ isOpen, onClose, shadowRoot, currentTheme, currentTranslation, onThemeChange, onTranslationChange }) => {
+    // Animate sidebar panel sliding in/out
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        if (!isOpen)
+            return;
+        // Animate sidebar panel sliding in from right
+        setTimeout(() => {
+            const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
+            if (sidebarPanel) {
+                // Set initial state - fully hidden to the right
+                gsap__WEBPACK_IMPORTED_MODULE_3__.gsap.set(sidebarPanel, {
+                    x: '100%' // Start position: fully hidden to the right
+                });
+                // Slide in to visible position
+                gsap__WEBPACK_IMPORTED_MODULE_3__.gsap.to(sidebarPanel, {
+                    x: '0.5%', // Slide to slightly offset position (0.5% from edge)
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            }
+        }, 10);
+    }, [isOpen, shadowRoot]);
+    const handleClose = () => {
+        // Animate sidebar sliding out before closing
+        const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
+        if (sidebarPanel) {
+            gsap__WEBPACK_IMPORTED_MODULE_3__.gsap.to(sidebarPanel, {
+                x: '100%', // Slide back out to the right
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => {
+                    onClose();
+                }
+            });
+        }
+        else {
+            onClose();
+        }
+    };
+    if (!isOpen)
+        return null;
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-sidebar-backdrop", onClick: handleClose }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-sidebar-panel", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-header", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-header-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "settings-back-btn", onClick: handleClose, "aria-label": "Back to verse", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "settings-back-arrow", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { xmlns: "http://www.w3.org/2000/svg", height: "24px", viewBox: "0 -960 960 960", width: "24px", fill: "currentColor", style: { transform: 'rotate(180deg)' }, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" }) }) }) })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-sidebar-separator" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-sidebar-content", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_SettingsContent__WEBPACK_IMPORTED_MODULE_2__["default"], { currentTheme: currentTheme, currentTranslation: currentTranslation, onThemeChange: onThemeChange, onTranslationChange: onTranslationChange }) })] })] }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsSidebar);
+
+
+/***/ }),
+
 /***/ "./src/components/VerseOverlay/components/ThemeToggle.tsx":
 /*!****************************************************************!*\
   !*** ./src/components/VerseOverlay/components/ThemeToggle.tsx ***!
@@ -65973,7 +66103,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var _gsap_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @gsap/react */ "./node_modules/@gsap/react/src/index.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
 /* harmony import */ var _services_verse_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/verse-service */ "./src/services/verse-service.ts");
@@ -65987,6 +66117,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/VerseDisplay */ "./src/components/VerseOverlay/components/VerseDisplay.tsx");
 /* harmony import */ var _components_ContextView__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/ContextView */ "./src/components/VerseOverlay/components/ContextView.tsx");
 /* harmony import */ var _components_ThemeToggle__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/ThemeToggle */ "./src/components/VerseOverlay/components/ThemeToggle.tsx");
+/* harmony import */ var _components_SettingsSidebar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/SettingsSidebar */ "./src/components/VerseOverlay/components/SettingsSidebar.tsx");
 
 
 
@@ -65998,6 +66129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Import modularized components
+
 
 
 
@@ -66040,7 +66172,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleAnimatedDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create exit animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(true); // Pass true for permanent dismissal (Done button)
                 }
@@ -66073,7 +66205,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleMoreClick = async () => {
         // Animate modal expansion
         if (modalRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to(modalRef.current, {
                 maxHeight: '90vh',
                 duration: 0.4,
                 ease: "power2.out",
@@ -66187,7 +66319,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
         }
     }, [user]);
-    // Load translation preference and animate when Settings opens
+    // Load translation preference when Settings opens
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         if (showSettings) {
             // Load translation preference from UserPreferencesService
@@ -66197,24 +66329,6 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             // Add class to modal for overflow control
             const modal = shadowRoot?.querySelector('.verse-modal');
             modal?.classList.add('settings-open');
-            // Animate sidebar panel sliding in from right
-            setTimeout(() => {
-                const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
-                const backdrop = shadowRoot?.querySelector('.settings-sidebar-backdrop');
-                if (sidebarPanel) {
-                    // Set initial state - fully hidden to the right
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(sidebarPanel, {
-                        x: '100%' // Start position: fully hidden to the right
-                    });
-                    // Slide in to visible position
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(sidebarPanel, {
-                        x: '0%', // Slide to visible position
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                }
-                // No backdrop animation needed since it's transparent
-            }, 10);
         }
         else {
             // Remove settings-open class when closing
@@ -66230,18 +66344,18 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             const direction = Math.random() > 0.5 ? 'left' : 'right';
             entranceDirectionRef.current = direction;
             // Set initial states - backdrop visible but no blur
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(overlayRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(overlayRef.current, {
                 opacity: 1,
                 className: 'verse-overlay' // No backdrop-blur class initially
             });
             // Set modal initial state - start small and off-screen
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(modalRef.current, {
                 xPercent: direction === 'left' ? -100 : 100,
                 scale: 0.85, // Start at 85% scale
                 opacity: 0
             });
             // Create animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.timeline({
                 onComplete: () => {
                     console.log('Modal entrance animation completed');
                 }
@@ -66277,21 +66391,21 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         const { verseTextRef, verseReferenceRef, leftLineRef, rightLineRef, doneButtonRef, moreButtonRef } = refs;
         // IMMEDIATELY set lines to 0 width to prevent flash
         if (leftLineRef.current && rightLineRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([leftLineRef.current, rightLineRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set([leftLineRef.current, rightLineRef.current], {
                 width: "0%",
                 immediateRender: true
             });
         }
         // Initially hide top controls and logo for animation
         if (topControlsRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(topControlsRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(topControlsRef.current, {
                 opacity: 0,
                 y: -10,
                 visibility: 'visible'
             });
         }
         if (logoRef.current) {
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(logoRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(logoRef.current, {
                 opacity: 0, // Start hidden for animation
                 y: -20, // Start higher up for more dramatic entrance
                 scale: 0.9, // More noticeable scale change (was 0.95)
@@ -66302,12 +66416,12 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         if (verseTextRef.current && verseReferenceRef.current && doneButtonRef.current && moreButtonRef.current && verseContentRef.current) {
             console.log('All refs are available, setting up animation');
             // Ensure parent container is visible
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseContentRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(verseContentRef.current, {
                 opacity: 1,
                 visibility: 'visible'
             });
             // Set initial states for animation elements
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set([verseReferenceRef.current, doneButtonRef.current, moreButtonRef.current], {
                 opacity: 0,
                 y: 30,
                 scale: 0.95,
@@ -66316,12 +66430,12 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
             // Explicitly set lines to 0 width before animation
             if (leftLineRef.current && rightLineRef.current) {
-                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set([leftLineRef.current, rightLineRef.current], {
+                gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set([leftLineRef.current, rightLineRef.current], {
                     width: "0%"
                 });
             }
             // Keep the verse text container hidden initially
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(verseTextRef.current, {
                 opacity: 0,
                 visibility: 'visible'
             });
@@ -66341,17 +66455,17 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             });
             if (letterElements.length > 0) {
                 // Set initial state for letters with minimal glow
-                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(letterElements, {
+                gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(letterElements, {
                     opacity: 0,
                     display: 'inline-block',
                     textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                 });
                 // Now make the container visible after all elements are hidden
-                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextRef.current, {
+                gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(verseTextRef.current, {
                     opacity: 1
                 });
                 // Create timeline for smooth verse reveal
-                const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
+                const tl = gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.timeline({
                     delay: 0.9, // Delayed to start after overlay entrance animation
                     onStart: () => {
                         console.log('GSAP timeline started');
@@ -66457,7 +66571,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             return;
         const verseTextElement = refs.verseTextRef.current;
         // Fade out current text
-        gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(verseTextElement, {
+        gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to(verseTextElement, {
             opacity: 0,
             duration: 0.3,
             ease: "power2.in",
@@ -66474,14 +66588,14 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 const letterElements = verseTextElement.querySelectorAll('.verse-letter');
                 if (letterElements.length > 0) {
                     // Set initial state for letters
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(letterElements, {
+                    gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(letterElements, {
                         opacity: 0,
                         textShadow: "0px 0px 1px rgba(255,255,255,0.1)"
                     });
                     // Make container visible
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.set(verseTextElement, { opacity: 1 });
+                    gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.set(verseTextElement, { opacity: 1 });
                     // Animate letters with the same glow effect
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(letterElements, {
+                    gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to(letterElements, {
                         keyframes: [
                             { opacity: 0, textShadow: "0px 0px 1px rgba(255,255,255,0.1)", duration: 0 },
                             { opacity: 1, textShadow: "0px 0px 20px rgba(255,255,255,0.9)", duration: 0.462 },
@@ -66493,7 +66607,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                         stagger: 0.05,
                         onComplete: () => {
                             // Add final glow
-                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(letterElements, {
+                            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to(letterElements, {
                                 opacity: 1,
                                 textShadow: "0px 0px 15px rgba(255,255,255,0.8)",
                                 duration: 1.2,
@@ -66509,7 +66623,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
     const handleShrinkDismiss = () => {
         if (modalRef.current && overlayRef.current) {
             // Create shrink animation timeline
-            const tl = gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.timeline({
+            const tl = gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.timeline({
                 onComplete: () => {
                     onDismiss(false); // Temporary dismissal
                 }
@@ -66570,8 +66684,9 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
             const newVerse = await _services_verse_service__WEBPACK_IMPORTED_MODULE_4__.VerseService.getVerse(currentVerse.reference, bibleId);
             // Save the translation preference using UserPreferencesService
             await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveBibleTranslation(newTranslation, user);
-            // Update the current verse state - this will trigger animation restart
-            setCurrentVerse(newVerse);
+            // Update BOTH the translation state and verse state
+            setCurrentTranslation(newTranslation); // Fix: Update the currentTranslation state
+            setCurrentVerse(newVerse); // This triggers animation restart
             showToast(`Translation changed to ${newTranslation}`, 'success');
         }
         catch (error) {
@@ -66610,7 +66725,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
         // Animate modal back to original size
         if (modalRef.current) {
             modalRef.current.classList.remove('verse-modal-expanded');
-            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(modalRef.current, {
+            gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.to(modalRef.current, {
                 maxHeight: '85vh',
                 duration: 0.4,
                 ease: "power2.out"
@@ -66625,7 +66740,7 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                 const refs = verseDisplayRef.current;
                 if (refs && refs.leftLineRef.current && refs.rightLineRef.current) {
                     // Animate lines from 0 to responsive width using GSAP
-                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
+                    gsap__WEBPACK_IMPORTED_MODULE_16__.gsap.fromTo([refs.leftLineRef.current, refs.rightLineRef.current], {
                         width: "0%"
                     }, {
                         width: () => {
@@ -66657,58 +66772,14 @@ const VerseOverlay = ({ verse, onDismiss, shadowRoot }) => {
                                         setTheme(newTheme);
                                         // Save theme preference using UserPreferencesService
                                         await _services_user_preferences_service__WEBPACK_IMPORTED_MODULE_5__.UserPreferencesService.saveTheme(newTheme, user);
-                                    } }), !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_10__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_9__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, onSettingsClick: () => {
-                                        // Show settings and trigger slide-in animation
-                                        setShowSettings(true);
-                                        // Animate the settings panel sliding in after a brief delay
-                                        setTimeout(() => {
-                                            const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
-                                            if (sidebarPanel) {
-                                                gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.fromTo(sidebarPanel, {
-                                                    x: '100%' // Start off-screen to the right
-                                                }, {
-                                                    x: '0%', // Slide to visible position
-                                                    duration: 0.3,
-                                                    ease: "power2.out"
-                                                });
-                                            }
-                                        }, 10); // Small delay to ensure DOM is ready
-                                    }, shadowRoot: shadowRoot }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showContext ? (
+                                    } }), !user ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AuthButtons__WEBPACK_IMPORTED_MODULE_10__["default"], { onSignInClick: () => setShowSignIn(true) })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ProfileDropdown__WEBPACK_IMPORTED_MODULE_9__["default"], { user: user, isAdmin: isAdmin, isEmailVerified: isEmailVerified, onSignOut: signOut, onSettingsClick: () => setShowSettings(true), shadowRoot: shadowRoot }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { ref: verseContentRef, className: "verse-content", children: [user && isAdmin && !showContext && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_AdminControls__WEBPACK_IMPORTED_MODULE_11__["default"], {})), !showContext ? (
                                 /* Main verse view - always visible even when settings are open */
                                 (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: showSettings ? 'verse-dimmed' : '', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_VerseDisplay__WEBPACK_IMPORTED_MODULE_12__["default"], { ref: verseDisplayRef, verse: currentVerse, onDone: handleAnimatedDismiss, onMore: handleMoreClick, onTranslationChange: handleVerseTranslationChange, shadowRoot: shadowRoot, isAdmin: isAdmin }) })) : (
                                 /* Context view */
-                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_13__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] }), showSettings && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "settings-sidebar-backdrop", onClick: () => {
-                                        // Animate sidebar sliding out before closing
-                                        const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
-                                        if (sidebarPanel) {
-                                            gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(sidebarPanel, {
-                                                x: '100%', // Slide back out to the right
-                                                duration: 0.3,
-                                                ease: "power2.in",
-                                                onComplete: () => {
-                                                    setShowSettings(false);
-                                                }
-                                            });
-                                        }
-                                        else {
-                                            setShowSettings(false);
-                                        }
-                                    } }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-sidebar-panel", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "settings-sidebar-close", onClick: () => {
-                                                const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel');
-                                                if (sidebarPanel) {
-                                                    gsap__WEBPACK_IMPORTED_MODULE_15__.gsap.to(sidebarPanel, {
-                                                        x: '100%',
-                                                        duration: 0.3,
-                                                        ease: "power2.in",
-                                                        onComplete: () => {
-                                                            setShowSettings(false);
-                                                        }
-                                                    });
-                                                }
-                                                else {
-                                                    setShowSettings(false);
-                                                }
-                                            }, children: "\u00D7" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "settings-sidebar-content", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { className: "settings-sidebar-title", children: "Settings" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "settings-sidebar-description", children: "Customize your Daily Bread experience" })] })] })] }))] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
+                                (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_ContextView__WEBPACK_IMPORTED_MODULE_13__["default"], { verse: currentVerse, chapterContent: chapterContent, contextLoading: contextLoading, contextTranslation: contextTranslation, onBack: handleBackFromContext, onDone: handleAnimatedDismiss, onTranslationChange: handleContextTranslationChange }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_components_SettingsSidebar__WEBPACK_IMPORTED_MODULE_15__["default"], { isOpen: showSettings, onClose: () => setShowSettings(false), shadowRoot: shadowRoot, currentTheme: theme, currentTranslation: currentTranslation, onThemeChange: async (newTheme) => {
+                                setTheme(newTheme);
+                                // Save is handled by SettingsContent component
+                            }, onTranslationChange: handleVerseTranslationChange })] }) }), showSignIn && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignInForm, { onClose: () => setShowSignIn(false), onSwitchToSignUp: switchToSignUp, onVerificationRequired: handleVerificationRequired })), showSignUp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.SignUpForm, { onClose: () => setShowSignUp(false), onSwitchToSignIn: switchToSignIn, onSuccess: handleSignUpSuccess })), showEmailVerification && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000001]", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "df-glassmorphism-modal bg-white bg-opacity-10 backdrop-blur-md p-6 rounded-lg border border-white border-opacity-20 w-80 max-w-sm relative", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "mb-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", { className: "w-16 h-16 mx-auto text-green-400", fill: "currentColor", viewBox: "0 0 24 24", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "text-white text-lg font-semibold mb-2", children: "Check Your Email" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: "text-white text-sm mb-4", children: ["We've sent a verification link to ", verificationEmail || 'your email address', ". Please click the link to verify your account before signing in."] }), verificationEmail && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_forms__WEBPACK_IMPORTED_MODULE_8__.VerificationReminder, { userEmail: verificationEmail, onClose: () => { } })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "space-y-2 mt-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => {
                                         setShowEmailVerification(false);
                                         switchToSignIn();
                                     }, className: "w-full bg-white bg-opacity-20 hover:bg-opacity-30 text-white py-2 px-4 rounded transition-colors", children: "Back to Sign In" }) })] }) }) }))] }));
@@ -70828,6 +70899,361 @@ const profileDropdownStyles = `
 
 /***/ }),
 
+/***/ "./src/styles/components/settings-content.css.ts":
+/*!*******************************************************!*\
+  !*** ./src/styles/components/settings-content.css.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   settingsContentStyles: () => (/* binding */ settingsContentStyles)
+/* harmony export */ });
+const settingsContentStyles = `
+  /* Settings Content Container */
+  .settings-content {
+    padding: 20px 0;
+  }
+
+  /* Settings Sections */
+  .settings-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .settings-section:last-child {
+    border-bottom: none;
+  }
+
+  .settings-section-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 20px 0;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.5px;
+  }
+
+  /* Settings Items */
+  .settings-item {
+    margin-bottom: 24px;
+    transition: opacity 0.2s ease;
+  }
+
+  .settings-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .settings-item--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Labels */
+  .settings-label {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .settings-label-text {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 4px;
+  }
+
+  .settings-label-description {
+    display: block;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
+  }
+
+  /* Theme Toggle Buttons */
+  .settings-theme-toggle {
+    display: flex;
+    gap: 0; /* No gap, separator will handle spacing */
+    padding: 0; /* Remove padding so buttons can fill completely */
+    background: rgba(0, 0, 0, 0.2);
+    /* No border-radius for rectangular design */
+    position: relative;
+    overflow: hidden; /* Ensure buttons don't overflow */
+  }
+
+  .settings-theme-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px !important; /* Matches the original size with 4px container padding */
+    background: transparent !important;
+    border: none;
+    /* No border-radius for rectangular buttons */
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease !important; /* Added !important for transition */
+    position: relative;
+  }
+
+  /* Separator between theme options - full height */
+  .settings-theme-option:first-child::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0; /* Full height from top */
+    bottom: 0; /* Full height to bottom */
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+  }
+
+  /* Greyish hover effect for non-active buttons */
+  .settings-theme-option:hover:not(.settings-theme-option--active) {
+    background: rgba(128, 128, 128, 0.25) !important; /* Greyish background on hover */
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .settings-theme-option--active {
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Dark theme active states */
+  /* Light button active in dark theme = white background, dark text */
+  .settings-theme-option--active.settings-theme-option--light {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Dark button active in dark theme = white background, dark text (inverted) */
+  .settings-theme-option--active.settings-theme-option--dark {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .settings-theme-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .settings-theme-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Select Dropdown */
+  .settings-select {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px !important;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .settings-select:hover {
+    background: rgba(255, 255, 255, 0.2) !important; /* More visible hover in dark mode */
+    border-color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  .settings-select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  }
+
+  .settings-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Style the dropdown options */
+  .settings-select option {
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 8px;
+  }
+
+  /* Placeholder for future features */
+  .settings-placeholder {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Saving Indicator */
+  .settings-saving-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Light Theme Overrides */
+  :host([data-theme="light"]) .settings-section {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+  }
+
+  :host([data-theme="light"]) .settings-section-title {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  :host([data-theme="light"]) .settings-label-text {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  :host([data-theme="light"]) .settings-label-description {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  :host([data-theme="light"]) .settings-theme-toggle {
+    background: rgba(0, 0, 0, 0.05);
+    /* No padding in light theme either */
+  }
+
+  /* Light theme separator - full height */
+  :host([data-theme="light"]) .settings-theme-option:first-child::after {
+    background: rgba(0, 0, 0, 0.15);
+    top: 0;
+    bottom: 0;
+  }
+
+  :host([data-theme="light"]) .settings-theme-option {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Greyish hover effect for light theme */
+  :host([data-theme="light"]) .settings-theme-option:hover:not(.settings-theme-option--active) {
+    background: rgba(128, 128, 128, 0.15) !important; /* Lighter grey for light theme */
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  :host([data-theme="light"]) .settings-theme-option--active {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Invert colors for active states in light theme */
+  /* Light button active in light theme = dark background, white text */
+  :host([data-theme="light"]) .settings-theme-option--active.settings-theme-option--light {
+    background: #161616 !important;
+    color: white !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  /* Dark button active in light theme = white background, dark text */
+  :host([data-theme="light"]) .settings-theme-option--active.settings-theme-option--dark {
+    background: white !important;
+    color: #161616 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  :host([data-theme="light"]) .settings-select {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    color: rgba(0, 0, 0, 1) !important; /* Pure black text in light mode */
+  }
+
+  :host([data-theme="light"]) .settings-select:hover {
+    background: rgba(128, 128, 128, 0.15) !important; /* Greyish hover for light theme */
+    border-color: rgba(0, 0, 0, 0.15) !important;
+  }
+
+  :host([data-theme="light"]) .settings-select:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  }
+
+  :host([data-theme="light"]) .settings-select option {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  :host([data-theme="light"]) .settings-placeholder {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  :host([data-theme="light"]) .settings-saving-indicator {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .settings-content {
+      padding: 16px 0;
+    }
+
+    .settings-section {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+    }
+
+    .settings-section-title {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .settings-item {
+      margin-bottom: 20px;
+    }
+
+    .settings-theme-toggle {
+      flex-direction: column;
+    }
+
+    .settings-theme-option {
+      width: 100%;
+    }
+  }
+`;
+
+
+/***/ }),
+
 /***/ "./src/styles/components/settings-sidebar.css.ts":
 /*!*******************************************************!*\
   !*** ./src/styles/components/settings-sidebar.css.ts ***!
@@ -70858,13 +71284,13 @@ const settingsSidebarStyles = `
     cursor: default;
   }
 
-  /* Sidebar Panel - slides in from right, extends to modal edges */
+  /* Sidebar Panel - slides in from right, flush against modal edges */
   .settings-sidebar-panel {
     position: absolute;
-    top: 0;         /* Extend to top edge of modal */
-    right: 0;       /* Extend to right edge of modal */
-    bottom: 0;      /* Extend to bottom edge of modal */
-    width: 40%;     /* Takes 40% of modal width */
+    top: 0;           /* Flush against top edge */
+    right: 0;         /* Flush against right edge */
+    bottom: 0;        /* Flush against bottom edge */
+    width: 40%;       /* Takes 40% of modal width */
     min-width: 300px;
     max-width: 450px;
     /* Glassmorphic effect - inspired by original profile dropdown */
@@ -70876,7 +71302,7 @@ const settingsSidebarStyles = `
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3), /* Ambient shadow */
                 inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* Subtle inner border */
     border-left: 1px solid rgba(255, 255, 255, 0.2); /* Left edge highlight */
-    border-radius: 0 20px 20px 0; /* Round RIGHT corners to match modal's shape */
+    border-radius: 0 20px 20px 0; /* Match modal's border-radius exactly */
     transform: translateX(100%); /* Start fully hidden to the right */
     opacity: 1; /* Keep fully opaque, only slide animation */
     overflow: hidden; /* Ensure content respects rounded corners */
@@ -70884,28 +71310,108 @@ const settingsSidebarStyles = `
 
   /* Content inside the settings panel */
   .settings-sidebar-content {
-    padding: 48px 30px 30px 30px; /* Extra top padding for close button */
-    height: 100%;
+    padding: 0 30px 30px 30px; /* No top padding, header handles that */
+    height: calc(100% - 90px); /* Account for header height */
     overflow-y: auto;
     color: rgba(255, 255, 255, 0.95); /* White text for glassmorphic background */
   }
 
-  .settings-sidebar-title {
+  /* Thin, subtle scrollbar matching context view */
+  .settings-sidebar-content::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .settings-sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .settings-sidebar-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+  }
+
+  .settings-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .settings-sidebar-separator {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 30px 20px 30px;
+    width: calc(100% - 60px);
+  }
+
+  /* Settings header container */
+  .settings-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between title and button */
+    padding: 20px 30px;
+    margin-bottom: 10px;
+  }
+
+  /* Circular back button with arrow - transparent by default */
+  .settings-back-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: transparent; /* No background by default */
+    border: none; /* No border by default */
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Google Material Icon arrow container */
+  .settings-back-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    opacity: 1 !important; /* Ensure visibility - override any conflicting styles */
+  }
+
+  /* Style the SVG arrow */
+  .settings-back-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  .settings-back-arrow svg path {
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Hover state - circular background appears */
+  .settings-back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: scale(1.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 1);
+  }
+
+  /* Settings title next to button */
+  .settings-header-title {
     font-size: 24px;
     font-weight: 500;
-    margin: 0 0 10px 0;
-    color: rgba(255, 255, 255, 1); /* Pure white for title */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
+    margin: 0;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
 
-  .settings-sidebar-description {
-    font-size: 14px;
-    margin: 0 0 20px 0;
-    opacity: 0.8;
-    color: rgba(255, 255, 255, 0.9); /* Slightly dimmed white */
-  }
-
-  /* Close button */
+  /* Close button (keeping for potential future use) */
   .settings-sidebar-close {
     position: absolute;
     top: 20px;
@@ -70964,13 +71470,49 @@ const settingsSidebarStyles = `
     color: rgba(0, 0, 0, 0.9); /* Dark text for light theme */
   }
 
-  :host([data-theme="light"]) .settings-sidebar-title {
-    color: rgba(0, 0, 0, 1);
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  :host([data-theme="light"]) .settings-sidebar-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
   }
 
-  :host([data-theme="light"]) .settings-sidebar-description {
+  :host([data-theme="light"]) .settings-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+
+  :host([data-theme="light"]) .settings-sidebar-separator {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  :host([data-theme="light"]) .settings-header {
+    /* Same structure in light theme */
+  }
+
+  :host([data-theme="light"]) .settings-back-btn {
+    background: transparent;
+    border: none;
     color: rgba(0, 0, 0, 0.7);
+  }
+
+  :host([data-theme="light"]) .settings-back-arrow svg,
+  :host([data-theme="light"]) .settings-back-arrow svg path {
+    fill: rgba(0, 0, 0, 0.7);
+  }
+
+  :host([data-theme="light"]) .settings-back-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  :host([data-theme="light"]) .settings-back-btn:hover .settings-back-arrow svg,
+  :host([data-theme="light"]) .settings-back-btn:hover .settings-back-arrow svg path {
+    fill: rgba(0, 0, 0, 0.9);
+  }
+
+  :host([data-theme="light"]) .settings-header-title {
+    color: rgba(0, 0, 0, 1);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 
   :host([data-theme="light"]) .settings-sidebar-close {
@@ -70985,152 +71527,6 @@ const settingsSidebarStyles = `
     border-color: rgba(0, 0, 0, 0.15);
     color: rgba(0, 0, 0, 0.9);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-
-/***/ }),
-
-/***/ "./src/styles/components/settings-view.css.ts":
-/*!****************************************************!*\
-  !*** ./src/styles/components/settings-view.css.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   settingsViewStyles: () => (/* binding */ settingsViewStyles)
-/* harmony export */ });
-const settingsViewStyles = `
-  /* Settings View Container */
-  .settings-view-container {
-    padding: 20px 0;
-    opacity: 1; /* Default visible as fallback if animation fails */
-  }
-
-  /* Settings Title */
-  .settings-title {
-    position: absolute;
-    top: 65px;
-    left: 48px;
-    font-size: 32px;
-    font-weight: 300;
-    color: white;
-    margin: 0;
-    z-index: 10;
-  }
-
-  /* Settings Back Button - Positioned next to logo */
-  .settings-back-button {
-    position: absolute;
-    top: 24px; /* Aligned with logo */
-    left: 80px; /* Next to the logo (logo is 60px + some spacing) */
-    background: rgba(255, 255, 255, 0.1); /* Start with background */
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 400;
-    z-index: 10;
-    transition: background 0.2s ease, opacity 0.2s ease;
-    opacity: 1; /* Start at full opacity */
-    display: flex;
-    align-items: center;
-    overflow: hidden; /* Hide arrow when it's off to the left */
-  }
-
-  /* Arrow element */
-  .settings-back-arrow {
-    display: inline-block;
-    margin-right: 0px; /* Start with no margin */
-    opacity: 0; /* Start invisible */
-    transform: translateX(-10px); /* Start off to the left */
-    transition: opacity 0.3s ease, transform 0.3s ease, margin-right 0.3s ease;
-  }
-
-  /* Text element */
-  .settings-back-text {
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-
-  .settings-back-button:hover {
-    opacity: 0.7; /* Dimmed opacity on hover */
-    background: transparent; /* Remove background on hover */
-    border-radius: 4px;
-  }
-
-  /* Arrow animation on hover */
-  .settings-back-button:hover .settings-back-arrow {
-    opacity: 1; /* Fade in arrow */
-    transform: translateX(0); /* Slide arrow to position */
-    margin-right: 6px; /* Add space between arrow and text */
-  }
-
-  /* Text slides right on hover */
-  .settings-back-button:hover .settings-back-text {
-    transform: translateX(2px); /* Slight slide to make room */
-  }
-
-  /* Settings Section */
-  .settings-section {
-    margin-bottom: 32px;
-  }
-
-  /* Settings Label Row - Container for label and description */
-  .settings-label-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between; /* Push items to opposite ends */
-    gap: 16px;
-    margin-bottom: 12px;
-  }
-
-  /* Settings Label */
-  .settings-label {
-    font-size: 17px;
-    font-weight: 500;
-    opacity: 0.9;
-    color: white;
-    flex-shrink: 0;
-  }
-
-  /* Settings Description */
-  .settings-description {
-    font-size: 12px;
-    opacity: 0.7;
-    line-height: 1.4;
-    color: white;
-    margin: 0;
-    padding-top: 3px; /* Slight adjustment to align baselines */
-    text-align: right; /* Right-align the text */
-    flex: 1; /* Take up remaining space */
-  }
-
-  /* Light theme adjustments */
-  :host([data-theme="light"]) .settings-title {
-    color: #333;
-  }
-
-  :host([data-theme="light"]) .settings-back-button {
-    color: #333;
-    background: rgba(0, 0, 0, 0.05); /* Start with background in light mode */
-    opacity: 1;
-  }
-
-  :host([data-theme="light"]) .settings-back-button:hover {
-    opacity: 0.7; /* Dimmed on hover */
-    background: transparent; /* Remove background on hover */
-  }
-
-  :host([data-theme="light"]) .settings-label {
-    color: #333;
-  }
-
-  :host([data-theme="light"]) .settings-description {
-    color: #666;
   }
 `;
 
@@ -71431,8 +71827,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared/glassmorphic.css */ "./src/styles/shared/glassmorphic.css.ts");
 /* harmony import */ var _components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/theme-toggle.css */ "./src/styles/components/theme-toggle.css.ts");
 /* harmony import */ var _theme_variables_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-variables.css */ "./src/styles/theme-variables.css.ts");
-/* harmony import */ var _components_settings_view_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/settings-view.css */ "./src/styles/components/settings-view.css.ts");
-/* harmony import */ var _components_settings_sidebar_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/settings-sidebar.css */ "./src/styles/components/settings-sidebar.css.ts");
+/* harmony import */ var _components_settings_sidebar_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/settings-sidebar.css */ "./src/styles/components/settings-sidebar.css.ts");
+/* harmony import */ var _components_settings_content_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/settings-content.css */ "./src/styles/components/settings-content.css.ts");
 
 
 
@@ -73660,70 +74056,14 @@ const getShadowDomStyles = () => {
       }
     }
 
-    /* Settings View - Minimal */
-    .settings-view {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      padding: 48px !important;
-      opacity: 0 !important;
-      animation: fadeIn 0.3s ease-out forwards !important;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    .settings-header-simple {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: flex-start !important;
-    }
-
-    .settings-title-simple {
-      font-size: 32px !important;
-      font-weight: 300 !important;
-      color: var(--text-primary) !important;
-      margin: 0 !important;
-      text-align: left !important;
-    }
-
-    .settings-close-btn {
-      background: transparent !important;
-      border: none !important;
-      color: var(--text-primary) !important;
-      font-size: 24px !important;
-      cursor: pointer !important;
-      opacity: 0.6 !important;
-      transition: opacity 0.2s !important;
-      padding: 0 !important;
-      width: 32px !important;
-      height: 32px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .settings-close-btn:hover {
-      opacity: 1 !important;
-    }
-
-    .settings-options {
-      margin-top: 40px !important;
-      color: var(--text-primary) !important;
-    }
 
     /* Component-specific styles */
     ${_components_profile_dropdown_css__WEBPACK_IMPORTED_MODULE_0__.profileDropdownStyles}
     ${_components_translation_dropdown_css__WEBPACK_IMPORTED_MODULE_1__.translationDropdownStyles}
     ${_shared_glassmorphic_css__WEBPACK_IMPORTED_MODULE_2__.glassmorphicStyles}
     ${_components_theme_toggle_css__WEBPACK_IMPORTED_MODULE_3__.themeToggleStyles}
-    ${_components_settings_view_css__WEBPACK_IMPORTED_MODULE_5__.settingsViewStyles}
-    ${_components_settings_sidebar_css__WEBPACK_IMPORTED_MODULE_6__.settingsSidebarStyles}
+    ${_components_settings_sidebar_css__WEBPACK_IMPORTED_MODULE_5__.settingsSidebarStyles}
+    ${_components_settings_content_css__WEBPACK_IMPORTED_MODULE_6__.settingsContentStyles}
   `;
 };
 

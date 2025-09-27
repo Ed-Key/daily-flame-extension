@@ -4,13 +4,19 @@
 
 This document outlines the comprehensive feature development plan for DailyFlame Chrome Extension, based on extensive research from 10 specialized AI agents analyzing user psychology, market gaps, spiritual formation, technical implementation, and growth strategies.
 
-### Current State
+### Current State (Updated: December 2024)
 - Daily verse popup with beautiful GSAP animations
 - Chapter context view ("More" button)
 - Firebase authentication with user profiles
-- Firestore for verse storage
-- ESV as default translation (KJV, ASV, WEB also available)
+- Firestore for verse storage and user data sync
+- Multiple Bible translations (ESV, KJV, ASV, WEB, NLT)
 - Shadow DOM implementation for style isolation
+- User preferences system with:
+  - Theme switching (light/dark)
+  - Bible translation preferences with persistence
+  - Settings sidebar with sliding drawer animation
+  - Profile dropdown with user management
+- CSS-based styling (migrated from Tailwind for better Shadow DOM compatibility)
 
 ### Core User Concerns
 1. Verses might not relate to user's current situation
@@ -49,17 +55,24 @@ This document outlines the comprehensive feature development plan for DailyFlame
 
 ## Feature Development Phases
 
-### Phase 1: Foundation Features (Weeks 1-2)
+### Phase 1: Foundation Features (Weeks 1-2) [PARTIALLY COMPLETE]
 
 #### 1.1 User Preferences System
-**Timeline**: 2-3 days  
-**Priority**: Critical  
+**Status**: ✅ PARTIALLY IMPLEMENTED
+**Timeline**: 2-3 days
+**Priority**: Critical
 **Dependencies**: None
 
-**Features**:
-- Bible translation preference (ESV, KJV, ASV, WEB)
-- Theme selection (light/dark/auto)
-- Font size adjustment (small/medium/large)
+**Implemented Features**:
+- ✅ Bible translation preference (ESV, KJV, ASV, WEB, NLT)
+- ✅ Theme selection (light/dark)
+- ✅ Settings sidebar UI with smooth animations
+- ✅ Preferences sync between local storage and Firebase
+- ✅ User preferences service with proper authentication handling
+
+**Not Yet Implemented**:
+- ❌ Auto theme based on system preference
+- ❌ Font size adjustment (small/medium/large)
 - Display frequency control (CLARIFIED BEHAVIOR):
   - **Default behavior**: Verse appears on EVERY new tab until "Done" is clicked
   - **Same verse all day**: Daily verse doesn't change, only acknowledgment resets
@@ -129,8 +142,9 @@ class PreferencesService {
 6. Add theme classes to shadow-dom-styles.ts
 
 #### 1.2 Save/Favorite Verses Feature
-**Timeline**: 3-4 days  
-**Priority**: Critical  
+**Status**: ❌ NOT IMPLEMENTED
+**Timeline**: 3-4 days
+**Priority**: High (lowered from Critical - Questions System takes precedence)  
 **Dependencies**: User authentication (existing)
 
 **Features**:
@@ -190,7 +204,7 @@ class SavedVersesService {
 - Collection manager
 - Export dialog
 
-### Phase 2: Enhanced Engagement (Weeks 3-4)
+### Phase 2: Enhanced Engagement (Weeks 3-4) [IN PROGRESS]
 
 #### 2.1 Verse History & Collections
 **Timeline**: 1 week  
@@ -235,21 +249,47 @@ class VerseHistoryService {
 }
 ```
 
-#### 2.2 Simple Verse Resonance (Non-AI)
-**Timeline**: 1 week  
-**Priority**: High  
-**Dependencies**: Verse history
+#### 2.2 Layered Reflection Questions System [PRIMARY ENGAGEMENT FEATURE]
+**Status**: 🚧 IN PLANNING
+**Timeline**: 1.5 weeks
+**Priority**: CRITICAL - Next Major Feature
+**Dependencies**: None (can run independently)
 
 **Features**:
-- Emotion quick-select after verse display:
-  - 😔 Struggling
-  - 😊 Grateful
-  - 💪 Need Strength
-  - 🙏 Seeking
-  - ❤️ Feeling Loved
-- "God Moment" button for perfect timing
-- Monthly recap: "Your Spiritual Journey"
-- Pattern recognition (which verses help in which moods)
+- Three-layer progressive question system for deeper verse engagement
+- LLM-powered question generation with theological safeguards
+- Floating/orbiting UI design creating a "constellation" around verses
+- Time-based progressive disclosure with respect for user pace
+
+**Design Philosophy**:
+The system creates "earworm questions" - contemplative prompts that stick with users throughout the day, facilitating organic meditation rather than forced study. Questions appear as floating elements around the verse, creating a sacred geometry that invites reflection without overwhelming.
+
+**Layer Structure**:
+1. **Layer 1 (0-3s)**: Earworm question - "What is God inviting you to today?"
+2. **Layer 2 (5-8s)**: Deepening question - "Where have you seen this truth?"
+3. **Layer 3 (10-15s)**: Meditation anchor - "Notice where God meets you in this"
+
+**Technical Approach**:
+- Questions generated via LLM with carefully crafted prompts ensuring God-centered (not self-help) focus
+- Smart caching system: Generate daily, cache for all users, weekly refresh
+- Floating UI elements with subtle animations (pulse, glow, breathe)
+- Questions stack visually but maintain clarity through spatial arrangement
+
+**Why This Matters**:
+Unlike commentary or study notes that can feel academic, these questions create bridges between ancient text and lived experience. They respect the Holy Spirit's role while providing gentle scaffolding for deeper engagement.
+
+**Implementation Priority**: This feature should be implemented BEFORE other engagement features as it:
+- Requires zero data entry from users (unlike emoji reactions)
+- Creates lasting spiritual impact through "earworm" questions
+- Respects users' intelligence and spiritual autonomy
+- Aligns with core user need: meaningful engagement without "homework"
+
+**Optional Enhancement**: Integration of a simple "God Moment" marker (from deprecated resonance feature) for when questions particularly resonate.
+
+#### 2.3 [DEPRECATED - Replaced by Layered Questions System]
+~~Simple Verse Resonance (Non-AI)~~
+
+**Note**: After careful consideration, this feature has been deprecated in favor of the Layered Reflection Questions System (2.2), which provides deeper engagement without requiring data entry. The one valuable element - the "God Moment" button - may be integrated into the questions system for marking particularly impactful moments.
 
 **Technical Implementation**:
 ```typescript
@@ -545,6 +585,37 @@ const StudyNotes: React.FC<StudyNotesProps> = ({ reference, show, onClose }) => 
   );
 };
 ```
+
+## Implementation Status Summary (December 2024)
+
+### ✅ Completed Features:
+1. **Core Extension Functionality**
+   - Daily verse display with GSAP animations
+   - Chapter context view
+   - Shadow DOM implementation
+   - CSS-based styling system (migrated from Tailwind)
+
+2. **Authentication & User Management**
+   - Firebase authentication
+   - User profile system
+   - Email verification flow
+   - Admin user detection
+
+3. **Preferences System (Partial)**
+   - Theme switching (light/dark)
+   - Translation selection with persistence
+   - Settings sidebar UI
+   - Firebase sync for preferences
+
+### 🚧 Next Priority: Layered Reflection Questions
+The Layered Questions System should be the next major feature implementation as it provides the highest value for user engagement without adding friction.
+
+### ❌ Not Yet Implemented:
+1. Font size preferences
+2. Display frequency control
+3. Save/Favorite verses
+4. Verse history
+5. AI-powered study notes
 
 ## UI/UX Redesign for Enhanced Features
 

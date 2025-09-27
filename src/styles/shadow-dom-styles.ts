@@ -3,8 +3,8 @@ import { translationDropdownStyles } from './components/translation-dropdown.css
 import { glassmorphicStyles } from './shared/glassmorphic.css';
 import { themeToggleStyles } from './components/theme-toggle.css';
 import { themeVariables } from './theme-variables.css';
-import { settingsViewStyles } from './components/settings-view.css';
 import { settingsSidebarStyles } from './components/settings-sidebar.css';
+import { settingsContentStyles } from './components/settings-content.css';
 
 // Complete styles for Shadow DOM encapsulation
 export const getShadowDomStyles = (): string => {
@@ -2226,69 +2226,13 @@ export const getShadowDomStyles = (): string => {
       }
     }
 
-    /* Settings View - Minimal */
-    .settings-view {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      padding: 48px !important;
-      opacity: 0 !important;
-      animation: fadeIn 0.3s ease-out forwards !important;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    .settings-header-simple {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: flex-start !important;
-    }
-
-    .settings-title-simple {
-      font-size: 32px !important;
-      font-weight: 300 !important;
-      color: var(--text-primary) !important;
-      margin: 0 !important;
-      text-align: left !important;
-    }
-
-    .settings-close-btn {
-      background: transparent !important;
-      border: none !important;
-      color: var(--text-primary) !important;
-      font-size: 24px !important;
-      cursor: pointer !important;
-      opacity: 0.6 !important;
-      transition: opacity 0.2s !important;
-      padding: 0 !important;
-      width: 32px !important;
-      height: 32px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .settings-close-btn:hover {
-      opacity: 1 !important;
-    }
-
-    .settings-options {
-      margin-top: 40px !important;
-      color: var(--text-primary) !important;
-    }
 
     /* Component-specific styles */
     ${profileDropdownStyles}
     ${translationDropdownStyles}
     ${glassmorphicStyles}
     ${themeToggleStyles}
-    ${settingsViewStyles}
     ${settingsSidebarStyles}
+    ${settingsContentStyles}
   `;
 };

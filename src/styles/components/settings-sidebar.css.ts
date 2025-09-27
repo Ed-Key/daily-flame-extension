@@ -18,13 +18,13 @@ export const settingsSidebarStyles = `
     cursor: default;
   }
 
-  /* Sidebar Panel - slides in from right, extends to modal edges */
+  /* Sidebar Panel - slides in from right, flush against modal edges */
   .settings-sidebar-panel {
     position: absolute;
-    top: 0;         /* Extend to top edge of modal */
-    right: 0;       /* Extend to right edge of modal */
-    bottom: 0;      /* Extend to bottom edge of modal */
-    width: 40%;     /* Takes 40% of modal width */
+    top: 0;           /* Flush against top edge */
+    right: 0;         /* Flush against right edge */
+    bottom: 0;        /* Flush against bottom edge */
+    width: 40%;       /* Takes 40% of modal width */
     min-width: 300px;
     max-width: 450px;
     /* Glassmorphic effect - inspired by original profile dropdown */
@@ -36,7 +36,7 @@ export const settingsSidebarStyles = `
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3), /* Ambient shadow */
                 inset 0 0 0 1px rgba(255, 255, 255, 0.1); /* Subtle inner border */
     border-left: 1px solid rgba(255, 255, 255, 0.2); /* Left edge highlight */
-    border-radius: 0 20px 20px 0; /* Round RIGHT corners to match modal's shape */
+    border-radius: 0 20px 20px 0; /* Match modal's border-radius exactly */
     transform: translateX(100%); /* Start fully hidden to the right */
     opacity: 1; /* Keep fully opaque, only slide animation */
     overflow: hidden; /* Ensure content respects rounded corners */
@@ -44,28 +44,108 @@ export const settingsSidebarStyles = `
 
   /* Content inside the settings panel */
   .settings-sidebar-content {
-    padding: 48px 30px 30px 30px; /* Extra top padding for close button */
-    height: 100%;
+    padding: 0 30px 30px 30px; /* No top padding, header handles that */
+    height: calc(100% - 90px); /* Account for header height */
     overflow-y: auto;
     color: rgba(255, 255, 255, 0.95); /* White text for glassmorphic background */
   }
 
-  .settings-sidebar-title {
+  /* Thin, subtle scrollbar matching context view */
+  .settings-sidebar-content::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .settings-sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .settings-sidebar-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+  }
+
+  .settings-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .settings-sidebar-separator {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 30px 20px 30px;
+    width: calc(100% - 60px);
+  }
+
+  /* Settings header container */
+  .settings-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between title and button */
+    padding: 20px 30px;
+    margin-bottom: 10px;
+  }
+
+  /* Circular back button with arrow - transparent by default */
+  .settings-back-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: transparent; /* No background by default */
+    border: none; /* No border by default */
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Google Material Icon arrow container */
+  .settings-back-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    opacity: 1 !important; /* Ensure visibility - override any conflicting styles */
+  }
+
+  /* Style the SVG arrow */
+  .settings-back-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  .settings-back-arrow svg path {
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Hover state - circular background appears */
+  .settings-back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: scale(1.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 1);
+  }
+
+  /* Settings title next to button */
+  .settings-header-title {
     font-size: 24px;
     font-weight: 500;
-    margin: 0 0 10px 0;
-    color: rgba(255, 255, 255, 1); /* Pure white for title */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
+    margin: 0;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
 
-  .settings-sidebar-description {
-    font-size: 14px;
-    margin: 0 0 20px 0;
-    opacity: 0.8;
-    color: rgba(255, 255, 255, 0.9); /* Slightly dimmed white */
-  }
-
-  /* Close button */
+  /* Close button (keeping for potential future use) */
   .settings-sidebar-close {
     position: absolute;
     top: 20px;
@@ -124,13 +204,49 @@ export const settingsSidebarStyles = `
     color: rgba(0, 0, 0, 0.9); /* Dark text for light theme */
   }
 
-  :host([data-theme="light"]) .settings-sidebar-title {
-    color: rgba(0, 0, 0, 1);
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  :host([data-theme="light"]) .settings-sidebar-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
   }
 
-  :host([data-theme="light"]) .settings-sidebar-description {
+  :host([data-theme="light"]) .settings-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+
+  :host([data-theme="light"]) .settings-sidebar-separator {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  :host([data-theme="light"]) .settings-header {
+    /* Same structure in light theme */
+  }
+
+  :host([data-theme="light"]) .settings-back-btn {
+    background: transparent;
+    border: none;
     color: rgba(0, 0, 0, 0.7);
+  }
+
+  :host([data-theme="light"]) .settings-back-arrow svg,
+  :host([data-theme="light"]) .settings-back-arrow svg path {
+    fill: rgba(0, 0, 0, 0.7);
+  }
+
+  :host([data-theme="light"]) .settings-back-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  :host([data-theme="light"]) .settings-back-btn:hover .settings-back-arrow svg,
+  :host([data-theme="light"]) .settings-back-btn:hover .settings-back-arrow svg path {
+    fill: rgba(0, 0, 0, 0.9);
+  }
+
+  :host([data-theme="light"]) .settings-header-title {
+    color: rgba(0, 0, 0, 1);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 
   :host([data-theme="light"]) .settings-sidebar-close {

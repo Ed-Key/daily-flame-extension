@@ -15,6 +15,7 @@ import AdminControls from './components/AdminControls';
 import VerseDisplay, { VerseDisplayRefs } from './components/VerseDisplay';
 import ContextView from './components/ContextView';
 import ThemeToggle from './components/ThemeToggle';
+import SettingsSidebar from './components/SettingsSidebar';
 
 const VerseOverlay: React.FC<VerseOverlayProps> = ({ 
   verse, 
@@ -224,7 +225,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     }
   }, [user]);
 
-  // Load translation preference and animate when Settings opens
+  // Load translation preference when Settings opens
   useEffect(() => {
     if (showSettings) {
       // Load translation preference from UserPreferencesService
@@ -235,28 +236,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       // Add class to modal for overflow control
       const modal = shadowRoot?.querySelector('.verse-modal');
       modal?.classList.add('settings-open');
-
-      // Animate sidebar panel sliding in from right
-      setTimeout(() => {
-        const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
-        const backdrop = shadowRoot?.querySelector('.settings-sidebar-backdrop') as HTMLElement;
-
-        if (sidebarPanel) {
-          // Set initial state - fully hidden to the right
-          gsap.set(sidebarPanel, {
-            x: '100%' // Start position: fully hidden to the right
-          });
-
-          // Slide in to visible position
-          gsap.to(sidebarPanel, {
-            x: '0%', // Slide to visible position
-            duration: 0.4,
-            ease: "power2.out"
-          });
-        }
-
-        // No backdrop animation needed since it's transparent
-      }, 10);
     } else {
       // Remove settings-open class when closing
       const modal = shadowRoot?.querySelector('.verse-modal');
@@ -658,13 +637,14 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       const bibleId = BIBLE_VERSIONS[newTranslation];
       // Fetch the verse in the new translation
       const newVerse = await VerseService.getVerse(currentVerse.reference, bibleId);
-      
+
       // Save the translation preference using UserPreferencesService
       await UserPreferencesService.saveBibleTranslation(newTranslation, user);
-      
-      // Update the current verse state - this will trigger animation restart
-      setCurrentVerse(newVerse);
-      
+
+      // Update BOTH the translation state and verse state
+      setCurrentTranslation(newTranslation); // Fix: Update the currentTranslation state
+      setCurrentVerse(newVerse); // This triggers animation restart
+
       showToast(`Translation changed to ${newTranslation}`, 'success');
     } catch (error) {
       console.error('Error changing translation:', error);
@@ -783,24 +763,7 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 isAdmin={isAdmin}
                 isEmailVerified={isEmailVerified}
                 onSignOut={signOut}
-                onSettingsClick={() => {
-                  // Show settings and trigger slide-in animation
-                  setShowSettings(true);
-
-                  // Animate the settings panel sliding in after a brief delay
-                  setTimeout(() => {
-                    const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
-                    if (sidebarPanel) {
-                      gsap.fromTo(sidebarPanel, {
-                        x: '100%' // Start off-screen to the right
-                      }, {
-                        x: '0%', // Slide to visible position
-                        duration: 0.3,
-                        ease: "power2.out"
-                      });
-                    }
-                  }, 10); // Small delay to ensure DOM is ready
-                }}
+                onSettingsClick={() => setShowSettings(true)}
                 shadowRoot={shadowRoot}
               />
             )}
@@ -841,63 +804,19 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
             )}
             </div>
 
-          {/* Settings Sidebar Panel - Overlays inside modal for drawer effect */}
-          {showSettings && (
-            <>
-              {/* Invisible backdrop for click-outside-to-close */}
-              <div
-                className="settings-sidebar-backdrop"
-                onClick={() => {
-                  // Animate sidebar sliding out before closing
-                  const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
-
-                  if (sidebarPanel) {
-                    gsap.to(sidebarPanel, {
-                      x: '100%', // Slide back out to the right
-                      duration: 0.3,
-                      ease: "power2.in",
-                      onComplete: () => {
-                        setShowSettings(false);
-                      }
-                    });
-                  } else {
-                    setShowSettings(false);
-                  }
-                }}
-              />
-
-              {/* Settings Panel - Slides in from right */}
-              <div className="settings-sidebar-panel">
-                {/* Close button */}
-                <button
-                  className="settings-sidebar-close"
-                    onClick={() => {
-                      const sidebarPanel = shadowRoot?.querySelector('.settings-sidebar-panel') as HTMLElement;
-
-                      if (sidebarPanel) {
-                        gsap.to(sidebarPanel, {
-                          x: '100%',
-                          duration: 0.3,
-                          ease: "power2.in",
-                          onComplete: () => {
-                            setShowSettings(false);
-                          }
-                        });
-                      } else {
-                        setShowSettings(false);
-                      }
-                  }}
-                >
-                  ×
-                </button>
-
-                <div className="settings-sidebar-content">
-                  <h2 className="settings-sidebar-title">Settings</h2>
-                  <p className="settings-sidebar-description">Customize your Daily Bread experience</p>
-                </div>
-              </div>
-            </>
-          )}
+          {/* Settings Sidebar Panel */}
+          <SettingsSidebar
+            isOpen={showSettings}
+            onClose={() => setShowSettings(false)}
+            shadowRoot={shadowRoot}
+            currentTheme={theme}
+            currentTranslation={currentTranslation}
+            onThemeChange={async (newTheme) => {
+              setTheme(newTheme);
+              // Save is handled by SettingsContent component
+            }}
+            onTranslationChange={handleVerseTranslationChange}
+          />
           </div>
 
       </div>
