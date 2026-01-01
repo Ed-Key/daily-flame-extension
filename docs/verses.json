@@ -1,287 +1,8 @@
 {
-  "lastUpdated": "2025-12-01T02:11:01.786Z",
-  "nextUpdate": "2026-02-24T02:11:01.786Z",
+  "lastUpdated": "2026-01-01T02:10:26.449Z",
+  "nextUpdate": "2026-03-27T02:10:26.449Z",
   "source": "YouVersion Verse of the Day Calendar",
   "verses": [
-    {
-      "date": "2025-12-01",
-      "reference": "Psalms 121:5",
-      "book": "Psalms",
-      "chapter": 121,
-      "verse": "5",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/PSA.121.5"
-    },
-    {
-      "date": "2025-12-02",
-      "reference": "Proverbs 11:25",
-      "book": "Proverbs",
-      "chapter": 11,
-      "verse": "25",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/PRO.11.25"
-    },
-    {
-      "date": "2025-12-03",
-      "reference": "Ephesians 6:18",
-      "book": "Ephesians",
-      "chapter": 6,
-      "verse": "18",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/EPH.6.18"
-    },
-    {
-      "date": "2025-12-04",
-      "reference": "Psalm 145:18",
-      "book": "Psalm",
-      "chapter": 145,
-      "verse": "18",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/PSA.145.18"
-    },
-    {
-      "date": "2025-12-05",
-      "reference": "1 John 4:19",
-      "book": "1 John",
-      "chapter": 4,
-      "verse": "19",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/1JN.4.19"
-    },
-    {
-      "date": "2025-12-06",
-      "reference": "Psalm 34:18",
-      "book": "Psalm",
-      "chapter": 34,
-      "verse": "18",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/PSA.34.18"
-    },
-    {
-      "date": "2025-12-07",
-      "reference": "Romans 15:5",
-      "book": "Romans",
-      "chapter": 15,
-      "verse": "5",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/ROM.15.5"
-    },
-    {
-      "date": "2025-12-08",
-      "reference": "Proverbs 4:23",
-      "book": "Proverbs",
-      "chapter": 4,
-      "verse": "23",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/PRO.4.23"
-    },
-    {
-      "date": "2025-12-09",
-      "reference": "Jeremiah 33:14",
-      "book": "Jeremiah",
-      "chapter": 33,
-      "verse": "14",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/JER.33.14"
-    },
-    {
-      "date": "2025-12-10",
-      "reference": "Isaiah 7:14",
-      "book": "Isaiah",
-      "chapter": 7,
-      "verse": "14",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/ISA.7.14"
-    },
-    {
-      "date": "2025-12-11",
-      "reference": "Psalm 85:2",
-      "book": "Psalm",
-      "chapter": 85,
-      "verse": "2",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/PSA.85.2"
-    },
-    {
-      "date": "2025-12-12",
-      "reference": "John 10:11",
-      "book": "John",
-      "chapter": 10,
-      "verse": "11",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/JHN.10.11"
-    },
-    {
-      "date": "2025-12-13",
-      "reference": "1 John 4:16",
-      "book": "1 John",
-      "chapter": 4,
-      "verse": "16",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/1JN.4.16"
-    },
-    {
-      "date": "2025-12-14",
-      "reference": "James 5:8",
-      "book": "James",
-      "chapter": 5,
-      "verse": "8",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/JAS.5.8"
-    },
-    {
-      "date": "2025-12-15",
-      "reference": "Romans 10:17",
-      "book": "Romans",
-      "chapter": 10,
-      "verse": "17",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/ROM.10.17"
-    },
-    {
-      "date": "2025-12-16",
-      "reference": "John 1:12",
-      "book": "John",
-      "chapter": 1,
-      "verse": "12",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/JHN.1.12"
-    },
-    {
-      "date": "2025-12-17",
-      "reference": "Ephesians 4:2",
-      "book": "Ephesians",
-      "chapter": 4,
-      "verse": "2",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/EPH.4.2"
-    },
-    {
-      "date": "2025-12-18",
-      "reference": "Hebrews 12:2",
-      "book": "Hebrews",
-      "chapter": 12,
-      "verse": "2",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/HEB.12.2"
-    },
-    {
-      "date": "2025-12-19",
-      "reference": "Luke 1:35",
-      "book": "Luke",
-      "chapter": 1,
-      "verse": "35",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/LUK.1.35"
-    },
-    {
-      "date": "2025-12-20",
-      "reference": "Luke 1:45",
-      "book": "Luke",
-      "chapter": 1,
-      "verse": "45",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://my.bible.com/bible/111/LUK.1.45"
-    },
-    {
-      "date": "2025-12-21",
-      "reference": "Luke 1:46-47",
-      "book": "Luke",
-      "chapter": 1,
-      "verse": "46",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/LUK.1.46-47"
-    },
-    {
-      "date": "2025-12-22",
-      "reference": "Luke 2:7",
-      "book": "Luke",
-      "chapter": 2,
-      "verse": "7",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://www.bible.com/bible/111/LUK.2.7"
-    },
-    {
-      "date": "2025-12-23",
-      "reference": "Luke 2:9-10",
-      "book": "Luke",
-      "chapter": 2,
-      "verse": "9",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/LUK.2.9+LUK.2.10"
-    },
-    {
-      "date": "2025-12-24",
-      "reference": "Luke 2:11",
-      "book": "Luke",
-      "chapter": 2,
-      "verse": "11",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/LUK.2.11"
-    },
-    {
-      "date": "2025-12-25",
-      "reference": "Isaiah 9:6",
-      "book": "Isaiah",
-      "chapter": 9,
-      "verse": "6",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/ISA.9.6"
-    },
-    {
-      "date": "2025-12-26",
-      "reference": "2 Thessalonians 3:3",
-      "book": "2 Thessalonians",
-      "chapter": 3,
-      "verse": "3",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/2TH.3.3"
-    },
-    {
-      "date": "2025-12-27",
-      "reference": "Romans 10:9",
-      "book": "Romans",
-      "chapter": 10,
-      "verse": "9",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/ROM.10.9"
-    },
-    {
-      "date": "2025-12-28",
-      "reference": "2 Corinthians 9:6",
-      "book": "2 Corinthians",
-      "chapter": 9,
-      "verse": "6",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/2CO.9.6"
-    },
-    {
-      "date": "2025-12-29",
-      "reference": "1 Kings 8:61",
-      "book": "1 Kings",
-      "chapter": 8,
-      "verse": "61",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/1KI.8.61"
-    },
-    {
-      "date": "2025-12-30",
-      "reference": "2 Corinthians 5:17",
-      "book": "2 Corinthians",
-      "chapter": 5,
-      "verse": "17",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/2CO.5.17"
-    },
-    {
-      "date": "2025-12-31",
-      "reference": "John 1:5",
-      "book": "John",
-      "chapter": 1,
-      "verse": "5",
-      "bibleId": "de4e12af7f28f599-02",
-      "url": "https://bible.com/bible/111/JHN.1.5"
-    },
     {
       "date": "2026-01-01",
       "reference": "Isaiah 43:18-19",
@@ -812,6 +533,285 @@
       "verse": "24",
       "bibleId": "de4e12af7f28f599-02",
       "url": "https://bible.com/bible/111/PRO.18.24"
+    },
+    {
+      "date": "2026-03-01",
+      "reference": "2 Peter 3:9",
+      "book": "2 Peter",
+      "chapter": 3,
+      "verse": "9",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/2PE.3.9"
+    },
+    {
+      "date": "2026-03-02",
+      "reference": "Romans 12:21",
+      "book": "Romans",
+      "chapter": 12,
+      "verse": "21",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/ROM.12.21"
+    },
+    {
+      "date": "2026-03-03",
+      "reference": "Joshua 1:9",
+      "book": "Joshua",
+      "chapter": 1,
+      "verse": "9",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/JOS.1.9"
+    },
+    {
+      "date": "2026-03-04",
+      "reference": "Psalm 143:8",
+      "book": "Psalm",
+      "chapter": 143,
+      "verse": "8",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PSA.143.8"
+    },
+    {
+      "date": "2026-03-05",
+      "reference": "Matthew 6:3",
+      "book": "Matthew",
+      "chapter": 6,
+      "verse": "3",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/MAT.6.3"
+    },
+    {
+      "date": "2026-03-06",
+      "reference": "2 Corinthians 4:18",
+      "book": "2 Corinthians",
+      "chapter": 4,
+      "verse": "18",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/2CO.4.18"
+    },
+    {
+      "date": "2026-03-07",
+      "reference": "2 Thessalonians 3:3",
+      "book": "2 Thessalonians",
+      "chapter": 3,
+      "verse": "3",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/2TH.3.3"
+    },
+    {
+      "date": "2026-03-08",
+      "reference": "Proverbs 31:25-26",
+      "book": "Proverbs",
+      "chapter": 31,
+      "verse": "25",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PRO.31.25-26"
+    },
+    {
+      "date": "2026-03-09",
+      "reference": "1 Peter 5:7",
+      "book": "1 Peter",
+      "chapter": 5,
+      "verse": "7",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/1PE.5.7"
+    },
+    {
+      "date": "2026-03-10",
+      "reference": "Proverbs 31:30",
+      "book": "Proverbs",
+      "chapter": 31,
+      "verse": "30",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PRO.31.30"
+    },
+    {
+      "date": "2026-03-11",
+      "reference": "John 10:11",
+      "book": "John",
+      "chapter": 10,
+      "verse": "11",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/JHN.10.11"
+    },
+    {
+      "date": "2026-03-12",
+      "reference": "Romans 5:1",
+      "book": "Romans",
+      "chapter": 5,
+      "verse": "1",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/ROM.5.1"
+    },
+    {
+      "date": "2026-03-13",
+      "reference": "Genesis 1:1",
+      "book": "Genesis",
+      "chapter": 1,
+      "verse": "1",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/GEN.1.1"
+    },
+    {
+      "date": "2026-03-14",
+      "reference": "Esther 4:14",
+      "book": "Esther",
+      "chapter": 4,
+      "verse": "14",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/EST.4.14"
+    },
+    {
+      "date": "2026-03-15",
+      "reference": "James 5:13",
+      "book": "James",
+      "chapter": 5,
+      "verse": "13",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/JAS.5.13"
+    },
+    {
+      "date": "2026-03-16",
+      "reference": "Psalm 105:1",
+      "book": "Psalm",
+      "chapter": 105,
+      "verse": "1",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PSA.105.1"
+    },
+    {
+      "date": "2026-03-17",
+      "reference": "Proverbs 3:5-6",
+      "book": "Proverbs",
+      "chapter": 3,
+      "verse": "5",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PRO.3.5-6"
+    },
+    {
+      "date": "2026-03-18",
+      "reference": "1 John 4:4",
+      "book": "1 John",
+      "chapter": 4,
+      "verse": "4",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/1JN.4.4"
+    },
+    {
+      "date": "2026-03-19",
+      "reference": "Psalm 23:6",
+      "book": "Psalm",
+      "chapter": 23,
+      "verse": "6",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PSA.23.6"
+    },
+    {
+      "date": "2026-03-20",
+      "reference": "Hebrews 4:9",
+      "book": "Hebrews",
+      "chapter": 4,
+      "verse": "9",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/HEB.4.9"
+    },
+    {
+      "date": "2026-03-21",
+      "reference": "Psalm 56:3",
+      "book": "Psalm",
+      "chapter": 56,
+      "verse": "3",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PSA.56.3"
+    },
+    {
+      "date": "2026-03-22",
+      "reference": "2 Corinthians 7:10",
+      "book": "2 Corinthians",
+      "chapter": 7,
+      "verse": "10",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/2CO.7.10"
+    },
+    {
+      "date": "2026-03-23",
+      "reference": "Psalm 42:1",
+      "book": "Psalm",
+      "chapter": 42,
+      "verse": "1",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PSA.42.1"
+    },
+    {
+      "date": "2026-03-24",
+      "reference": "Matthew 7:8",
+      "book": "Matthew",
+      "chapter": 7,
+      "verse": "8",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/MAT.7.8"
+    },
+    {
+      "date": "2026-03-25",
+      "reference": "John 7:38",
+      "book": "John",
+      "chapter": 7,
+      "verse": "38",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/JHN.7.38"
+    },
+    {
+      "date": "2026-03-26",
+      "reference": "Jeremiah 29:13",
+      "book": "Jeremiah",
+      "chapter": 29,
+      "verse": "13",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/JER.29.13"
+    },
+    {
+      "date": "2026-03-27",
+      "reference": "Romans 15:5",
+      "book": "Romans",
+      "chapter": 15,
+      "verse": "5",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/ROM.15.5"
+    },
+    {
+      "date": "2026-03-28",
+      "reference": "Psalm 3:3",
+      "book": "Psalm",
+      "chapter": 3,
+      "verse": "3",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/PSA.3.3"
+    },
+    {
+      "date": "2026-03-29",
+      "reference": "Luke 19:38",
+      "book": "Luke",
+      "chapter": 19,
+      "verse": "38",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/LUK.19.38"
+    },
+    {
+      "date": "2026-03-30",
+      "reference": "John 1:29",
+      "book": "John",
+      "chapter": 1,
+      "verse": "29",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/JHN.1.29"
+    },
+    {
+      "date": "2026-03-31",
+      "reference": "Matthew 20:28",
+      "book": "Matthew",
+      "chapter": 20,
+      "verse": "28",
+      "bibleId": "de4e12af7f28f599-02",
+      "url": "https://bible.com/bible/111/MAT.20.28"
     }
   ],
   "metadata": {
