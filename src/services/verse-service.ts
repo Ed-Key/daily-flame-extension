@@ -57,18 +57,25 @@ export class VerseService {
   }
 
   static async getVerse(reference: string, bibleId: string = BIBLE_VERSIONS.ESV): Promise<VerseData> {
+    // Normalize reference by replacing various dash types with standard hyphen
+    // This handles en dash (–), em dash (—), and other Unicode dashes
+    const normalizedReference = reference
+      .replace(/[\u2010-\u2015\u2212]/g, '-')  // Unicode dashes to ASCII hyphen
+      .replace(/\s+/g, ' ')  // Normalize whitespace
+      .trim();
+
     // Route ESV requests to ESV service
     if (bibleId === 'ESV') {
-      return ESVService.getVerse(reference);
+      return ESVService.getVerse(normalizedReference);
     }
-    
+
     // Route NLT requests to NLT service
     if (bibleId === 'NLT') {
-      return NLTService.getVerse(reference);
+      return NLTService.getVerse(normalizedReference);
     }
-    
+
     try {
-      const apiReference = this.convertReferenceToApiFormat(reference);
+      const apiReference = this.convertReferenceToApiFormat(normalizedReference);
       const url = `${this.BASE_URL}/bibles/${bibleId}/passages/${apiReference}?content-type=text&include-notes=false&include-titles=false&include-chapter-numbers=false&include-verse-numbers=false`;
       
       console.log('Daily Bread API Call:', {
@@ -445,29 +452,40 @@ export class VerseService {
       'revelation': 'REV', 'rev': 'REV'
     };
     
-    try {
-      const match = reference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+):(\d+)(?:-(\d+))?$/i);
-      if (!match) {
-        throw new Error(`Invalid reference format: ${reference}`);
-      }
-      
-      const [, bookName, chapter, startVerse, endVerse] = match;
-      const bookKey = bookName.toLowerCase().trim();
-      const bookCode = bookMappings[bookKey];
-      
-      if (!bookCode) {
-        throw new Error(`Unknown book: ${bookName}`);
-      }
-      
-      if (endVerse) {
-        return `${bookCode}.${chapter}.${startVerse}-${bookCode}.${chapter}.${endVerse}`;
-      } else {
-        return `${bookCode}.${chapter}.${startVerse}`;
-      }
-      
-    } catch (error) {
-      console.error('Reference conversion error:', error);
-      return reference.replace(/\s+/g, '');
+    // Validate and parse reference format
+    const match = reference.match(/^([123]?\s*[a-zA-Z]+)\s+(\d+):(\d+)(?:-(\d+))?$/i);
+
+    if (!match) {
+      // Provide detailed error for debugging
+      console.error('Invalid reference format:', {
+        reference,
+        expectedFormat: 'Book Chapter:Verse or Book Chapter:StartVerse-EndVerse',
+        examples: ['John 3:16', '1 Timothy 2:5-6', 'Psalms 23:1-4']
+      });
+      // Don't silently fail - throw the error up
+      throw new Error(`Invalid reference format: ${reference}. Expected format: "Book Chapter:Verse" or "Book Chapter:StartVerse-EndVerse"`);
+    }
+
+    const [, bookName, chapter, startVerse, endVerse] = match;
+    const bookKey = bookName.toLowerCase().trim();
+    const bookCode = bookMappings[bookKey];
+
+    if (!bookCode) {
+      console.error('Unknown book name:', {
+        bookName,
+        bookKey,
+        availableBooks: Object.keys(bookMappings).filter(k => !k.includes(' ')).sort()
+      });
+      throw new Error(`Unknown book: ${bookName}. Please check the book name spelling.`);
+    }
+
+    // Build the API reference in the correct format
+    if (endVerse) {
+      // Format: BOOK.CHAPTER.STARTVERSE-BOOK.CHAPTER.ENDVERSE
+      return `${bookCode}.${chapter}.${startVerse}-${bookCode}.${chapter}.${endVerse}`;
+    } else {
+      // Format: BOOK.CHAPTER.VERSE
+      return `${bookCode}.${chapter}.${startVerse}`;
     }
   }
 

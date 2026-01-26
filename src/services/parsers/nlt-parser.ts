@@ -1,5 +1,5 @@
 import { BaseBibleParser } from './base-parser';
-import { UnifiedChapter, PsalmMetadata } from '../../types/bible-formats';
+import { UnifiedChapter } from '../../types/bible-formats';
 import { NLTHTMLParser } from './nlt-html-parser';
 
 /**
@@ -37,7 +37,7 @@ export class NLTBibleParser extends BaseBibleParser {
 
     const passage = apiResponse.passages[0];
 
-    // Parse the HTML content
+    // Parse the HTML content - NLTHTMLParser now handles Psalm metadata extraction internally
     const unifiedChapter = this.htmlParser.parseToUnified(passage.content, passage.reference);
 
     // Add metadata
@@ -46,12 +46,14 @@ export class NLTBibleParser extends BaseBibleParser {
       translationName: 'New Living Translation'
     };
 
-    // Check if this is a Psalm and extract Psalm-specific metadata
-    const { bookName } = this.parseReference(passage.reference);
-    const isPsalm = bookName.toLowerCase() === 'psalm' || bookName.toLowerCase() === 'psalms';
-
-    if (isPsalm) {
-      unifiedChapter.psalmMetadata = this.extractPsalmMetadata(passage.content, unifiedChapter.chapterNumber);
+    // Extract musical notation from superscription if present
+    if (unifiedChapter.psalmMetadata?.superscription) {
+      const musicalMatch = unifiedChapter.psalmMetadata.superscription.match(
+        /(For the (?:choir )?director[^.]*)/i
+      );
+      if (musicalMatch) {
+        unifiedChapter.psalmMetadata.musicalNotation = musicalMatch[1];
+      }
     }
 
     unifiedChapter.rawResponse = apiResponse;
@@ -59,50 +61,10 @@ export class NLTBibleParser extends BaseBibleParser {
     this.debug('Parsed NLT chapter', {
       reference: unifiedChapter.reference,
       verseCount: unifiedChapter.verses.length,
-      isPsalm,
+      isPsalm: !!unifiedChapter.psalmMetadata,
       hasSelah: unifiedChapter.psalmMetadata?.hasSelah
     });
 
     return unifiedChapter;
-  }
-
-  /**
-   * Extract Psalm-specific metadata from NLT HTML
-   */
-  private extractPsalmMetadata(html: string, chapterNumber: string): PsalmMetadata {
-    const parsedMetadata = this.htmlParser.extractPsalmMetadata(html);
-
-    const metadata: PsalmMetadata = {
-      psalmNumber: chapterNumber,
-      hasSelah: parsedMetadata.hasSelah
-    };
-
-    if (parsedMetadata.superscription) {
-      metadata.superscription = parsedMetadata.superscription;
-
-      // Extract musical notation from superscription
-      const musicalMatch = parsedMetadata.superscription.match(/(For the (?:choir )?director[^.]*)/i);
-      if (musicalMatch) {
-        metadata.musicalNotation = musicalMatch[1];
-      }
-    }
-
-    // Convert Selah positions to section headings format for compatibility
-    if (parsedMetadata.selahPositions.length > 0) {
-      // Mark which verses have Selah after them
-      // This information is also available in the verse data itself
-    }
-
-    // Store Hebrew letters if present (Psalm 119)
-    if (parsedMetadata.hebrewLetters.length > 0) {
-      metadata.acrosticLetters = parsedMetadata.hebrewLetters;
-    }
-
-    // Store book division if present (Psalm 1, 42, 73, 89, 107)
-    if (parsedMetadata.bookDivision) {
-      metadata.bookDivision = parsedMetadata.bookDivision;
-    }
-
-    return metadata;
   }
 }

@@ -1770,6 +1770,22 @@ export const getShadowDomStyles = (): string => {
       color: white !important;
     }
 
+    /* Highlighted verse for poetry lines (NLT) */
+    .highlighted-verse .poetry-line-text {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      padding: 2px 4px !important;
+      border-radius: 3px !important;
+      color: white !important;
+    }
+
+    /* Highlighted verse for poetry lines (ESV) */
+    .highlighted-verse .verse-line {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      padding: 2px 4px !important;
+      border-radius: 3px !important;
+      color: white !important;
+    }
+
     /* Fade effect at bottom edge */
     .context-fade {
       position: absolute !important;
@@ -2105,11 +2121,43 @@ export const getShadowDomStyles = (): string => {
     .poetry-indent-1 {
       padding-left: 2em !important;
     }
-    
+
     .poetry-indent-2 {
       padding-left: 4em !important;
     }
-    
+
+    /* New poetry structure (NLT parser) */
+    .verse-with-poetry {
+      display: block !important;
+      margin-bottom: 0.5rem !important;
+    }
+
+    .poetry-line {
+      display: block !important;
+      line-height: 1.6 !important;
+    }
+
+    .poetry-line.poetry-indent-1 {
+      padding-left: 2em !important;
+    }
+
+    .poetry-line.poetry-indent-2 {
+      padding-left: 4em !important;
+    }
+
+    /* Stanza spacing - adds extra space before new stanzas */
+    .poetry-line.stanza-space-before {
+      margin-top: 1rem !important;
+    }
+
+    .verse-space-before {
+      margin-top: 1rem !important;
+    }
+
+    .poetry-line-text {
+      display: inline !important;
+    }
+
     /* Stanza break - extra spacing between stanzas */
     .stanza-break {
       margin-bottom: 2rem !important;

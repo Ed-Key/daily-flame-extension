@@ -5,8 +5,15 @@ export class ESVService {
   private static readonly BASE_URL = 'https://api.esv.org/v3';
 
   static async getVerse(reference: string): Promise<VerseData> {
+    // Normalize reference by replacing various dash types with standard hyphen
+    // This handles en dash (–), em dash (—), and other Unicode dashes
+    const normalizedReference = reference
+      .replace(/[\u2010-\u2015\u2212]/g, '-')  // Unicode dashes to ASCII hyphen
+      .replace(/\s+/g, ' ')  // Normalize whitespace
+      .trim();
+
     try {
-      const url = `${this.BASE_URL}/passage/text/?q=${encodeURIComponent(reference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=false`;
+      const url = `${this.BASE_URL}/passage/text/?q=${encodeURIComponent(normalizedReference)}&include-passage-references=false&include-footnotes=false&include-headings=false&include-verse-numbers=false`;
       
       const response = await fetch(url, {
         headers: {
