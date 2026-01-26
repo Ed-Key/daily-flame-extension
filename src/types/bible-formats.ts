@@ -4,6 +4,56 @@
 import { BibleTranslation } from './index';
 
 /**
+ * Represents a footnote extracted from the text
+ */
+export interface Footnote {
+  /** The marker character (e.g., "*") */
+  marker: string;
+  /** The reference this footnote applies to (e.g., "7:8") */
+  reference: string;
+  /** The footnote content text */
+  content: string;
+  /** Type of footnote for categorization */
+  type?: 'hebrew' | 'greek' | 'alternative' | 'cross-ref' | 'textualVariant' | 'other';
+}
+
+/**
+ * Represents a row in a Bible table (genealogies, census lists, etc.)
+ */
+export interface BibleTableRow {
+  /** Cell contents in order */
+  cells: string[];
+  /** Verse number if embedded in the row */
+  verseNumber?: string;
+}
+
+/**
+ * Represents a table structure in Bible text (genealogies, census lists, etc.)
+ */
+export interface BibleTable {
+  /** Optional header row */
+  headers?: string[];
+  /** Data rows */
+  rows: BibleTableRow[];
+  /** Which verse this table follows */
+  afterVerse?: string;
+}
+
+/**
+ * Represents a single line in poetry formatting
+ */
+export interface PoetryLine {
+  /** The text content of the line */
+  text: string;
+  /** Indentation level (1 = poet1, 2 = poet2) */
+  indentLevel: 1 | 2;
+  /** Whether there should be extra space before this line (-sp class) */
+  hasSpaceBefore?: boolean;
+  /** Whether this line contains words of Jesus */
+  isRedLetter?: boolean;
+}
+
+/**
  * Represents a single verse in the unified format
  */
 export interface UnifiedVerse {
@@ -52,6 +102,18 @@ export interface UnifiedVerse {
 
   /** Speaker label for dialogue (e.g., "Young Woman" in Song of Solomon) */
   speakerLabel?: string;
+
+  /** Footnotes extracted from this verse */
+  footnotes?: Footnote[];
+
+  /** Poetry lines with proper indent levels and spacing (replaces lines[] for NLT) */
+  poetryLines?: PoetryLine[];
+
+  /** Whether there should be extra space before this verse (-sp class in NLT) */
+  hasSpaceBefore?: boolean;
+
+  /** Whether this verse contains a Selah/Interlude marker */
+  hasSelah?: boolean;
 }
 
 /**
@@ -134,7 +196,10 @@ export interface UnifiedChapter {
   
   /** Psalm-specific metadata (only present for Psalms) */
   psalmMetadata?: PsalmMetadata;
-  
+
+  /** Tables extracted from chapter (genealogies, census lists, etc.) */
+  tables?: BibleTable[];
+
   /** Raw API response for debugging/fallback */
   rawResponse?: any;
 }

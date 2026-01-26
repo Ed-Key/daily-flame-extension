@@ -21,9 +21,10 @@ const ContextView: React.FC<ContextViewProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const { contextContainerRef, fadeOverlayRef, setupScrollListener } = useContextScroll({ showContext: true });
 
-  // Extract current verse number from reference
-  const currentVerseMatch = verse.reference.match(/:(\d+)/);
-  const currentVerseNumber = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
+  // Extract verse range from reference (e.g., "Psalm 3:3-4" -> startVerse=3, endVerse=4)
+  const currentVerseMatch = verse.reference.match(/:(\d+)(?:-(\d+))?/);
+  const startVerse = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
+  const endVerse = currentVerseMatch?.[2] ? parseInt(currentVerseMatch[2]) : startVerse;
 
   useEffect(() => {
     // Setup scroll listener when content loads
@@ -128,7 +129,8 @@ const ContextView: React.FC<ContextViewProps> = ({
               <div className="context-verses">
                 {renderUnifiedVerses({
                   chapterContent: chapterContent as UnifiedChapter,
-                  currentVerseNumber
+                  startVerse,
+                  endVerse
                 })}
               </div>
             </div>

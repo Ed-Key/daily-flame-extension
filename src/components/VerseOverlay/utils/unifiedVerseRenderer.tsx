@@ -1,16 +1,82 @@
 import React from 'react';
-import { UnifiedChapter, UnifiedVerse, PsalmMetadata } from '../../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine } from '../../../types/bible-formats';
+
+/**
+ * Render poetry lines with proper indentation and spacing
+ * Uses the new PoetryLine structure from the NLT parser
+ */
+function renderPoetryLines(
+  poetryLines: PoetryLine[],
+  verseNumber: string,
+  shouldShowVerseNumber: boolean,
+  isHighlighted: boolean,
+  hasSelah?: boolean
+): React.JSX.Element {
+  return (
+    <div
+      key={`verse-${verseNumber}`}
+      className={`verse-with-poetry ${isHighlighted ? 'highlighted-verse' : ''}`}
+    >
+      {poetryLines.map((line, lineIndex) => {
+        const lineClasses = [
+          'poetry-line',
+          `poetry-indent-${line.indentLevel}`,
+          line.hasSpaceBefore ? 'stanza-space-before' : '',
+        ].filter(Boolean).join(' ');
+
+        return (
+          <div key={`${verseNumber}-line-${lineIndex}`} className={lineClasses}>
+            {lineIndex === 0 && shouldShowVerseNumber && (
+              <sup className="context-verse-number">{verseNumber}</sup>
+            )}
+            <span className="poetry-line-text">
+              {line.isRedLetter ? (
+                <span className="words-of-jesus">{line.text}</span>
+              ) : (
+                line.text
+              )}
+            </span>
+          </div>
+        );
+      })}
+      {hasSelah && <span className="selah-marker">Selah</span>}
+    </div>
+  );
+}
+
+/**
+ * Check if a verse number falls within the highlighted range
+ */
+function isVerseInRange(verseNum: number, startVerse: number | null, endVerse: number | null): boolean {
+  if (startVerse === null || endVerse === null) return false;
+  return verseNum >= startVerse && verseNum <= endVerse;
+}
+
+/**
+ * Check if a verse should be skipped (empty text)
+ * This handles NLT textual variants and list sections where verse content is empty
+ * The footnote on the previous verse typically explains why
+ */
+function shouldSkipVerse(verse: UnifiedVerse): boolean {
+  // Skip verses with no text content
+  // These are typically:
+  // 1. Textual variants (verses in later manuscripts not included in NLT)
+  // 2. List/table sections where content is formatted differently
+  return !verse.text || verse.text.trim().length === 0;
+}
 
 /**
  * Renders verses from unified chapter format
  * Maintains translation-specific styling while using standardized data
  */
-export const renderUnifiedVerses = ({ 
-  chapterContent, 
-  currentVerseNumber 
+export const renderUnifiedVerses = ({
+  chapterContent,
+  startVerse,
+  endVerse
 }: {
   chapterContent: UnifiedChapter;
-  currentVerseNumber: number | null;
+  startVerse: number | null;
+  endVerse: number | null;
 }): React.JSX.Element[] => {
   if (!chapterContent || !chapterContent.verses || chapterContent.verses.length === 0) {
     return [];
@@ -25,25 +91,26 @@ export const renderUnifiedVerses = ({
 
   // For ESV and NLT, use special formatting with floating chapter numbers
   if (useESVFormatting || useNLTFormatting) {
-    return renderESVStyle(verses, chapterNumber, currentVerseNumber, translation, psalmMetadata);
+    return renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
   }
-  
+
   // For KJV/ASV, each verse is its own paragraph
   if (useKJVFormatting) {
-    return renderKJVStyle(verses, currentVerseNumber, psalmMetadata);
+    return renderKJVStyle(verses, startVerse, endVerse, psalmMetadata);
   }
-  
+
   // For other translations, group verses by natural paragraphs
-  return renderStandardStyle(verses, currentVerseNumber, psalmMetadata);
+  return renderStandardStyle(verses, startVerse, endVerse, psalmMetadata);
 };
 
 /**
  * Render ESV/NLT style with floating chapter number and grouped paragraphs
  */
 function renderESVStyle(
-  verses: UnifiedVerse[], 
-  chapterNumber: string, 
-  currentVerseNumber: number | null,
+  verses: UnifiedVerse[],
+  chapterNumber: string,
+  startVerse: number | null,
+  endVerse: number | null,
   translation: string,
   psalmMetadata?: PsalmMetadata
 ): React.JSX.Element[] {
@@ -62,10 +129,16 @@ function renderESVStyle(
   let paragraphKey = 0;
   let isFirstParagraph = true;
   let lastHeading: string | undefined;
-  
+
   verses.forEach((verse, index) => {
-    const isHighlighted = parseInt(verse.number) === currentVerseNumber;
-    
+    // Skip empty verses (textual variants, list sections)
+    if (shouldSkipVerse(verse)) {
+      return;
+    }
+
+    const verseNum = parseInt(verse.number);
+    const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
+
     // Handle section headings
     if (verse.heading && verse.heading !== lastHeading) {
       // Finish current paragraph if any
@@ -93,43 +166,59 @@ function renderESVStyle(
       verse.isSelah ? 'verse-with-selah' : ''
     ].filter(Boolean).join(' ');
     
-    // Create verse element
-    const verseElement = verse.lines && verse.lines.length > 0 ? (
-      // For verses with line breaks (poetry), render each line separately
-      <div key={`verse-${verse.number}`} className={`verse-with-lines ${verseClasses}`}>
-        {verse.lines.map((line, lineIndex) => (
-          <div key={`${verse.number}-line-${lineIndex}`} className="verse-line-wrapper">
-            {lineIndex === 0 && shouldShowVerseNumber && (
-              <sup className="context-verse-number">{verse.number}</sup>
+    // Create verse element - prioritize new poetryLines structure, fall back to old lines format
+    let verseElement: React.JSX.Element;
+
+    if (verse.poetryLines && verse.poetryLines.length > 0) {
+      // New poetry format with proper spacing info (from NLT parser)
+      verseElement = renderPoetryLines(
+        verse.poetryLines,
+        verse.number,
+        shouldShowVerseNumber,
+        isHighlighted,
+        verse.hasSelah || verse.isSelah
+      );
+    } else if (verse.lines && verse.lines.length > 0) {
+      // Legacy format: verse.lines is string[] (for ESV compatibility)
+      verseElement = (
+        <div key={`verse-${verse.number}`} className={`verse-with-lines ${verseClasses}`}>
+          {verse.lines.map((line, lineIndex) => (
+            <div key={`${verse.number}-line-${lineIndex}`} className="verse-line-wrapper">
+              {lineIndex === 0 && shouldShowVerseNumber && (
+                <sup className="context-verse-number">{verse.number}</sup>
+              )}
+              <span className={`verse-line ${lineIndex === 1 ? 'continuation-line' : ''}`}>
+                {verse.isRedLetter ? (
+                  <span className="words-of-jesus">{line}</span>
+                ) : (
+                  line
+                )}
+                {verse.lines && lineIndex === verse.lines.length - 1 && verse.isSelah && (
+                  <span className="selah-marker">Selah</span>
+                )}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      // Regular verse rendering (prose, no line breaks)
+      const spaceBeforeClass = verse.hasSpaceBefore ? 'verse-space-before' : '';
+      verseElement = (
+        <span key={`verse-${verse.number}`} className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
+          {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+          <span className="verse-text-content">
+            {verse.isRedLetter ? (
+              <span className="words-of-jesus">{verse.text}</span>
+            ) : (
+              verse.text
             )}
-            <span className={`verse-line ${lineIndex === 1 ? 'continuation-line' : ''}`}>
-              {verse.isRedLetter ? (
-                <span className="words-of-jesus">{line}</span>
-              ) : (
-                line
-              )}
-              {verse.lines && lineIndex === verse.lines.length - 1 && verse.isSelah && (
-                <span className="selah-marker">Selah</span>
-              )}
-            </span>
-          </div>
-        ))}
-      </div>
-    ) : (
-      // Regular verse rendering (no line breaks)
-      <span key={`verse-${verse.number}`} className={verseClasses}>
-        {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
-        <span className="verse-text-content">
-          {verse.isRedLetter ? (
-            <span className="words-of-jesus">{verse.text}</span>
-          ) : (
-            verse.text
-          )}
-          {verse.isSelah && <span className="selah-marker">Selah</span>}
-          {' '}
+            {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
+            {' '}
+          </span>
         </span>
-      </span>
-    );
+      );
+    }
     
     currentParagraph.push(verseElement);
     
@@ -189,7 +278,7 @@ function renderESVStyle(
 /**
  * Render KJV/ASV style where each verse is its own paragraph
  */
-function renderKJVStyle(verses: UnifiedVerse[], currentVerseNumber: number | null, psalmMetadata?: PsalmMetadata): React.JSX.Element[] {
+function renderKJVStyle(verses: UnifiedVerse[], startVerse: number | null, endVerse: number | null, psalmMetadata?: PsalmMetadata): React.JSX.Element[] {
   const elements: React.JSX.Element[] = [];
   
   // Add Psalm superscription if present
@@ -201,10 +290,13 @@ function renderKJVStyle(verses: UnifiedVerse[], currentVerseNumber: number | nul
     );
   }
   
-  const verseElements = verses.map(verse => {
+  // Filter out empty verses (textual variants, list sections)
+  const filteredVerses = verses.filter(verse => !shouldSkipVerse(verse));
+
+  const verseElements = filteredVerses.map(verse => {
     const verseNum = parseInt(verse.number);
-    const isHighlighted = verseNum === currentVerseNumber;
-    
+    const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
+
     // Handle section headings
     const elements: React.JSX.Element[] = [];
     if (verse.heading) {
@@ -249,7 +341,7 @@ function renderKJVStyle(verses: UnifiedVerse[], currentVerseNumber: number | nul
 /**
  * Render standard style with verses grouped in paragraphs
  */
-function renderStandardStyle(verses: UnifiedVerse[], currentVerseNumber: number | null, psalmMetadata?: PsalmMetadata): React.JSX.Element[] {
+function renderStandardStyle(verses: UnifiedVerse[], startVerse: number | null, endVerse: number | null, psalmMetadata?: PsalmMetadata): React.JSX.Element[] {
   const paragraphs: React.JSX.Element[] = [];
   
   // Add Psalm superscription if present
@@ -263,11 +355,16 @@ function renderStandardStyle(verses: UnifiedVerse[], currentVerseNumber: number 
   
   let currentParagraph: React.JSX.Element[] = [];
   let paragraphKey = 0;
-  
+
   verses.forEach((verse, index) => {
+    // Skip empty verses (textual variants, list sections)
+    if (shouldSkipVerse(verse)) {
+      return;
+    }
+
     const verseNum = parseInt(verse.number);
-    const isHighlighted = verseNum === currentVerseNumber;
-    
+    const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
+
     // Handle section headings
     if (verse.heading) {
       // Finish current paragraph
