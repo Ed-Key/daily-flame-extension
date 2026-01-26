@@ -1,0 +1,52 @@
+{
+  "pentateuch": {
+    "total": 5,
+    "success": 5,
+    "failed": []
+  },
+  "historical": {
+    "total": 12,
+    "success": 12,
+    "failed": []
+  },
+  "poetryWisdom": {
+    "total": 5,
+    "success": 5,
+    "failed": []
+  },
+  "majorProphets": {
+    "total": 5,
+    "success": 5,
+    "failed": []
+  },
+  "minorProphets": {
+    "total": 12,
+    "success": 12,
+    "failed": []
+  },
+  "gospels": {
+    "total": 4,
+    "success": 4,
+    "failed": []
+  },
+  "acts": {
+    "total": 1,
+    "success": 1,
+    "failed": []
+  },
+  "paulineEpistles": {
+    "total": 13,
+    "success": 13,
+    "failed": []
+  },
+  "generalEpistles": {
+    "total": 8,
+    "success": 8,
+    "failed": []
+  },
+  "revelation": {
+    "total": 1,
+    "success": 1,
+    "failed": []
+  }
+}

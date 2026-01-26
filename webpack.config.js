@@ -4,6 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+  // Exclude jsdom from bundle - it's only used in Node.js tests, not in the extension
+  externals: {
+    jsdom: 'commonjs jsdom',
+  },
   entry: {
     content: './src/content/monitor.ts',
     'verse-app': './src/content/verse-app.ts',
