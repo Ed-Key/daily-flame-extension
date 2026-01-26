@@ -40,11 +40,17 @@ export interface UnifiedVerse {
   
   /** Whether there should be a stanza break after this verse */
   stanzaBreakAfter?: boolean;
-  
-  /** Hebrew letter for acrostic Psalms (e.g., "א" for Psalm 119) */
+
+  /** Whether there should be a stanza break before this verse */
+  stanzaBreakBefore?: boolean;
+
+  /** Hebrew letter for acrostic Psalms (e.g., "Aleph" for Psalm 119 in NLT) */
   acrosticLetter?: string;
-  
-  /** Speaker label for dialogue Psalms (e.g., "The LORD says:") */
+
+  /** Alias for acrosticLetter - Hebrew letter heading (e.g., "Aleph", "Beth") */
+  hebrewLetter?: string;
+
+  /** Speaker label for dialogue (e.g., "Young Woman" in Song of Solomon) */
   speakerLabel?: string;
 }
 
@@ -84,6 +90,15 @@ export interface PsalmMetadata {
     letter: string;
     verses: string[];
   }>;
+
+  /** Hebrew acrostic letters with their positions (NLT Psalm 119) */
+  acrosticLetters?: Array<{
+    letter: string;
+    afterVerse: string;
+  }>;
+
+  /** Psalter book division (e.g., "Book One (Psalms 1-41)") */
+  bookDivision?: string;
 }
 
 /**
