@@ -41,6 +41,47 @@ Daily Bread is a Chrome extension (Manifest V3) that displays daily Bible verses
 2. Check for any build errors and fix them immediately
 3. Only mark tasks as complete after successful build
 
+## Git Branching Workflow
+
+**Branch Structure:**
+```
+main (production - clean, shipped code)
+  └── dev (development base - has debug tools, test fixtures, 12MB Bible data)
+        └── feature/xyz (feature branches created from dev)
+```
+
+**Key Points:**
+- `main` = Clean production code (what gets shipped/released)
+- `dev` = Development environment with debug UI, test fixtures, and tooling
+- `dev` has permanent stuff (debug tools, fixtures) that should NEVER go to `main`
+
+**Workflow:**
+1. `git checkout dev` → Start from dev branch
+2. `git checkout -b feature/my-feature` → Create feature branch off dev
+3. Develop and test using debug tools on the feature branch
+4. When done, merge feature branch back to `dev`
+5. Test thoroughly on `dev` with debug UI
+6. **Cherry-pick** clean feature commits to `main` (excludes debug code)
+
+**Why Cherry-Pick Instead of Merge:**
+Since `dev` contains debug UI and large test fixtures that shouldn't be in production, we cherry-pick specific commits to `main` rather than merging the entire branch.
+
+**Quick Commands:**
+```bash
+# Start new feature
+git checkout dev
+git checkout -b feature/something
+
+# When done, merge to dev
+git checkout dev
+git merge feature/something
+
+# Release to main (cherry-pick specific commits)
+git checkout main
+git cherry-pick <commit-hash>
+git push origin main
+```
+
 ## Architecture Overview
 
 ### Chrome Extension Structure (Manifest V3)
