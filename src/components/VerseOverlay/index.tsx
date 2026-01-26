@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { VerseOverlayProps, BIBLE_VERSIONS, BibleTranslation, VerseData } from '../../types';
@@ -7,6 +7,8 @@ import { UserPreferencesService } from '../../services/user-preferences-service'
 import { useAuth } from '../AuthContext';
 import { useToast } from '../ToastContext';
 import { SignInForm, SignUpForm, VerificationReminder } from '../forms';
+import { NLTHTMLParser } from '../../services/parsers/nlt-html-parser';
+import { DebugModeState, DebugFixture } from './types';
 
 // Import modularized components
 import ProfileDropdown from './components/ProfileDropdown';
@@ -55,7 +57,20 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   // Settings modal state
   const [showSettings, setShowSettings] = useState(false);
   const [currentTranslation, setCurrentTranslation] = useState<BibleTranslation>('ESV');
-  
+
+  // Debug mode state for testing NLT fixtures
+  const [debugMode, setDebugMode] = useState<DebugModeState>({
+    enabled: false,
+    fixtures: null,
+    currentCategory: '',
+    currentChapterKey: '',
+    allChapters: [],
+    currentIndex: 0
+  });
+
+  // NLT HTML Parser instance for debug mode
+  const nltParserRef = useRef<NLTHTMLParser | null>(null);
+
   // Debug logging
   useEffect(() => {
     console.log('VerseOverlay: Auth state changed', { user, isAdmin });
@@ -680,6 +695,131 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     }
   };
 
+  // Debug mode handlers
+  const loadDebugFixtures = useCallback(async (): Promise<{
+    fixtures: Record<string, Record<string, DebugFixture>>;
+    allChapters: Array<{ category: string; key: string; reference: string }>;
+  } | null> => {
+    if (debugMode.fixtures) {
+      return { fixtures: debugMode.fixtures, allChapters: debugMode.allChapters };
+    }
+
+    try {
+      const fixtureUrl = chrome.runtime.getURL('fixtures/all-nlt-responses.json');
+      const response = await fetch(fixtureUrl);
+      const fixtures = await response.json() as Record<string, Record<string, DebugFixture>>;
+
+      // Build flat array of all chapters
+      const allChapters: Array<{ category: string; key: string; reference: string }> = [];
+      Object.entries(fixtures).forEach(([category, chapters]) => {
+        Object.entries(chapters).forEach(([key, data]) => {
+          if (!data.error) {
+            allChapters.push({ category, key, reference: data.reference });
+          }
+        });
+      });
+
+      return { fixtures, allChapters };
+    } catch (error) {
+      console.error('Failed to load debug fixtures:', error);
+      showToast('Failed to load debug fixtures', 'error');
+      return null;
+    }
+  }, [debugMode.fixtures, debugMode.allChapters, showToast]);
+
+  const parseFixtureToChapter = useCallback((fixture: DebugFixture) => {
+    if (!nltParserRef.current) {
+      nltParserRef.current = new NLTHTMLParser();
+    }
+
+    try {
+      const unifiedChapter = nltParserRef.current.parseToUnified(fixture.html, fixture.reference);
+      return unifiedChapter;
+    } catch (error) {
+      console.error('Failed to parse fixture:', error);
+      showToast(`Failed to parse: ${fixture.reference}`, 'error');
+      return null;
+    }
+  }, [showToast]);
+
+  const handleToggleDebugMode = useCallback(async () => {
+    if (!debugMode.enabled) {
+      // Enable debug mode - load fixtures
+      const result = await loadDebugFixtures();
+      if (!result) return;
+
+      const { fixtures, allChapters } = result;
+
+      // Start with first chapter
+      const first = allChapters[0];
+      const fixture = fixtures[first.category][first.key];
+      const chapter = parseFixtureToChapter(fixture);
+
+      setDebugMode({
+        enabled: true,
+        fixtures,
+        currentCategory: first.category,
+        currentChapterKey: first.key,
+        allChapters,
+        currentIndex: 0
+      });
+
+      if (chapter) {
+        setChapterContent(chapter);
+        setContextTranslation('NLT');
+      }
+    } else {
+      // Disable debug mode - restore normal view
+      setDebugMode(prev => ({
+        ...prev,
+        enabled: false
+      }));
+
+      // Reload actual chapter
+      if (chapterContent?.reference) {
+        setContextLoading(true);
+        try {
+          const fullChapter = await VerseService.getChapter(
+            chapterContent.reference,
+            BIBLE_VERSIONS[contextTranslation]
+          );
+          setChapterContent(fullChapter);
+        } catch (error) {
+          console.error('Error reloading chapter:', error);
+        } finally {
+          setContextLoading(false);
+        }
+      }
+    }
+  }, [debugMode, loadDebugFixtures, parseFixtureToChapter, chapterContent, contextTranslation]);
+
+  const handleDebugNav = useCallback((direction: 'prev' | 'next') => {
+    if (!debugMode.enabled || !debugMode.fixtures) return;
+
+    const newIndex = direction === 'prev'
+      ? Math.max(0, debugMode.currentIndex - 1)
+      : Math.min(debugMode.allChapters.length - 1, debugMode.currentIndex + 1);
+
+    if (newIndex === debugMode.currentIndex) return;
+
+    const chapter = debugMode.allChapters[newIndex];
+    const fixture = debugMode.fixtures[chapter.category][chapter.key];
+    const parsed = parseFixtureToChapter(fixture);
+
+    if (parsed) {
+      setDebugMode(prev => ({
+        ...prev,
+        currentCategory: chapter.category,
+        currentChapterKey: chapter.key,
+        currentIndex: newIndex
+      }));
+      setChapterContent(parsed);
+    }
+  }, [debugMode, parseFixtureToChapter]);
+
+  const handleDebugPrev = useCallback(() => handleDebugNav('prev'), [handleDebugNav]);
+  const handleDebugNext = useCallback(() => handleDebugNav('next'), [handleDebugNav]);
+
   // Handle back from context view
   const handleBackFromContext = () => {
     // Animate modal back to original size
@@ -691,7 +831,12 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
         ease: "power2.out"
       });
     }
-    
+
+    // Reset debug mode when going back
+    if (debugMode.enabled) {
+      setDebugMode(prev => ({ ...prev, enabled: false }));
+    }
+
     setShowContext(false);
     
     // Use requestAnimationFrame to wait for the next paint
@@ -800,6 +945,10 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 onBack={handleBackFromContext}
                 onDone={handleAnimatedDismiss}
                 onTranslationChange={handleContextTranslationChange}
+                debugMode={debugMode}
+                onToggleDebugMode={handleToggleDebugMode}
+                onDebugPrev={handleDebugPrev}
+                onDebugNext={handleDebugNext}
               />
             )}
             </div>

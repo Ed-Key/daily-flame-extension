@@ -28,6 +28,21 @@ export interface VerseDisplayProps {
   isAdmin?: boolean;
 }
 
+export interface DebugFixture {
+  reference: string;
+  html: string;
+  error?: string;
+}
+
+export interface DebugModeState {
+  enabled: boolean;
+  fixtures: Record<string, Record<string, DebugFixture>> | null;
+  currentCategory: string;
+  currentChapterKey: string;
+  allChapters: Array<{ category: string; key: string; reference: string }>;
+  currentIndex: number;
+}
+
 export interface ContextViewProps {
   verse: VerseData;
   chapterContent: any; // Chapter content from API
@@ -36,6 +51,11 @@ export interface ContextViewProps {
   onBack: () => void;
   onDone: () => void;
   onTranslationChange: (translation: string) => void;
+  // Debug mode props
+  debugMode?: DebugModeState;
+  onToggleDebugMode?: () => void;
+  onDebugPrev?: () => void;
+  onDebugNext?: () => void;
 }
 
 export interface ThemeToggleProps {

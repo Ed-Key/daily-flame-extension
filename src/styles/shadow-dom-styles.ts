@@ -2227,6 +2227,78 @@ export const getShadowDomStyles = (): string => {
     }
 
 
+    /* Debug Controls for Testing NLT Fixtures */
+    .debug-controls {
+      position: absolute !important;
+      top: 20px !important;
+      right: 80px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      z-index: 100 !important;
+    }
+
+    .debug-btn {
+      background-color: rgba(255, 165, 0, 0.3) !important;
+      color: #ffa500 !important;
+      border: 1px solid rgba(255, 165, 0, 0.5) !important;
+      padding: 6px 12px !important;
+      border-radius: 4px !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+    }
+
+    .debug-btn:hover {
+      background-color: rgba(255, 165, 0, 0.5) !important;
+    }
+
+    .debug-btn.active {
+      background-color: rgba(255, 165, 0, 0.6) !important;
+      border-color: #ffa500 !important;
+    }
+
+    .debug-nav-btn {
+      background-color: rgba(100, 100, 100, 0.3) !important;
+      color: white !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      padding: 6px 12px !important;
+      border-radius: 4px !important;
+      font-size: 12px !important;
+      cursor: pointer !important;
+      transition: all 0.2s !important;
+    }
+
+    .debug-nav-btn:hover {
+      background-color: rgba(100, 100, 100, 0.5) !important;
+    }
+
+    .debug-nav-btn:disabled {
+      opacity: 0.4 !important;
+      cursor: not-allowed !important;
+    }
+
+    .debug-info {
+      color: rgba(255, 165, 0, 0.8) !important;
+      font-size: 11px !important;
+      font-weight: 500 !important;
+      min-width: 150px !important;
+      text-align: center !important;
+    }
+
+    .debug-badge {
+      position: absolute !important;
+      top: -5px !important;
+      right: -5px !important;
+      background-color: #ffa500 !important;
+      color: black !important;
+      font-size: 9px !important;
+      font-weight: bold !important;
+      padding: 2px 5px !important;
+      border-radius: 10px !important;
+    }
+
     /* Component-specific styles */
     ${profileDropdownStyles}
     ${translationDropdownStyles}

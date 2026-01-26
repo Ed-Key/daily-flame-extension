@@ -78,6 +78,11 @@ module.exports = {
           from: 'public/icon-*.png',
           to: '[name][ext]',
         },
+        {
+          from: 'public/fixtures',
+          to: 'fixtures',
+          noErrorOnMissing: true,
+        },
       ],
     }),
   ],

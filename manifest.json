@@ -52,7 +52,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["auth.html", "auth.js", "auth.css", "*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map", "*.png"],
+      "resources": ["auth.html", "auth.js", "auth.css", "*.js", "*.chunk.js", "*.js.map", "*.chunk.js.map", "*.png", "fixtures/*.json"],
       "matches": ["<all_urls>"]
     }
   ]

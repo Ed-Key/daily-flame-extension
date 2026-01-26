@@ -1,17 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { BibleTranslation, UnifiedChapter } from '../../../types';
 import { ContextViewProps } from '../types';
-import { renderContextVerses } from '../utils/verseRenderer';
 import { renderUnifiedVerses } from '../utils/unifiedVerseRenderer';
 import { useContextScroll } from '../hooks/useContextScroll';
-
-// Helper to check if chapter content is in unified format
-const isUnifiedFormat = (chapterContent: any): chapterContent is UnifiedChapter => {
-  return chapterContent && 
-    'verses' in chapterContent && 
-    Array.isArray(chapterContent.verses) &&
-    'translation' in chapterContent;
-};
 
 const ContextView: React.FC<ContextViewProps> = ({
   verse,
@@ -20,7 +11,12 @@ const ContextView: React.FC<ContextViewProps> = ({
   contextTranslation,
   onBack,
   onDone,
-  onTranslationChange
+  onTranslationChange,
+  // Debug mode props
+  debugMode,
+  onToggleDebugMode,
+  onDebugPrev,
+  onDebugNext
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const { contextContainerRef, fadeOverlayRef, setupScrollListener } = useContextScroll({ showContext: true });
@@ -50,7 +46,7 @@ const ContextView: React.FC<ContextViewProps> = ({
 
   return (
     <div className="context-view-container" ref={modalRef}>
-      <button 
+      <button
         className="context-back-btn"
         onClick={handleBackClick}
       >
@@ -59,6 +55,42 @@ const ContextView: React.FC<ContextViewProps> = ({
         </svg>
         Back
       </button>
+
+      {/* Debug Controls */}
+      {onToggleDebugMode && (
+        <div className="debug-controls">
+          <button
+            className={`debug-btn ${debugMode?.enabled ? 'active' : ''}`}
+            onClick={onToggleDebugMode}
+          >
+            {debugMode?.enabled ? '✓ Debug Mode' : 'Test Fixtures'}
+          </button>
+
+          {debugMode?.enabled && (
+            <>
+              <button
+                className="debug-nav-btn"
+                onClick={onDebugPrev}
+                disabled={debugMode.currentIndex <= 0}
+              >
+                ◀ Prev
+              </button>
+              <span className="debug-info">
+                {debugMode.allChapters[debugMode.currentIndex]?.reference || 'N/A'}
+                <br />
+                <small>({debugMode.currentIndex + 1}/{debugMode.allChapters.length})</small>
+              </span>
+              <button
+                className="debug-nav-btn"
+                onClick={onDebugNext}
+                disabled={debugMode.currentIndex >= debugMode.allChapters.length - 1}
+              >
+                Next ▶
+              </button>
+            </>
+          )}
+        </div>
+      )}
 
       {contextLoading ? (
         <div className="context-loading-container">
@@ -94,17 +126,10 @@ const ContextView: React.FC<ContextViewProps> = ({
           <div className="context-scroll-container">
             <div className="context-content" ref={contextContainerRef}>
               <div className="context-verses">
-                {isUnifiedFormat(chapterContent) ? 
-                  renderUnifiedVerses({ 
-                    chapterContent: chapterContent as UnifiedChapter, 
-                    currentVerseNumber 
-                  }) :
-                  renderContextVerses({ 
-                    chapterContent, 
-                    currentVerseNumber, 
-                    contextTranslation 
-                  })
-                }
+                {renderUnifiedVerses({
+                  chapterContent: chapterContent as UnifiedChapter,
+                  currentVerseNumber
+                })}
               </div>
             </div>
             <div className="context-fade" ref={fadeOverlayRef}></div>
