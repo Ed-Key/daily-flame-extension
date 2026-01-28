@@ -19,7 +19,7 @@ const ContextView: React.FC<ContextViewProps> = ({
   onDebugNext
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const { contextContainerRef, fadeOverlayRef, setupScrollListener } = useContextScroll({ showContext: true });
+  const { contextContainerRef, setupScrollListener } = useContextScroll({ showContext: true });
 
   // Extract verse range from reference (e.g., "Psalm 3:3-4" -> startVerse=3, endVerse=4)
   const currentVerseMatch = verse.reference.match(/:(\d+)(?:-(\d+))?/);
@@ -134,7 +134,6 @@ const ContextView: React.FC<ContextViewProps> = ({
                 })}
               </div>
             </div>
-            <div className="context-fade" ref={fadeOverlayRef}></div>
           </div>
 
           <div className="context-button-fixed">

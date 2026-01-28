@@ -6,30 +6,9 @@ interface UseContextScrollProps {
 
 export const useContextScroll = ({ showContext }: UseContextScrollProps) => {
   const contextContainerRef = useRef<HTMLDivElement>(null);
-  const fadeOverlayRef = useRef<HTMLDivElement>(null);
 
   const handleContextScroll = useCallback(() => {
-    if (contextContainerRef.current && fadeOverlayRef.current) {
-      const scrollHeight = contextContainerRef.current.scrollHeight;
-      const scrollTop = contextContainerRef.current.scrollTop;
-      const clientHeight = contextContainerRef.current.clientHeight;
-      const scrollBottom = scrollHeight - scrollTop - clientHeight;
-      
-      // console.log('Scroll debug:', {
-      //   scrollHeight,
-      //   scrollTop,
-      //   clientHeight,
-      //   scrollBottom,
-      //   shouldHide: scrollBottom <= 5
-      // });
-      
-      // If we're within 5 pixels of the bottom, hide the fade
-      if (scrollBottom <= 5) {
-        fadeOverlayRef.current.classList.add('hidden');
-      } else {
-        fadeOverlayRef.current.classList.remove('hidden');
-      }
-    }
+    // Scroll handling - fade effect removed
   }, []);
 
   useEffect(() => {
@@ -67,7 +46,6 @@ export const useContextScroll = ({ showContext }: UseContextScrollProps) => {
 
   return {
     contextContainerRef,
-    fadeOverlayRef,
     setupScrollListener,
     cleanupScrollListener,
     handleContextScroll
