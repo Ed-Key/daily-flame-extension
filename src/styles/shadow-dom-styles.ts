@@ -1664,7 +1664,7 @@ export const getShadowDomStyles = (): string => {
 
     .context-verses {
       position: relative !important;
-      padding-bottom: 100px !important; /* Extra space to ensure content isn't hidden by fade */
+      padding-bottom: 24px !important; /* Normal bottom padding */
     }
 
     .context-paragraph {
@@ -1786,30 +1786,6 @@ export const getShadowDomStyles = (): string => {
       color: white !important;
     }
 
-    /* Fade effect at bottom edge */
-    .context-fade {
-      position: absolute !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      height: 80px !important;
-      background: linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0) 0%, 
-        rgba(0, 0, 0, 0.475) 20%, 
-        rgba(0, 0, 0, 0.76) 50%, 
-        rgba(0, 0, 0, 0.9025) 80%, 
-        rgba(0, 0, 0, 0.95) 100%
-      ) !important;
-      pointer-events: none !important;
-      transition: opacity 0.3s ease !important;
-      z-index: 2 !important;
-    }
-
-    /* Hide fade when scrolled to bottom */
-    .context-fade.hidden {
-      opacity: 0 !important;
-    }
-
     /* Fixed button container */
     .context-button-fixed {
       position: sticky !important;
@@ -1918,6 +1894,7 @@ export const getShadowDomStyles = (): string => {
 
     .esv-content {
       display: block !important;
+      text-align: left !important;
     }
     
     /* First paragraph in ESV needs special handling */
@@ -2012,75 +1989,7 @@ export const getShadowDomStyles = (): string => {
       }
     }
 
-    /* NLT-specific formatting */
-    .nlt-content {
-      display: block !important;
-      font-family: Georgia, serif !important;
-      line-height: 1.6 !important;
-    }
-    
-    .nlt-content .chapter-number {
-      float: left !important;
-      font-size: 72px !important;
-      font-weight: 300 !important;
-      line-height: 0.9 !important;
-      margin-right: 8px !important;
-      margin-top: -8px !important;
-      color: #333 !important;
-    }
-    
-    .nlt-content .body, .nlt-content .body-ch {
-      text-align: left !important;
-      margin-bottom: 12px !important;
-    }
-    
-    .nlt-content .body-ch {
-      text-indent: 0 !important;
-    }
-    
-    .nlt-content .body {
-      text-indent: 2em !important;
-    }
-    
-    .nlt-content .vn {
-      font-size: 0.65em !important;
-      vertical-align: super !important;
-      font-weight: 600 !important;
-      margin-right: 2px !important;
-      line-height: 0 !important;
-    }
-    
-    .nlt-content .red {
-      color: #d73502 !important;
-    }
-    
-    .nlt-content h2 {
-      font-size: 1.1em !important;
-      font-style: italic !important;
-      font-weight: normal !important;
-      margin-top: 20px !important;
-      margin-bottom: 10px !important;
-      text-align: left !important;
-    }
-    
-    .nlt-content .tn {
-      display: none !important; /* Hide footnotes for now */
-    }
-    
-    .nlt-content .a-tn {
-      display: none !important; /* Hide footnote markers */
-    }
-    
-    /* NLT first verse with chapter number */
-    .nlt-first-verse-content {
-      overflow: hidden !important;
-    }
-    
-    .nlt-first-verse-content .esv-heading {
-      margin-top: 0 !important;
-    }
-    
-    /* Ensure NLT content uses the same heading styles as ESV */
+    /* ESV/NLT shared heading styles */
     .esv-content .esv-heading {
       display: block !important;
       clear: both !important;
@@ -2118,31 +2027,44 @@ export const getShadowDomStyles = (): string => {
     }
     
     /* Poetry indentation levels */
+    /* Level 1 = primary line at left margin */
     .poetry-indent-1 {
-      padding-left: 2em !important;
+      padding-left: 0 !important;
     }
 
+    /* Level 2 = continuation line, indented */
     .poetry-indent-2 {
-      padding-left: 4em !important;
+      padding-left: 1.5em !important;
     }
 
     /* New poetry structure (NLT parser) */
     .verse-with-poetry {
       display: block !important;
       margin-bottom: 0.5rem !important;
+      text-align: left !important;
+      font-size: 18px !important;
+    }
+
+    /* Poetry verse numbers should match ESV prose style for consistency */
+    .verse-with-poetry .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
     }
 
     .poetry-line {
       display: block !important;
       line-height: 1.6 !important;
+      font-size: 18px !important;
     }
 
     .poetry-line.poetry-indent-1 {
-      padding-left: 2em !important;
+      padding-left: 0 !important;
     }
 
     .poetry-line.poetry-indent-2 {
-      padding-left: 4em !important;
+      padding-left: 1.5em !important;
     }
 
     /* Stanza spacing - adds extra space before new stanzas */
@@ -2161,6 +2083,25 @@ export const getShadowDomStyles = (): string => {
     /* Stanza break - extra spacing between stanzas */
     .stanza-break {
       margin-bottom: 2rem !important;
+    }
+
+    /* Stanza break spacer for block-level poetry content */
+    .stanza-break-spacer {
+      height: 1.5rem !important;
+    }
+
+    /* Poetry block container (for block-level poetry in first paragraph) */
+    .poetry-block {
+      display: block !important;
+      text-align: left !important;
+    }
+
+    /* Poetry verse numbers should match ESV prose style for consistency */
+    .poetry-block .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
     }
     
     /* Section headings within Psalms */
