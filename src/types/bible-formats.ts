@@ -114,6 +114,9 @@ export interface UnifiedVerse {
 
   /** Whether this verse contains a Selah/Interlude marker */
   hasSelah?: boolean;
+
+  /** Whether this verse starts a new paragraph (from source API) */
+  startsParagraph?: boolean;
 }
 
 /**
