@@ -43,6 +43,7 @@ export interface ParsedVerse {
   poetryLines?: PoetryLine[];
   hasSelah?: boolean;
   rawHtml?: string;
+  startsParagraph?: boolean;
 }
 
 /**
@@ -151,6 +152,7 @@ export class NLTHTMLParser {
       hasSelah: verse.hasSelah,
       isSelah: verse.hasSelah, // Keep backwards compatibility
       rawHtml: verse.rawHtml,
+      startsParagraph: verse.startsParagraph,
     }));
 
     return {
@@ -237,6 +239,18 @@ export class NLTHTMLParser {
     const footnotes: Footnote[] = [];
     const poetryLines: PoetryLine[] = [];
     let hasSelah = false;
+    let startsParagraph = false;
+
+    // Detect if verse starts a new paragraph via <p class="body*"> wrapper
+    // NLT uses body, body-hd, body-ch-hd, body-sp classes for paragraph starts
+    const bodyParagraph = el.querySelector('p.body, p.body-hd, p.body-ch-hd, p.body-sp');
+    if (bodyParagraph) {
+      // Check if this paragraph contains the verse number (indicating verse starts the paragraph)
+      const vnInP = bodyParagraph.querySelector('span.vn');
+      if (vnInP) startsParagraph = true;
+    }
+    // First verse always starts a paragraph
+    if (isFirst) startsParagraph = true;
 
     // Check for chapter number (marks first verse)
     // NLT uses various formats:
@@ -356,7 +370,8 @@ export class NLTHTMLParser {
       footnotes: footnotes.length > 0 ? footnotes : undefined,
       poetryLines: poetryLines.length > 0 ? poetryLines : undefined,
       hasSelah: hasSelah || undefined,
-      rawHtml
+      rawHtml,
+      startsParagraph: startsParagraph || undefined
     };
   }
 

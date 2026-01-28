@@ -154,9 +154,15 @@ function renderESVStyle(
       lastHeading = verse.heading;
     }
     
-    // For the first verse of a chapter (verse 1), don't show the verse number
-    // as it's already shown in the chapter number
-    const shouldShowVerseNumber = verse.number !== '1' || index > 0;
+    // Determine if this verse is block-level (poetry) - needed for verse number logic
+    const isBlockLevel = Boolean(
+      (verse.poetryLines && verse.poetryLines.length > 0) ||
+      (verse.lines && verse.lines.length > 0)
+    );
+
+    // For verse 1: show number only if poetry (no chapter number shown)
+    // For other verses: always show number
+    const shouldShowVerseNumber = verse.number !== '1' || index > 0 || isBlockLevel;
     
     // Apply poetry indentation if specified
     const verseClasses = [
@@ -220,16 +226,50 @@ function renderESVStyle(
       );
     }
     
-    currentParagraph.push(verseElement);
-    
-    // For ESV/NLT, we'll group verses into paragraphs
-    // Check for stanza breaks in Psalms or natural paragraph boundaries
-    const shouldBreakParagraph = verse.stanzaBreakAfter || 
-                                 (index + 1) % 3 === 0 || 
-                                 index === verses.length - 1;
-    
-    if (shouldBreakParagraph) {
-      finishParagraph(verse.stanzaBreakAfter);
+    // isBlockLevel already calculated above for verse number logic
+    if (isBlockLevel) {
+      // Flush any accumulated prose first
+      if (currentParagraph.length > 0) {
+        finishParagraph();
+      }
+
+      // Handle first verse being poetry - still need to show chapter number
+      if (isFirstParagraph) {
+        content.push(
+          <div key={`para-with-chapter-${paragraphKey++}`} className="esv-chapter-container">
+            {!isBlockLevel && <div className="esv-chapter-number">{chapterNumber}</div>}
+            <div className="context-paragraph esv-format esv-first-paragraph poetry-block">
+              {verseElement}
+            </div>
+          </div>
+        );
+        isFirstParagraph = false;
+      } else {
+        // Add block element directly to content (not wrapped in <p>)
+        content.push(verseElement);
+      }
+
+      // Handle stanza breaks after block content
+      if (verse.stanzaBreakAfter) {
+        content.push(
+          <div key={`stanza-break-${verse.number}`} className="stanza-break-spacer" />
+        );
+      }
+    } else {
+      // Inline element - add to current paragraph
+      currentParagraph.push(verseElement);
+
+      // For ESV/NLT, we'll group verses into paragraphs
+      // Use semantic paragraph breaks from API (next verse starts a new paragraph)
+      // or stanza breaks for poetry sections
+      const nextVerse = verses[index + 1];
+      const shouldBreakParagraph = verse.stanzaBreakAfter ||
+                                   (nextVerse && nextVerse.startsParagraph) ||
+                                   index === verses.length - 1;
+
+      if (shouldBreakParagraph) {
+        finishParagraph(verse.stanzaBreakAfter);
+      }
     }
   });
   
@@ -408,9 +448,11 @@ function renderStandardStyle(verses: UnifiedVerse[], startVerse: number | null, 
       </span>
     );
     
-    // Check for stanza breaks in Psalms or natural paragraph boundaries
-    const shouldBreakParagraph = verse.stanzaBreakAfter || 
-                                 ((index + 1) % 4 === 0 && index < verses.length - 1);
+    // Use semantic paragraph breaks from API (next verse starts a new paragraph)
+    // or stanza breaks for poetry sections
+    const nextVerse = verses[index + 1];
+    const shouldBreakParagraph = verse.stanzaBreakAfter ||
+                                 (nextVerse && nextVerse.startsParagraph);
     
     if (shouldBreakParagraph) {
       const paragraphClasses = [

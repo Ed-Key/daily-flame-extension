@@ -472,9 +472,10 @@ export class ESVBibleParser extends BaseBibleParser {
               headingId: shouldAddHeading && currentHeading ? currentHeading.headingId : undefined,
               isSelah: isSelah || undefined,
               // For ESV, paragraphs often indicate stanza breaks in Psalms
-              stanzaBreakAfter: isPsalm && index === verseMatches.length - 1 ? true : undefined
+              stanzaBreakAfter: isPsalm && index === verseMatches.length - 1 ? true : undefined,
+              startsParagraph: isFirstInParagraph || undefined
             }));
-            
+
             isFirstInParagraph = false;
           }
         });
