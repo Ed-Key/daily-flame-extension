@@ -44,6 +44,10 @@ export interface ParsedVerse {
   hasSelah?: boolean;
   rawHtml?: string;
   startsParagraph?: boolean;
+  /** Prose text that appears before poetry in the same verse (e.g., "Then Hannah prayed:") */
+  proseBefore?: string;
+  /** Prose text that appears after poetry in the same verse (e.g., "(For the choir director...)") */
+  proseAfter?: string;
 }
 
 /**
@@ -153,6 +157,8 @@ export class NLTHTMLParser {
       isSelah: verse.hasSelah, // Keep backwards compatibility
       rawHtml: verse.rawHtml,
       startsParagraph: verse.startsParagraph,
+      proseBefore: verse.proseBefore,
+      proseAfter: verse.proseAfter,
     }));
 
     return {
@@ -344,6 +350,59 @@ export class NLTHTMLParser {
       hasSpaceBefore = poetryResult.hasSpaceBeforeFirst;
     }
 
+    // Extract prose that appears BEFORE poetry (e.g., "Then Hannah prayed:" in 1 Samuel 2:1)
+    let proseBefore: string | undefined;
+    if (poetryResult.hasPoetry && poetryResult.lines.length > 0) {
+      // Find prose paragraphs that come BEFORE the first poetry element
+      const allParagraphs = Array.from(el.querySelectorAll('p'));
+      const firstPoetryEl = el.querySelector('[class*="poet1"], [class*="poet2"]');
+
+      const proseTexts: string[] = [];
+      for (const p of allParagraphs) {
+        // Stop when we reach poetry
+        if (p === firstPoetryEl || p.className.includes('poet')) break;
+
+        // Skip headings/chapter markers (already handled separately)
+        if (p.className.includes('subhead') || p.className.includes('chapter')) continue;
+        // Skip Psalm title (handled at chapter level)
+        if (p.className.includes('psa-title')) continue;
+        // Skip Selah markers
+        if (p.className.includes('selah')) continue;
+
+        // Clone to safely extract text without modifying original
+        const pClone = p.cloneNode(true) as HTMLElement;
+        // Remove verse number spans from the clone
+        pClone.querySelectorAll('span.vn').forEach(n => n.remove());
+        // Remove footnote content from clone
+        pClone.querySelectorAll('a.a-tn, span.tn').forEach(n => n.remove());
+
+        const pText = this.getCleanText(pClone).trim();
+        if (pText) proseTexts.push(pText);
+      }
+
+      if (proseTexts.length > 0) {
+        proseBefore = proseTexts.join(' ');
+      }
+
+      // Fallback: extract bare text (not in <p> tags) before poetry
+      // This handles cases like Numbers 21:27 where prose is a text node
+      if (!proseBefore && firstPoetryEl) {
+        const bareText = this.extractBareTextBeforePoetry(el, firstPoetryEl);
+        if (bareText) {
+          proseBefore = bareText;
+        }
+      }
+    }
+
+    // Extract prose that appears AFTER poetry (e.g., "(For the choir director...)" in Habakkuk 3:19)
+    let proseAfter: string | undefined;
+    if (poetryResult.hasPoetry && poetryResult.lines.length > 0) {
+      const afterText = this.extractProseAfterPoetry(el);
+      if (afterText) {
+        proseAfter = afterText;
+      }
+    }
+
     // Check for -sp class on any element (space before)
     if (!hasSpaceBefore) {
       const spElements = el.querySelectorAll('[class*="-sp"]');
@@ -371,7 +430,9 @@ export class NLTHTMLParser {
       poetryLines: poetryLines.length > 0 ? poetryLines : undefined,
       hasSelah: hasSelah || undefined,
       rawHtml,
-      startsParagraph: startsParagraph || undefined
+      startsParagraph: startsParagraph || undefined,
+      proseBefore: proseBefore || undefined,
+      proseAfter: proseAfter || undefined
     };
   }
 
@@ -480,6 +541,115 @@ export class NLTHTMLParser {
     return (el.textContent || '')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  /**
+   * Extract bare text that appears before poetry (not wrapped in <p> tags)
+   *
+   * This handles cases like Numbers 21:27 where prose intro is a text node
+   * or in inline elements rather than wrapped in a paragraph:
+   *   <span class="vn">27</span>Therefore, the ancient poets wrote this about him:<p>
+   *   <p class="poet1">Poetry...</p>
+   *
+   * @param el The verse element to search
+   * @param firstPoetryEl The first poetry element found
+   * @returns The bare text prose, or null if none found
+   */
+  private extractBareTextBeforePoetry(el: HTMLElement, firstPoetryEl: Element): string | null {
+    const textParts: string[] = [];
+
+    for (const node of Array.from(el.childNodes)) {
+      // Stop when we reach the poetry element
+      if (node === firstPoetryEl) break;
+
+      // Check if this is an element containing the poetry
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const elem = node as Element;
+        if (elem.contains(firstPoetryEl)) break;
+        if (elem.className?.includes('poet')) break;
+      }
+
+      // Collect text from text nodes
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = (node.textContent || '').trim();
+        if (text) textParts.push(text);
+      }
+
+      // Collect text from inline elements (skip verse numbers, footnotes, headings)
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const elem = node as Element;
+        const tagName = elem.tagName.toLowerCase();
+
+        // Skip verse numbers
+        if (elem.classList?.contains('vn')) continue;
+        // Skip footnotes
+        if (elem.classList?.contains('a-tn') || elem.classList?.contains('tn')) continue;
+        // Skip headings (already handled separately)
+        if (['h2', 'h3', 'h4', 'h5'].includes(tagName)) continue;
+        // Skip poetry elements
+        if (elem.className?.includes('poet')) continue;
+        // Skip chapter number elements
+        if (elem.classList?.contains('cw') || elem.classList?.contains('cw_ch')) continue;
+        if (tagName === 'cn') continue;
+
+        // Orphan <p> (empty or no class) often signals poetry section start
+        if (tagName === 'p' && (!elem.className || elem.className.trim() === '')) break;
+
+        const elemText = (elem.textContent || '').trim();
+        if (elemText) textParts.push(elemText);
+      }
+    }
+
+    if (textParts.length === 0) return null;
+    return textParts.join(' ').replace(/\s+/g, ' ').trim();
+  }
+
+  /**
+   * Extract prose that appears AFTER poetry
+   *
+   * Handles cases like Habakkuk 3:19: "(For the choir director...)"
+   * These are trailing prose explanations in parentheses after poetry sections.
+   *
+   * @param el The verse element to search
+   * @returns The prose text after poetry, or null if none found
+   */
+  private extractProseAfterPoetry(el: HTMLElement): string | null {
+    // Find all poetry elements
+    const poetryElements = Array.from(el.querySelectorAll('[class*="poet1"], [class*="poet2"]'));
+    if (poetryElements.length === 0) return null;
+
+    const lastPoetryEl = poetryElements[poetryElements.length - 1];
+
+    // Find paragraphs that come AFTER the last poetry element
+    const allParagraphs = Array.from(el.querySelectorAll('p'));
+    const proseTexts: string[] = [];
+    let foundLastPoetry = false;
+
+    for (const p of allParagraphs) {
+      // Skip until we pass the last poetry element
+      if (p === lastPoetryEl || p.className?.includes('poet')) {
+        foundLastPoetry = true;
+        continue;
+      }
+
+      if (!foundLastPoetry) continue;
+
+      // Skip headings and special elements
+      if (p.className?.includes('subhead') || p.className?.includes('chapter')) continue;
+      if (p.className?.includes('psa-title') || p.className?.includes('selah')) continue;
+
+      // Extract text from body paragraphs after poetry
+      // Classes: body-fl-sp, body-sp, body-fl, body
+      if (p.className?.includes('body')) {
+        const pClone = p.cloneNode(true) as HTMLElement;
+        pClone.querySelectorAll('span.vn, a.a-tn, span.tn').forEach(n => n.remove());
+        const pText = this.getCleanText(pClone).trim();
+        if (pText) proseTexts.push(pText);
+      }
+    }
+
+    if (proseTexts.length === 0) return null;
+    return proseTexts.join(' ');
   }
 
   /**

@@ -177,13 +177,59 @@ function renderESVStyle(
 
     if (verse.poetryLines && verse.poetryLines.length > 0) {
       // New poetry format with proper spacing info (from NLT parser)
-      verseElement = renderPoetryLines(
-        verse.poetryLines,
-        verse.number,
-        shouldShowVerseNumber,
-        isHighlighted,
-        verse.hasSelah || verse.isSelah
-      );
+      // Check if there's prose before or after the poetry
+      if (verse.proseBefore || verse.proseAfter) {
+        verseElement = (
+          <div key={`verse-${verse.number}`} className={`verse-with-poetry ${isHighlighted ? 'highlighted-verse' : ''}`}>
+            {/* Render prose introduction with verse number (if exists) */}
+            {verse.proseBefore && (
+              <div className="verse-prose-intro">
+                {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+                <span className="verse-text-content">{verse.proseBefore}</span>
+              </div>
+            )}
+            {/* Render poetry lines */}
+            {verse.poetryLines.map((line, lineIndex) => {
+              const lineClasses = [
+                'poetry-line',
+                `poetry-indent-${line.indentLevel}`,
+                line.hasSpaceBefore ? 'stanza-space-before' : '',
+              ].filter(Boolean).join(' ');
+
+              return (
+                <div key={`${verse.number}-line-${lineIndex}`} className={lineClasses}>
+                  {/* Show verse number on first poetry line only if no proseBefore */}
+                  {lineIndex === 0 && !verse.proseBefore && shouldShowVerseNumber && (
+                    <sup className="context-verse-number">{verse.number}</sup>
+                  )}
+                  <span className="poetry-line-text">
+                    {line.isRedLetter ? (
+                      <span className="words-of-jesus">{line.text}</span>
+                    ) : (
+                      line.text
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+            {/* Render prose after poetry (e.g., "(For the choir director...)" in Habakkuk 3:19) */}
+            {verse.proseAfter && (
+              <div className="verse-prose-after">
+                <span className="verse-text-content">{verse.proseAfter}</span>
+              </div>
+            )}
+            {(verse.hasSelah || verse.isSelah) && <span className="selah-marker">Selah</span>}
+          </div>
+        );
+      } else {
+        verseElement = renderPoetryLines(
+          verse.poetryLines,
+          verse.number,
+          shouldShowVerseNumber,
+          isHighlighted,
+          verse.hasSelah || verse.isSelah
+        );
+      }
     } else if (verse.lines && verse.lines.length > 0) {
       // Legacy format: verse.lines is string[] (for ESV compatibility)
       verseElement = (
