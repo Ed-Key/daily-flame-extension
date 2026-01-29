@@ -1,0 +1,6760 @@
+{
+  "Hebrews_11": {
+    "reference": "Hebrews 11",
+    "bookName": "Hebrews",
+    "chapter": 11,
+    "translation": "ASV",
+    "content": {
+      "id": "HEB.11",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "11",
+      "bookId": "HEB",
+      "reference": "Hebrews 11",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 40,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "HEB 11:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now faith is assurance of ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.1",
+                "verseOrgIds": [
+                  "HEB.11.1"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "things",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.1",
+                    "verseOrgIds": [
+                      "HEB.11.1"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " hoped for, a conviction of things not seen. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.1",
+                "verseOrgIds": [
+                  "HEB.11.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "HEB 11:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For therein the elders had witness borne to them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.2",
+                "verseOrgIds": [
+                  "HEB.11.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "HEB 11:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith we understand that the worlds have been framed by the word of God, so that what is seen hath not been made out of things which appear. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.3",
+                "verseOrgIds": [
+                  "HEB.11.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "HEB 11:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Abel offered unto God a more excellent sacrifice than Cain, through which he had witness borne to him that he was righteous, God bearing witness in respect of his gifts: and through it he being dead yet speaketh. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.4",
+                "verseOrgIds": [
+                  "HEB.11.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "HEB 11:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Enoch was translated that he should not see death; and he was not found, because God translated him: for he hath had witness borne to him that before his translation he had been well-pleasing unto God: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.5",
+                "verseOrgIds": [
+                  "HEB.11.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "HEB 11:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and without faith it is impossible to be well-pleasing ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.6",
+                "verseOrgIds": [
+                  "HEB.11.6"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "unto him",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.6",
+                    "verseOrgIds": [
+                      "HEB.11.6"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": "; for he that cometh to God must believe that he is, and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.6",
+                "verseOrgIds": [
+                  "HEB.11.6"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "that",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.6",
+                    "verseOrgIds": [
+                      "HEB.11.6"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " he is a rewarder of them that seek after him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.6",
+                "verseOrgIds": [
+                  "HEB.11.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "HEB 11:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Noah, being warned ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.7",
+                "verseOrgIds": [
+                  "HEB.11.7"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "of God",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.7",
+                    "verseOrgIds": [
+                      "HEB.11.7"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " concerning things not seen as yet, moved with godly fear, prepared an ark to the saving of his house; through which he condemned the world, and became heir of the righteousness which is according to faith. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.7",
+                "verseOrgIds": [
+                  "HEB.11.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "HEB 11:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Abraham, when he was called, obeyed to go out unto a place which he was to receive for an inheritance; and he went out, not knowing whither he went. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.8",
+                "verseOrgIds": [
+                  "HEB.11.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "HEB 11:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith he became a sojourner in the land of promise, as in a ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.9",
+                "verseOrgIds": [
+                  "HEB.11.9"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "land",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.9",
+                    "verseOrgIds": [
+                      "HEB.11.9"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " not his own, dwelling in tents, with Isaac and Jacob, the heirs with him of the same promise: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.9",
+                "verseOrgIds": [
+                  "HEB.11.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "HEB 11:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for he looked for the city which hath the foundations, whose builder and maker is God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.10",
+                "verseOrgIds": [
+                  "HEB.11.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "HEB 11:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith even Sarah herself received power to conceive seed when she was past age, since she counted him faithful who had promised: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.11",
+                "verseOrgIds": [
+                  "HEB.11.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "HEB 11:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "wherefore also there sprang of one, and him as good as dead, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.12",
+                "verseOrgIds": [
+                  "HEB.11.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "so many",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.12",
+                    "verseOrgIds": [
+                      "HEB.11.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " as the stars of heaven in multitude, and as the sand, which is by the sea-shore, innumerable.",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.12",
+                "verseOrgIds": [
+                  "HEB.11.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "HEB 11:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "These all died in faith, not having received the promises, but having seen them and greeted them from afar, and having confessed that they were strangers and pilgrims on the earth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.13",
+                "verseOrgIds": [
+                  "HEB.11.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "HEB 11:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For they that say such things make it manifest that they are seeking after a country of their own. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.14",
+                "verseOrgIds": [
+                  "HEB.11.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "HEB 11:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And if indeed they had been mindful of that ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.15",
+                "verseOrgIds": [
+                  "HEB.11.15"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "country",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.15",
+                    "verseOrgIds": [
+                      "HEB.11.15"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " from which they went out, they would have had opportunity to return. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.15",
+                "verseOrgIds": [
+                  "HEB.11.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "HEB 11:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But now they desire a better ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.16",
+                "verseOrgIds": [
+                  "HEB.11.16"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "country",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.16",
+                    "verseOrgIds": [
+                      "HEB.11.16"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", that is, a heavenly: wherefore God is not ashamed of them, to be called their God; for he hath prepared for them a city.",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.16",
+                "verseOrgIds": [
+                  "HEB.11.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "HEB 11:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Abraham, being tried, offered up Isaac: yea, he that had gladly received the promises was offering up his only begotten ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.17",
+                "verseOrgIds": [
+                  "HEB.11.17"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "son",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.17",
+                    "verseOrgIds": [
+                      "HEB.11.17"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": "; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.17",
+                "verseOrgIds": [
+                  "HEB.11.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "HEB 11:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even he",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.18",
+                    "verseOrgIds": [
+                      "HEB.11.18"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " to whom it was said, In Isaac shall thy seed be called: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.18",
+                "verseOrgIds": [
+                  "HEB.11.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "HEB 11:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "accounting that God ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.19",
+                "verseOrgIds": [
+                  "HEB.11.19"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "is",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.19",
+                    "verseOrgIds": [
+                      "HEB.11.19"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " able to raise up, even from the dead; from whence he did also in a figure receive him back. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.19",
+                "verseOrgIds": [
+                  "HEB.11.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "HEB 11:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Isaac blessed Jacob and Esau, even concerning things to come. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.20",
+                "verseOrgIds": [
+                  "HEB.11.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "HEB 11:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Jacob, when he was dying, blessed each of the sons of Joseph; and worshipped, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.21",
+                "verseOrgIds": [
+                  "HEB.11.21"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "leaning",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "HEB.11.21",
+                    "verseOrgIds": [
+                      "HEB.11.21"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " upon the top of his staff. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.21",
+                "verseOrgIds": [
+                  "HEB.11.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "HEB 11:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Joseph, when his end was nigh, made mention of the departure of the children of Israel; and gave commandment concerning his bones. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.22",
+                "verseOrgIds": [
+                  "HEB.11.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "HEB 11:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Moses, when he was born, was hid three months by his parents, because they saw he was a goodly child; and they were not afraid of the king’s commandment. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.23",
+                "verseOrgIds": [
+                  "HEB.11.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "HEB 11:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Moses, when he was grown up, refused to be called the son of Pharaoh’s daughter; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.24",
+                "verseOrgIds": [
+                  "HEB.11.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "HEB 11:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "choosing rather to share ill treatment with the people of God, than to enjoy the pleasures of sin for a season; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.25",
+                "verseOrgIds": [
+                  "HEB.11.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "HEB 11:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "accounting the reproach of Christ greater riches than the treasures of Egypt: for he looked unto the recompense of reward. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.26",
+                "verseOrgIds": [
+                  "HEB.11.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "HEB 11:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith he forsook Egypt, not fearing the wrath of the king: for he endured, as seeing him who is invisible. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.27",
+                "verseOrgIds": [
+                  "HEB.11.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "HEB 11:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith he kept the passover, and the sprinkling of the blood, that the destroyer of the firstborn should not touch them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.28",
+                "verseOrgIds": [
+                  "HEB.11.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "HEB 11:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith they passed through the Red sea as by dry land: which the Egyptians assaying to do were swallowed up. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.29",
+                "verseOrgIds": [
+                  "HEB.11.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "HEB 11:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith the walls of Jericho fell down, after they had been compassed about for seven days. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.30",
+                "verseOrgIds": [
+                  "HEB.11.30"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "HEB 11:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By faith Rahab the harlot perished not with them that were disobedient, having received the spies with peace.",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.31",
+                "verseOrgIds": [
+                  "HEB.11.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "HEB 11:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And what shall I more say? for the time will fail me if I tell of Gideon, Barak, Samson, Jephthah; of David and Samuel and the prophets: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.32",
+                "verseOrgIds": [
+                  "HEB.11.32"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "HEB 11:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who through faith subdued kingdoms, wrought righteousness, obtained promises, stopped the mouths of lions, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.33",
+                "verseOrgIds": [
+                  "HEB.11.33"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "HEB 11:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "quenched the power of fire, escaped the edge of the sword, from weakness were made strong, waxed mighty in war, turned to flight armies of aliens. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.34",
+                "verseOrgIds": [
+                  "HEB.11.34"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "HEB 11:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Women received their dead by a resurrection: and others were tortured, not accepting their deliverance; that they might obtain a better resurrection: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.35",
+                "verseOrgIds": [
+                  "HEB.11.35"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "HEB 11:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and others had trial of mockings and scourgings, yea, moreover of bonds and imprisonment: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.36",
+                "verseOrgIds": [
+                  "HEB.11.36"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "HEB 11:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "they were stoned, they were sawn asunder, they were tempted, they were slain with the sword: they went about in sheepskins, in goatskins; being destitute, afflicted, ill-treated ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.37",
+                "verseOrgIds": [
+                  "HEB.11.37"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "HEB 11:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "(of whom the world was not worthy), wandering in deserts and mountains and caves, and the holes of the earth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.38",
+                "verseOrgIds": [
+                  "HEB.11.38"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "HEB 11:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And these all, having had witness borne to them through their faith, received not the promise, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.39",
+                "verseOrgIds": [
+                  "HEB.11.39"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "HEB 11:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God having provided some better thing concerning us, that apart from us they should not be made perfect.",
+              "type": "text",
+              "attrs": {
+                "verseId": "HEB.11.40",
+                "verseOrgIds": [
+                  "HEB.11.40"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "HEB.12",
+        "number": "12",
+        "bookId": "HEB"
+      },
+      "previous": {
+        "id": "HEB.10",
+        "number": "10",
+        "bookId": "HEB"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:28.220Z"
+  },
+  "James_1": {
+    "reference": "James 1",
+    "bookName": "James",
+    "chapter": 1,
+    "translation": "ASV",
+    "content": {
+      "id": "JAS.1",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "1",
+      "bookId": "JAS",
+      "reference": "James 1",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 27,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "JAS 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "James, a servant of God and of the Lord Jesus Christ, to the twelve tribes which are of the Dispersion, greeting.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.1",
+                "verseOrgIds": [
+                  "JAS.1.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "JAS 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Count it all joy, my brethren, when ye fall into manifold temptations; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.2",
+                "verseOrgIds": [
+                  "JAS.1.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "JAS 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "knowing that the proving of your faith worketh patience. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.3",
+                "verseOrgIds": [
+                  "JAS.1.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "JAS 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And let patience have ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.4",
+                "verseOrgIds": [
+                  "JAS.1.4"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "its",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JAS.1.4",
+                    "verseOrgIds": [
+                      "JAS.1.4"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " perfect work, that ye may be perfect and entire, lacking in nothing.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.4",
+                "verseOrgIds": [
+                  "JAS.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "JAS 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But if any of you lacketh wisdom, let him ask of God, who giveth to all liberally and upbraideth not; and it shall be given him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.5",
+                "verseOrgIds": [
+                  "JAS.1.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "JAS 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But let him ask in faith, nothing doubting: for he that doubteth is like the surge of the sea driven by the wind and tossed. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.6",
+                "verseOrgIds": [
+                  "JAS.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "JAS 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For let not that man think that he shall receive anything of the Lord; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.7",
+                "verseOrgIds": [
+                  "JAS.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "JAS 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a doubleminded man, unstable in all his ways.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.8",
+                "verseOrgIds": [
+                  "JAS.1.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "JAS 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But let the brother of low degree glory in his high estate: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.9",
+                "verseOrgIds": [
+                  "JAS.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "JAS 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and the rich, in that he is made low: because as the flower of the grass he shall pass away. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.10",
+                "verseOrgIds": [
+                  "JAS.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "JAS 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For the sun ariseth with the scorching wind, and withereth the grass; and the flower thereof falleth, and the grace of the fashion of it perisheth: so also shall the rich man fade away in his goings.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.11",
+                "verseOrgIds": [
+                  "JAS.1.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "JAS 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed is the man that endureth temptation; for when he hath been approved, he shall receive the crown of life, which ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.12",
+                "verseOrgIds": [
+                  "JAS.1.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "the Lord",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JAS.1.12",
+                    "verseOrgIds": [
+                      "JAS.1.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " promised to them that love him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.12",
+                "verseOrgIds": [
+                  "JAS.1.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "JAS 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let no man say when he is tempted, I am tempted of God; for God cannot be tempted with evil, and he himself tempteth no man: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.13",
+                "verseOrgIds": [
+                  "JAS.1.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "JAS 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but each man is tempted, when he is drawn away by his own lust, and enticed. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.14",
+                "verseOrgIds": [
+                  "JAS.1.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "JAS 1:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then the lust, when it hath conceived, beareth sin: and the sin, when it is fullgrown, bringeth forth death. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.15",
+                "verseOrgIds": [
+                  "JAS.1.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "JAS 1:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Be not deceived, my beloved brethren. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.16",
+                "verseOrgIds": [
+                  "JAS.1.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "JAS 1:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Every good gift and every perfect gift is from above, coming down from the Father of lights, with whom can be no variation, neither shadow that is cast by turning. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.17",
+                "verseOrgIds": [
+                  "JAS.1.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "JAS 1:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Of his own will he brought us forth by the word of truth, that we should be a kind of firstfruits of his creatures.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.18",
+                "verseOrgIds": [
+                  "JAS.1.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "JAS 1:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye know ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.19",
+                "verseOrgIds": [
+                  "JAS.1.19"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "this",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JAS.1.19",
+                    "verseOrgIds": [
+                      "JAS.1.19"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", my beloved brethren. But let every man be swift to hear, slow to speak, slow to wrath: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.19",
+                "verseOrgIds": [
+                  "JAS.1.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "JAS 1:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for the wrath of man worketh not the righteousness of God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.20",
+                "verseOrgIds": [
+                  "JAS.1.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "JAS 1:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Wherefore putting away all filthiness and overflowing of wickedness, receive with meekness the implanted word, which is able to save your souls. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.21",
+                "verseOrgIds": [
+                  "JAS.1.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "JAS 1:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But be ye doers of the word, and not hearers only, deluding your own selves. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.22",
+                "verseOrgIds": [
+                  "JAS.1.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "JAS 1:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For if any one is a hearer of the word and not a doer, he is like unto a man beholding his natural face in a mirror: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.23",
+                "verseOrgIds": [
+                  "JAS.1.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "JAS 1:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for he beholdeth himself, and goeth away, and straightway forgetteth what manner of man he was. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.24",
+                "verseOrgIds": [
+                  "JAS.1.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "JAS 1:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But he that looketh into the perfect law, the ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.25",
+                "verseOrgIds": [
+                  "JAS.1.25"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "law",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JAS.1.25",
+                    "verseOrgIds": [
+                      "JAS.1.25"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " of liberty, and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.25",
+                "verseOrgIds": [
+                  "JAS.1.25"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "so",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JAS.1.25",
+                    "verseOrgIds": [
+                      "JAS.1.25"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " continueth, being not a hearer that forgetteth but a doer that worketh, this man shall be blessed in his doing. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.25",
+                "verseOrgIds": [
+                  "JAS.1.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "JAS 1:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If any man thinketh himself to be religious, while he bridleth not his tongue but deceiveth his heart, this man’s religion is vain. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.26",
+                "verseOrgIds": [
+                  "JAS.1.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "JAS 1:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Pure religion and undefiled before our God and Father is this, to visit the fatherless and widows in their affliction, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.27",
+                "verseOrgIds": [
+                  "JAS.1.27"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "and",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JAS.1.27",
+                    "verseOrgIds": [
+                      "JAS.1.27"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " to keep oneself unspotted from the world.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JAS.1.27",
+                "verseOrgIds": [
+                  "JAS.1.27"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "JAS.2",
+        "number": "2",
+        "bookId": "JAS"
+      },
+      "previous": {
+        "id": "JAS.intro",
+        "number": "intro",
+        "bookId": "JAS"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:28.418Z"
+  },
+  "1_Peter_2": {
+    "reference": "1 Peter 2",
+    "bookName": "1 Peter",
+    "chapter": 2,
+    "translation": "ASV",
+    "content": {
+      "id": "1PE.2",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "2",
+      "bookId": "1PE",
+      "reference": "1 Peter 2",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 25,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "1PE 2:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Putting away therefore all wickedness, and all guile, and hypocrisies, and envies, and all evil speakings, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.1",
+                "verseOrgIds": [
+                  "1PE.2.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "1PE 2:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "as newborn babes, long for the spiritual milk which is without guile, that ye may grow thereby unto salvation; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.2",
+                "verseOrgIds": [
+                  "1PE.2.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "1PE 2:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "if ye have tasted that the Lord is gracious: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.3",
+                "verseOrgIds": [
+                  "1PE.2.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "1PE 2:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "unto whom coming, a living stone, rejected indeed of men, but with God elect, precious, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.4",
+                "verseOrgIds": [
+                  "1PE.2.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "1PE 2:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "ye also, as living stones, are built up a spiritual house, to be a holy priesthood, to offer up spiritual sacrifices, acceptable to God through Jesus Christ. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.5",
+                "verseOrgIds": [
+                  "1PE.2.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "1PE 2:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Because it is contained in scripture,",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.6",
+                "verseOrgIds": [
+                  "1PE.2.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "1PE 2:6"
+          },
+          "items": [
+            {
+              "text": "Behold, I lay in Zion a chief corner stone, elect, precious:",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.6",
+                "verseOrgIds": [
+                  "1PE.2.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "1PE 2:6"
+          },
+          "items": [
+            {
+              "text": "And he that believeth on him shall not be put to shame.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.6",
+                "verseOrgIds": [
+                  "1PE.2.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "m"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "1PE 2:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For you therefore that believe is the preciousness: but for such as disbelieve,",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.7",
+                "verseOrgIds": [
+                  "1PE.2.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "1PE 2:7"
+          },
+          "items": [
+            {
+              "text": "The stone which the builders rejected,",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.7",
+                "verseOrgIds": [
+                  "1PE.2.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "1PE 2:7"
+          },
+          "items": [
+            {
+              "text": "The same was made the head of the corner;",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.7",
+                "verseOrgIds": [
+                  "1PE.2.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "m"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "1PE 2:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and,",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.8",
+                "verseOrgIds": [
+                  "1PE.2.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "1PE 2:8"
+          },
+          "items": [
+            {
+              "text": "A stone of stumbling, and a rock of offence;",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.8",
+                "verseOrgIds": [
+                  "1PE.2.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "m",
+            "vid": "1PE 2:8"
+          },
+          "items": [
+            {
+              "text": "for they stumble at the word, being disobedient: whereunto also they were appointed. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.8",
+                "verseOrgIds": [
+                  "1PE.2.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "1PE 2:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But ye are an elect race, a royal priesthood, a holy nation, a people for ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.9",
+                "verseOrgIds": [
+                  "1PE.2.9"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "God’s",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1PE.2.9",
+                    "verseOrgIds": [
+                      "1PE.2.9"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " own possession, that ye may show forth the excellencies of him who called you out of darkness into his marvellous light: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.9",
+                "verseOrgIds": [
+                  "1PE.2.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "1PE 2:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who in time past were no people, but now are the people of God: who had not obtained mercy, but now have obtained mercy.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.10",
+                "verseOrgIds": [
+                  "1PE.2.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "1PE 2:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, I beseech you as sojourners and pilgrims, to abstain from fleshly lusts, which war against the soul; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.11",
+                "verseOrgIds": [
+                  "1PE.2.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "1PE 2:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "having your behavior seemly among the Gentiles; that, wherein they speak against you as evil-doers, they may by your good works, which they behold, glorify God in the day of visitation.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.12",
+                "verseOrgIds": [
+                  "1PE.2.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "1PE 2:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Be subject to every ordinance of man for the Lord’s sake: whether to the king, as supreme; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.13",
+                "verseOrgIds": [
+                  "1PE.2.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "1PE 2:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "or unto governors, as sent by him for vengeance on evil-doers and for praise to them that do well. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.14",
+                "verseOrgIds": [
+                  "1PE.2.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "1PE 2:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For so is the will of God, that by well-doing ye should put to silence the ignorance of foolish men: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.15",
+                "verseOrgIds": [
+                  "1PE.2.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "1PE 2:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "as free, and not using your freedom for a cloak of wickedness, but as bondservants of God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.16",
+                "verseOrgIds": [
+                  "1PE.2.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "1PE 2:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Honor all men. Love the brotherhood. Fear God. Honor the king.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.17",
+                "verseOrgIds": [
+                  "1PE.2.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "1PE 2:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Servants, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.18",
+                "verseOrgIds": [
+                  "1PE.2.18"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "be",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1PE.2.18",
+                    "verseOrgIds": [
+                      "1PE.2.18"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " in subjection to your masters with all fear; not only to the good and gentle, but also to the froward. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.18",
+                "verseOrgIds": [
+                  "1PE.2.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "1PE 2:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For this is acceptable, if for conscience toward God a man endureth griefs, suffering wrongfully. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.19",
+                "verseOrgIds": [
+                  "1PE.2.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "1PE 2:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For what glory is it, if, when ye sin, and are buffeted ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.20",
+                "verseOrgIds": [
+                  "1PE.2.20"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "for it",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1PE.2.20",
+                    "verseOrgIds": [
+                      "1PE.2.20"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", ye shall take it patiently? but if, when ye do well, and suffer ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.20",
+                "verseOrgIds": [
+                  "1PE.2.20"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "for it",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1PE.2.20",
+                    "verseOrgIds": [
+                      "1PE.2.20"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", ye shall take it patiently, this is acceptable with God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.20",
+                "verseOrgIds": [
+                  "1PE.2.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "1PE 2:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For hereunto were ye called: because Christ also suffered for you, leaving you an example, that ye should follow his steps: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.21",
+                "verseOrgIds": [
+                  "1PE.2.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "1PE 2:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who did no sin, neither was guile found in his mouth: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.22",
+                "verseOrgIds": [
+                  "1PE.2.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "1PE 2:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who, when he was reviled, reviled not again; when he suffered, threatened not; but committed ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.23",
+                "verseOrgIds": [
+                  "1PE.2.23"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "himself",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1PE.2.23",
+                    "verseOrgIds": [
+                      "1PE.2.23"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " to him that judgeth righteously: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.23",
+                "verseOrgIds": [
+                  "1PE.2.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "1PE 2:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who his own self bare our sins in his body upon the tree, that we, having died unto sins, might live unto righteousness; by whose stripes ye were healed. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.24",
+                "verseOrgIds": [
+                  "1PE.2.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "1PE 2:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For ye were going astray like sheep; but are now returned unto the Shepherd and Bishop of your souls.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1PE.2.25",
+                "verseOrgIds": [
+                  "1PE.2.25"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "1PE.3",
+        "number": "3",
+        "bookId": "1PE"
+      },
+      "previous": {
+        "id": "1PE.1",
+        "number": "1",
+        "bookId": "1PE"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:28.645Z"
+  },
+  "2_Peter_1": {
+    "reference": "2 Peter 1",
+    "bookName": "2 Peter",
+    "chapter": 1,
+    "translation": "ASV",
+    "content": {
+      "id": "2PE.1",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "1",
+      "bookId": "2PE",
+      "reference": "2 Peter 1",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 21,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "2PE 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Simon Peter, a servant and apostle of Jesus Christ, to them that have obtained a like precious faith with us in the righteousness of our God and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.1",
+                "verseOrgIds": [
+                  "2PE.1.1"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "the",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.1",
+                    "verseOrgIds": [
+                      "2PE.1.1"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " Saviour Jesus Christ: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.1",
+                "verseOrgIds": [
+                  "2PE.1.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "2PE 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Grace to you and peace be multiplied in the knowledge of God and of Jesus our Lord; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.2",
+                "verseOrgIds": [
+                  "2PE.1.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "2PE 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "seeing that his divine power hath granted unto us all things that pertain unto life and godliness, through the knowledge of him that called us by his own glory and virtue; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.3",
+                "verseOrgIds": [
+                  "2PE.1.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "2PE 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "whereby he hath granted unto us his precious and exceeding great promises; that through these ye may become partakers of the divine nature, having escaped from the corruption that is in the world by lust. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.4",
+                "verseOrgIds": [
+                  "2PE.1.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "2PE 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yea, and for this very cause adding on your part all diligence, in your faith supply virtue; and in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.5",
+                "verseOrgIds": [
+                  "2PE.1.5"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.5",
+                    "verseOrgIds": [
+                      "2PE.1.5"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " virtue knowledge; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.5",
+                "verseOrgIds": [
+                  "2PE.1.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "2PE 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.6",
+                "verseOrgIds": [
+                  "2PE.1.6"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.6",
+                    "verseOrgIds": [
+                      "2PE.1.6"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " knowledge self-control; and in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.6",
+                "verseOrgIds": [
+                  "2PE.1.6"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.6",
+                    "verseOrgIds": [
+                      "2PE.1.6"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " self-control patience; and in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.6",
+                "verseOrgIds": [
+                  "2PE.1.6"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.6",
+                    "verseOrgIds": [
+                      "2PE.1.6"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " patience godliness; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.6",
+                "verseOrgIds": [
+                  "2PE.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "2PE 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.7",
+                "verseOrgIds": [
+                  "2PE.1.7"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.7",
+                    "verseOrgIds": [
+                      "2PE.1.7"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " godliness brotherly kindness; and in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.7",
+                "verseOrgIds": [
+                  "2PE.1.7"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.7",
+                    "verseOrgIds": [
+                      "2PE.1.7"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " brotherly kindness love. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.7",
+                "verseOrgIds": [
+                  "2PE.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "2PE 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For if these things are yours and abound, they make you to be not idle nor unfruitful unto the knowledge of our Lord Jesus Christ. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.8",
+                "verseOrgIds": [
+                  "2PE.1.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "2PE 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For he that lacketh these things is blind, seeing only what is near, having forgotten the cleansing from his old sins. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.9",
+                "verseOrgIds": [
+                  "2PE.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "2PE 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Wherefore, brethren, give the more diligence to make your calling and election sure: for if ye do these things, ye shall never stumble: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.10",
+                "verseOrgIds": [
+                  "2PE.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "2PE 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for thus shall be richly supplied unto you the entrance into the eternal kingdom of our Lord and Saviour Jesus Christ.",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.11",
+                "verseOrgIds": [
+                  "2PE.1.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "2PE 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Wherefore I shall be ready always to put you in remembrance of these things, though ye know them, and are established in the truth which is with ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.12",
+                "verseOrgIds": [
+                  "2PE.1.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "you",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.12",
+                    "verseOrgIds": [
+                      "2PE.1.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ". ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.12",
+                "verseOrgIds": [
+                  "2PE.1.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "2PE 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I think it right, as long as I am in this tabernacle, to stir you up by putting you in remembrance; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.13",
+                "verseOrgIds": [
+                  "2PE.1.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "2PE 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "knowing that the putting off of my tabernacle cometh swiftly, even as our Lord Jesus Christ signified unto me. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.14",
+                "verseOrgIds": [
+                  "2PE.1.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "2PE 1:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yea, I will give diligence that at every time ye may be able after my decease to call these things to remembrance. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.15",
+                "verseOrgIds": [
+                  "2PE.1.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "2PE 1:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For we did not follow cunningly devised fables, when we made known unto you the power and coming of our Lord Jesus Christ, but we were eyewitnesses of his majesty. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.16",
+                "verseOrgIds": [
+                  "2PE.1.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "2PE 1:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For he received from God the Father honor and glory, when there was borne such a voice to him by the Majestic Glory, This is my beloved Son, in whom I am well pleased: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.17",
+                "verseOrgIds": [
+                  "2PE.1.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "2PE 1:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and this voice we ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.18",
+                "verseOrgIds": [
+                  "2PE.1.18"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "ourselves",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.18",
+                    "verseOrgIds": [
+                      "2PE.1.18"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " heard borne out of heaven, when we were with him in the holy mount. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.18",
+                "verseOrgIds": [
+                  "2PE.1.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "2PE 1:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And we have the word of prophecy ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.19",
+                "verseOrgIds": [
+                  "2PE.1.19"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "made",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2PE.1.19",
+                    "verseOrgIds": [
+                      "2PE.1.19"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " more sure; whereunto ye do well that ye take heed, as unto a lamp shining in a dark place, until the day dawn, and the day-star arise in your hearts: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.19",
+                "verseOrgIds": [
+                  "2PE.1.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "2PE 1:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "knowing this first, that no prophecy of scripture is of private interpretation. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.20",
+                "verseOrgIds": [
+                  "2PE.1.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "2PE 1:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For no prophecy ever came by the will of man: but men spake from God, being moved by the Holy Spirit.",
+              "type": "text",
+              "attrs": {
+                "verseId": "2PE.1.21",
+                "verseOrgIds": [
+                  "2PE.1.21"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "2PE.2",
+        "number": "2",
+        "bookId": "2PE"
+      },
+      "previous": {
+        "id": "2PE.intro",
+        "number": "intro",
+        "bookId": "2PE"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:31.783Z"
+  },
+  "1_John_4": {
+    "reference": "1 John 4",
+    "bookName": "1 John",
+    "chapter": 4,
+    "translation": "ASV",
+    "content": {
+      "id": "1JN.4",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "4",
+      "bookId": "1JN",
+      "reference": "1 John 4",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 21,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "1JN 4:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, believe not every spirit, but prove the spirits, whether they are of God; because many false prophets are gone out into the world. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.1",
+                "verseOrgIds": [
+                  "1JN.4.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "1JN 4:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Hereby know ye the Spirit of God: every spirit that confesseth that Jesus Christ is come in the flesh is of God: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.2",
+                "verseOrgIds": [
+                  "1JN.4.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "1JN 4:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and every spirit that confesseth not Jesus is not of God: and this is the ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.3",
+                "verseOrgIds": [
+                  "1JN.4.3"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "spirit",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1JN.4.3",
+                    "verseOrgIds": [
+                      "1JN.4.3"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " of the antichrist, whereof ye have heard that it cometh; and now it is in the world already. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.3",
+                "verseOrgIds": [
+                  "1JN.4.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "1JN 4:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye are of God, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.4",
+                "verseOrgIds": [
+                  "1JN.4.4"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "my",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1JN.4.4",
+                    "verseOrgIds": [
+                      "1JN.4.4"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " little children, and have overcome them: because greater is he that is in you than he that is in the world. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.4",
+                "verseOrgIds": [
+                  "1JN.4.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "1JN 4:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They are of the world: therefore speak they ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.5",
+                "verseOrgIds": [
+                  "1JN.4.5"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "as",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1JN.4.5",
+                    "verseOrgIds": [
+                      "1JN.4.5"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " of the world, and the world heareth them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.5",
+                "verseOrgIds": [
+                  "1JN.4.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "1JN 4:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "We are of God: he that knoweth God heareth us; he who is not of God heareth us not. By this we know the spirit of truth, and the spirit of error.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.6",
+                "verseOrgIds": [
+                  "1JN.4.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "1JN 4:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, let us love one another: for love is of God; and every one that loveth is begotten of God, and knoweth God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.7",
+                "verseOrgIds": [
+                  "1JN.4.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "1JN 4:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He that loveth not knoweth not God; for God is love. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.8",
+                "verseOrgIds": [
+                  "1JN.4.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "1JN 4:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Herein was the love of God manifested in us, that God hath sent his only begotten Son into the world that we might live through him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.9",
+                "verseOrgIds": [
+                  "1JN.4.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "1JN 4:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Herein is love, not that we loved God, but that he loved us, and sent his Son ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.10",
+                "verseOrgIds": [
+                  "1JN.4.10"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "to be",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1JN.4.10",
+                    "verseOrgIds": [
+                      "1JN.4.10"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " the propitiation for our sins. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.10",
+                "verseOrgIds": [
+                  "1JN.4.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "1JN 4:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, if God so loved us, we also ought to love one another. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.11",
+                "verseOrgIds": [
+                  "1JN.4.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "1JN 4:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "No man hath beheld God at any time: if we love one another, God abideth in us, and his love is perfected in us: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.12",
+                "verseOrgIds": [
+                  "1JN.4.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "1JN 4:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "hereby we know that we abide in him and he in us, because he hath given us of his Spirit. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.13",
+                "verseOrgIds": [
+                  "1JN.4.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "1JN 4:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And we have beheld and bear witness that the Father hath sent the Son ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.14",
+                "verseOrgIds": [
+                  "1JN.4.14"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "to be",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "1JN.4.14",
+                    "verseOrgIds": [
+                      "1JN.4.14"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " the Saviour of the world. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.14",
+                "verseOrgIds": [
+                  "1JN.4.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "1JN 4:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Whosoever shall confess that Jesus is the Son of God, God abideth in him, and he in God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.15",
+                "verseOrgIds": [
+                  "1JN.4.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "1JN 4:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And we know and have believed the love which God hath in us. God is love; and he that abideth in love abideth in God, and God abideth in him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.16",
+                "verseOrgIds": [
+                  "1JN.4.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "1JN 4:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Herein is love made perfect with us, that we may have boldness in the day of judgment; because as he is, even so are we in this world. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.17",
+                "verseOrgIds": [
+                  "1JN.4.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "1JN 4:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There is no fear in love: but perfect love casteth out fear, because fear hath punishment; and he that feareth is not made perfect in love. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.18",
+                "verseOrgIds": [
+                  "1JN.4.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "1JN 4:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "We love, because he first loved us. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.19",
+                "verseOrgIds": [
+                  "1JN.4.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "1JN 4:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If a man say, I love God, and hateth his brother, he is a liar: for he that loveth not his brother whom he hath seen, cannot love God whom he hath not seen. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.20",
+                "verseOrgIds": [
+                  "1JN.4.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "1JN 4:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And this commandment have we from him, that he who loveth God love his brother also.",
+              "type": "text",
+              "attrs": {
+                "verseId": "1JN.4.21",
+                "verseOrgIds": [
+                  "1JN.4.21"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "1JN.5",
+        "number": "5",
+        "bookId": "1JN"
+      },
+      "previous": {
+        "id": "1JN.3",
+        "number": "3",
+        "bookId": "1JN"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:32.019Z"
+  },
+  "2_John_1": {
+    "reference": "2 John 1",
+    "bookName": "2 John",
+    "chapter": 1,
+    "translation": "ASV",
+    "content": {
+      "id": "2JN.1",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "1",
+      "bookId": "2JN",
+      "reference": "2 John 1",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 13,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "2JN 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The elder unto the elect lady and her children, whom I love in truth; and not I only, but also all they that know the truth; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.1",
+                "verseOrgIds": [
+                  "2JN.1.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "2JN 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for the truth’s sake which abideth in us, and it shall be with us for ever: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.2",
+                "verseOrgIds": [
+                  "2JN.1.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "2JN 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Grace, mercy, peace shall be with us, from God the Father, and from Jesus Christ, the Son of the Father, in truth and love.",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.3",
+                "verseOrgIds": [
+                  "2JN.1.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "2JN 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I rejoice greatly that I have found ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.4",
+                "verseOrgIds": [
+                  "2JN.1.4"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "certain",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2JN.1.4",
+                    "verseOrgIds": [
+                      "2JN.1.4"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " of thy children walking in truth, even as we received commandment from the Father. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.4",
+                "verseOrgIds": [
+                  "2JN.1.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "2JN 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And now I beseech thee, lady, not as though I wrote to thee a new commandment, but that which we had from the beginning, that we love one another. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.5",
+                "verseOrgIds": [
+                  "2JN.1.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "2JN 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And this is love, that we should walk after his commandments. This is the commandment, even as ye heard from the beginning, that ye should walk in it. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.6",
+                "verseOrgIds": [
+                  "2JN.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "2JN 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For many deceivers are gone forth into the world, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.7",
+                "verseOrgIds": [
+                  "2JN.1.7"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2JN.1.7",
+                    "verseOrgIds": [
+                      "2JN.1.7"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " they that confess not that Jesus Christ cometh in the flesh. This is the deceiver and the antichrist. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.7",
+                "verseOrgIds": [
+                  "2JN.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "2JN 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Look to yourselves, that ye lose not the things which we have wrought, but that ye receive a full reward. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.8",
+                "verseOrgIds": [
+                  "2JN.1.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "2JN 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Whosoever goeth onward and abideth not in the teaching of Christ, hath not God: he that abideth in the teaching, the same hath both the Father and the Son. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.9",
+                "verseOrgIds": [
+                  "2JN.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "2JN 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If any one cometh unto you, and bringeth not this teaching, receive him not into ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.10",
+                "verseOrgIds": [
+                  "2JN.1.10"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "your",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2JN.1.10",
+                    "verseOrgIds": [
+                      "2JN.1.10"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " house, and give him no greeting: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.10",
+                "verseOrgIds": [
+                  "2JN.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "2JN 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for he that giveth him greeting partaketh in his evil works.",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.11",
+                "verseOrgIds": [
+                  "2JN.1.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "2JN 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Having many things to write unto you, I would not ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.12",
+                "verseOrgIds": [
+                  "2JN.1.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "write them",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "2JN.1.12",
+                    "verseOrgIds": [
+                      "2JN.1.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " with paper and ink: but I hope to come unto you, and to speak face to face, that your joy may be made full. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.12",
+                "verseOrgIds": [
+                  "2JN.1.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "2JN 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The children of thine elect sister salute thee.",
+              "type": "text",
+              "attrs": {
+                "verseId": "2JN.1.13",
+                "verseOrgIds": [
+                  "2JN.1.13"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "3JN.intro",
+        "number": "intro",
+        "bookId": "3JN"
+      },
+      "previous": {
+        "id": "2JN.intro",
+        "number": "intro",
+        "bookId": "2JN"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:32.225Z"
+  },
+  "3_John_1": {
+    "reference": "3 John 1",
+    "bookName": "3 John",
+    "chapter": 1,
+    "translation": "ASV",
+    "content": {
+      "id": "3JN.1",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "1",
+      "bookId": "3JN",
+      "reference": "3 John 1",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 14,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "3JN 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The elder unto Gaius the beloved, whom I love in truth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.1",
+                "verseOrgIds": [
+                  "3JN.1.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "3JN 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, I pray that in all things thou mayest prosper and be in health, even as thy soul prospereth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.2",
+                "verseOrgIds": [
+                  "3JN.1.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "3JN 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For I rejoiced greatly, when brethren came and bare witness unto thy truth, even as thou walkest in truth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.3",
+                "verseOrgIds": [
+                  "3JN.1.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "3JN 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Greater joy have I none than this, to hear of my children walking in the truth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.4",
+                "verseOrgIds": [
+                  "3JN.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "3JN 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, thou doest a faithful work in whatsoever thou doest toward them that are brethren and strangers withal; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.5",
+                "verseOrgIds": [
+                  "3JN.1.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "3JN 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who bare witness to thy love before the church: whom thou wilt do well to set forward on their journey worthily of God: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.6",
+                "verseOrgIds": [
+                  "3JN.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "3JN 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "because that for the sake of the Name they went forth, taking nothing of the Gentiles. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.7",
+                "verseOrgIds": [
+                  "3JN.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "3JN 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "We therefore ought to welcome such, that we may be fellow-workers for the truth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.8",
+                "verseOrgIds": [
+                  "3JN.1.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "3JN 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I wrote somewhat unto the church: but Diotrephes, who loveth to have the preeminence among them, receiveth us not. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.9",
+                "verseOrgIds": [
+                  "3JN.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "3JN 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore, if I come, I will bring to remembrance his works which he doeth, prating against us with wicked words: and not content therewith, neither doth he himself receive the brethren, and them that would he forbiddeth and casteth ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.10",
+                "verseOrgIds": [
+                  "3JN.1.10"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "them",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "3JN.1.10",
+                    "verseOrgIds": [
+                      "3JN.1.10"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " out of the church. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.10",
+                "verseOrgIds": [
+                  "3JN.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "3JN 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, imitate not that which is evil, but that which is good. He that doeth good is of God: he that doeth evil hath not seen God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.11",
+                "verseOrgIds": [
+                  "3JN.1.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "3JN 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Demetrius hath the witness of all ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.12",
+                "verseOrgIds": [
+                  "3JN.1.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "men",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "3JN.1.12",
+                    "verseOrgIds": [
+                      "3JN.1.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", and of the truth itself: yea, we also bear witness; and thou knowest that our witness is true.",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.12",
+                "verseOrgIds": [
+                  "3JN.1.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "3JN 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I had many things to write unto thee, but I am unwilling to write ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.13",
+                "verseOrgIds": [
+                  "3JN.1.13"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "them",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "3JN.1.13",
+                    "verseOrgIds": [
+                      "3JN.1.13"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " to thee with ink and pen: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.13",
+                "verseOrgIds": [
+                  "3JN.1.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "3JN 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I hope shortly to see thee, and we shall speak face to face. Peace ",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.14",
+                "verseOrgIds": [
+                  "3JN.1.14"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "be",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "3JN.1.14",
+                    "verseOrgIds": [
+                      "3JN.1.14"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " unto thee. The friends salute thee. Salute the friends by name.",
+              "type": "text",
+              "attrs": {
+                "verseId": "3JN.1.14",
+                "verseOrgIds": [
+                  "3JN.1.14"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "JUD.intro",
+        "number": "intro",
+        "bookId": "JUD"
+      },
+      "previous": {
+        "id": "3JN.intro",
+        "number": "intro",
+        "bookId": "3JN"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:32.414Z"
+  },
+  "Jude_1": {
+    "reference": "Jude 1",
+    "bookName": "Jude",
+    "chapter": 1,
+    "translation": "ASV",
+    "content": {
+      "id": "JUD.1",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "1",
+      "bookId": "JUD",
+      "reference": "Jude 1",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 25,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "JUD 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Jude, a servant of Jesus Christ, and brother of James, to them that are called, beloved in God the Father, and kept for Jesus Christ: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.1",
+                "verseOrgIds": [
+                  "JUD.1.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "JUD 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Mercy unto you and peace and love be multiplied.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.2",
+                "verseOrgIds": [
+                  "JUD.1.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "JUD 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Beloved, while I was giving all diligence to write unto you of our common salvation, I was constrained to write unto you exhorting you to contend earnestly for the faith which was once for all delivered unto the saints. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.3",
+                "verseOrgIds": [
+                  "JUD.1.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "JUD 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For there are certain men crept in privily, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.4",
+                "verseOrgIds": [
+                  "JUD.1.4"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JUD.1.4",
+                    "verseOrgIds": [
+                      "JUD.1.4"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " they who were of old written of beforehand unto this condemnation, ungodly men, turning the grace of our God into lasciviousness, and denying our only Master and Lord, Jesus Christ.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.4",
+                "verseOrgIds": [
+                  "JUD.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "JUD 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now I desire to put you in remembrance, though ye know all things once for all, that the Lord, having saved a people out of the land of Egypt, afterward destroyed them that believed not. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.5",
+                "verseOrgIds": [
+                  "JUD.1.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "JUD 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And angels that kept not their own principality, but left their proper habitation, he hath kept in everlasting bonds under darkness unto the judgment of the great day. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.6",
+                "verseOrgIds": [
+                  "JUD.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "JUD 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Even as Sodom and Gomorrah, and the cities about them, having in like manner with these given themselves over to fornication and gone after strange flesh, are set forth as an example, suffering the punishment of eternal fire. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.7",
+                "verseOrgIds": [
+                  "JUD.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "JUD 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yet in like manner these also in their dreamings defile the flesh, and set at nought dominion, and rail at dignities. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.8",
+                "verseOrgIds": [
+                  "JUD.1.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "JUD 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But Michael the archangel, when contending with the devil he disputed about the body of Moses, durst not bring against him a railing judgment, but said, The Lord rebuke thee. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.9",
+                "verseOrgIds": [
+                  "JUD.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "JUD 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But these rail at whatsoever things they know not: and what they understand naturally, like the creatures without reason, in these things are they destroyed. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.10",
+                "verseOrgIds": [
+                  "JUD.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "JUD 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Woe unto them! for they went in the way of Cain, and ran riotously in the error of Balaam for hire, and perished in the gainsaying of Korah. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.11",
+                "verseOrgIds": [
+                  "JUD.1.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "JUD 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "These are they who are hidden rocks in your love-feasts when they feast with you, shepherds that without fear feed themselves; clouds without water, carried along by winds; autumn trees without fruit, twice dead, plucked up by the roots; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.12",
+                "verseOrgIds": [
+                  "JUD.1.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "JUD 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "wild waves of the sea, foaming out their own shame; wandering stars, for whom the blackness of darkness hath been reserved for ever. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.13",
+                "verseOrgIds": [
+                  "JUD.1.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "JUD 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And to these also Enoch, the seventh from Adam, prophesied, saying, Behold, the Lord came with ten thousands of his holy ones, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.14",
+                "verseOrgIds": [
+                  "JUD.1.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "JUD 1:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "to execute judgment upon all, and to convict all the ungodly of all their works of ungodliness which they have ungodly wrought, and of all the hard things which ungodly sinners have spoken against him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.15",
+                "verseOrgIds": [
+                  "JUD.1.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "JUD 1:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "These are murmurers, complainers, walking after their lusts (and their mouth speaketh great swelling ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.16",
+                "verseOrgIds": [
+                  "JUD.1.16"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "words",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JUD.1.16",
+                    "verseOrgIds": [
+                      "JUD.1.16"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": "), showing respect of persons for the sake of advantage.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.16",
+                "verseOrgIds": [
+                  "JUD.1.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "JUD 1:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But ye, beloved, remember ye the words which have been spoken before by the apostles of our Lord Jesus Christ; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.17",
+                "verseOrgIds": [
+                  "JUD.1.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "JUD 1:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that they said to you, In the last time there shall be mockers, walking after their own ungodly lusts. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.18",
+                "verseOrgIds": [
+                  "JUD.1.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "JUD 1:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "These are they who make separations, sensual, having not the Spirit. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.19",
+                "verseOrgIds": [
+                  "JUD.1.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "JUD 1:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But ye, beloved, building up yourselves on your most holy faith, praying in the Holy Spirit, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.20",
+                "verseOrgIds": [
+                  "JUD.1.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "JUD 1:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "keep yourselves in the love of God, looking for the mercy of our Lord Jesus Christ unto eternal life. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.21",
+                "verseOrgIds": [
+                  "JUD.1.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "JUD 1:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And on some have mercy, who are in doubt; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.22",
+                "verseOrgIds": [
+                  "JUD.1.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "JUD 1:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and some save, snatching them out of the fire; and on some have mercy with fear; hating even the garment spotted by the flesh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.23",
+                "verseOrgIds": [
+                  "JUD.1.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "JUD 1:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now unto him that is able to guard you from stumbling, and to set you before the presence of his glory without blemish in exceeding joy, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.24",
+                "verseOrgIds": [
+                  "JUD.1.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "JUD 1:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "to the only God our Saviour, through Jesus Christ our Lord, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.25",
+                "verseOrgIds": [
+                  "JUD.1.25"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "be",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JUD.1.25",
+                    "verseOrgIds": [
+                      "JUD.1.25"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " glory, majesty, dominion and power, before all time, and now, and for evermore. Amen.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JUD.1.25",
+                "verseOrgIds": [
+                  "JUD.1.25"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "REV.intro",
+        "number": "intro",
+        "bookId": "REV"
+      },
+      "previous": {
+        "id": "JUD.intro",
+        "number": "intro",
+        "bookId": "JUD"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:32.607Z"
+  }
+}

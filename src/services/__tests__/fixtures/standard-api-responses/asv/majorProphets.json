@@ -1,0 +1,5926 @@
+{
+  "Isaiah_53": {
+    "reference": "Isaiah 53",
+    "bookName": "Isaiah",
+    "chapter": 53,
+    "translation": "ASV",
+    "content": {
+      "id": "ISA.53",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "53",
+      "bookId": "ISA",
+      "reference": "Isaiah 53",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 12,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "ISA 53:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who hath believed our message? and to whom hath the arm of Jehovah been revealed? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.1",
+                "verseOrgIds": [
+                  "ISA.53.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "ISA 53:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For he grew up before him as a tender plant, and as a root out of a dry ground: he hath no form nor comeliness; and when we see him, there is no beauty that we should desire him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.2",
+                "verseOrgIds": [
+                  "ISA.53.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "ISA 53:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He was despised, and rejected of men; a man of sorrows, and acquainted with grief: and as one from whom men hide their face he was despised; and we esteemed him not.",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.3",
+                "verseOrgIds": [
+                  "ISA.53.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "ISA 53:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Surely he hath borne our griefs, and carried our sorrows; yet we did esteem him stricken, smitten of God, and afflicted. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.4",
+                "verseOrgIds": [
+                  "ISA.53.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "ISA 53:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But he was wounded for our transgressions, he was bruised for our iniquities; the chastisement of our peace was upon him; and with his stripes we are healed. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.5",
+                "verseOrgIds": [
+                  "ISA.53.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "ISA 53:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All we like sheep have gone astray; we have turned every one to his own way; and Jehovah hath laid on him the iniquity of us all.",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.6",
+                "verseOrgIds": [
+                  "ISA.53.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "ISA 53:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He was oppressed, yet when he was afflicted he opened not his mouth; as a lamb that is led to the slaughter, and as a sheep that before its shearers is dumb, so he opened not his mouth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.7",
+                "verseOrgIds": [
+                  "ISA.53.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "ISA 53:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By oppression and judgment he was taken away; and as for his generation, who ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.8",
+                "verseOrgIds": [
+                  "ISA.53.8"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "among them",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "ISA.53.8",
+                    "verseOrgIds": [
+                      "ISA.53.8"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " considered that he was cut off out of the land of the living for the transgression of my people to whom the stroke ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.8",
+                "verseOrgIds": [
+                  "ISA.53.8"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "was due",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "ISA.53.8",
+                    "verseOrgIds": [
+                      "ISA.53.8"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": "? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.8",
+                "verseOrgIds": [
+                  "ISA.53.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "ISA 53:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they made his grave with the wicked, and with a rich man in his death; although he had done no violence, neither was any deceit in his mouth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.9",
+                "verseOrgIds": [
+                  "ISA.53.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "ISA 53:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yet it pleased Jehovah to bruise him; he hath put him to grief: when thou shalt make his soul an offering for sin, he shall see ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.10",
+                "verseOrgIds": [
+                  "ISA.53.10"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "his",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "ISA.53.10",
+                    "verseOrgIds": [
+                      "ISA.53.10"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " seed, he shall prolong his days, and the pleasure of Jehovah shall prosper in his hand. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.10",
+                "verseOrgIds": [
+                  "ISA.53.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "ISA 53:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He shall see of the travail of his soul, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.11",
+                "verseOrgIds": [
+                  "ISA.53.11"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "and",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "ISA.53.11",
+                    "verseOrgIds": [
+                      "ISA.53.11"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " shall be satisfied: by the knowledge of himself shall my righteous servant justify many; and he shall bear their iniquities. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.11",
+                "verseOrgIds": [
+                  "ISA.53.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "ISA 53:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore will I divide him a portion with the great, and he shall divide the spoil with the strong; because he poured out his soul unto death, and was numbered with the transgressors: yet he bare the sin of many, and made intercession for the transgressors.",
+              "type": "text",
+              "attrs": {
+                "verseId": "ISA.53.12",
+                "verseOrgIds": [
+                  "ISA.53.12"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "ISA.54",
+        "number": "54",
+        "bookId": "ISA"
+      },
+      "previous": {
+        "id": "ISA.52",
+        "number": "52",
+        "bookId": "ISA"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:20.703Z"
+  },
+  "Jeremiah_31": {
+    "reference": "Jeremiah 31",
+    "bookName": "Jeremiah",
+    "chapter": 31,
+    "translation": "ASV",
+    "content": {
+      "id": "JER.31",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "31",
+      "bookId": "JER",
+      "reference": "Jeremiah 31",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 40,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "JER 31:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "At that time, saith Jehovah, will I be the God of all the families of Israel, and they shall be my people. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.1",
+                "verseOrgIds": [
+                  "JER.31.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "JER 31:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith Jehovah, The people that were left of the sword found favor in the wilderness; even Israel, when I went to cause him to rest. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.2",
+                "verseOrgIds": [
+                  "JER.31.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "JER 31:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Jehovah appeared of old unto me, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.3",
+                "verseOrgIds": [
+                  "JER.31.3"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "saying",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JER.31.3",
+                    "verseOrgIds": [
+                      "JER.31.3"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", Yea, I have loved thee with an everlasting love: therefore with lovingkindness have I drawn thee. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.3",
+                "verseOrgIds": [
+                  "JER.31.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "JER 31:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Again will I build thee, and thou shalt be built, O virgin of Israel: again shalt thou be adorned with thy tabrets, and shalt go forth in the dances of them that make merry. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.4",
+                "verseOrgIds": [
+                  "JER.31.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "JER 31:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Again shalt thou plant vineyards upon the mountains of Samaria; the planters shall plant, and shall enjoy ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.5",
+                "verseOrgIds": [
+                  "JER.31.5"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "the fruit thereof",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JER.31.5",
+                    "verseOrgIds": [
+                      "JER.31.5"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ". ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.5",
+                "verseOrgIds": [
+                  "JER.31.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "JER 31:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For there shall be a day, that the watchmen upon the hills of Ephraim shall cry, Arise ye, and let us go up to Zion unto Jehovah our God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.6",
+                "verseOrgIds": [
+                  "JER.31.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "JER 31:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For thus saith Jehovah, Sing with gladness for Jacob, and shout for the chief of the nations: publish ye, praise ye, and say, O Jehovah, save thy people, the remnant of Israel. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.7",
+                "verseOrgIds": [
+                  "JER.31.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "JER 31:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold, I will bring them from the north country, and gather them from the uttermost parts of the earth, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.8",
+                "verseOrgIds": [
+                  "JER.31.8"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "and",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JER.31.8",
+                    "verseOrgIds": [
+                      "JER.31.8"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " with them the blind and the lame, the woman with child and her that travaileth with child together: a great company shall they return hither. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.8",
+                "verseOrgIds": [
+                  "JER.31.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "JER 31:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They shall come with weeping; and with supplications will I lead them: I will cause them to walk by rivers of waters, in a straight way wherein they shall not stumble; for I am a father to Israel, and Ephraim is my first-born.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.9",
+                "verseOrgIds": [
+                  "JER.31.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "JER 31:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Hear the word of Jehovah, O ye nations, and declare it in the isles afar off; and say, He that scattered Israel will gather him, and keep him, as a shepherd doth his flock. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.10",
+                "verseOrgIds": [
+                  "JER.31.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "JER 31:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For Jehovah hath ransomed Jacob, and redeemed him from the hand of him that was stronger than he. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.11",
+                "verseOrgIds": [
+                  "JER.31.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "JER 31:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they shall come and sing in the height of Zion, and shall flow unto the goodness of Jehovah, to the grain, and to the new wine, and to the oil, and to the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.12",
+                "verseOrgIds": [
+                  "JER.31.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "JER 31:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then shall the virgin rejoice in the dance, and the young men and the old together; for I will turn their mourning into joy, and will comfort them, and make them rejoice from their sorrow. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.13",
+                "verseOrgIds": [
+                  "JER.31.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "JER 31:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I will satiate the soul of the priests with fatness, and my people shall be satisfied with my goodness, saith Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.14",
+                "verseOrgIds": [
+                  "JER.31.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "JER 31:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith Jehovah: A voice is heard in Ramah, lamentation, and bitter weeping, Rachel weeping for her children; she refuseth to be comforted for her children, because they are not. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.15",
+                "verseOrgIds": [
+                  "JER.31.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "JER 31:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith Jehovah: Refrain thy voice from weeping, and thine eyes from tears; for thy work shall be rewarded, saith Jehovah; and they shall come again from the land of the enemy. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.16",
+                "verseOrgIds": [
+                  "JER.31.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "JER 31:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And there is hope for thy latter end, saith Jehovah; and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.17",
+                "verseOrgIds": [
+                  "JER.31.17"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "thy",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JER.31.17",
+                    "verseOrgIds": [
+                      "JER.31.17"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " children shall come again to their own border. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.17",
+                "verseOrgIds": [
+                  "JER.31.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "JER 31:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I have surely heard Ephraim bemoaning himself ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.18",
+                "verseOrgIds": [
+                  "JER.31.18"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "thus",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JER.31.18",
+                    "verseOrgIds": [
+                      "JER.31.18"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", Thou hast chastised me, and I was chastised, as a calf unaccustomed ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.18",
+                "verseOrgIds": [
+                  "JER.31.18"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "to the yoke",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JER.31.18",
+                    "verseOrgIds": [
+                      "JER.31.18"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ": turn thou me, and I shall be turned; for thou art Jehovah my God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.18",
+                "verseOrgIds": [
+                  "JER.31.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "JER 31:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Surely after that I was turned, I repented; and after that I was instructed, I smote upon my thigh: I was ashamed, yea, even confounded, because I did bear the reproach of my youth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.19",
+                "verseOrgIds": [
+                  "JER.31.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "JER 31:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Is Ephraim my dear son? is he a darling child? for as often as I speak against him, I do earnestly remember him still: therefore my heart yearneth for him; I will surely have mercy upon him, saith Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.20",
+                "verseOrgIds": [
+                  "JER.31.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "JER 31:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Set thee up waymarks, make thee guide-posts; set thy heart toward the highway, even the way by which thou wentest: turn again, O virgin of Israel, turn again to these thy cities. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.21",
+                "verseOrgIds": [
+                  "JER.31.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "JER 31:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "How long wilt thou go hither and thither, O thou backsliding daughter? for Jehovah hath created a new thing in the earth: A woman shall encompass a man.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.22",
+                "verseOrgIds": [
+                  "JER.31.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "JER 31:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith Jehovah of hosts, the God of Israel, Yet again shall they use this speech in the land of Judah and in the cities thereof, when I shall bring again their captivity: Jehovah bless thee, O habitation of righteousness, O mountain of holiness. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.23",
+                "verseOrgIds": [
+                  "JER.31.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "JER 31:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And Judah and all the cities thereof shall dwell therein together, the husbandmen, and they that go about with flocks. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.24",
+                "verseOrgIds": [
+                  "JER.31.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "JER 31:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For I have satiated the weary soul, and every sorrowful soul have I replenished. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.25",
+                "verseOrgIds": [
+                  "JER.31.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "JER 31:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Upon this I awaked, and beheld; and my sleep was sweet unto me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.26",
+                "verseOrgIds": [
+                  "JER.31.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "JER 31:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold, the days come, saith Jehovah, that I will sow the house of Israel and the house of Judah with the seed of man, and with the seed of beast. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.27",
+                "verseOrgIds": [
+                  "JER.31.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "JER 31:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And it shall come to pass that, like as I have watched over them to pluck up and to break down and to overthrow and to destroy and to afflict, so will I watch over them to build and to plant, saith Jehovah. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.28",
+                "verseOrgIds": [
+                  "JER.31.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "JER 31:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "In those days they shall say no more, The fathers have eaten sour grapes, and the children’s teeth are set on edge. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.29",
+                "verseOrgIds": [
+                  "JER.31.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "JER 31:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But every one shall die for his own iniquity: every man that eateth the sour grapes, his teeth shall be set on edge.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.30",
+                "verseOrgIds": [
+                  "JER.31.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "JER 31:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold, the days come, saith Jehovah, that I will make a new covenant with the house of Israel, and with the house of Judah: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.31",
+                "verseOrgIds": [
+                  "JER.31.31"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "JER 31:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "not according to the covenant that I made with their fathers in the day that I took them by the hand to bring them out of the land of Egypt; which my covenant they brake, although I was a husband unto them, saith Jehovah. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.32",
+                "verseOrgIds": [
+                  "JER.31.32"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "JER 31:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But this is the covenant that I will make with the house of Israel after those days, saith Jehovah: I will put my law in their inward parts, and in their heart will I write it; and I will be their God, and they shall be my people. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.33",
+                "verseOrgIds": [
+                  "JER.31.33"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "JER 31:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they shall teach no more every man his neighbor, and every man his brother, saying, Know Jehovah; for they shall all know me, from the least of them unto the greatest of them, saith Jehovah: for I will forgive their iniquity, and their sin will I remember no more.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.34",
+                "verseOrgIds": [
+                  "JER.31.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "JER 31:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith Jehovah, who giveth the sun for a light by day, and the ordinances of the moon and of the stars for a light by night, who stirreth up the sea, so that the waves thereof roar; Jehovah of hosts is his name: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.35",
+                "verseOrgIds": [
+                  "JER.31.35"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "JER 31:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If these ordinances depart from before me, saith Jehovah, then the seed of Israel also shall cease from being a nation before me for ever. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.36",
+                "verseOrgIds": [
+                  "JER.31.36"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "JER 31:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith Jehovah: If heaven above can be measured, and the foundations of the earth searched out beneath, then will I also cast off all the seed of Israel for all that they have done, saith Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.37",
+                "verseOrgIds": [
+                  "JER.31.37"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "JER 31:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold, the days come, saith Jehovah, that the city shall be built to Jehovah from the tower of Hananel unto the gate of the corner. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.38",
+                "verseOrgIds": [
+                  "JER.31.38"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "JER 31:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the measuring line shall go out further straight onward unto the hill Gareb, and shall turn about unto Goah. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.39",
+                "verseOrgIds": [
+                  "JER.31.39"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "JER 31:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the whole valley of the dead bodies and of the ashes, and all the fields unto the brook Kidron, unto the corner of the horse gate toward the east, shall be holy unto Jehovah; it shall not be plucked up, nor thrown down any more for ever.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JER.31.40",
+                "verseOrgIds": [
+                  "JER.31.40"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "JER.32",
+        "number": "32",
+        "bookId": "JER"
+      },
+      "previous": {
+        "id": "JER.30",
+        "number": "30",
+        "bookId": "JER"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:20.898Z"
+  },
+  "Lamentations_3": {
+    "reference": "Lamentations 3",
+    "bookName": "Lamentations",
+    "chapter": 3,
+    "translation": "ASV",
+    "content": {
+      "id": "LAM.3",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "3",
+      "bookId": "LAM",
+      "reference": "Lamentations 3",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 66,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "LAM 3:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I am the man that hath seen affliction by the rod of his wrath.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.1",
+                "verseOrgIds": [
+                  "LAM.3.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "LAM 3:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath led me and caused me to walk in darkness, and not in light.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.2",
+                "verseOrgIds": [
+                  "LAM.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "LAM 3:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Surely against me he turneth his hand again and again all the day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.3",
+                "verseOrgIds": [
+                  "LAM.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "LAM 3:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My flesh and my skin hath he made old; he hath broken my bones.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.4",
+                "verseOrgIds": [
+                  "LAM.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "LAM 3:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath builded against me, and compassed me with gall and travail.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.5",
+                "verseOrgIds": [
+                  "LAM.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "LAM 3:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath made me to dwell in dark places, as those that have been long dead.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.6",
+                "verseOrgIds": [
+                  "LAM.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "LAM 3:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath walled me about, that I cannot go forth; he hath made my chain heavy.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.7",
+                "verseOrgIds": [
+                  "LAM.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "LAM 3:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yea, when I cry, and call for help, he shutteth out my prayer.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.8",
+                "verseOrgIds": [
+                  "LAM.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "LAM 3:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath walled up my ways with hewn stone; he hath made my paths crooked.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.9",
+                "verseOrgIds": [
+                  "LAM.3.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "LAM 3:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He is unto me as a bear lying in wait, as a lion in secret places.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.10",
+                "verseOrgIds": [
+                  "LAM.3.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "LAM 3:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath turned aside my ways, and pulled me in pieces; he hath made me desolate.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.11",
+                "verseOrgIds": [
+                  "LAM.3.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "LAM 3:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath bent his bow, and set me as a mark for the arrow.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.12",
+                "verseOrgIds": [
+                  "LAM.3.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "LAM 3:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath caused the shafts of his quiver to enter into my reins.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.13",
+                "verseOrgIds": [
+                  "LAM.3.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "LAM 3:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I am become a derision to all my people, and their song all the day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.14",
+                "verseOrgIds": [
+                  "LAM.3.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "LAM 3:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath filled me with bitterness, he hath sated me with wormwood.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.15",
+                "verseOrgIds": [
+                  "LAM.3.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "LAM 3:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He hath also broken my teeth with gravel stones; he hath covered me with ashes.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.16",
+                "verseOrgIds": [
+                  "LAM.3.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "LAM 3:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And thou hast removed my soul far off from peace; I forgat prosperity.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.17",
+                "verseOrgIds": [
+                  "LAM.3.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "LAM 3:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I said, My strength is perished, and mine expectation from Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.18",
+                "verseOrgIds": [
+                  "LAM.3.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "LAM 3:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Remember mine affliction and my misery, the wormwood and the gall.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.19",
+                "verseOrgIds": [
+                  "LAM.3.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "LAM 3:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My soul hath them still in remembrance, and is bowed down within me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.20",
+                "verseOrgIds": [
+                  "LAM.3.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "LAM 3:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "This I recall to my mind; therefore have I hope.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.21",
+                "verseOrgIds": [
+                  "LAM.3.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "LAM 3:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "It is of",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LAM.3.22",
+                    "verseOrgIds": [
+                      "LAM.3.22"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " Jehovah’s lovingkindnesses that we are not consumed, because his compassions fail not.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.22",
+                "verseOrgIds": [
+                  "LAM.3.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "LAM 3:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They are new every morning; great is thy faithfulness.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.23",
+                "verseOrgIds": [
+                  "LAM.3.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "LAM 3:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Jehovah is my portion, saith my soul; therefore will I hope in him.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.24",
+                "verseOrgIds": [
+                  "LAM.3.24"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "LAM 3:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Jehovah is good unto them that wait for him, to the soul that seeketh him.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.25",
+                "verseOrgIds": [
+                  "LAM.3.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "LAM 3:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It is good that a man should hope and quietly wait for the salvation of Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.26",
+                "verseOrgIds": [
+                  "LAM.3.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "LAM 3:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It is good for a man that he bear the yoke in his youth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.27",
+                "verseOrgIds": [
+                  "LAM.3.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "LAM 3:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let him sit alone and keep silence, because he hath laid it upon him.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.28",
+                "verseOrgIds": [
+                  "LAM.3.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "LAM 3:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let him put his mouth in the dust, if so be there may be hope.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.29",
+                "verseOrgIds": [
+                  "LAM.3.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "LAM 3:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let him give his cheek to him that smiteth him; let him be filled full with reproach.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.30",
+                "verseOrgIds": [
+                  "LAM.3.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "LAM 3:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For the Lord will not cast off for ever.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.31",
+                "verseOrgIds": [
+                  "LAM.3.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "LAM 3:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For though he cause grief, yet will he have compassion according to the multitude of his lovingkindnesses.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.32",
+                "verseOrgIds": [
+                  "LAM.3.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "LAM 3:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For he doth not afflict willingly, nor grieve the children of men.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.33",
+                "verseOrgIds": [
+                  "LAM.3.33"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "LAM 3:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "To crush under foot all the prisoners of the earth,",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.34",
+                "verseOrgIds": [
+                  "LAM.3.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "LAM 3:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "To turn aside the right of a man before the face of the Most High,",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.35",
+                "verseOrgIds": [
+                  "LAM.3.35"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "LAM 3:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "To subvert a man in his cause, the Lord approveth not.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.36",
+                "verseOrgIds": [
+                  "LAM.3.36"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "LAM 3:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who is he that saith, and it cometh to pass, when the Lord commandeth it not?",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.37",
+                "verseOrgIds": [
+                  "LAM.3.37"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "LAM 3:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Out of the mouth of the Most High cometh there not evil and good?",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.38",
+                "verseOrgIds": [
+                  "LAM.3.38"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "LAM 3:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Wherefore doth a living man complain, a man for the punishment of his sins?",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.39",
+                "verseOrgIds": [
+                  "LAM.3.39"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "LAM 3:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let us search and try our ways, and turn again to Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.40",
+                "verseOrgIds": [
+                  "LAM.3.40"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "41",
+                "style": "v",
+                "sid": "LAM 3:41"
+              },
+              "items": [
+                {
+                  "text": "41",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let us lift up our heart with our hands unto God in the heavens.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.41",
+                "verseOrgIds": [
+                  "LAM.3.41"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "42",
+                "style": "v",
+                "sid": "LAM 3:42"
+              },
+              "items": [
+                {
+                  "text": "42",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "We have transgressed and have rebelled; thou hast not pardoned.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.42",
+                "verseOrgIds": [
+                  "LAM.3.42"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "43",
+                "style": "v",
+                "sid": "LAM 3:43"
+              },
+              "items": [
+                {
+                  "text": "43",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou hast covered with anger and pursued us; thou hast slain, thou hast not pitied.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.43",
+                "verseOrgIds": [
+                  "LAM.3.43"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "44",
+                "style": "v",
+                "sid": "LAM 3:44"
+              },
+              "items": [
+                {
+                  "text": "44",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou hast covered thyself with a cloud, so that no prayer can pass through.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.44",
+                "verseOrgIds": [
+                  "LAM.3.44"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "45",
+                "style": "v",
+                "sid": "LAM 3:45"
+              },
+              "items": [
+                {
+                  "text": "45",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou hast made us an offscouring and refuse in the midst of the peoples.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.45",
+                "verseOrgIds": [
+                  "LAM.3.45"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "46",
+                "style": "v",
+                "sid": "LAM 3:46"
+              },
+              "items": [
+                {
+                  "text": "46",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All our enemies have opened their mouth wide against us.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.46",
+                "verseOrgIds": [
+                  "LAM.3.46"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "47",
+                "style": "v",
+                "sid": "LAM 3:47"
+              },
+              "items": [
+                {
+                  "text": "47",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Fear and the pit are come upon us, devastation and destruction.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.47",
+                "verseOrgIds": [
+                  "LAM.3.47"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "48",
+                "style": "v",
+                "sid": "LAM 3:48"
+              },
+              "items": [
+                {
+                  "text": "48",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Mine eye runneth down with streams of water, for the destruction of the daughter of my people.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.48",
+                "verseOrgIds": [
+                  "LAM.3.48"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "49",
+                "style": "v",
+                "sid": "LAM 3:49"
+              },
+              "items": [
+                {
+                  "text": "49",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Mine eye poureth down, and ceaseth not, without any intermission,",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.49",
+                "verseOrgIds": [
+                  "LAM.3.49"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "50",
+                "style": "v",
+                "sid": "LAM 3:50"
+              },
+              "items": [
+                {
+                  "text": "50",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Till Jehovah look down, and behold from heaven.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.50",
+                "verseOrgIds": [
+                  "LAM.3.50"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "51",
+                "style": "v",
+                "sid": "LAM 3:51"
+              },
+              "items": [
+                {
+                  "text": "51",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Mine eye affecteth my soul, because of all the daughters of my city.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.51",
+                "verseOrgIds": [
+                  "LAM.3.51"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "52",
+                "style": "v",
+                "sid": "LAM 3:52"
+              },
+              "items": [
+                {
+                  "text": "52",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They have chased me sore like a bird, they that are mine enemies without cause.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.52",
+                "verseOrgIds": [
+                  "LAM.3.52"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "53",
+                "style": "v",
+                "sid": "LAM 3:53"
+              },
+              "items": [
+                {
+                  "text": "53",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They have cut off my life in the dungeon, and have cast a stone upon me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.53",
+                "verseOrgIds": [
+                  "LAM.3.53"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "54",
+                "style": "v",
+                "sid": "LAM 3:54"
+              },
+              "items": [
+                {
+                  "text": "54",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Waters flowed over my head; I said, I am cut off.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.54",
+                "verseOrgIds": [
+                  "LAM.3.54"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "55",
+                "style": "v",
+                "sid": "LAM 3:55"
+              },
+              "items": [
+                {
+                  "text": "55",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I called upon thy name, O Jehovah, out of the lowest dungeon.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.55",
+                "verseOrgIds": [
+                  "LAM.3.55"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "56",
+                "style": "v",
+                "sid": "LAM 3:56"
+              },
+              "items": [
+                {
+                  "text": "56",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou heardest my voice; hide not thine ear at my breathing, at my cry.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.56",
+                "verseOrgIds": [
+                  "LAM.3.56"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "57",
+                "style": "v",
+                "sid": "LAM 3:57"
+              },
+              "items": [
+                {
+                  "text": "57",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou drewest near in the day that I called upon thee; thou saidst, Fear not.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.57",
+                "verseOrgIds": [
+                  "LAM.3.57"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "58",
+                "style": "v",
+                "sid": "LAM 3:58"
+              },
+              "items": [
+                {
+                  "text": "58",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "O Lord, thou hast pleaded the causes of my soul; thou hast redeemed my life.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.58",
+                "verseOrgIds": [
+                  "LAM.3.58"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "59",
+                "style": "v",
+                "sid": "LAM 3:59"
+              },
+              "items": [
+                {
+                  "text": "59",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "O Jehovah, thou hast seen my wrong; judge thou my cause.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.59",
+                "verseOrgIds": [
+                  "LAM.3.59"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "60",
+                "style": "v",
+                "sid": "LAM 3:60"
+              },
+              "items": [
+                {
+                  "text": "60",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou hast seen all their vengeance and all their devices against me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.60",
+                "verseOrgIds": [
+                  "LAM.3.60"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "61",
+                "style": "v",
+                "sid": "LAM 3:61"
+              },
+              "items": [
+                {
+                  "text": "61",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou hast heard their reproach, O Jehovah, and all their devices against me,",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.61",
+                "verseOrgIds": [
+                  "LAM.3.61"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "62",
+                "style": "v",
+                "sid": "LAM 3:62"
+              },
+              "items": [
+                {
+                  "text": "62",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The lips of those that rose up against me, and their device against me all the day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.62",
+                "verseOrgIds": [
+                  "LAM.3.62"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "63",
+                "style": "v",
+                "sid": "LAM 3:63"
+              },
+              "items": [
+                {
+                  "text": "63",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold thou their sitting down, and their rising up; I am their song.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.63",
+                "verseOrgIds": [
+                  "LAM.3.63"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "64",
+                "style": "v",
+                "sid": "LAM 3:64"
+              },
+              "items": [
+                {
+                  "text": "64",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou wilt render unto them a recompense, O Jehovah, according to the work of their hands.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.64",
+                "verseOrgIds": [
+                  "LAM.3.64"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "65",
+                "style": "v",
+                "sid": "LAM 3:65"
+              },
+              "items": [
+                {
+                  "text": "65",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou wilt give them hardness of heart, thy curse unto them.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.65",
+                "verseOrgIds": [
+                  "LAM.3.65"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "66",
+                "style": "v",
+                "sid": "LAM 3:66"
+              },
+              "items": [
+                {
+                  "text": "66",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou wilt pursue them in anger, and destroy them from under the heavens of Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LAM.3.66",
+                "verseOrgIds": [
+                  "LAM.3.66"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "LAM.4",
+        "number": "4",
+        "bookId": "LAM"
+      },
+      "previous": {
+        "id": "LAM.2",
+        "number": "2",
+        "bookId": "LAM"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:21.139Z"
+  },
+  "Ezekiel_37": {
+    "reference": "Ezekiel 37",
+    "bookName": "Ezekiel",
+    "chapter": 37,
+    "translation": "ASV",
+    "content": {
+      "id": "EZK.37",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "37",
+      "bookId": "EZK",
+      "reference": "Ezekiel 37",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 28,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "EZK 37:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The hand of Jehovah was upon me, and he brought me out in the Spirit of Jehovah, and set me down in the midst of the valley; and it was full of bones. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.1",
+                "verseOrgIds": [
+                  "EZK.37.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "EZK 37:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he caused me to pass by them round about: and, behold, there were very many in the open valley; and, lo, they were very dry. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.2",
+                "verseOrgIds": [
+                  "EZK.37.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "EZK 37:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto me, Son of man, can these bones live? And I answered, O Lord Jehovah, thou knowest. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.3",
+                "verseOrgIds": [
+                  "EZK.37.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "EZK 37:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Again he said unto me, Prophesy over these bones, and say unto them, O ye dry bones, hear the word of Jehovah. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.4",
+                "verseOrgIds": [
+                  "EZK.37.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "EZK 37:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thus saith the Lord Jehovah unto these bones: Behold, I will cause breath to enter into you, and ye shall live. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.5",
+                "verseOrgIds": [
+                  "EZK.37.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "EZK 37:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I will lay sinews upon you, and will bring up flesh upon you, and cover you with skin, and put breath in you, and ye shall live; and ye shall know that I am Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.6",
+                "verseOrgIds": [
+                  "EZK.37.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "EZK 37:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "So I prophesied as I was commanded: and as I prophesied, there was a noise, and, behold, an earthquake; and the bones came together, bone to its bone. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.7",
+                "verseOrgIds": [
+                  "EZK.37.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "EZK 37:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I beheld, and, lo, there were sinews upon them, and flesh came up, and skin covered them above; but there was no breath in them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.8",
+                "verseOrgIds": [
+                  "EZK.37.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "EZK 37:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then said he unto me, Prophesy unto the wind, prophesy, son of man, and say to the wind, Thus saith the Lord Jehovah: Come from the four winds, O breath, and breathe upon these slain, that they may live. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.9",
+                "verseOrgIds": [
+                  "EZK.37.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "EZK 37:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "So I prophesied as he commanded me, and the breath came into them, and they lived, and stood up upon their feet, an exceeding great army.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.10",
+                "verseOrgIds": [
+                  "EZK.37.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "EZK 37:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then he said unto me, Son of man, these bones are the whole house of Israel: behold, they say, Our bones are dried up, and our hope is lost; we are clean cut off. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.11",
+                "verseOrgIds": [
+                  "EZK.37.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "EZK 37:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore prophesy, and say unto them, Thus saith the Lord Jehovah: Behold, I will open your graves, and cause you to come up out of your graves, O my people; and I will bring you into the land of Israel. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.12",
+                "verseOrgIds": [
+                  "EZK.37.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "EZK 37:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And ye shall know that I am Jehovah, when I have opened your graves, and caused you to come up out of your graves, O my people. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.13",
+                "verseOrgIds": [
+                  "EZK.37.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "EZK 37:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I will put my Spirit in you, and ye shall live, and I will place you in your own land: and ye shall know that I, Jehovah, have spoken it and performed it, saith Jehovah.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.14",
+                "verseOrgIds": [
+                  "EZK.37.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "EZK 37:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The word of Jehovah came again unto me, saying, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.15",
+                "verseOrgIds": [
+                  "EZK.37.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "EZK 37:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And thou, son of man, take thee one stick, and write upon it, For Judah, and for the children of Israel his companions: then take another stick, and write upon it, For Joseph, the stick of Ephraim, and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.16",
+                "verseOrgIds": [
+                  "EZK.37.16"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "for",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "EZK.37.16",
+                    "verseOrgIds": [
+                      "EZK.37.16"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " all the house of Israel his companions: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.16",
+                "verseOrgIds": [
+                  "EZK.37.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "EZK 37:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and join them for thee one to another into one stick, that they may become one in thy hand. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.17",
+                "verseOrgIds": [
+                  "EZK.37.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "EZK 37:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And when the children of thy people shall speak unto thee, saying, Wilt thou not show us what thou meanest by these? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.18",
+                "verseOrgIds": [
+                  "EZK.37.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "EZK 37:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "say unto them, Thus saith the Lord Jehovah: Behold, I will take the stick of Joseph, which is in the hand of Ephraim, and the tribes of Israel his companions; and I will put them with it, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.19",
+                "verseOrgIds": [
+                  "EZK.37.19"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "EZK.37.19",
+                    "verseOrgIds": [
+                      "EZK.37.19"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " with the stick of Judah, and make them one stick, and they shall be one in my hand. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.19",
+                "verseOrgIds": [
+                  "EZK.37.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "EZK 37:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the sticks whereon thou writest shall be in thy hand before their eyes. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.20",
+                "verseOrgIds": [
+                  "EZK.37.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "EZK 37:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And say unto them, Thus saith the Lord Jehovah: Behold, I will take the children of Israel from among the nations, whither they are gone, and will gather them on every side, and bring them into their own land: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.21",
+                "verseOrgIds": [
+                  "EZK.37.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "EZK 37:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and I will make them one nation in the land, upon the mountains of Israel; and one king shall be king to them all; and they shall be no more two nations, neither shall they be divided into two kingdoms any more at all; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.22",
+                "verseOrgIds": [
+                  "EZK.37.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "EZK 37:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "neither shall they defile themselves any more with their idols, nor with their detestable things, nor with any of their transgressions; but I will save them out of all their dwelling-places, wherein they have sinned, and will cleanse them: so shall they be my people, and I will be their God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.23",
+                "verseOrgIds": [
+                  "EZK.37.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "EZK 37:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And my servant David shall be king over them; and they all shall have one shepherd: they shall also walk in mine ordinances, and observe my statutes, and do them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.24",
+                "verseOrgIds": [
+                  "EZK.37.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "EZK 37:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they shall dwell in the land that I have given unto Jacob my servant, wherein your fathers dwelt; and they shall dwell therein, they, and their children, and their children’s children, for ever: and David my servant shall be their prince for ever. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.25",
+                "verseOrgIds": [
+                  "EZK.37.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "EZK 37:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Moreover I will make a covenant of peace with them; it shall be an everlasting covenant with them; and I will place them, and multiply them, and will set my sanctuary in the midst of them for evermore. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.26",
+                "verseOrgIds": [
+                  "EZK.37.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "EZK 37:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My tabernacle also shall be with them; and I will be their God, and they shall be my people. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.27",
+                "verseOrgIds": [
+                  "EZK.37.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "EZK 37:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the nations shall know that I am Jehovah that sanctifieth Israel, when my sanctuary shall be in the midst of them for evermore.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EZK.37.28",
+                "verseOrgIds": [
+                  "EZK.37.28"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "EZK.38",
+        "number": "38",
+        "bookId": "EZK"
+      },
+      "previous": {
+        "id": "EZK.36",
+        "number": "36",
+        "bookId": "EZK"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:21.340Z"
+  },
+  "Daniel_3": {
+    "reference": "Daniel 3",
+    "bookName": "Daniel",
+    "chapter": 3,
+    "translation": "ASV",
+    "content": {
+      "id": "DAN.3",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "3",
+      "bookId": "DAN",
+      "reference": "Daniel 3",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 30,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "DAN 3:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Nebuchadnezzar the king made an image of gold, whose height was threescore cubits, and the breadth thereof six cubits: he set it up in the plain of Dura, in the province of Babylon. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.1",
+                "verseOrgIds": [
+                  "DAN.3.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "DAN 3:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then Nebuchadnezzar the king sent to gather together the satraps, the deputies, and the governors, the judges, the treasurers, the counsellors, the sheriffs, and all the rulers of the provinces, to come to the dedication of the image which Nebuchadnezzar the king had set up. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.2",
+                "verseOrgIds": [
+                  "DAN.3.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "DAN 3:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then the satraps, the deputies, and the governors, the judges, the treasurers, the counsellors, the sheriffs, and all the rulers of the provinces, were gathered together unto the dedication of the image that Nebuchadnezzar the king had set up; and they stood before the image that Nebuchadnezzar had set up. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.3",
+                "verseOrgIds": [
+                  "DAN.3.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "DAN 3:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then the herald cried aloud, To you it is commanded, O peoples, nations, and languages, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.4",
+                "verseOrgIds": [
+                  "DAN.3.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "DAN 3:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that at what time ye hear the sound of the cornet, flute, harp, sackbut, psaltery, dulcimer, and all kinds of music, ye fall down and worship the golden image that Nebuchadnezzar the king hath set up; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.5",
+                "verseOrgIds": [
+                  "DAN.3.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "DAN 3:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and whoso falleth not down and worshippeth shall the same hour be cast into the midst of a burning fiery furnace. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.6",
+                "verseOrgIds": [
+                  "DAN.3.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "DAN 3:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore at that time, when all the peoples heard the sound of the cornet, flute, harp, sackbut, psaltery, and all kinds of music, all the peoples, the nations, and the languages, fell down and worshipped the golden image that Nebuchadnezzar the king had set up.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.7",
+                "verseOrgIds": [
+                  "DAN.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "DAN 3:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Wherefore at that time certain Chaldeans came near, and brought accusation against the Jews. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.8",
+                "verseOrgIds": [
+                  "DAN.3.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "DAN 3:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They answered and said to Nebuchadnezzar the king, O king, live for ever. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.9",
+                "verseOrgIds": [
+                  "DAN.3.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "DAN 3:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Thou, O king, hast made a decree, that every man that shall hear the sound of the cornet, flute, harp, sackbut, psaltery, and dulcimer, and all kinds of music, shall fall down and worship the golden image; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.10",
+                "verseOrgIds": [
+                  "DAN.3.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "DAN 3:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and whoso falleth not down and worshippeth, shall be cast into the midst of a burning fiery furnace. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.11",
+                "verseOrgIds": [
+                  "DAN.3.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "DAN 3:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There are certain Jews whom thou hast appointed over the affairs of the province of Babylon: Shadrach, Meshach, and Abed-nego; these men, O king, have not regarded thee: they serve not thy gods, nor worship the golden image which thou hast set up.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.12",
+                "verseOrgIds": [
+                  "DAN.3.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "DAN 3:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then Nebuchadnezzar in ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.13",
+                "verseOrgIds": [
+                  "DAN.3.13"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "his",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "DAN.3.13",
+                    "verseOrgIds": [
+                      "DAN.3.13"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " rage and fury commanded to bring Shadrach, Meshach, and Abed-nego. Then they brought these men before the king. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.13",
+                "verseOrgIds": [
+                  "DAN.3.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "DAN 3:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Nebuchadnezzar answered and said unto them, Is it of purpose, O Shadrach, Meshach, and Abed-nego, that ye serve not my god, nor worship the golden image which I have set up? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.14",
+                "verseOrgIds": [
+                  "DAN.3.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "DAN 3:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now if ye be ready that at what time ye hear the sound of the cornet, flute, harp, sackbut, psaltery, and dulcimer, and all kinds of music, ye fall down and worship the image which I have made, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.15",
+                "verseOrgIds": [
+                  "DAN.3.15"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "well",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "DAN.3.15",
+                    "verseOrgIds": [
+                      "DAN.3.15"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ": but if ye worship not, ye shall be cast the same hour into the midst of a burning fiery furnace; and who is that god that shall deliver you out of my hands? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.15",
+                "verseOrgIds": [
+                  "DAN.3.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "DAN 3:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Shadrach, Meshach, and Abed-nego answered and said to the king, O Nebuchadnezzar, we have no need to answer thee in this matter. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.16",
+                "verseOrgIds": [
+                  "DAN.3.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "DAN 3:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If it be ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.17",
+                "verseOrgIds": [
+                  "DAN.3.17"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "so",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "DAN.3.17",
+                    "verseOrgIds": [
+                      "DAN.3.17"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", our God whom we serve is able to deliver us from the burning fiery furnace; and he will deliver us out of thy hand, O king. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.17",
+                "verseOrgIds": [
+                  "DAN.3.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "DAN 3:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But if not, be it known unto thee, O king, that we will not serve thy gods, nor worship the golden image which thou hast set up.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.18",
+                "verseOrgIds": [
+                  "DAN.3.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "DAN 3:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then was Nebuchadnezzar full of fury, and the form of his visage was changed against Shadrach, Meshach, and Abed-nego: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.19",
+                "verseOrgIds": [
+                  "DAN.3.19"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "therefore",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "DAN.3.19",
+                    "verseOrgIds": [
+                      "DAN.3.19"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " he spake, and commanded that they should heat the furnace seven times more than it was wont to be heated. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.19",
+                "verseOrgIds": [
+                  "DAN.3.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "DAN 3:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he commanded certain mighty men that were in his army to bind Shadrach, Meshach, and Abed-nego, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.20",
+                "verseOrgIds": [
+                  "DAN.3.20"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "and",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "DAN.3.20",
+                    "verseOrgIds": [
+                      "DAN.3.20"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " to cast them into the burning fiery furnace. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.20",
+                "verseOrgIds": [
+                  "DAN.3.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "DAN 3:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then these men were bound in their hosen, their tunics, and their mantles, and their ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.21",
+                "verseOrgIds": [
+                  "DAN.3.21"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "other",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "DAN.3.21",
+                    "verseOrgIds": [
+                      "DAN.3.21"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " garments, and were cast into the midst of the burning fiery furnace. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.21",
+                "verseOrgIds": [
+                  "DAN.3.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "DAN 3:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore because the king’s commandment was urgent, and the furnace exceeding hot, the flame of the fire slew those men that took up Shadrach, Meshach, and Abed-nego. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.22",
+                "verseOrgIds": [
+                  "DAN.3.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "DAN 3:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And these three men, Shadrach, Meshach, and Abed-nego, fell down bound into the midst of the burning fiery furnace.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.23",
+                "verseOrgIds": [
+                  "DAN.3.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "DAN 3:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then Nebuchadnezzar the king was astonished, and rose up in haste: he spake and said unto his counsellors, Did not we cast three men bound into the midst of the fire? They answered and said unto the king, True, O king. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.24",
+                "verseOrgIds": [
+                  "DAN.3.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "DAN 3:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He answered and said, Lo, I see four men loose, walking in the midst of the fire, and they have no hurt; and the aspect of the fourth is like a son of the gods. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.25",
+                "verseOrgIds": [
+                  "DAN.3.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "DAN 3:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then Nebuchadnezzar came near to the mouth of the burning fiery furnace: he spake and said, Shadrach, Meshach, and Abed-nego, ye servants of the Most High God, come forth, and come hither. Then Shadrach, Meshach, and Abed-nego came forth out of the midst of the fire. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.26",
+                "verseOrgIds": [
+                  "DAN.3.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "DAN 3:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the satraps, the deputies, and the governors, and the king’s counsellors, being gathered together, saw these men, that the fire had no power upon their bodies, nor was the hair of their head singed, neither were their hosen changed, nor had the smell of fire passed on them.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.27",
+                "verseOrgIds": [
+                  "DAN.3.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "DAN 3:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Nebuchadnezzar spake and said, Blessed be the God of Shadrach, Meshach, and Abed-nego, who hath sent his angel, and delivered his servants that trusted in him, and have changed the king’s word, and have yielded their bodies, that they might not serve nor worship any god, except their own God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.28",
+                "verseOrgIds": [
+                  "DAN.3.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "DAN 3:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore I make a decree, that every people, nation, and language, which speak anything amiss against the God of Shadrach, Meshach, and Abed-nego, shall be cut in pieces, and their houses shall be made a dunghill; because there is no other god that is able to deliver after this sort. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.29",
+                "verseOrgIds": [
+                  "DAN.3.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "DAN 3:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then the king promoted Shadrach, Meshach, and Abed-nego in the province of Babylon.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DAN.3.30",
+                "verseOrgIds": [
+                  "DAN.3.30"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "DAN.4",
+        "number": "4",
+        "bookId": "DAN"
+      },
+      "previous": {
+        "id": "DAN.2",
+        "number": "2",
+        "bookId": "DAN"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:21.581Z"
+  }
+}

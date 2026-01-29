@@ -1,0 +1,7235 @@
+{
+  "Job_38": {
+    "reference": "Job 38",
+    "bookName": "Job",
+    "chapter": 38,
+    "translation": "WEB",
+    "content": {
+      "id": "JOB.38",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "38",
+      "bookId": "JOB",
+      "reference": "Job 38",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 41,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "JOB 38:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then Yahweh answered Job out of the whirlwind,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.1",
+                "verseOrgIds": [
+                  "JOB.38.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "JOB 38:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Who is this who darkens counsel",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.2",
+                "verseOrgIds": [
+                  "JOB.38.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:2"
+          },
+          "items": [
+            {
+              "text": "by words without knowledge?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.2",
+                "verseOrgIds": [
+                  "JOB.38.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "JOB 38:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Brace yourself like a man,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.3",
+                "verseOrgIds": [
+                  "JOB.38.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:3"
+          },
+          "items": [
+            {
+              "text": "for I will question you, then you answer me!",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.3",
+                "verseOrgIds": [
+                  "JOB.38.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "JOB 38:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Where were you when I laid the foundations of the earth?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.4",
+                "verseOrgIds": [
+                  "JOB.38.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:4"
+          },
+          "items": [
+            {
+              "text": "Declare, if you have understanding.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.4",
+                "verseOrgIds": [
+                  "JOB.38.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "JOB 38:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who determined its measures, if you know?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.5",
+                "verseOrgIds": [
+                  "JOB.38.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:5"
+          },
+          "items": [
+            {
+              "text": "Or who stretched the line on it?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.5",
+                "verseOrgIds": [
+                  "JOB.38.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "JOB 38:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "What were its foundations fastened on?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.6",
+                "verseOrgIds": [
+                  "JOB.38.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:6"
+          },
+          "items": [
+            {
+              "text": "Or who laid its cornerstone,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.6",
+                "verseOrgIds": [
+                  "JOB.38.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "JOB 38:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "when the morning stars sang together,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.7",
+                "verseOrgIds": [
+                  "JOB.38.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:7"
+          },
+          "items": [
+            {
+              "text": "and all the sons of God shouted for joy?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.7",
+                "verseOrgIds": [
+                  "JOB.38.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "JOB 38:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Or who shut up the sea with doors,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.8",
+                "verseOrgIds": [
+                  "JOB.38.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:8"
+          },
+          "items": [
+            {
+              "text": "when it broke out of the womb,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.8",
+                "verseOrgIds": [
+                  "JOB.38.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "JOB 38:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "when I made clouds its garment,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.9",
+                "verseOrgIds": [
+                  "JOB.38.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:9"
+          },
+          "items": [
+            {
+              "text": "and wrapped it in thick darkness,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.9",
+                "verseOrgIds": [
+                  "JOB.38.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "JOB 38:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "marked out for it my bound,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.10",
+                "verseOrgIds": [
+                  "JOB.38.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:10"
+          },
+          "items": [
+            {
+              "text": "set bars and doors,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.10",
+                "verseOrgIds": [
+                  "JOB.38.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "JOB 38:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and said, ‘You may come here, but no further.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.11",
+                "verseOrgIds": [
+                  "JOB.38.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:11"
+          },
+          "items": [
+            {
+              "text": "Your proud waves shall be stopped here’?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.11",
+                "verseOrgIds": [
+                  "JOB.38.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "JOB 38:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Have you commanded the morning in your days,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.12",
+                "verseOrgIds": [
+                  "JOB.38.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:12"
+          },
+          "items": [
+            {
+              "text": "and caused the dawn to know its place,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.12",
+                "verseOrgIds": [
+                  "JOB.38.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "JOB 38:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that it might take hold of the ends of the earth,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.13",
+                "verseOrgIds": [
+                  "JOB.38.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:13"
+          },
+          "items": [
+            {
+              "text": "and shake the wicked out of it?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.13",
+                "verseOrgIds": [
+                  "JOB.38.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "JOB 38:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It is changed as clay under the seal,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.14",
+                "verseOrgIds": [
+                  "JOB.38.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:14"
+          },
+          "items": [
+            {
+              "text": "and presented as a garment.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.14",
+                "verseOrgIds": [
+                  "JOB.38.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "JOB 38:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "From the wicked, their light is withheld.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.15",
+                "verseOrgIds": [
+                  "JOB.38.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:15"
+          },
+          "items": [
+            {
+              "text": "The high arm is broken.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.15",
+                "verseOrgIds": [
+                  "JOB.38.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "JOB 38:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Have you entered into the springs of the sea?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.16",
+                "verseOrgIds": [
+                  "JOB.38.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:16"
+          },
+          "items": [
+            {
+              "text": "Or have you walked in the recesses of the deep?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.16",
+                "verseOrgIds": [
+                  "JOB.38.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "JOB 38:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Have the gates of death been revealed to you?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.17",
+                "verseOrgIds": [
+                  "JOB.38.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:17"
+          },
+          "items": [
+            {
+              "text": "Or have you seen the gates of the shadow of death?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.17",
+                "verseOrgIds": [
+                  "JOB.38.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "JOB 38:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Have you comprehended the earth in its width?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.18",
+                "verseOrgIds": [
+                  "JOB.38.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:18"
+          },
+          "items": [
+            {
+              "text": "Declare, if you know it all.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.18",
+                "verseOrgIds": [
+                  "JOB.38.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "JOB 38:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“What is the way to the dwelling of light?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.19",
+                "verseOrgIds": [
+                  "JOB.38.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:19"
+          },
+          "items": [
+            {
+              "text": "As for darkness, where is its place,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.19",
+                "verseOrgIds": [
+                  "JOB.38.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "JOB 38:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that you should take it to its bound,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.20",
+                "verseOrgIds": [
+                  "JOB.38.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:20"
+          },
+          "items": [
+            {
+              "text": "that you should discern the paths to its house?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.20",
+                "verseOrgIds": [
+                  "JOB.38.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "JOB 38:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Surely you know, for you were born then,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.21",
+                "verseOrgIds": [
+                  "JOB.38.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:21"
+          },
+          "items": [
+            {
+              "text": "and the number of your days is great!",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.21",
+                "verseOrgIds": [
+                  "JOB.38.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "JOB 38:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Have you entered the storehouses of the snow,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.22",
+                "verseOrgIds": [
+                  "JOB.38.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:22"
+          },
+          "items": [
+            {
+              "text": "or have you seen the storehouses of the hail,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.22",
+                "verseOrgIds": [
+                  "JOB.38.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "JOB 38:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "which I have reserved against the time of trouble,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.23",
+                "verseOrgIds": [
+                  "JOB.38.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:23"
+          },
+          "items": [
+            {
+              "text": "against the day of battle and war?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.23",
+                "verseOrgIds": [
+                  "JOB.38.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "JOB 38:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By what way is the lightning distributed,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.24",
+                "verseOrgIds": [
+                  "JOB.38.24"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:24"
+          },
+          "items": [
+            {
+              "text": "or the east wind scattered on the earth?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.24",
+                "verseOrgIds": [
+                  "JOB.38.24"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "JOB 38:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who has cut a channel for the flood water,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.25",
+                "verseOrgIds": [
+                  "JOB.38.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:25"
+          },
+          "items": [
+            {
+              "text": "or the path for the thunderstorm,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.25",
+                "verseOrgIds": [
+                  "JOB.38.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "JOB 38:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "to cause it to rain on a land where there is no man,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.26",
+                "verseOrgIds": [
+                  "JOB.38.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:26"
+          },
+          "items": [
+            {
+              "text": "on the wilderness, in which there is no man,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.26",
+                "verseOrgIds": [
+                  "JOB.38.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "JOB 38:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "to satisfy the waste and desolate ground,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.27",
+                "verseOrgIds": [
+                  "JOB.38.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:27"
+          },
+          "items": [
+            {
+              "text": "to cause the tender grass to grow?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.27",
+                "verseOrgIds": [
+                  "JOB.38.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "JOB 38:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Does the rain have a father?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.28",
+                "verseOrgIds": [
+                  "JOB.38.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:28"
+          },
+          "items": [
+            {
+              "text": "Or who fathers the drops of dew?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.28",
+                "verseOrgIds": [
+                  "JOB.38.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "JOB 38:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Whose womb did the ice come out of?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.29",
+                "verseOrgIds": [
+                  "JOB.38.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:29"
+          },
+          "items": [
+            {
+              "text": "Who has given birth to the gray frost of the sky?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.29",
+                "verseOrgIds": [
+                  "JOB.38.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "JOB 38:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The waters become hard like stone,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.30",
+                "verseOrgIds": [
+                  "JOB.38.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:30"
+          },
+          "items": [
+            {
+              "text": "when the surface of the deep is frozen.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.30",
+                "verseOrgIds": [
+                  "JOB.38.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "JOB 38:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Can you bind the cluster of the Pleiades,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.31",
+                "verseOrgIds": [
+                  "JOB.38.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:31"
+          },
+          "items": [
+            {
+              "text": "or loosen the cords of Orion?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.31",
+                "verseOrgIds": [
+                  "JOB.38.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "JOB 38:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Can you lead the constellations out in their season?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.32",
+                "verseOrgIds": [
+                  "JOB.38.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:32"
+          },
+          "items": [
+            {
+              "text": "Or can you guide the Bear with her cubs?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.32",
+                "verseOrgIds": [
+                  "JOB.38.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "JOB 38:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Do you know the laws of the heavens?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.33",
+                "verseOrgIds": [
+                  "JOB.38.33"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:33"
+          },
+          "items": [
+            {
+              "text": "Can you establish its dominion over the earth?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.33",
+                "verseOrgIds": [
+                  "JOB.38.33"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "JOB 38:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Can you lift up your voice to the clouds,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.34",
+                "verseOrgIds": [
+                  "JOB.38.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:34"
+          },
+          "items": [
+            {
+              "text": "that abundance of waters may cover you?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.34",
+                "verseOrgIds": [
+                  "JOB.38.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "JOB 38:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Can you send out lightnings, that they may go?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.35",
+                "verseOrgIds": [
+                  "JOB.38.35"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:35"
+          },
+          "items": [
+            {
+              "text": "Do they report to you, ‘Here we are’?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.35",
+                "verseOrgIds": [
+                  "JOB.38.35"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "JOB 38:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who has put wisdom in the inward parts?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.36",
+                "verseOrgIds": [
+                  "JOB.38.36"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:36"
+          },
+          "items": [
+            {
+              "text": "Or who has given understanding to the mind?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.36",
+                "verseOrgIds": [
+                  "JOB.38.36"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "JOB 38:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who can count the clouds by wisdom?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.37",
+                "verseOrgIds": [
+                  "JOB.38.37"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:37"
+          },
+          "items": [
+            {
+              "text": "Or who can pour out the containers of the sky,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.37",
+                "verseOrgIds": [
+                  "JOB.38.37"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "JOB 38:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "when the dust runs into a mass,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.38",
+                "verseOrgIds": [
+                  "JOB.38.38"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:38"
+          },
+          "items": [
+            {
+              "text": "and the clods of earth stick together?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.38",
+                "verseOrgIds": [
+                  "JOB.38.38"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "JOB 38:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Can you hunt the prey for the lioness,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.39",
+                "verseOrgIds": [
+                  "JOB.38.39"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:39"
+          },
+          "items": [
+            {
+              "text": "or satisfy the appetite of the young lions,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.39",
+                "verseOrgIds": [
+                  "JOB.38.39"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "JOB 38:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "when they crouch in their dens,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.40",
+                "verseOrgIds": [
+                  "JOB.38.40"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:40"
+          },
+          "items": [
+            {
+              "text": "and lie in wait in the thicket?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.40",
+                "verseOrgIds": [
+                  "JOB.38.40"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "41",
+                "style": "v",
+                "sid": "JOB 38:41"
+              },
+              "items": [
+                {
+                  "text": "41",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who provides for the raven his prey,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.41",
+                "verseOrgIds": [
+                  "JOB.38.41"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:41"
+          },
+          "items": [
+            {
+              "text": "when his young ones cry to God,",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.41",
+                "verseOrgIds": [
+                  "JOB.38.41"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "JOB 38:41"
+          },
+          "items": [
+            {
+              "text": "and wander for lack of food?",
+              "type": "text",
+              "attrs": {
+                "verseId": "JOB.38.41",
+                "verseOrgIds": [
+                  "JOB.38.41"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "JOB.39",
+        "number": "39",
+        "bookId": "JOB"
+      },
+      "previous": {
+        "id": "JOB.37",
+        "number": "37",
+        "bookId": "JOB"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:36.800Z"
+  },
+  "Psalms_23": {
+    "reference": "Psalms 23",
+    "bookName": "Psalms",
+    "chapter": 23,
+    "translation": "WEB",
+    "content": {
+      "id": "PSA.23",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "23",
+      "bookId": "PSA",
+      "reference": "Psalms 23",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 6,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "d"
+          },
+          "items": [
+            {
+              "text": "A Psalm by David.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "PSA 23:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh is my shepherd;",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.1",
+                "verseOrgIds": [
+                  "PSA.23.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:1"
+          },
+          "items": [
+            {
+              "text": "I shall lack nothing.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.1",
+                "verseOrgIds": [
+                  "PSA.23.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "PSA 23:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He makes me lie down in green pastures.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.2",
+                "verseOrgIds": [
+                  "PSA.23.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:2"
+          },
+          "items": [
+            {
+              "text": "He leads me beside still waters.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.2",
+                "verseOrgIds": [
+                  "PSA.23.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "PSA 23:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He restores my soul.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.3",
+                "verseOrgIds": [
+                  "PSA.23.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:3"
+          },
+          "items": [
+            {
+              "text": "He guides me in the paths of righteousness for his name’s sake.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.3",
+                "verseOrgIds": [
+                  "PSA.23.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "PSA 23:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Even though I walk through the valley of the shadow of death,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.4",
+                "verseOrgIds": [
+                  "PSA.23.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:4"
+          },
+          "items": [
+            {
+              "text": "I will fear no evil, for you are with me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.4",
+                "verseOrgIds": [
+                  "PSA.23.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "PSA 23:4"
+          },
+          "items": [
+            {
+              "text": "Your rod and your staff,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.4",
+                "verseOrgIds": [
+                  "PSA.23.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:4"
+          },
+          "items": [
+            {
+              "text": "they comfort me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.4",
+                "verseOrgIds": [
+                  "PSA.23.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "PSA 23:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You prepare a table before me",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.5",
+                "verseOrgIds": [
+                  "PSA.23.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:5"
+          },
+          "items": [
+            {
+              "text": "in the presence of my enemies.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.5",
+                "verseOrgIds": [
+                  "PSA.23.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "PSA 23:5"
+          },
+          "items": [
+            {
+              "text": "You anoint my head with oil.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.5",
+                "verseOrgIds": [
+                  "PSA.23.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:5"
+          },
+          "items": [
+            {
+              "text": "My cup runs over.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.5",
+                "verseOrgIds": [
+                  "PSA.23.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "PSA 23:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Surely goodness and loving kindness shall follow me all the days of my life,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.6",
+                "verseOrgIds": [
+                  "PSA.23.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PSA 23:6"
+          },
+          "items": [
+            {
+              "text": "and I will dwell in Yahweh’s house forever.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PSA.23.6",
+                "verseOrgIds": [
+                  "PSA.23.6"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "PSA.24",
+        "number": "24",
+        "bookId": "PSA"
+      },
+      "previous": {
+        "id": "PSA.22",
+        "number": "22",
+        "bookId": "PSA"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:37.001Z"
+  },
+  "Proverbs_3": {
+    "reference": "Proverbs 3",
+    "bookName": "Proverbs",
+    "chapter": 3,
+    "translation": "WEB",
+    "content": {
+      "id": "PRO.3",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "3",
+      "bookId": "PRO",
+      "reference": "Proverbs 3",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 35,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "PRO 3:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My son, don’t forget my teaching,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.1",
+                "verseOrgIds": [
+                  "PRO.3.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:1"
+          },
+          "items": [
+            {
+              "text": "but let your heart keep my commandments,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.1",
+                "verseOrgIds": [
+                  "PRO.3.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "PRO 3:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for they will add to you length of days,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.2",
+                "verseOrgIds": [
+                  "PRO.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:2"
+          },
+          "items": [
+            {
+              "text": "years of life, and peace.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.2",
+                "verseOrgIds": [
+                  "PRO.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "PRO 3:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t let kindness and truth forsake you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.3",
+                "verseOrgIds": [
+                  "PRO.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:3"
+          },
+          "items": [
+            {
+              "text": "Bind them around your neck.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.3",
+                "verseOrgIds": [
+                  "PRO.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:3"
+          },
+          "items": [
+            {
+              "text": "Write them on the tablet of your heart.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.3",
+                "verseOrgIds": [
+                  "PRO.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "PRO 3:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "So you will find favor,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.4",
+                "verseOrgIds": [
+                  "PRO.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:4"
+          },
+          "items": [
+            {
+              "text": "and good understanding in the sight of God and man.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.4",
+                "verseOrgIds": [
+                  "PRO.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "PRO 3:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Trust in Yahweh with all your heart,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.5",
+                "verseOrgIds": [
+                  "PRO.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:5"
+          },
+          "items": [
+            {
+              "text": "and don’t lean on your own understanding.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.5",
+                "verseOrgIds": [
+                  "PRO.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "PRO 3:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "In all your ways acknowledge him,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.6",
+                "verseOrgIds": [
+                  "PRO.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:6"
+          },
+          "items": [
+            {
+              "text": "and he will make your paths straight.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.6",
+                "verseOrgIds": [
+                  "PRO.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "PRO 3:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t be wise in your own eyes.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.7",
+                "verseOrgIds": [
+                  "PRO.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:7"
+          },
+          "items": [
+            {
+              "text": "Fear Yahweh, and depart from evil.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.7",
+                "verseOrgIds": [
+                  "PRO.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "PRO 3:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It will be health to your body,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.8",
+                "verseOrgIds": [
+                  "PRO.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:8"
+          },
+          "items": [
+            {
+              "text": "and nourishment to your bones.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.8",
+                "verseOrgIds": [
+                  "PRO.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "PRO 3:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Honor Yahweh with your substance,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.9",
+                "verseOrgIds": [
+                  "PRO.3.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:9"
+          },
+          "items": [
+            {
+              "text": "with the first fruits of all your increase;",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.9",
+                "verseOrgIds": [
+                  "PRO.3.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "PRO 3:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "so your barns will be filled with plenty,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.10",
+                "verseOrgIds": [
+                  "PRO.3.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:10"
+          },
+          "items": [
+            {
+              "text": "and your vats will overflow with new wine.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.10",
+                "verseOrgIds": [
+                  "PRO.3.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "PRO 3:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My son, don’t despise Yahweh’s discipline,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.11",
+                "verseOrgIds": [
+                  "PRO.3.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:11"
+          },
+          "items": [
+            {
+              "text": "neither be weary of his correction;",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.11",
+                "verseOrgIds": [
+                  "PRO.3.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "PRO 3:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for whom Yahweh loves, he corrects,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.12",
+                "verseOrgIds": [
+                  "PRO.3.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:12"
+          },
+          "items": [
+            {
+              "text": "even as a father reproves the son in whom he delights.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.12",
+                "verseOrgIds": [
+                  "PRO.3.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "PRO 3:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Happy is the man who finds wisdom,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.13",
+                "verseOrgIds": [
+                  "PRO.3.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:13"
+          },
+          "items": [
+            {
+              "text": "the man who gets understanding.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.13",
+                "verseOrgIds": [
+                  "PRO.3.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "PRO 3:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For her good profit is better than getting silver,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.14",
+                "verseOrgIds": [
+                  "PRO.3.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:14"
+          },
+          "items": [
+            {
+              "text": "and her return is better than fine gold.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.14",
+                "verseOrgIds": [
+                  "PRO.3.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "PRO 3:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "She is more precious than rubies.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.15",
+                "verseOrgIds": [
+                  "PRO.3.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:15"
+          },
+          "items": [
+            {
+              "text": "None of the things you can desire are to be compared to her.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.15",
+                "verseOrgIds": [
+                  "PRO.3.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "PRO 3:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Length of days is in her right hand.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.16",
+                "verseOrgIds": [
+                  "PRO.3.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:16"
+          },
+          "items": [
+            {
+              "text": "In her left hand are riches and honor.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.16",
+                "verseOrgIds": [
+                  "PRO.3.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "PRO 3:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Her ways are ways of pleasantness.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.17",
+                "verseOrgIds": [
+                  "PRO.3.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:17"
+          },
+          "items": [
+            {
+              "text": "All her paths are peace.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.17",
+                "verseOrgIds": [
+                  "PRO.3.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "PRO 3:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "She is a tree of life to those who lay hold of her.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.18",
+                "verseOrgIds": [
+                  "PRO.3.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:18"
+          },
+          "items": [
+            {
+              "text": "Happy is everyone who retains her.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.18",
+                "verseOrgIds": [
+                  "PRO.3.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "PRO 3:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By wisdom Yahweh founded the earth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.19",
+                "verseOrgIds": [
+                  "PRO.3.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:19"
+          },
+          "items": [
+            {
+              "text": "By understanding, he established the heavens.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.19",
+                "verseOrgIds": [
+                  "PRO.3.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "PRO 3:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "By his knowledge, the depths were broken up,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.20",
+                "verseOrgIds": [
+                  "PRO.3.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:20"
+          },
+          "items": [
+            {
+              "text": "and the skies drop down the dew.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.20",
+                "verseOrgIds": [
+                  "PRO.3.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "PRO 3:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My son, let them not depart from your eyes.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.21",
+                "verseOrgIds": [
+                  "PRO.3.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:21"
+          },
+          "items": [
+            {
+              "text": "Keep sound wisdom and discretion,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.21",
+                "verseOrgIds": [
+                  "PRO.3.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "PRO 3:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "so they will be life to your soul,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.22",
+                "verseOrgIds": [
+                  "PRO.3.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:22"
+          },
+          "items": [
+            {
+              "text": "and grace for your neck.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.22",
+                "verseOrgIds": [
+                  "PRO.3.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "PRO 3:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Then you shall walk in your way securely.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.23",
+                "verseOrgIds": [
+                  "PRO.3.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:23"
+          },
+          "items": [
+            {
+              "text": "Your foot won’t stumble.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.23",
+                "verseOrgIds": [
+                  "PRO.3.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "PRO 3:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "When you lie down, you will not be afraid.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.24",
+                "verseOrgIds": [
+                  "PRO.3.24"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:24"
+          },
+          "items": [
+            {
+              "text": "Yes, you will lie down, and your sleep will be sweet.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.24",
+                "verseOrgIds": [
+                  "PRO.3.24"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "PRO 3:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t be afraid of sudden fear,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.25",
+                "verseOrgIds": [
+                  "PRO.3.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:25"
+          },
+          "items": [
+            {
+              "text": "neither of the desolation of the wicked, when it comes;",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.25",
+                "verseOrgIds": [
+                  "PRO.3.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "PRO 3:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for Yahweh will be your confidence,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.26",
+                "verseOrgIds": [
+                  "PRO.3.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:26"
+          },
+          "items": [
+            {
+              "text": "and will keep your foot from being taken.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.26",
+                "verseOrgIds": [
+                  "PRO.3.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "PRO 3:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t withhold good from those to whom it is due,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.27",
+                "verseOrgIds": [
+                  "PRO.3.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:27"
+          },
+          "items": [
+            {
+              "text": "when it is in the power of your hand to do it.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.27",
+                "verseOrgIds": [
+                  "PRO.3.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "PRO 3:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t say to your neighbor, “Go, and come again;",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.28",
+                "verseOrgIds": [
+                  "PRO.3.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:28"
+          },
+          "items": [
+            {
+              "text": "tomorrow I will give it to you,”",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.28",
+                "verseOrgIds": [
+                  "PRO.3.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:28"
+          },
+          "items": [
+            {
+              "text": "when you have it by you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.28",
+                "verseOrgIds": [
+                  "PRO.3.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "PRO 3:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t devise evil against your neighbor,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.29",
+                "verseOrgIds": [
+                  "PRO.3.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:29"
+          },
+          "items": [
+            {
+              "text": "since he dwells securely by you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.29",
+                "verseOrgIds": [
+                  "PRO.3.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "PRO 3:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t strive with a man without cause,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.30",
+                "verseOrgIds": [
+                  "PRO.3.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:30"
+          },
+          "items": [
+            {
+              "text": "if he has done you no harm.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.30",
+                "verseOrgIds": [
+                  "PRO.3.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "PRO 3:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t envy the man of violence.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.31",
+                "verseOrgIds": [
+                  "PRO.3.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:31"
+          },
+          "items": [
+            {
+              "text": "Choose none of his ways.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.31",
+                "verseOrgIds": [
+                  "PRO.3.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "PRO 3:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For the perverse is an abomination to Yahweh,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.32",
+                "verseOrgIds": [
+                  "PRO.3.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:32"
+          },
+          "items": [
+            {
+              "text": "but his friendship is with the upright.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.32",
+                "verseOrgIds": [
+                  "PRO.3.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "PRO 3:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh’s curse is in the house of the wicked,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.33",
+                "verseOrgIds": [
+                  "PRO.3.33"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:33"
+          },
+          "items": [
+            {
+              "text": "but he blesses the habitation of the righteous.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.33",
+                "verseOrgIds": [
+                  "PRO.3.33"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "PRO 3:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Surely he mocks the mockers,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.34",
+                "verseOrgIds": [
+                  "PRO.3.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:34"
+          },
+          "items": [
+            {
+              "text": "but he gives grace to the humble.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.34",
+                "verseOrgIds": [
+                  "PRO.3.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "PRO 3:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The wise will inherit glory,",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.35",
+                "verseOrgIds": [
+                  "PRO.3.35"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "PRO 3:35"
+          },
+          "items": [
+            {
+              "text": "but shame will be the promotion of fools.",
+              "type": "text",
+              "attrs": {
+                "verseId": "PRO.3.35",
+                "verseOrgIds": [
+                  "PRO.3.35"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "PRO.4",
+        "number": "4",
+        "bookId": "PRO"
+      },
+      "previous": {
+        "id": "PRO.2",
+        "number": "2",
+        "bookId": "PRO"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:37.208Z"
+  },
+  "Ecclesiastes_3": {
+    "reference": "Ecclesiastes 3",
+    "bookName": "Ecclesiastes",
+    "chapter": 3,
+    "translation": "WEB",
+    "content": {
+      "id": "ECC.3",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "3",
+      "bookId": "ECC",
+      "reference": "Ecclesiastes 3",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 22,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "ECC 3:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For everything there is a season, and a time for every purpose under heaven:",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.1",
+                "verseOrgIds": [
+                  "ECC.3.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "ECC 3:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to be born,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.2",
+                "verseOrgIds": [
+                  "ECC.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:2"
+          },
+          "items": [
+            {
+              "text": "and a time to die;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.2",
+                "verseOrgIds": [
+                  "ECC.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:2"
+          },
+          "items": [
+            {
+              "text": "a time to plant,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.2",
+                "verseOrgIds": [
+                  "ECC.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:2"
+          },
+          "items": [
+            {
+              "text": "and a time to pluck up that which is planted;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.2",
+                "verseOrgIds": [
+                  "ECC.3.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "ECC 3:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to kill,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.3",
+                "verseOrgIds": [
+                  "ECC.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:3"
+          },
+          "items": [
+            {
+              "text": "and a time to heal;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.3",
+                "verseOrgIds": [
+                  "ECC.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:3"
+          },
+          "items": [
+            {
+              "text": "a time to break down,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.3",
+                "verseOrgIds": [
+                  "ECC.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:3"
+          },
+          "items": [
+            {
+              "text": "and a time to build up;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.3",
+                "verseOrgIds": [
+                  "ECC.3.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "ECC 3:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to weep,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.4",
+                "verseOrgIds": [
+                  "ECC.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:4"
+          },
+          "items": [
+            {
+              "text": "and a time to laugh;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.4",
+                "verseOrgIds": [
+                  "ECC.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:4"
+          },
+          "items": [
+            {
+              "text": "a time to mourn,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.4",
+                "verseOrgIds": [
+                  "ECC.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:4"
+          },
+          "items": [
+            {
+              "text": "and a time to dance;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.4",
+                "verseOrgIds": [
+                  "ECC.3.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "ECC 3:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to cast away stones,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.5",
+                "verseOrgIds": [
+                  "ECC.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:5"
+          },
+          "items": [
+            {
+              "text": "and a time to gather stones together;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.5",
+                "verseOrgIds": [
+                  "ECC.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:5"
+          },
+          "items": [
+            {
+              "text": "a time to embrace,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.5",
+                "verseOrgIds": [
+                  "ECC.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:5"
+          },
+          "items": [
+            {
+              "text": "and a time to refrain from embracing;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.5",
+                "verseOrgIds": [
+                  "ECC.3.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "ECC 3:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to seek,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.6",
+                "verseOrgIds": [
+                  "ECC.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:6"
+          },
+          "items": [
+            {
+              "text": "and a time to lose;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.6",
+                "verseOrgIds": [
+                  "ECC.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:6"
+          },
+          "items": [
+            {
+              "text": "a time to keep,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.6",
+                "verseOrgIds": [
+                  "ECC.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:6"
+          },
+          "items": [
+            {
+              "text": "and a time to cast away;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.6",
+                "verseOrgIds": [
+                  "ECC.3.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "ECC 3:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to tear,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.7",
+                "verseOrgIds": [
+                  "ECC.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:7"
+          },
+          "items": [
+            {
+              "text": "and a time to sew;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.7",
+                "verseOrgIds": [
+                  "ECC.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:7"
+          },
+          "items": [
+            {
+              "text": "a time to keep silence,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.7",
+                "verseOrgIds": [
+                  "ECC.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:7"
+          },
+          "items": [
+            {
+              "text": "and a time to speak;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.7",
+                "verseOrgIds": [
+                  "ECC.3.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "ECC 3:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a time to love,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.8",
+                "verseOrgIds": [
+                  "ECC.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:8"
+          },
+          "items": [
+            {
+              "text": "and a time to hate;",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.8",
+                "verseOrgIds": [
+                  "ECC.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "ECC 3:8"
+          },
+          "items": [
+            {
+              "text": "a time for war,",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.8",
+                "verseOrgIds": [
+                  "ECC.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "ECC 3:8"
+          },
+          "items": [
+            {
+              "text": "and a time for peace.",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.8",
+                "verseOrgIds": [
+                  "ECC.3.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "ECC 3:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "What profit has he who works in that in which he labors? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.9",
+                "verseOrgIds": [
+                  "ECC.3.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "ECC 3:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I have seen the burden which God has given to the sons of men to be afflicted with. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.10",
+                "verseOrgIds": [
+                  "ECC.3.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "ECC 3:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He has made everything beautiful in its time. He has also set eternity in their hearts, yet so that man can’t find out the work that God has done from the beginning even to the end. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.11",
+                "verseOrgIds": [
+                  "ECC.3.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "ECC 3:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I know that there is nothing better for them than to rejoice, and to do good as long as they live. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.12",
+                "verseOrgIds": [
+                  "ECC.3.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "ECC 3:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Also that every man should eat and drink, and enjoy good in all his labor, is the gift of God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.13",
+                "verseOrgIds": [
+                  "ECC.3.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "ECC 3:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I know that whatever God does, it shall be forever. Nothing can be added to it, nor anything taken from it; and God has done it, that men should fear before him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.14",
+                "verseOrgIds": [
+                  "ECC.3.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "ECC 3:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "That which is has been long ago, and that which is to be has been long ago. God seeks again that which is passed away.",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.15",
+                "verseOrgIds": [
+                  "ECC.3.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "ECC 3:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Moreover I saw under the sun, in the place of justice, that wickedness was there; and in the place of righteousness, that wickedness was there. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.16",
+                "verseOrgIds": [
+                  "ECC.3.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "ECC 3:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I said in my heart, “God will judge the righteous and the wicked; for there is a time there for every purpose and for every work.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.17",
+                "verseOrgIds": [
+                  "ECC.3.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "ECC 3:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I said in my heart, “As for the sons of men, God tests them, so that they may see that they themselves are like animals. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.18",
+                "verseOrgIds": [
+                  "ECC.3.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "ECC 3:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For that which happens to the sons of men happens to animals. Even one thing happens to them. As the one dies, so the other dies. Yes, they have all one breath; and man has no advantage over the animals, for all is vanity. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.19",
+                "verseOrgIds": [
+                  "ECC.3.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "ECC 3:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All go to one place. All are from the dust, and all turn to dust again. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.20",
+                "verseOrgIds": [
+                  "ECC.3.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "ECC 3:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Who knows the spirit of man, whether it goes upward, and the spirit of the animal, whether it goes downward to the earth?”",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.21",
+                "verseOrgIds": [
+                  "ECC.3.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "ECC 3:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Therefore I saw that there is nothing better than that a man should rejoice in his works, for that is his portion; for who can bring him to see what will be after him?",
+              "type": "text",
+              "attrs": {
+                "verseId": "ECC.3.22",
+                "verseOrgIds": [
+                  "ECC.3.22"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "ECC.4",
+        "number": "4",
+        "bookId": "ECC"
+      },
+      "previous": {
+        "id": "ECC.2",
+        "number": "2",
+        "bookId": "ECC"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:37.412Z"
+  },
+  "Song_of_Solomon_1": {
+    "reference": "Song of Solomon 1",
+    "bookName": "Song of Solomon",
+    "chapter": 1,
+    "translation": "WEB",
+    "content": {
+      "id": "SNG.1",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "1",
+      "bookId": "SNG",
+      "reference": "Song of Solomon 1",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 17,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "SNG 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The Song of songs, which is Solomon’s.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.1",
+                "verseOrgIds": [
+                  "SNG.1.1"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Beloved",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "SNG 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Let him kiss me with the kisses of his mouth;",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.2",
+                "verseOrgIds": [
+                  "SNG.1.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:2"
+          },
+          "items": [
+            {
+              "text": "for your love is better than wine.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.2",
+                "verseOrgIds": [
+                  "SNG.1.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "SNG 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Your oils have a pleasing fragrance.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.3",
+                "verseOrgIds": [
+                  "SNG.1.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:3"
+          },
+          "items": [
+            {
+              "text": "Your name is oil poured out,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.3",
+                "verseOrgIds": [
+                  "SNG.1.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:3"
+          },
+          "items": [
+            {
+              "text": "therefore the virgins love you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.3",
+                "verseOrgIds": [
+                  "SNG.1.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "SNG 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Take me away with you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.4",
+                "verseOrgIds": [
+                  "SNG.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "Let’s hurry.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.4",
+                "verseOrgIds": [
+                  "SNG.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "The king has brought me into his rooms.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.4",
+                "verseOrgIds": [
+                  "SNG.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "Friends",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "We will be glad and rejoice in you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.4",
+                "verseOrgIds": [
+                  "SNG.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "We will praise your love more than wine!",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.4",
+                "verseOrgIds": [
+                  "SNG.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "Beloved",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "SNG 1:4"
+          },
+          "items": [
+            {
+              "text": "They are right to love you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.4",
+                "verseOrgIds": [
+                  "SNG.1.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "SNG 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I am dark, but lovely,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.5",
+                "verseOrgIds": [
+                  "SNG.1.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:5"
+          },
+          "items": [
+            {
+              "text": "you daughters of Jerusalem,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.5",
+                "verseOrgIds": [
+                  "SNG.1.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:5"
+          },
+          "items": [
+            {
+              "text": "like Kedar’s tents,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.5",
+                "verseOrgIds": [
+                  "SNG.1.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:5"
+          },
+          "items": [
+            {
+              "text": "like Solomon’s curtains.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.5",
+                "verseOrgIds": [
+                  "SNG.1.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "SNG 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Don’t stare at me because I am dark,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.6",
+                "verseOrgIds": [
+                  "SNG.1.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:6"
+          },
+          "items": [
+            {
+              "text": "because the sun has scorched me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.6",
+                "verseOrgIds": [
+                  "SNG.1.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1",
+            "vid": "SNG 1:6"
+          },
+          "items": [
+            {
+              "text": "My mother’s sons were angry with me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.6",
+                "verseOrgIds": [
+                  "SNG.1.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:6"
+          },
+          "items": [
+            {
+              "text": "They made me keeper of the vineyards.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.6",
+                "verseOrgIds": [
+                  "SNG.1.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:6"
+          },
+          "items": [
+            {
+              "text": "I haven’t kept my own vineyard.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.6",
+                "verseOrgIds": [
+                  "SNG.1.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "SNG 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Tell me, you whom my soul loves,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.7",
+                "verseOrgIds": [
+                  "SNG.1.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:7"
+          },
+          "items": [
+            {
+              "text": "where you graze your flock,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.7",
+                "verseOrgIds": [
+                  "SNG.1.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:7"
+          },
+          "items": [
+            {
+              "text": "where you rest them at noon;",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.7",
+                "verseOrgIds": [
+                  "SNG.1.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:7"
+          },
+          "items": [
+            {
+              "text": "for why should I be as one who is veiled",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.7",
+                "verseOrgIds": [
+                  "SNG.1.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:7"
+          },
+          "items": [
+            {
+              "text": "beside the flocks of your companions?",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.7",
+                "verseOrgIds": [
+                  "SNG.1.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Lover",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "SNG 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If you don’t know, most beautiful among women,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.8",
+                "verseOrgIds": [
+                  "SNG.1.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:8"
+          },
+          "items": [
+            {
+              "text": "follow the tracks of the sheep.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.8",
+                "verseOrgIds": [
+                  "SNG.1.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:8"
+          },
+          "items": [
+            {
+              "text": "Graze your young goats beside the shepherds’ tents.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.8",
+                "verseOrgIds": [
+                  "SNG.1.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "b"
+          },
+          "items": []
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "SNG 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I have compared you, my love,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.9",
+                "verseOrgIds": [
+                  "SNG.1.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:9"
+          },
+          "items": [
+            {
+              "text": "to a steed in Pharaoh’s chariots.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.9",
+                "verseOrgIds": [
+                  "SNG.1.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "SNG 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Your cheeks are beautiful with earrings,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.10",
+                "verseOrgIds": [
+                  "SNG.1.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:10"
+          },
+          "items": [
+            {
+              "text": "your neck with strings of jewels.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.10",
+                "verseOrgIds": [
+                  "SNG.1.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Friends",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "SNG 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "We will make you earrings of gold,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.11",
+                "verseOrgIds": [
+                  "SNG.1.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:11"
+          },
+          "items": [
+            {
+              "text": "with studs of silver.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.11",
+                "verseOrgIds": [
+                  "SNG.1.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Beloved",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "SNG 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "While the king sat at his table,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.12",
+                "verseOrgIds": [
+                  "SNG.1.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:12"
+          },
+          "items": [
+            {
+              "text": "my perfume spread its fragrance.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.12",
+                "verseOrgIds": [
+                  "SNG.1.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "SNG 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My beloved is to me a sachet of myrrh,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.13",
+                "verseOrgIds": [
+                  "SNG.1.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:13"
+          },
+          "items": [
+            {
+              "text": "that lies between my breasts.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.13",
+                "verseOrgIds": [
+                  "SNG.1.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "SNG 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "My beloved is to me a cluster of henna blossoms",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.14",
+                "verseOrgIds": [
+                  "SNG.1.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:14"
+          },
+          "items": [
+            {
+              "text": "from the vineyards of En Gedi.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.14",
+                "verseOrgIds": [
+                  "SNG.1.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Lover",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "SNG 1:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold,",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.15",
+                "verseOrgIds": [
+                  "SNG.1.15"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "SNG.1.15!f.1",
+                "verseId": "SNG.1.15"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "1:15 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "“Behold”, from “הִנֵּה”, means look at, take notice, observe, see, or gaze at. It is often used as an interjection.",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " you are beautiful, my love.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.15",
+                "verseOrgIds": [
+                  "SNG.1.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:15"
+          },
+          "items": [
+            {
+              "text": "Behold, you are beautiful.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.15",
+                "verseOrgIds": [
+                  "SNG.1.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:15"
+          },
+          "items": [
+            {
+              "text": "Your eyes are like doves.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.15",
+                "verseOrgIds": [
+                  "SNG.1.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Beloved",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "SNG 1:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Behold, you are beautiful, my beloved, yes, pleasant;",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.16",
+                "verseOrgIds": [
+                  "SNG.1.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:16"
+          },
+          "items": [
+            {
+              "text": "and our couch is verdant.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.16",
+                "verseOrgIds": [
+                  "SNG.1.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "sp"
+          },
+          "items": [
+            {
+              "text": "Lover",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "SNG 1:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The beams of our house are cedars.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.17",
+                "verseOrgIds": [
+                  "SNG.1.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "SNG 1:17"
+          },
+          "items": [
+            {
+              "text": "Our rafters are firs.",
+              "type": "text",
+              "attrs": {
+                "verseId": "SNG.1.17",
+                "verseOrgIds": [
+                  "SNG.1.17"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "SNG.2",
+        "number": "2",
+        "bookId": "SNG"
+      },
+      "previous": {
+        "id": "SNG.intro",
+        "number": "intro",
+        "bookId": "SNG"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:37.597Z"
+  }
+}

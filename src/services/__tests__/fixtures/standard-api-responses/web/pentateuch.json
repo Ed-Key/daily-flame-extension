@@ -1,0 +1,4998 @@
+{
+  "Genesis_1": {
+    "reference": "Genesis 1",
+    "bookName": "Genesis",
+    "chapter": 1,
+    "translation": "WEB",
+    "content": {
+      "id": "GEN.1",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "1",
+      "bookId": "GEN",
+      "reference": "Genesis 1",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 31,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "GEN 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "In the beginning, God",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.1",
+                "verseOrgIds": [
+                  "GEN.1.1"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "GEN.1.1!f.1",
+                "verseId": "GEN.1.1"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "1:1 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "The Hebrew word rendered “God” is “אֱלֹהִ֑ים” (Elohim).",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " created the heavens and the earth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.1",
+                "verseOrgIds": [
+                  "GEN.1.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "GEN 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The earth was formless and empty. Darkness was on the surface of the deep and God’s Spirit was hovering over the surface of the waters.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.2",
+                "verseOrgIds": [
+                  "GEN.1.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "GEN 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let there be light,” and there was light. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.3",
+                "verseOrgIds": [
+                  "GEN.1.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "GEN 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God saw the light, and saw that it was good. God divided the light from the darkness. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.4",
+                "verseOrgIds": [
+                  "GEN.1.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "GEN 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God called the light “day”, and the darkness he called “night”. There was evening and there was morning, the first day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.5",
+                "verseOrgIds": [
+                  "GEN.1.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "GEN 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let there be an expanse in the middle of the waters, and let it divide the waters from the waters.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.6",
+                "verseOrgIds": [
+                  "GEN.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "GEN 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God made the expanse, and divided the waters which were under the expanse from the waters which were above the expanse; and it was so. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.7",
+                "verseOrgIds": [
+                  "GEN.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "GEN 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God called the expanse “sky”. There was evening and there was morning, a second day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.8",
+                "verseOrgIds": [
+                  "GEN.1.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "GEN 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let the waters under the sky be gathered together to one place, and let the dry land appear;” and it was so. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.9",
+                "verseOrgIds": [
+                  "GEN.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "GEN 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God called the dry land “earth”, and the gathering together of the waters he called “seas”. God saw that it was good. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.10",
+                "verseOrgIds": [
+                  "GEN.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "GEN 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let the earth yield grass, herbs yielding seeds, and fruit trees bearing fruit after their kind, with their seeds in it, on the earth;” and it was so. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.11",
+                "verseOrgIds": [
+                  "GEN.1.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "GEN 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The earth yielded grass, herbs yielding seed after their kind, and trees bearing fruit, with their seeds in it, after their kind; and God saw that it was good. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.12",
+                "verseOrgIds": [
+                  "GEN.1.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "GEN 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There was evening and there was morning, a third day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.13",
+                "verseOrgIds": [
+                  "GEN.1.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "GEN 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let there be lights in the expanse of the sky to divide the day from the night; and let them be for signs to mark seasons, days, and years; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.14",
+                "verseOrgIds": [
+                  "GEN.1.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "GEN 1:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and let them be for lights in the expanse of the sky to give light on the earth;” and it was so. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.15",
+                "verseOrgIds": [
+                  "GEN.1.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "GEN 1:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God made the two great lights: the greater light to rule the day, and the lesser light to rule the night. He also made the stars. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.16",
+                "verseOrgIds": [
+                  "GEN.1.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "GEN 1:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God set them in the expanse of the sky to give light to the earth, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.17",
+                "verseOrgIds": [
+                  "GEN.1.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "GEN 1:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and to rule over the day and over the night, and to divide the light from the darkness. God saw that it was good. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.18",
+                "verseOrgIds": [
+                  "GEN.1.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "GEN 1:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There was evening and there was morning, a fourth day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.19",
+                "verseOrgIds": [
+                  "GEN.1.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "GEN 1:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let the waters abound with living creatures, and let birds fly above the earth in the open expanse of the sky.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.20",
+                "verseOrgIds": [
+                  "GEN.1.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "GEN 1:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God created the large sea creatures and every living creature that moves, with which the waters swarmed, after their kind, and every winged bird after its kind. God saw that it was good. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.21",
+                "verseOrgIds": [
+                  "GEN.1.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "GEN 1:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God blessed them, saying, “Be fruitful, and multiply, and fill the waters in the seas, and let birds multiply on the earth.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.22",
+                "verseOrgIds": [
+                  "GEN.1.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "GEN 1:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There was evening and there was morning, a fifth day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.23",
+                "verseOrgIds": [
+                  "GEN.1.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "GEN 1:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let the earth produce living creatures after their kind, livestock, creeping things, and animals of the earth after their kind;” and it was so. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.24",
+                "verseOrgIds": [
+                  "GEN.1.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "GEN 1:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God made the animals of the earth after their kind, and the livestock after their kind, and everything that creeps on the ground after its kind. God saw that it was good.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.25",
+                "verseOrgIds": [
+                  "GEN.1.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "GEN 1:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Let’s make man in our image, after our likeness. Let them have dominion over the fish of the sea, and over the birds of the sky, and over the livestock, and over all the earth, and over every creeping thing that creeps on the earth.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.26",
+                "verseOrgIds": [
+                  "GEN.1.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "GEN 1:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God created man in his own image. In God’s image he created him; male and female he created them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.27",
+                "verseOrgIds": [
+                  "GEN.1.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "GEN 1:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God blessed them. God said to them, “Be fruitful, multiply, fill the earth, and subdue it. Have dominion over the fish of the sea, over the birds of the sky, and over every living thing that moves on the earth.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.28",
+                "verseOrgIds": [
+                  "GEN.1.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "GEN 1:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God said, “Behold,",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.29",
+                "verseOrgIds": [
+                  "GEN.1.29"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "GEN.1.29!f.1",
+                "verseId": "GEN.1.29"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "1:29 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "“Behold”, from “הִנֵּה”, means look at, take notice, observe, see, or gaze at. It is often used as an interjection.",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " I have given you every herb yielding seed, which is on the surface of all the earth, and every tree, which bears fruit yielding seed. It will be your food. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.29",
+                "verseOrgIds": [
+                  "GEN.1.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "GEN 1:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "To every animal of the earth, and to every bird of the sky, and to everything that creeps on the earth, in which there is life, I have given every green herb for food;” and it was so.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.30",
+                "verseOrgIds": [
+                  "GEN.1.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "GEN 1:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God saw everything that he had made, and, behold, it was very good. There was evening and there was morning, a sixth day.",
+              "type": "text",
+              "attrs": {
+                "verseId": "GEN.1.31",
+                "verseOrgIds": [
+                  "GEN.1.31"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "GEN.2",
+        "number": "2",
+        "bookId": "GEN"
+      },
+      "previous": {
+        "id": "GEN.intro",
+        "number": "intro",
+        "bookId": "GEN"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:33.029Z"
+  },
+  "Exodus_20": {
+    "reference": "Exodus 20",
+    "bookName": "Exodus",
+    "chapter": 20,
+    "translation": "WEB",
+    "content": {
+      "id": "EXO.20",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "20",
+      "bookId": "EXO",
+      "reference": "Exodus 20",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 26,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "EXO 20:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "God",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.1",
+                "verseOrgIds": [
+                  "EXO.20.1"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "EXO.20.1!f.1",
+                "verseId": "EXO.20.1"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "20:1 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "After “God”, the Hebrew has the two letters “Aleph Tav” (the first and last letters of the Hebrew alphabet), not as a word, but as a grammatical marker.",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " spoke all these words, saying, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.1",
+                "verseOrgIds": [
+                  "EXO.20.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "EXO 20:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“I am Yahweh your God, who brought you out of the land of Egypt, out of the house of bondage.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.2",
+                "verseOrgIds": [
+                  "EXO.20.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "EXO 20:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall have no other gods before me.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.3",
+                "verseOrgIds": [
+                  "EXO.20.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "EXO 20:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not make for yourselves an idol, nor any image of anything that is in the heavens above, or that is in the earth beneath, or that is in the water under the earth: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.4",
+                "verseOrgIds": [
+                  "EXO.20.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "EXO 20:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "you shall not bow yourself down to them, nor serve them, for I, Yahweh your God, am a jealous God, visiting the iniquity of the fathers on the children, on the third and on the fourth generation of those who hate me, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.5",
+                "verseOrgIds": [
+                  "EXO.20.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "EXO 20:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and showing loving kindness to thousands of those who love me and keep my commandments.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.6",
+                "verseOrgIds": [
+                  "EXO.20.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "EXO 20:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not misuse the name of Yahweh your God,",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.7",
+                "verseOrgIds": [
+                  "EXO.20.7"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "EXO.20.7!f.1",
+                "verseId": "EXO.20.7"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "20:7 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "or, You shall not take the name of Yahweh your God in vain",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " for Yahweh will not hold him guiltless who misuses his name.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.7",
+                "verseOrgIds": [
+                  "EXO.20.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "EXO 20:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Remember the Sabbath day, to keep it holy. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.8",
+                "verseOrgIds": [
+                  "EXO.20.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "EXO 20:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall labor six days, and do all your work, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.9",
+                "verseOrgIds": [
+                  "EXO.20.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "EXO 20:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but the seventh day is a Sabbath to Yahweh your God. You shall not do any work in it, you, nor your son, nor your daughter, your male servant, nor your female servant, nor your livestock, nor your stranger who is within your gates; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.10",
+                "verseOrgIds": [
+                  "EXO.20.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "EXO 20:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for in six days Yahweh made heaven and earth, the sea, and all that is in them, and rested the seventh day; therefore Yahweh blessed the Sabbath day, and made it holy.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.11",
+                "verseOrgIds": [
+                  "EXO.20.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "EXO 20:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Honor your father and your mother, that your days may be long in the land which Yahweh your God gives you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.12",
+                "verseOrgIds": [
+                  "EXO.20.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "EXO 20:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not murder.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.13",
+                "verseOrgIds": [
+                  "EXO.20.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "EXO 20:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not commit adultery.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.14",
+                "verseOrgIds": [
+                  "EXO.20.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "EXO 20:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not steal.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.15",
+                "verseOrgIds": [
+                  "EXO.20.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "EXO 20:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not give false testimony against your neighbor.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.16",
+                "verseOrgIds": [
+                  "EXO.20.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "EXO 20:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“You shall not covet your neighbor’s house. You shall not covet your neighbor’s wife, nor his male servant, nor his female servant, nor his ox, nor his donkey, nor anything that is your neighbor’s.”",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.17",
+                "verseOrgIds": [
+                  "EXO.20.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "EXO 20:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All the people perceived the thunderings, the lightnings, the sound of the trumpet, and the mountain smoking. When the people saw it, they trembled, and stayed at a distance. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.18",
+                "verseOrgIds": [
+                  "EXO.20.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "EXO 20:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They said to Moses, “Speak with us yourself, and we will listen; but don’t let God speak with us, lest we die.”",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.19",
+                "verseOrgIds": [
+                  "EXO.20.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "EXO 20:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Moses said to the people, “Don’t be afraid, for God has come to test you, and that his fear may be before you, that you won’t sin.” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.20",
+                "verseOrgIds": [
+                  "EXO.20.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "EXO 20:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The people stayed at a distance, and Moses came near to the thick darkness where God was.",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.21",
+                "verseOrgIds": [
+                  "EXO.20.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "EXO 20:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh said to Moses, “This is what you shall tell the children of Israel: ‘You yourselves have seen that I have talked with you from heaven. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.22",
+                "verseOrgIds": [
+                  "EXO.20.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "EXO 20:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall most certainly not make gods of silver or gods of gold for yourselves to be alongside me. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.23",
+                "verseOrgIds": [
+                  "EXO.20.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "EXO 20:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall make an altar of earth for me, and shall sacrifice on it your burnt offerings and your peace offerings, your sheep and your cattle. In every place where I record my name I will come to you and I will bless you. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.24",
+                "verseOrgIds": [
+                  "EXO.20.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "EXO 20:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If you make me an altar of stone, you shall not build it of cut stones; for if you lift up your tool on it, you have polluted it. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.25",
+                "verseOrgIds": [
+                  "EXO.20.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "EXO 20:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall not go up by steps to my altar, that your nakedness may not be exposed to it.’",
+              "type": "text",
+              "attrs": {
+                "verseId": "EXO.20.26",
+                "verseOrgIds": [
+                  "EXO.20.26"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "EXO.21",
+        "number": "21",
+        "bookId": "EXO"
+      },
+      "previous": {
+        "id": "EXO.19",
+        "number": "19",
+        "bookId": "EXO"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:33.260Z"
+  },
+  "Leviticus_19": {
+    "reference": "Leviticus 19",
+    "bookName": "Leviticus",
+    "chapter": 19,
+    "translation": "WEB",
+    "content": {
+      "id": "LEV.19",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "19",
+      "bookId": "LEV",
+      "reference": "Leviticus 19",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 37,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "LEV 19:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh spoke to Moses, saying, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.1",
+                "verseOrgIds": [
+                  "LEV.19.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "LEV 19:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Speak to all the congregation of the children of Israel, and tell them, ‘You shall be holy; for I, Yahweh your God, am holy.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.2",
+                "verseOrgIds": [
+                  "LEV.19.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "LEV 19:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘Each one of you shall respect his mother and his father. You shall keep my Sabbaths. I am Yahweh your God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.3",
+                "verseOrgIds": [
+                  "LEV.19.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "LEV 19:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘Don’t turn to idols, nor make molten gods for yourselves. I am Yahweh your God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.4",
+                "verseOrgIds": [
+                  "LEV.19.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "LEV 19:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘When you offer a sacrifice of peace offerings to Yahweh, you shall offer it so that you may be accepted. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.5",
+                "verseOrgIds": [
+                  "LEV.19.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "LEV 19:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It shall be eaten the same day you offer it, and on the next day. If anything remains until the third day, it shall be burned with fire. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.6",
+                "verseOrgIds": [
+                  "LEV.19.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "LEV 19:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If it is eaten at all on the third day, it is an abomination. It will not be accepted; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.7",
+                "verseOrgIds": [
+                  "LEV.19.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "LEV 19:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but everyone who eats it shall bear his iniquity, because he has profaned the holy thing of Yahweh, and that soul shall be cut off from his people.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.8",
+                "verseOrgIds": [
+                  "LEV.19.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "LEV 19:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘When you reap the harvest of your land, you shall not wholly reap the corners of your field, neither shall you gather the gleanings of your harvest. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.9",
+                "verseOrgIds": [
+                  "LEV.19.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "LEV 19:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall not glean your vineyard, neither shall you gather the fallen grapes of your vineyard. You shall leave them for the poor and for the foreigner. I am Yahweh your God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.10",
+                "verseOrgIds": [
+                  "LEV.19.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "LEV 19:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not steal.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.11",
+                "verseOrgIds": [
+                  "LEV.19.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:11"
+          },
+          "items": [
+            {
+              "text": "“‘You shall not lie.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.11",
+                "verseOrgIds": [
+                  "LEV.19.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:11"
+          },
+          "items": [
+            {
+              "text": "“‘You shall not deceive one another.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.11",
+                "verseOrgIds": [
+                  "LEV.19.11"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "LEV 19:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not swear by my name falsely, and profane the name of your God. I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.12",
+                "verseOrgIds": [
+                  "LEV.19.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "LEV 19:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not oppress your neighbor, nor rob him.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.13",
+                "verseOrgIds": [
+                  "LEV.19.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:13"
+          },
+          "items": [
+            {
+              "text": "“‘The wages of a hired servant shall not remain with you all night until the morning.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.13",
+                "verseOrgIds": [
+                  "LEV.19.13"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "LEV 19:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not curse the deaf, nor put a stumbling block before the blind; but you shall fear your God. I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.14",
+                "verseOrgIds": [
+                  "LEV.19.14"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "LEV 19:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall do no injustice in judgment. You shall not be partial to the poor, nor show favoritism to the great; but you shall judge your neighbor in righteousness.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.15",
+                "verseOrgIds": [
+                  "LEV.19.15"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "LEV 19:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not go around as a slanderer among your people.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.16",
+                "verseOrgIds": [
+                  "LEV.19.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:16"
+          },
+          "items": [
+            {
+              "text": "“‘You shall not endanger the life",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.16",
+                "verseOrgIds": [
+                  "LEV.19.16"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "LEV.19.16!f.1",
+                "verseId": "LEV.19.16"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "19:16 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "literally, “blood”",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " of your neighbor. I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.16",
+                "verseOrgIds": [
+                  "LEV.19.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "LEV 19:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not hate your brother in your heart. You shall surely rebuke your neighbor, and not bear sin because of him.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.17",
+                "verseOrgIds": [
+                  "LEV.19.17"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "LEV 19:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not take vengeance, nor bear any grudge against the children of your people; but you shall love your neighbor as yourself. I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.18",
+                "verseOrgIds": [
+                  "LEV.19.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "LEV 19:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall keep my statutes.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.19",
+                "verseOrgIds": [
+                  "LEV.19.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:19"
+          },
+          "items": [
+            {
+              "text": "“‘You shall not cross-breed different kinds of animals.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.19",
+                "verseOrgIds": [
+                  "LEV.19.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:19"
+          },
+          "items": [
+            {
+              "text": "“‘You shall not sow your field with two kinds of seed;",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.19",
+                "verseOrgIds": [
+                  "LEV.19.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p",
+            "vid": "LEV 19:19"
+          },
+          "items": [
+            {
+              "text": "“‘Don’t wear a garment made of two kinds of material.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.19",
+                "verseOrgIds": [
+                  "LEV.19.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "LEV 19:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘If a man lies carnally with a woman who is a slave girl, pledged to be married to another man, and not ransomed or given her freedom; they shall be punished. They shall not be put to death, because she was not free. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.20",
+                "verseOrgIds": [
+                  "LEV.19.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "LEV 19:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He shall bring his trespass offering to Yahweh, to the door of the Tent of Meeting, even a ram for a trespass offering. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.21",
+                "verseOrgIds": [
+                  "LEV.19.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "LEV 19:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The priest shall make atonement for him with the ram of the trespass offering before Yahweh for his sin which he has committed; and the sin which he has committed shall be forgiven him.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.22",
+                "verseOrgIds": [
+                  "LEV.19.22"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "LEV 19:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘When you come into the land, and have planted all kinds of trees for food, then you shall count their fruit as forbidden.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.23",
+                "verseOrgIds": [
+                  "LEV.19.23"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "LEV.19.23!f.1",
+                "verseId": "LEV.19.23"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "19:23 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "literally, “uncircumcised”",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " For three years it shall be forbidden to you. It shall not be eaten. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.23",
+                "verseOrgIds": [
+                  "LEV.19.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "LEV 19:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But in the fourth year all its fruit shall be holy, for giving praise to Yahweh. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.24",
+                "verseOrgIds": [
+                  "LEV.19.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "LEV 19:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "In the fifth year you shall eat its fruit, that it may yield its increase to you. I am Yahweh your God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.25",
+                "verseOrgIds": [
+                  "LEV.19.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "LEV 19:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not eat any meat with the blood still in it. You shall not use enchantments, nor practice sorcery.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.26",
+                "verseOrgIds": [
+                  "LEV.19.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "LEV 19:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not cut the hair on the sides of your head or clip off the edge of your beard.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.27",
+                "verseOrgIds": [
+                  "LEV.19.27"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "LEV 19:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall not make any cuttings in your flesh for the dead, nor tattoo any marks on you. I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.28",
+                "verseOrgIds": [
+                  "LEV.19.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "LEV 19:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘Don’t profane your daughter, to make her a prostitute; lest the land fall to prostitution, and the land become full of wickedness.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.29",
+                "verseOrgIds": [
+                  "LEV.19.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "LEV 19:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall keep my Sabbaths, and reverence my sanctuary; I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.30",
+                "verseOrgIds": [
+                  "LEV.19.30"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "LEV 19:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘Don’t turn to those who are mediums, nor to the wizards. Don’t seek them out, to be defiled by them. I am Yahweh your God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.31",
+                "verseOrgIds": [
+                  "LEV.19.31"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "LEV 19:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall rise up before the gray head and honor the face of the elderly; and you shall fear your God. I am Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.32",
+                "verseOrgIds": [
+                  "LEV.19.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "LEV 19:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘If a stranger lives as a foreigner with you in your land, you shall not do him wrong. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.33",
+                "verseOrgIds": [
+                  "LEV.19.33"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "LEV 19:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The stranger who lives as a foreigner with you shall be to you as the native-born among you, and you shall love him as yourself; for you lived as foreigners in the land of Egypt. I am Yahweh your God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.34",
+                "verseOrgIds": [
+                  "LEV.19.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "LEV 19:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall do no unrighteousness in judgment, in measures of length, of weight, or of quantity. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.35",
+                "verseOrgIds": [
+                  "LEV.19.35"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "LEV 19:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall have just balances, just weights, a just ephah,",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.36",
+                "verseOrgIds": [
+                  "LEV.19.36"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "LEV.19.36!f.1",
+                "verseId": "LEV.19.36"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "19:36 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "1 ephah is about 22 liters or about 2/3 of a bushel",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " and a just hin.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.36",
+                "verseOrgIds": [
+                  "LEV.19.36"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "LEV.19.36!f.2",
+                "verseId": "LEV.19.36"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "19:36 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "A hin is about 6.5 liters or 1.7 gallons.",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " I am Yahweh your God, who brought you out of the land of Egypt.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.36",
+                "verseOrgIds": [
+                  "LEV.19.36"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "LEV 19:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘You shall observe all my statutes and all my ordinances, and do them. I am Yahweh.’”",
+              "type": "text",
+              "attrs": {
+                "verseId": "LEV.19.37",
+                "verseOrgIds": [
+                  "LEV.19.37"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "LEV.20",
+        "number": "20",
+        "bookId": "LEV"
+      },
+      "previous": {
+        "id": "LEV.18",
+        "number": "18",
+        "bookId": "LEV"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:33.462Z"
+  },
+  "Numbers_6": {
+    "reference": "Numbers 6",
+    "bookName": "Numbers",
+    "chapter": 6,
+    "translation": "WEB",
+    "content": {
+      "id": "NUM.6",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "6",
+      "bookId": "NUM",
+      "reference": "Numbers 6",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 27,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "NUM 6:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh spoke to Moses, saying, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.1",
+                "verseOrgIds": [
+                  "NUM.6.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "NUM 6:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Speak to the children of Israel, and tell them: ‘When either man or woman shall make a special vow, the vow of a Nazirite, to separate himself to Yahweh, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.2",
+                "verseOrgIds": [
+                  "NUM.6.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "NUM 6:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "he shall separate himself from wine and strong drink. He shall drink no vinegar of wine, or vinegar of fermented drink, neither shall he drink any juice of grapes, nor eat fresh grapes or dried. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.3",
+                "verseOrgIds": [
+                  "NUM.6.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "NUM 6:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All the days of his separation he shall eat nothing that is made of the grapevine, from the seeds even to the skins.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.4",
+                "verseOrgIds": [
+                  "NUM.6.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "NUM 6:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘All the days of his vow of separation no razor shall come on his head, until the days are fulfilled in which he separates himself to Yahweh. He shall be holy. He shall let the locks of the hair of his head grow long.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.5",
+                "verseOrgIds": [
+                  "NUM.6.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "NUM 6:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘All the days that he separates himself to Yahweh he shall not go near a dead body. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.6",
+                "verseOrgIds": [
+                  "NUM.6.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "NUM 6:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He shall not make himself unclean for his father, or for his mother, for his brother, or for his sister, when they die, because his separation to God",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.7",
+                "verseOrgIds": [
+                  "NUM.6.7"
+                ]
+              }
+            },
+            {
+              "name": "note",
+              "type": "tag",
+              "attrs": {
+                "caller": "+",
+                "style": "f",
+                "id": "NUM.6.7!f.1",
+                "verseId": "NUM.6.7"
+              },
+              "items": [
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "fr",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "6:7 ",
+                      "type": "text"
+                    }
+                  ]
+                },
+                {
+                  "name": "char",
+                  "type": "tag",
+                  "attrs": {
+                    "style": "ft",
+                    "closed": "false"
+                  },
+                  "items": [
+                    {
+                      "text": "The Hebrew word rendered “God” is “אֱלֹהִ֑ים” (Elohim).",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "text": " is on his head. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.7",
+                "verseOrgIds": [
+                  "NUM.6.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "NUM 6:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All the days of his separation he is holy to Yahweh.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.8",
+                "verseOrgIds": [
+                  "NUM.6.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "NUM 6:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘If any man dies very suddenly beside him, and he defiles the head of his separation, then he shall shave his head in the day of his cleansing. On the seventh day he shall shave it. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.9",
+                "verseOrgIds": [
+                  "NUM.6.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "NUM 6:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "On the eighth day he shall bring two turtledoves or two young pigeons to the priest, to the door of the Tent of Meeting. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.10",
+                "verseOrgIds": [
+                  "NUM.6.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "NUM 6:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The priest shall offer one for a sin offering, and the other for a burnt offering, and make atonement for him, because he sinned by reason of the dead, and shall make his head holy that same day. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.11",
+                "verseOrgIds": [
+                  "NUM.6.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "NUM 6:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He shall separate to Yahweh the days of his separation, and shall bring a male lamb a year old for a trespass offering; but the former days shall be void, because his separation was defiled.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.12",
+                "verseOrgIds": [
+                  "NUM.6.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "NUM 6:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘This is the law of the Nazirite: when the days of his separation are fulfilled, he shall be brought to the door of the Tent of Meeting, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.13",
+                "verseOrgIds": [
+                  "NUM.6.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "NUM 6:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and he shall offer his offering to Yahweh: one male lamb a year old without defect for a burnt offering, one ewe lamb a year old without defect for a sin offering, one ram without defect for peace offerings, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.14",
+                "verseOrgIds": [
+                  "NUM.6.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "NUM 6:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "a basket of unleavened bread, cakes of fine flour mixed with oil, and unleavened wafers anointed with oil with their meal offering and their drink offerings. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.15",
+                "verseOrgIds": [
+                  "NUM.6.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "NUM 6:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The priest shall present them before Yahweh, and shall offer his sin offering and his burnt offering. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.16",
+                "verseOrgIds": [
+                  "NUM.6.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "NUM 6:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He shall offer the ram for a sacrifice of peace offerings to Yahweh, with the basket of unleavened bread. The priest shall offer also its meal offering and its drink offering. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.17",
+                "verseOrgIds": [
+                  "NUM.6.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "NUM 6:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The Nazirite shall shave the head of his separation at the door of the Tent of Meeting, take the hair of the head of his separation, and put it on the fire which is under the sacrifice of peace offerings. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.18",
+                "verseOrgIds": [
+                  "NUM.6.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "NUM 6:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The priest shall take the boiled shoulder of the ram, one unleavened cake out of the basket, and one unleavened wafer, and shall put them on the hands of the Nazirite after he has shaved the head of his separation; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.19",
+                "verseOrgIds": [
+                  "NUM.6.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "NUM 6:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and the priest shall wave them for a wave offering before Yahweh. They are holy for the priest, together with the breast that is waved and the thigh that is offered. After that the Nazirite may drink wine.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.20",
+                "verseOrgIds": [
+                  "NUM.6.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "NUM 6:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“‘This is the law of the Nazirite who vows and of his offering to Yahweh for his separation, in addition to that which he is able to afford. According to his vow which he vows, so he must do after the law of his separation.’”",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.21",
+                "verseOrgIds": [
+                  "NUM.6.21"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "NUM 6:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh spoke to Moses, saying, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.22",
+                "verseOrgIds": [
+                  "NUM.6.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "NUM 6:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“Speak to Aaron and to his sons, saying, ‘This is how you shall bless the children of Israel.’ You shall tell them,",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.23",
+                "verseOrgIds": [
+                  "NUM.6.23"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "NUM 6:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "‘Yahweh bless you, and keep you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.24",
+                "verseOrgIds": [
+                  "NUM.6.24"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "NUM 6:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh make his face to shine on you,",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.25",
+                "verseOrgIds": [
+                  "NUM.6.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "NUM 6:25"
+          },
+          "items": [
+            {
+              "text": "and be gracious to you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.25",
+                "verseOrgIds": [
+                  "NUM.6.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q1"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "NUM 6:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh lift up his face toward you,",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.26",
+                "verseOrgIds": [
+                  "NUM.6.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "q2",
+            "vid": "NUM 6:26"
+          },
+          "items": [
+            {
+              "text": "and give you peace.’",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.26",
+                "verseOrgIds": [
+                  "NUM.6.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "NUM 6:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "“So they shall put my name on the children of Israel; and I will bless them.”",
+              "type": "text",
+              "attrs": {
+                "verseId": "NUM.6.27",
+                "verseOrgIds": [
+                  "NUM.6.27"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "NUM.7",
+        "number": "7",
+        "bookId": "NUM"
+      },
+      "previous": {
+        "id": "NUM.5",
+        "number": "5",
+        "bookId": "NUM"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:33.664Z"
+  },
+  "Deuteronomy_6": {
+    "reference": "Deuteronomy 6",
+    "bookName": "Deuteronomy",
+    "chapter": 6,
+    "translation": "WEB",
+    "content": {
+      "id": "DEU.6",
+      "bibleId": "9879dbb7cfe39e4d-04",
+      "number": "6",
+      "bookId": "DEU",
+      "reference": "Deuteronomy 6",
+      "copyright": "\n          PUBLIC DOMAIN\n        ",
+      "verseCount": 25,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "DEU 6:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now these are the commandments, the statutes, and the ordinances, which Yahweh your God commanded to teach you, that you might do them in the land that you go over to possess; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.1",
+                "verseOrgIds": [
+                  "DEU.6.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "DEU 6:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that you might fear Yahweh your God, to keep all his statutes and his commandments, which I command you—you, your son, and your son’s son, all the days of your life; and that your days may be prolonged. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.2",
+                "verseOrgIds": [
+                  "DEU.6.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "DEU 6:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Hear therefore, Israel, and observe to do it, that it may be well with you, and that you may increase mightily, as Yahweh, the God of your fathers, has promised to you, in a land flowing with milk and honey.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.3",
+                "verseOrgIds": [
+                  "DEU.6.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "DEU 6:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Hear, Israel: Yahweh is our God. Yahweh is one. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.4",
+                "verseOrgIds": [
+                  "DEU.6.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "DEU 6:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall love Yahweh your God with all your heart, with all your soul, and with all your might. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.5",
+                "verseOrgIds": [
+                  "DEU.6.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "DEU 6:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "These words, which I command you today, shall be on your heart; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.6",
+                "verseOrgIds": [
+                  "DEU.6.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "DEU 6:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and you shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way, and when you lie down, and when you rise up. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.7",
+                "verseOrgIds": [
+                  "DEU.6.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "DEU 6:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall bind them for a sign on your hand, and they shall be for frontlets between your eyes. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.8",
+                "verseOrgIds": [
+                  "DEU.6.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "DEU 6:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall write them on the door posts of your house and on your gates.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.9",
+                "verseOrgIds": [
+                  "DEU.6.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "DEU 6:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It shall be, when Yahweh your God brings you into the land which he swore to your fathers, to Abraham, to Isaac, and to Jacob, to give you, great and goodly cities which you didn’t build, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.10",
+                "verseOrgIds": [
+                  "DEU.6.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "DEU 6:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and houses full of all good things which you didn’t fill, and cisterns dug out which you didn’t dig, vineyards and olive trees which you didn’t plant, and you shall eat and be full; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.11",
+                "verseOrgIds": [
+                  "DEU.6.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "DEU 6:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "then beware lest you forget Yahweh, who brought you out of the land of Egypt, out of the house of bondage. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.12",
+                "verseOrgIds": [
+                  "DEU.6.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "DEU 6:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall fear Yahweh your God; and you shall serve him, and shall swear by his name. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.13",
+                "verseOrgIds": [
+                  "DEU.6.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "DEU 6:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall not go after other gods, of the gods of the peoples who are around you, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.14",
+                "verseOrgIds": [
+                  "DEU.6.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "DEU 6:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for Yahweh your God among you is a jealous God, lest the anger of Yahweh your God be kindled against you, and he destroy you from off the face of the earth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.15",
+                "verseOrgIds": [
+                  "DEU.6.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "DEU 6:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall not tempt Yahweh your God, as you tempted him in Massah. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.16",
+                "verseOrgIds": [
+                  "DEU.6.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "DEU 6:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall diligently keep the commandments of Yahweh your God, and his testimonies, and his statutes, which he has commanded you. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.17",
+                "verseOrgIds": [
+                  "DEU.6.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "DEU 6:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "You shall do that which is right and good in Yahweh’s sight, that it may be well with you and that you may go in and possess the good land which Yahweh swore to your fathers, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.18",
+                "verseOrgIds": [
+                  "DEU.6.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "DEU 6:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "to thrust out all your enemies from before you, as Yahweh has spoken.",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.19",
+                "verseOrgIds": [
+                  "DEU.6.19"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "DEU 6:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "When your son asks you in time to come, saying, “What do the testimonies, the statutes, and the ordinances, which Yahweh our God has commanded you mean?” ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.20",
+                "verseOrgIds": [
+                  "DEU.6.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "DEU 6:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "then you shall tell your son, “We were Pharaoh’s slaves in Egypt. Yahweh brought us out of Egypt with a mighty hand; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.21",
+                "verseOrgIds": [
+                  "DEU.6.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "DEU 6:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and Yahweh showed great and awesome signs and wonders on Egypt, on Pharaoh, and on all his house, before our eyes; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.22",
+                "verseOrgIds": [
+                  "DEU.6.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "DEU 6:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and he brought us out from there, that he might bring us in, to give us the land which he swore to our fathers. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.23",
+                "verseOrgIds": [
+                  "DEU.6.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "DEU 6:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Yahweh commanded us to do all these statutes, to fear Yahweh our God, for our good always, that he might preserve us alive, as we are today. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.24",
+                "verseOrgIds": [
+                  "DEU.6.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "DEU 6:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It shall be righteousness to us, if we observe to do all these commandments before Yahweh our God, as he has commanded us.”",
+              "type": "text",
+              "attrs": {
+                "verseId": "DEU.6.25",
+                "verseOrgIds": [
+                  "DEU.6.25"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "DEU.7",
+        "number": "7",
+        "bookId": "DEU"
+      },
+      "previous": {
+        "id": "DEU.5",
+        "number": "5",
+        "bookId": "DEU"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:33.912Z"
+  }
+}

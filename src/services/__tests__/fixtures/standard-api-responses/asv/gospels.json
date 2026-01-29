@@ -1,0 +1,5330 @@
+{
+  "Matthew_5": {
+    "reference": "Matthew 5",
+    "bookName": "Matthew",
+    "chapter": 5,
+    "translation": "ASV",
+    "content": {
+      "id": "MAT.5",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "5",
+      "bookId": "MAT",
+      "reference": "Matthew 5",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 48,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "MAT 5:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And seeing the multitudes, he went up into the mountain: and when he had sat down, his disciples came unto him: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.1",
+                "verseOrgIds": [
+                  "MAT.5.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "MAT 5:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and he opened his mouth and taught them, saying,",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.2",
+                "verseOrgIds": [
+                  "MAT.5.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "MAT 5:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are the poor in spirit: for theirs is the kingdom of heaven.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.3",
+                "verseOrgIds": [
+                  "MAT.5.3"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "MAT 5:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are they that mourn: for they shall be comforted.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.4",
+                "verseOrgIds": [
+                  "MAT.5.4"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "MAT 5:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are the meek: for they shall inherit the earth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.5",
+                "verseOrgIds": [
+                  "MAT.5.5"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "MAT 5:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are they that hunger and thirst after righteousness: for they shall be filled.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.6",
+                "verseOrgIds": [
+                  "MAT.5.6"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "MAT 5:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are the merciful: for they shall obtain mercy.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.7",
+                "verseOrgIds": [
+                  "MAT.5.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "MAT 5:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are the pure in heart: for they shall see God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.8",
+                "verseOrgIds": [
+                  "MAT.5.8"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "MAT 5:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are the peacemakers: for they shall be called sons of God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.9",
+                "verseOrgIds": [
+                  "MAT.5.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "MAT 5:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are they that have been persecuted for righteousness’ sake: for theirs is the kingdom of heaven. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.10",
+                "verseOrgIds": [
+                  "MAT.5.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "MAT 5:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Blessed are ye when ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.11",
+                "verseOrgIds": [
+                  "MAT.5.11"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "men",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MAT.5.11",
+                    "verseOrgIds": [
+                      "MAT.5.11"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " shall reproach you, and persecute you, and say all manner of evil against you falsely, for my sake. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.11",
+                "verseOrgIds": [
+                  "MAT.5.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "MAT 5:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Rejoice, and be exceeding glad: for great is your reward in heaven: for so persecuted they the prophets that were before you.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.12",
+                "verseOrgIds": [
+                  "MAT.5.12"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "MAT 5:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye are the salt of the earth: but if the salt have lost its savor, wherewith shall it be salted? it is thenceforth good for nothing, but to be cast out and trodden under foot of men. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.13",
+                "verseOrgIds": [
+                  "MAT.5.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "MAT 5:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye are the light of the world. A city set on a hill cannot be hid. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.14",
+                "verseOrgIds": [
+                  "MAT.5.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "MAT 5:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Neither do ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.15",
+                "verseOrgIds": [
+                  "MAT.5.15"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "men",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MAT.5.15",
+                    "verseOrgIds": [
+                      "MAT.5.15"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " light a lamp, and put it under the bushel, but on the stand; and it shineth unto all that are in the house. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.15",
+                "verseOrgIds": [
+                  "MAT.5.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "MAT 5:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Even so let your light shine before men; that they may see your good works, and glorify your Father who is in heaven.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.16",
+                "verseOrgIds": [
+                  "MAT.5.16"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "MAT 5:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Think not that I came to destroy the law or the prophets: I came not to destroy, but to fulfil. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.17",
+                "verseOrgIds": [
+                  "MAT.5.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "MAT 5:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For verily I say unto you, Till heaven and earth pass away, one jot or one tittle shall in no wise pass away from the law, till all things be accomplished. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.18",
+                "verseOrgIds": [
+                  "MAT.5.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "MAT 5:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Whosoever therefore shall break one of these least commandments, and shall teach men so, shall be called least in the kingdom of heaven: but whosoever shall do and teach them, he shall be called great in the kingdom of heaven. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.19",
+                "verseOrgIds": [
+                  "MAT.5.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "MAT 5:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For I say unto you, that except your righteousness shall exceed ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.20",
+                "verseOrgIds": [
+                  "MAT.5.20"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "the righteousness",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MAT.5.20",
+                    "verseOrgIds": [
+                      "MAT.5.20"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " of the scribes and Pharisees, ye shall in no wise enter into the kingdom of heaven.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.20",
+                "verseOrgIds": [
+                  "MAT.5.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "MAT 5:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye have heard that it was said to them of old time, Thou shalt not kill; and whosoever shall kill shall be in danger of the judgment: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.21",
+                "verseOrgIds": [
+                  "MAT.5.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "MAT 5:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I say unto you, that every one who is angry with his brother shall be in danger of the judgment; and whosoever shall say to his brother, Raca, shall be in danger of the council; and whosoever shall say, Thou fool, shall be in danger of the hell of fire. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.22",
+                "verseOrgIds": [
+                  "MAT.5.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "MAT 5:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If therefore thou art offering thy gift at the altar, and there rememberest that thy brother hath aught against thee, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.23",
+                "verseOrgIds": [
+                  "MAT.5.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "MAT 5:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "leave there thy gift before the altar, and go thy way, first be reconciled to thy brother, and then come and offer thy gift. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.24",
+                "verseOrgIds": [
+                  "MAT.5.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "MAT 5:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Agree with thine adversary quickly, while thou art with him in the way; lest haply the adversary deliver thee to the judge, and the judge deliver thee to the officer, and thou be cast into prison. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.25",
+                "verseOrgIds": [
+                  "MAT.5.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "MAT 5:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Verily I say unto thee, Thou shalt by no means come out thence, till thou have paid the last farthing.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.26",
+                "verseOrgIds": [
+                  "MAT.5.26"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "MAT 5:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye have heard that it was said, Thou shalt not commit adultery: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.27",
+                "verseOrgIds": [
+                  "MAT.5.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "MAT 5:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I say unto you, that every one that looketh on a woman to lust after her hath committed adultery with her already in his heart. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.28",
+                "verseOrgIds": [
+                  "MAT.5.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "MAT 5:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And if thy right eye causeth thee to stumble, pluck it out, and cast it from thee: for it is profitable for thee that one of thy members should perish, and not thy whole body be cast into hell. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.29",
+                "verseOrgIds": [
+                  "MAT.5.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "MAT 5:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And if thy right hand causeth thee to stumble, cut it off, and cast it from thee: for it is profitable for thee that one of thy members should perish, and not thy whole body go into hell. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.30",
+                "verseOrgIds": [
+                  "MAT.5.30"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "MAT 5:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It was said also, Whosoever shall put away his wife, let him give her a writing of divorcement: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.31",
+                "verseOrgIds": [
+                  "MAT.5.31"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "MAT 5:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I say unto you, that every one that putteth away his wife, saving for the cause of fornication, maketh her an adulteress: and whosoever shall marry her when she is put away committeth adultery.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.32",
+                "verseOrgIds": [
+                  "MAT.5.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "MAT 5:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Again, ye have heard that it was said to them of old time, Thou shalt not forswear thyself, but shalt perform unto the Lord thine oaths: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.33",
+                "verseOrgIds": [
+                  "MAT.5.33"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "MAT 5:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I say unto you, Swear not at all; neither by the heaven, for it is the throne of God; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.34",
+                "verseOrgIds": [
+                  "MAT.5.34"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "MAT 5:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "nor by the earth, for it is the footstool of his feet; nor by Jerusalem, for it is the city of the great King. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.35",
+                "verseOrgIds": [
+                  "MAT.5.35"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "MAT 5:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Neither shalt thou swear by thy head, for thou canst not make one hair white or black. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.36",
+                "verseOrgIds": [
+                  "MAT.5.36"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "MAT 5:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But let your speech be, Yea, yea; Nay, nay: and whatsoever is more than these is of the evil ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.37",
+                "verseOrgIds": [
+                  "MAT.5.37"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "one",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MAT.5.37",
+                    "verseOrgIds": [
+                      "MAT.5.37"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ".",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.37",
+                "verseOrgIds": [
+                  "MAT.5.37"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "MAT 5:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye have heard that it was said, An eye for an eye, and a tooth for a tooth: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.38",
+                "verseOrgIds": [
+                  "MAT.5.38"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "MAT 5:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I say unto you, Resist not him that is evil: but whosoever smiteth thee on thy right cheek, turn to him the other also. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.39",
+                "verseOrgIds": [
+                  "MAT.5.39"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "MAT 5:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And if any man would go to law with thee, and take away thy coat, let him have thy cloak also. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.40",
+                "verseOrgIds": [
+                  "MAT.5.40"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "41",
+                "style": "v",
+                "sid": "MAT 5:41"
+              },
+              "items": [
+                {
+                  "text": "41",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And whosoever shall compel thee to go one mile, go with him two. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.41",
+                "verseOrgIds": [
+                  "MAT.5.41"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "42",
+                "style": "v",
+                "sid": "MAT 5:42"
+              },
+              "items": [
+                {
+                  "text": "42",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Give to him that asketh thee, and from him that would borrow of thee turn not thou away.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.42",
+                "verseOrgIds": [
+                  "MAT.5.42"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "43",
+                "style": "v",
+                "sid": "MAT 5:43"
+              },
+              "items": [
+                {
+                  "text": "43",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye have heard that it was said, Thou shalt love thy neighbor, and hate thine enemy: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.43",
+                "verseOrgIds": [
+                  "MAT.5.43"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "44",
+                "style": "v",
+                "sid": "MAT 5:44"
+              },
+              "items": [
+                {
+                  "text": "44",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but I say unto you, Love your enemies, and pray for them that persecute you; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.44",
+                "verseOrgIds": [
+                  "MAT.5.44"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "45",
+                "style": "v",
+                "sid": "MAT 5:45"
+              },
+              "items": [
+                {
+                  "text": "45",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that ye may be sons of your Father who is in heaven: for he maketh his sun to rise on the evil and the good, and sendeth rain on the just and the unjust. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.45",
+                "verseOrgIds": [
+                  "MAT.5.45"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "46",
+                "style": "v",
+                "sid": "MAT 5:46"
+              },
+              "items": [
+                {
+                  "text": "46",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For if ye love them that love you, what reward have ye? do not even the publicans the same? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.46",
+                "verseOrgIds": [
+                  "MAT.5.46"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "47",
+                "style": "v",
+                "sid": "MAT 5:47"
+              },
+              "items": [
+                {
+                  "text": "47",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And if ye salute your brethren only, what do ye more ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.47",
+                "verseOrgIds": [
+                  "MAT.5.47"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "than others",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MAT.5.47",
+                    "verseOrgIds": [
+                      "MAT.5.47"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": "? do not even the Gentiles the same? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.47",
+                "verseOrgIds": [
+                  "MAT.5.47"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "48",
+                "style": "v",
+                "sid": "MAT 5:48"
+              },
+              "items": [
+                {
+                  "text": "48",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Ye therefore shall be perfect, as your heavenly Father is perfect.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MAT.5.48",
+                "verseOrgIds": [
+                  "MAT.5.48"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "MAT.6",
+        "number": "6",
+        "bookId": "MAT"
+      },
+      "previous": {
+        "id": "MAT.4",
+        "number": "4",
+        "bookId": "MAT"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:24.392Z"
+  },
+  "Mark_4": {
+    "reference": "Mark 4",
+    "bookName": "Mark",
+    "chapter": 4,
+    "translation": "ASV",
+    "content": {
+      "id": "MRK.4",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "4",
+      "bookId": "MRK",
+      "reference": "Mark 4",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 41,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "MRK 4:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And again he began to teach by the sea side. And there is gathered unto him a very great multitude, so that he entered into a boat, and sat in the sea; and all the multitude were by the sea on the land. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.1",
+                "verseOrgIds": [
+                  "MRK.4.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "MRK 4:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he taught them many things in parables, and said unto them in his teaching, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.2",
+                "verseOrgIds": [
+                  "MRK.4.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "MRK 4:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Hearken: Behold, the sower went forth to sow: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.3",
+                "verseOrgIds": [
+                  "MRK.4.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "MRK 4:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and it came to pass, as he sowed, some ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.4",
+                "verseOrgIds": [
+                  "MRK.4.4"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "seed",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MRK.4.4",
+                    "verseOrgIds": [
+                      "MRK.4.4"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " fell by the way side, and the birds came and devoured it. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.4",
+                "verseOrgIds": [
+                  "MRK.4.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "MRK 4:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And other fell on the rocky ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.5",
+                "verseOrgIds": [
+                  "MRK.4.5"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "ground",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MRK.4.5",
+                    "verseOrgIds": [
+                      "MRK.4.5"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", where it had not much earth; and straightway it sprang up, because it had no deepness of earth: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.5",
+                "verseOrgIds": [
+                  "MRK.4.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "MRK 4:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and when the sun was risen, it was scorched; and because it had no root, it withered away. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.6",
+                "verseOrgIds": [
+                  "MRK.4.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "MRK 4:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And other fell among the thorns, and the thorns grew up, and choked it, and it yielded no fruit. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.7",
+                "verseOrgIds": [
+                  "MRK.4.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "MRK 4:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And others fell into the good ground, and yielded fruit, growing up and increasing; and brought forth, thirtyfold, and sixtyfold, and a hundredfold. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.8",
+                "verseOrgIds": [
+                  "MRK.4.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "MRK 4:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said, Who hath ears to hear, let him hear.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.9",
+                "verseOrgIds": [
+                  "MRK.4.9"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "MRK 4:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And when he was alone, they that were about him with the twelve asked of him the parables. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.10",
+                "verseOrgIds": [
+                  "MRK.4.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "MRK 4:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto them, Unto you is given the mystery of the kingdom of God: but unto them that are without, all things are done in parables: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.11",
+                "verseOrgIds": [
+                  "MRK.4.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "MRK 4:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "that seeing they may see, and not perceive; and hearing they may hear, and not understand; lest haply they should turn again, and it should be forgiven them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.12",
+                "verseOrgIds": [
+                  "MRK.4.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "MRK 4:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he saith unto them, Know ye not this parable? and how shall ye know all the parables? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.13",
+                "verseOrgIds": [
+                  "MRK.4.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "MRK 4:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The sower soweth the word. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.14",
+                "verseOrgIds": [
+                  "MRK.4.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "MRK 4:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And these are they by the way side, where the word is sown; and when they have heard, straightway cometh Satan, and taketh away the word which hath been sown in them. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.15",
+                "verseOrgIds": [
+                  "MRK.4.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "MRK 4:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And these in like manner are they that are sown upon the rocky ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.16",
+                "verseOrgIds": [
+                  "MRK.4.16"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "places",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MRK.4.16",
+                    "verseOrgIds": [
+                      "MRK.4.16"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", who, when they have heard the word, straightway receive it with joy; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.16",
+                "verseOrgIds": [
+                  "MRK.4.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "MRK 4:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and they have no root in themselves, but endure for a while; then, when tribulation or persecution ariseth because of the word, straightway they stumble. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.17",
+                "verseOrgIds": [
+                  "MRK.4.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "MRK 4:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And others are they that are sown among the thorns; these are they that have heard the word, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.18",
+                "verseOrgIds": [
+                  "MRK.4.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "MRK 4:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and the cares of the world, and the deceitfulness of riches, and the lusts of other things entering in, choke the word, and it becometh unfruitful. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.19",
+                "verseOrgIds": [
+                  "MRK.4.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "MRK 4:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And those are they that were sown upon the good ground; such as hear the word, and accept it, and bear fruit, thirtyfold, and sixtyfold, and a hundredfold.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.20",
+                "verseOrgIds": [
+                  "MRK.4.20"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "MRK 4:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto them, Is the lamp brought to be put under the bushel, or under the bed, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.21",
+                "verseOrgIds": [
+                  "MRK.4.21"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "and",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MRK.4.21",
+                    "verseOrgIds": [
+                      "MRK.4.21"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " not to be put on the stand? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.21",
+                "verseOrgIds": [
+                  "MRK.4.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "MRK 4:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For there is nothing hid, save that it should be manifested; neither was ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.22",
+                "verseOrgIds": [
+                  "MRK.4.22"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "anything",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "MRK.4.22",
+                    "verseOrgIds": [
+                      "MRK.4.22"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " made secret, but that it should come to light. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.22",
+                "verseOrgIds": [
+                  "MRK.4.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "MRK 4:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "If any man hath ears to hear, let him hear. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.23",
+                "verseOrgIds": [
+                  "MRK.4.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "MRK 4:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto them, Take heed what ye hear: with what measure ye mete it shall be measured unto you; and more shall be given unto you. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.24",
+                "verseOrgIds": [
+                  "MRK.4.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "MRK 4:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For he that hath, to him shall be given: and he that hath not, from him shall be taken away even that which he hath.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.25",
+                "verseOrgIds": [
+                  "MRK.4.25"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "MRK 4:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said, So is the kingdom of God, as if a man should cast seed upon the earth; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.26",
+                "verseOrgIds": [
+                  "MRK.4.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "MRK 4:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and should sleep and rise night and day, and the seed should spring up and grow, he knoweth not how. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.27",
+                "verseOrgIds": [
+                  "MRK.4.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "MRK 4:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The earth beareth fruit of herself; first the blade, then the ear, then the full grain in the ear. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.28",
+                "verseOrgIds": [
+                  "MRK.4.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "MRK 4:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But when the fruit is ripe, straightway he putteth forth the sickle, because the harvest is come.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.29",
+                "verseOrgIds": [
+                  "MRK.4.29"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "MRK 4:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said, How shall we liken the kingdom of God? or in what parable shall we set it forth? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.30",
+                "verseOrgIds": [
+                  "MRK.4.30"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "MRK 4:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "It is like a grain of mustard seed, which, when it is sown upon the earth, though it be less than all the seeds that are upon the earth, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.31",
+                "verseOrgIds": [
+                  "MRK.4.31"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "MRK 4:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "yet when it is sown, groweth up, and becometh greater than all the herbs, and putteth out great branches; so that the birds of the heaven can lodge under the shadow thereof.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.32",
+                "verseOrgIds": [
+                  "MRK.4.32"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "MRK 4:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And with many such parables spake he the word unto them, as they were able to hear it; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.33",
+                "verseOrgIds": [
+                  "MRK.4.33"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "MRK 4:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and without a parable spake he not unto them: but privately to his own disciples he expounded all things.",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.34",
+                "verseOrgIds": [
+                  "MRK.4.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "MRK 4:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And on that day, when even was come, he saith unto them, Let us go over unto the other side. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.35",
+                "verseOrgIds": [
+                  "MRK.4.35"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "MRK 4:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And leaving the multitude, they take him with them, even as he was, in the boat. And other boats were with him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.36",
+                "verseOrgIds": [
+                  "MRK.4.36"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "MRK 4:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And there ariseth a great storm of wind, and the waves beat into the boat, insomuch that the boat was now filling. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.37",
+                "verseOrgIds": [
+                  "MRK.4.37"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "MRK 4:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he himself was in the stern, asleep on the cushion: and they awake him, and say unto him, Teacher, carest thou not that we perish? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.38",
+                "verseOrgIds": [
+                  "MRK.4.38"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "MRK 4:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he awoke, and rebuked the wind, and said unto the sea, Peace, be still. And the wind ceased, and there was a great calm. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.39",
+                "verseOrgIds": [
+                  "MRK.4.39"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "MRK 4:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto them, Why are ye fearful? have ye not yet faith? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.40",
+                "verseOrgIds": [
+                  "MRK.4.40"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "41",
+                "style": "v",
+                "sid": "MRK 4:41"
+              },
+              "items": [
+                {
+                  "text": "41",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they feared exceedingly, and said one to another, Who then is this, that even the wind and the sea obey him?",
+              "type": "text",
+              "attrs": {
+                "verseId": "MRK.4.41",
+                "verseOrgIds": [
+                  "MRK.4.41"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "MRK.5",
+        "number": "5",
+        "bookId": "MRK"
+      },
+      "previous": {
+        "id": "MRK.3",
+        "number": "3",
+        "bookId": "MRK"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:24.594Z"
+  },
+  "Luke_15": {
+    "reference": "Luke 15",
+    "bookName": "Luke",
+    "chapter": 15,
+    "translation": "ASV",
+    "content": {
+      "id": "LUK.15",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "15",
+      "bookId": "LUK",
+      "reference": "Luke 15",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 32,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "LUK 15:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now all the publicans and sinners were drawing near unto him to hear him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.1",
+                "verseOrgIds": [
+                  "LUK.15.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "LUK 15:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And both the Pharisees and the scribes murmured, saying, This man receiveth sinners, and eateth with them.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.2",
+                "verseOrgIds": [
+                  "LUK.15.2"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "LUK 15:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he spake unto them this parable, saying, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.3",
+                "verseOrgIds": [
+                  "LUK.15.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "LUK 15:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "What man of you, having a hundred sheep, and having lost one of them, doth not leave the ninety and nine in the wilderness, and go after that which is lost, until he find it? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.4",
+                "verseOrgIds": [
+                  "LUK.15.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "LUK 15:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And when he hath found it, he layeth it on his shoulders, rejoicing. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.5",
+                "verseOrgIds": [
+                  "LUK.15.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "LUK 15:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And when he cometh home, he calleth together his friends and his neighbors, saying unto them, Rejoice with me, for I have found my sheep which was lost. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.6",
+                "verseOrgIds": [
+                  "LUK.15.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "LUK 15:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I say unto you, that even so there shall be joy in heaven over one sinner that repenteth, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.7",
+                "verseOrgIds": [
+                  "LUK.15.7"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "more",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LUK.15.7",
+                    "verseOrgIds": [
+                      "LUK.15.7"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " than over ninety and nine righteous persons, who need no repentance.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.7",
+                "verseOrgIds": [
+                  "LUK.15.7"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "LUK 15:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Or what woman having ten pieces of silver, if she lose one piece, doth not light a lamp, and sweep the house, and seek diligently until she find it? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.8",
+                "verseOrgIds": [
+                  "LUK.15.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "LUK 15:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And when she hath found it, she calleth together her friends and neighbors, saying, Rejoice with me, for I have found the piece which I had lost. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.9",
+                "verseOrgIds": [
+                  "LUK.15.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "LUK 15:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Even so, I say unto you, there is joy in the presence of the angels of God over one sinner that repenteth.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.10",
+                "verseOrgIds": [
+                  "LUK.15.10"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "LUK 15:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said, A certain man had two sons: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.11",
+                "verseOrgIds": [
+                  "LUK.15.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "LUK 15:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and the younger of them said to his father, Father, give me the portion of ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.12",
+                "verseOrgIds": [
+                  "LUK.15.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "thy",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LUK.15.12",
+                    "verseOrgIds": [
+                      "LUK.15.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " substance that falleth to me. And he divided unto them his living. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.12",
+                "verseOrgIds": [
+                  "LUK.15.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "LUK 15:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And not many days after, the younger son gathered all together and took his journey into a far country; and there he wasted his substance with riotous living. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.13",
+                "verseOrgIds": [
+                  "LUK.15.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "LUK 15:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And when he had spent all, there arose a mighty famine in that country; and he began to be in want. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.14",
+                "verseOrgIds": [
+                  "LUK.15.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "LUK 15:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he went and joined himself to one of the citizens of that country; and he sent him into his fields to feed swine. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.15",
+                "verseOrgIds": [
+                  "LUK.15.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "LUK 15:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he would fain have filled his belly with the husks that the swine did eat: and no man gave unto him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.16",
+                "verseOrgIds": [
+                  "LUK.15.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "LUK 15:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But when he came to himself he said, How many hired servants of my father’s have bread enough and to spare, and I perish here with hunger! ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.17",
+                "verseOrgIds": [
+                  "LUK.15.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "LUK 15:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I will arise and go to my father, and will say unto him, Father, I have sinned against heaven, and in thy sight: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.18",
+                "verseOrgIds": [
+                  "LUK.15.18"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "LUK 15:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "I am no more worthy to be called thy son: make me as one of thy hired servants. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.19",
+                "verseOrgIds": [
+                  "LUK.15.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "LUK 15:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he arose, and came to his father. But while he was yet afar off, his father saw him, and was moved with compassion, and ran, and fell on his neck, and kissed him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.20",
+                "verseOrgIds": [
+                  "LUK.15.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "LUK 15:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the son said unto him, Father, I have sinned against heaven, and in thy sight: I am no more worthy to be called thy son. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.21",
+                "verseOrgIds": [
+                  "LUK.15.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "LUK 15:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But the father said to his servants, Bring forth quickly the best robe, and put it on him; and put a ring on his hand, and shoes on his feet: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.22",
+                "verseOrgIds": [
+                  "LUK.15.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "LUK 15:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and bring the fatted calf, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.23",
+                "verseOrgIds": [
+                  "LUK.15.23"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "and",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LUK.15.23",
+                    "verseOrgIds": [
+                      "LUK.15.23"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " kill it, and let us eat, and make merry: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.23",
+                "verseOrgIds": [
+                  "LUK.15.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "LUK 15:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "for this my son was dead, and is alive again; he was lost, and is found. And they began to be merry. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.24",
+                "verseOrgIds": [
+                  "LUK.15.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "LUK 15:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now his elder son was in the field: and as he came and drew nigh to the house, he heard music and dancing. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.25",
+                "verseOrgIds": [
+                  "LUK.15.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "LUK 15:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he called to him one of the servants, and inquired what these things might be. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.26",
+                "verseOrgIds": [
+                  "LUK.15.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "LUK 15:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto him, Thy brother is come; and thy father hath killed the fatted calf, because he hath received him safe and sound. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.27",
+                "verseOrgIds": [
+                  "LUK.15.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "LUK 15:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But he was angry, and would not go in: and his father came out, and entreated him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.28",
+                "verseOrgIds": [
+                  "LUK.15.28"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "LUK 15:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But he answered and said to his father, Lo, these many years do I serve thee, and I never transgressed a commandment of thine; and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.29",
+                "verseOrgIds": [
+                  "LUK.15.29"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "yet",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LUK.15.29",
+                    "verseOrgIds": [
+                      "LUK.15.29"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " thou never gavest me a kid, that I might make merry with my friends: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.29",
+                "verseOrgIds": [
+                  "LUK.15.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "LUK 15:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "but when this thy son came, who hath devoured thy living with harlots, thou killedst for him the fatted calf. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.30",
+                "verseOrgIds": [
+                  "LUK.15.30"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "LUK 15:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he said unto him, Son, thou art ever with me, and all that is mine is thine. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.31",
+                "verseOrgIds": [
+                  "LUK.15.31"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "LUK 15:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But it was meet to make merry and be glad: for this thy brother was dead, and is alive ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.32",
+                "verseOrgIds": [
+                  "LUK.15.32"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "again",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LUK.15.32",
+                    "verseOrgIds": [
+                      "LUK.15.32"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": "; and ",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.32",
+                "verseOrgIds": [
+                  "LUK.15.32"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "was",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "LUK.15.32",
+                    "verseOrgIds": [
+                      "LUK.15.32"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " lost, and is found.",
+              "type": "text",
+              "attrs": {
+                "verseId": "LUK.15.32",
+                "verseOrgIds": [
+                  "LUK.15.32"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "LUK.16",
+        "number": "16",
+        "bookId": "LUK"
+      },
+      "previous": {
+        "id": "LUK.14",
+        "number": "14",
+        "bookId": "LUK"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:24.814Z"
+  },
+  "John_1": {
+    "reference": "John 1",
+    "bookName": "John",
+    "chapter": 1,
+    "translation": "ASV",
+    "content": {
+      "id": "JHN.1",
+      "bibleId": "06125adad2d5898a-01",
+      "number": "1",
+      "bookId": "JHN",
+      "reference": "John 1",
+      "copyright": "PUBLIC DOMAIN",
+      "verseCount": 51,
+      "content": [
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "1",
+                "style": "v",
+                "sid": "JHN 1:1"
+              },
+              "items": [
+                {
+                  "text": "1",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "In the beginning was the Word, and the Word was with God, and the Word was God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.1",
+                "verseOrgIds": [
+                  "JHN.1.1"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "2",
+                "style": "v",
+                "sid": "JHN 1:2"
+              },
+              "items": [
+                {
+                  "text": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The same was in the beginning with God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.2",
+                "verseOrgIds": [
+                  "JHN.1.2"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "3",
+                "style": "v",
+                "sid": "JHN 1:3"
+              },
+              "items": [
+                {
+                  "text": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "All things were made through him; and without him was not anything made that hath been made. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.3",
+                "verseOrgIds": [
+                  "JHN.1.3"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "4",
+                "style": "v",
+                "sid": "JHN 1:4"
+              },
+              "items": [
+                {
+                  "text": "4",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "In him was life; and the life was the light of men. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.4",
+                "verseOrgIds": [
+                  "JHN.1.4"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "5",
+                "style": "v",
+                "sid": "JHN 1:5"
+              },
+              "items": [
+                {
+                  "text": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the light shineth in the darkness; and the darkness apprehended it not. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.5",
+                "verseOrgIds": [
+                  "JHN.1.5"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "6",
+                "style": "v",
+                "sid": "JHN 1:6"
+              },
+              "items": [
+                {
+                  "text": "6",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There came a man, sent from God, whose name was John. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.6",
+                "verseOrgIds": [
+                  "JHN.1.6"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "7",
+                "style": "v",
+                "sid": "JHN 1:7"
+              },
+              "items": [
+                {
+                  "text": "7",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "The same came for witness, that he might bear witness of the light, that all might believe through him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.7",
+                "verseOrgIds": [
+                  "JHN.1.7"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "8",
+                "style": "v",
+                "sid": "JHN 1:8"
+              },
+              "items": [
+                {
+                  "text": "8",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He was not the light, but ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.8",
+                "verseOrgIds": [
+                  "JHN.1.8"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "came",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JHN.1.8",
+                    "verseOrgIds": [
+                      "JHN.1.8"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " that he might bear witness of the light. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.8",
+                "verseOrgIds": [
+                  "JHN.1.8"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "9",
+                "style": "v",
+                "sid": "JHN 1:9"
+              },
+              "items": [
+                {
+                  "text": "9",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "There was the true light, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.9",
+                "verseOrgIds": [
+                  "JHN.1.9"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even the light",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JHN.1.9",
+                    "verseOrgIds": [
+                      "JHN.1.9"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " which lighteth every man, coming into the world. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.9",
+                "verseOrgIds": [
+                  "JHN.1.9"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "10",
+                "style": "v",
+                "sid": "JHN 1:10"
+              },
+              "items": [
+                {
+                  "text": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He was in the world, and the world was made through him, and the world knew him not. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.10",
+                "verseOrgIds": [
+                  "JHN.1.10"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "11",
+                "style": "v",
+                "sid": "JHN 1:11"
+              },
+              "items": [
+                {
+                  "text": "11",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He came unto his own, and they that were his own received him not. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.11",
+                "verseOrgIds": [
+                  "JHN.1.11"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "12",
+                "style": "v",
+                "sid": "JHN 1:12"
+              },
+              "items": [
+                {
+                  "text": "12",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "But as many as received him, to them gave he the right to become children of God, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.12",
+                "verseOrgIds": [
+                  "JHN.1.12"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JHN.1.12",
+                    "verseOrgIds": [
+                      "JHN.1.12"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " to them that believe on his name: ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.12",
+                "verseOrgIds": [
+                  "JHN.1.12"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "13",
+                "style": "v",
+                "sid": "JHN 1:13"
+              },
+              "items": [
+                {
+                  "text": "13",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "who were born, not of blood, nor of the will of the flesh, nor of the will of man, but of God. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.13",
+                "verseOrgIds": [
+                  "JHN.1.13"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "14",
+                "style": "v",
+                "sid": "JHN 1:14"
+              },
+              "items": [
+                {
+                  "text": "14",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the Word became flesh, and dwelt among us (and we beheld his glory, glory as of the only begotten from the Father), full of grace and truth. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.14",
+                "verseOrgIds": [
+                  "JHN.1.14"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "15",
+                "style": "v",
+                "sid": "JHN 1:15"
+              },
+              "items": [
+                {
+                  "text": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "John beareth witness of him, and crieth, saying, This was he of whom I said, He that cometh after me is become before me: for he was before me. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.15",
+                "verseOrgIds": [
+                  "JHN.1.15"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "16",
+                "style": "v",
+                "sid": "JHN 1:16"
+              },
+              "items": [
+                {
+                  "text": "16",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For of his fulness we all received, and grace for grace. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.16",
+                "verseOrgIds": [
+                  "JHN.1.16"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "17",
+                "style": "v",
+                "sid": "JHN 1:17"
+              },
+              "items": [
+                {
+                  "text": "17",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "For the law was given through Moses; grace and truth came through Jesus Christ. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.17",
+                "verseOrgIds": [
+                  "JHN.1.17"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "18",
+                "style": "v",
+                "sid": "JHN 1:18"
+              },
+              "items": [
+                {
+                  "text": "18",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "No man hath seen God at any time; the only begotten Son, who is in the bosom of the Father, he hath declared ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.18",
+                "verseOrgIds": [
+                  "JHN.1.18"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "him",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JHN.1.18",
+                    "verseOrgIds": [
+                      "JHN.1.18"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ".",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.18",
+                "verseOrgIds": [
+                  "JHN.1.18"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "19",
+                "style": "v",
+                "sid": "JHN 1:19"
+              },
+              "items": [
+                {
+                  "text": "19",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And this is the witness of John, when the Jews sent unto him from Jerusalem priests and Levites to ask him, Who art thou? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.19",
+                "verseOrgIds": [
+                  "JHN.1.19"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "20",
+                "style": "v",
+                "sid": "JHN 1:20"
+              },
+              "items": [
+                {
+                  "text": "20",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he confessed, and denied not; and he confessed, I am not the Christ. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.20",
+                "verseOrgIds": [
+                  "JHN.1.20"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "21",
+                "style": "v",
+                "sid": "JHN 1:21"
+              },
+              "items": [
+                {
+                  "text": "21",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they asked him, What then? Art thou Elijah? And he saith, I am not. Art thou the prophet? And he answered, No. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.21",
+                "verseOrgIds": [
+                  "JHN.1.21"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "22",
+                "style": "v",
+                "sid": "JHN 1:22"
+              },
+              "items": [
+                {
+                  "text": "22",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "They said therefore unto him, Who art thou? that we may give an answer to them that sent us. What sayest thou of thyself? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.22",
+                "verseOrgIds": [
+                  "JHN.1.22"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "23",
+                "style": "v",
+                "sid": "JHN 1:23"
+              },
+              "items": [
+                {
+                  "text": "23",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He said, I am the voice of one crying in the wilderness, Make straight the way of the Lord, as said Isaiah the prophet. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.23",
+                "verseOrgIds": [
+                  "JHN.1.23"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "24",
+                "style": "v",
+                "sid": "JHN 1:24"
+              },
+              "items": [
+                {
+                  "text": "24",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they had been sent from the Pharisees. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.24",
+                "verseOrgIds": [
+                  "JHN.1.24"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "25",
+                "style": "v",
+                "sid": "JHN 1:25"
+              },
+              "items": [
+                {
+                  "text": "25",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And they asked him, and said unto him, Why then baptizest thou, if thou art not the Christ, neither Elijah, neither the prophet? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.25",
+                "verseOrgIds": [
+                  "JHN.1.25"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "26",
+                "style": "v",
+                "sid": "JHN 1:26"
+              },
+              "items": [
+                {
+                  "text": "26",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "John answered them, saying, I baptize in water: in the midst of you standeth one whom ye know not, ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.26",
+                "verseOrgIds": [
+                  "JHN.1.26"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "27",
+                "style": "v",
+                "sid": "JHN 1:27"
+              },
+              "items": [
+                {
+                  "text": "27",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "even",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JHN.1.27",
+                    "verseOrgIds": [
+                      "JHN.1.27"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": " he that cometh after me, the latchet of whose shoe I am not worthy to unloose. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.27",
+                "verseOrgIds": [
+                  "JHN.1.27"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "28",
+                "style": "v",
+                "sid": "JHN 1:28"
+              },
+              "items": [
+                {
+                  "text": "28",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "These things were done in Bethany beyond the Jordan, where John was baptizing.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.28",
+                "verseOrgIds": [
+                  "JHN.1.28"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "29",
+                "style": "v",
+                "sid": "JHN 1:29"
+              },
+              "items": [
+                {
+                  "text": "29",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "On the morrow he seeth Jesus coming unto him, and saith, Behold, the Lamb of God, that taketh away the sin of the world! ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.29",
+                "verseOrgIds": [
+                  "JHN.1.29"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "30",
+                "style": "v",
+                "sid": "JHN 1:30"
+              },
+              "items": [
+                {
+                  "text": "30",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "This is he of whom I said, After me cometh a man who is become before me: for he was before me. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.30",
+                "verseOrgIds": [
+                  "JHN.1.30"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "31",
+                "style": "v",
+                "sid": "JHN 1:31"
+              },
+              "items": [
+                {
+                  "text": "31",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I knew him not; but that he should be made manifest to Israel, for this cause came I baptizing in water. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.31",
+                "verseOrgIds": [
+                  "JHN.1.31"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "32",
+                "style": "v",
+                "sid": "JHN 1:32"
+              },
+              "items": [
+                {
+                  "text": "32",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And John bare witness, saying, I have beheld the Spirit descending as a dove out of heaven; and it abode upon him. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.32",
+                "verseOrgIds": [
+                  "JHN.1.32"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "33",
+                "style": "v",
+                "sid": "JHN 1:33"
+              },
+              "items": [
+                {
+                  "text": "33",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I knew him not: but he that sent me to baptize in water, he said unto me, Upon whomsoever thou shalt see the Spirit descending, and abiding upon him, the same is he that baptizeth in the Holy Spirit. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.33",
+                "verseOrgIds": [
+                  "JHN.1.33"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "34",
+                "style": "v",
+                "sid": "JHN 1:34"
+              },
+              "items": [
+                {
+                  "text": "34",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And I have seen, and have borne witness that this is the Son of God.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.34",
+                "verseOrgIds": [
+                  "JHN.1.34"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "35",
+                "style": "v",
+                "sid": "JHN 1:35"
+              },
+              "items": [
+                {
+                  "text": "35",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Again on the morrow John was standing, and two of his disciples; ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.35",
+                "verseOrgIds": [
+                  "JHN.1.35"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "36",
+                "style": "v",
+                "sid": "JHN 1:36"
+              },
+              "items": [
+                {
+                  "text": "36",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "and he looked upon Jesus as he walked, and saith, Behold, the Lamb of God! ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.36",
+                "verseOrgIds": [
+                  "JHN.1.36"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "37",
+                "style": "v",
+                "sid": "JHN 1:37"
+              },
+              "items": [
+                {
+                  "text": "37",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And the two disciples heard him speak, and they followed Jesus. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.37",
+                "verseOrgIds": [
+                  "JHN.1.37"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "38",
+                "style": "v",
+                "sid": "JHN 1:38"
+              },
+              "items": [
+                {
+                  "text": "38",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And Jesus turned, and beheld them following, and saith unto them, What seek ye? And they said unto him, Rabbi (which is to say, being interpreted, Teacher), where abidest thou? ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.38",
+                "verseOrgIds": [
+                  "JHN.1.38"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "39",
+                "style": "v",
+                "sid": "JHN 1:39"
+              },
+              "items": [
+                {
+                  "text": "39",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He saith unto them, Come, and ye shall see. They came therefore and saw where he abode; and they abode with him that day: it was about the tenth hour. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.39",
+                "verseOrgIds": [
+                  "JHN.1.39"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "40",
+                "style": "v",
+                "sid": "JHN 1:40"
+              },
+              "items": [
+                {
+                  "text": "40",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "One of the two that heard John ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.40",
+                "verseOrgIds": [
+                  "JHN.1.40"
+                ]
+              }
+            },
+            {
+              "name": "char",
+              "type": "tag",
+              "attrs": {
+                "style": "add"
+              },
+              "items": [
+                {
+                  "text": "speak",
+                  "type": "text",
+                  "attrs": {
+                    "verseId": "JHN.1.40",
+                    "verseOrgIds": [
+                      "JHN.1.40"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "text": ", and followed him, was Andrew, Simon Peter’s brother. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.40",
+                "verseOrgIds": [
+                  "JHN.1.40"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "41",
+                "style": "v",
+                "sid": "JHN 1:41"
+              },
+              "items": [
+                {
+                  "text": "41",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He findeth first his own brother Simon, and saith unto him, We have found the Messiah (which is, being interpreted, Christ). ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.41",
+                "verseOrgIds": [
+                  "JHN.1.41"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "42",
+                "style": "v",
+                "sid": "JHN 1:42"
+              },
+              "items": [
+                {
+                  "text": "42",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "He brought him unto Jesus. Jesus looked upon him, and said, Thou art Simon the son of John: thou shalt be called Cephas (which is by interpretation, Peter).",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.42",
+                "verseOrgIds": [
+                  "JHN.1.42"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "para",
+          "type": "tag",
+          "attrs": {
+            "style": "p"
+          },
+          "items": [
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "43",
+                "style": "v",
+                "sid": "JHN 1:43"
+              },
+              "items": [
+                {
+                  "text": "43",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "On the morrow he was minded to go forth into Galilee, and he findeth Philip: and Jesus saith unto him, Follow me. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.43",
+                "verseOrgIds": [
+                  "JHN.1.43"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "44",
+                "style": "v",
+                "sid": "JHN 1:44"
+              },
+              "items": [
+                {
+                  "text": "44",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Now Philip was from Bethsaida, of the city of Andrew and Peter. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.44",
+                "verseOrgIds": [
+                  "JHN.1.44"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "45",
+                "style": "v",
+                "sid": "JHN 1:45"
+              },
+              "items": [
+                {
+                  "text": "45",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Philip findeth Nathanael, and saith unto him, We have found him, of whom Moses in the law, and the prophets, wrote, Jesus of Nazareth, the son of Joseph. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.45",
+                "verseOrgIds": [
+                  "JHN.1.45"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "46",
+                "style": "v",
+                "sid": "JHN 1:46"
+              },
+              "items": [
+                {
+                  "text": "46",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And Nathanael said unto him, Can any good thing come out of Nazareth? Philip saith unto him, Come and see. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.46",
+                "verseOrgIds": [
+                  "JHN.1.46"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "47",
+                "style": "v",
+                "sid": "JHN 1:47"
+              },
+              "items": [
+                {
+                  "text": "47",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Jesus saw Nathanael coming to him, and saith of him, Behold, an Israelite indeed, in whom is no guile! ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.47",
+                "verseOrgIds": [
+                  "JHN.1.47"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "48",
+                "style": "v",
+                "sid": "JHN 1:48"
+              },
+              "items": [
+                {
+                  "text": "48",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Nathanael saith unto him, Whence knowest thou me? Jesus answered and said unto him, Before Philip called thee, when thou wast under the fig tree, I saw thee. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.48",
+                "verseOrgIds": [
+                  "JHN.1.48"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "49",
+                "style": "v",
+                "sid": "JHN 1:49"
+              },
+              "items": [
+                {
+                  "text": "49",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Nathanael answered him, Rabbi, thou art the Son of God; thou art King of Israel. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.49",
+                "verseOrgIds": [
+                  "JHN.1.49"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "50",
+                "style": "v",
+                "sid": "JHN 1:50"
+              },
+              "items": [
+                {
+                  "text": "50",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "Jesus answered and said unto him, Because I said unto thee, I saw thee underneath the fig tree, believest thou? thou shalt see greater things than these. ",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.50",
+                "verseOrgIds": [
+                  "JHN.1.50"
+                ]
+              }
+            },
+            {
+              "name": "verse",
+              "type": "tag",
+              "attrs": {
+                "number": "51",
+                "style": "v",
+                "sid": "JHN 1:51"
+              },
+              "items": [
+                {
+                  "text": "51",
+                  "type": "text"
+                }
+              ]
+            },
+            {
+              "text": "And he saith unto him, Verily, verily, I say unto you, Ye shall see the heaven opened, and the angels of God ascending and descending upon the Son of man.",
+              "type": "text",
+              "attrs": {
+                "verseId": "JHN.1.51",
+                "verseOrgIds": [
+                  "JHN.1.51"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "next": {
+        "id": "JHN.2",
+        "number": "2",
+        "bookId": "JHN"
+      },
+      "previous": {
+        "id": "JHN.intro",
+        "number": "intro",
+        "bookId": "JHN"
+      }
+    },
+    "fetchedAt": "2026-01-29T02:54:25.012Z"
+  }
+}
