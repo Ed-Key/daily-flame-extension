@@ -117,6 +117,12 @@ export interface UnifiedVerse {
 
   /** Whether this verse starts a new paragraph (from source API) */
   startsParagraph?: boolean;
+
+  /** Prose text that appears before poetry in the same verse (e.g., "Then Hannah prayed:") */
+  proseBefore?: string;
+
+  /** Prose text that appears after poetry in the same verse (e.g., "(For the choir director...)") */
+  proseAfter?: string;
 }
 
 /**

@@ -2045,6 +2045,22 @@ export const getShadowDomStyles = (): string => {
       font-size: 18px !important;
     }
 
+    /* Prose introduction before poetry (e.g., "Then Hannah prayed:" in 1 Samuel 2:1) */
+    .verse-prose-intro {
+      display: block !important;
+      margin-bottom: 8px !important;
+      line-height: 1.6 !important;
+    }
+
+    /* Prose after poetry (e.g., "(For the choir director...)" in Habakkuk 3:19) */
+    .verse-prose-after {
+      display: block !important;
+      margin-top: 8px !important;
+      line-height: 1.6 !important;
+      font-style: italic !important;
+      opacity: 0.9 !important;
+    }
+
     /* Poetry verse numbers should match ESV prose style for consistency */
     .verse-with-poetry .context-verse-number {
       font-size: 0.65em !important;
