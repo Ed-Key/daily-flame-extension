@@ -383,7 +383,7 @@ function validateChapter(
       if (verse.isRedLetter) features.hasRedLetter = true;
       if (verse.poetryLines && verse.poetryLines.length > 0) features.hasPoetry = true;
       if (verse.poetryIndentLevel) features.hasPoetry = true;
-      if (verse.speakerLabel) features.hasSpeakerLabels = true;
+      if (verse.speakerLabels && verse.speakerLabels.length > 0) features.hasSpeakerLabels = true;
       if (verse.hebrewLetter) features.hasHebrewLetters = true;
       if (verse.hasSelah || verse.isSelah) features.hasSelah = true;
       if (verse.footnotes && verse.footnotes.length > 0) features.hasFootnotes = true;

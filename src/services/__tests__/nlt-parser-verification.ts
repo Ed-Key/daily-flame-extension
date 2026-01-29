@@ -33,7 +33,7 @@ function testFixture(reference: string, html: string): TestResult {
 
     const hasRedLetter = result.verses.some(v => v.isRedLetter);
     const hasPoetry = result.verses.some(v => v.poetryIndentLevel && v.poetryIndentLevel > 0);
-    const hasSpeakerLabels = result.verses.some(v => v.speakerLabel);
+    const hasSpeakerLabels = result.verses.some(v => v.speakerLabels && v.speakerLabels.length > 0);
     const hasHebrewLetters = result.verses.some(v => v.hebrewLetter);
 
     return {
@@ -148,10 +148,10 @@ async function runTests() {
     const wisdom = JSON.parse(fs.readFileSync(wisdomPath, 'utf-8'));
     if (wisdom['Song_of_Solomon_1']) {
       const result = parser.parseToUnified(wisdom['Song_of_Solomon_1'].html, 'Song of Solomon 1');
-      const speakerVerses = result.verses.filter(v => v.speakerLabel);
+      const speakerVerses = result.verses.filter(v => v.speakerLabels && v.speakerLabels.length > 0);
       console.log(`\n   Found ${speakerVerses.length} verses with speaker labels:`);
       speakerVerses.forEach(v => {
-        console.log(`      Verse ${v.number}: "${v.speakerLabel}"`);
+        console.log(`      Verse ${v.number}: ${v.speakerLabels!.map(s => `"${s.text}" (before line ${s.beforeLineIndex})`).join(', ')}`);
       });
     }
   }

@@ -331,10 +331,12 @@ describe('NLTHTMLParser', () => {
       const result = parser.parseToUnified(sos1.html, sos1.reference);
 
       // Song of Solomon has speaker labels like "Young Woman" and "Young Man"
-      const versesWithSpeakers = result.verses.filter(v => v.speakerLabel);
+      const versesWithSpeakers = result.verses.filter(v => v.speakerLabels && v.speakerLabels.length > 0);
 
       if (versesWithSpeakers.length > 0) {
-        expect(versesWithSpeakers[0].speakerLabel).toBeTruthy();
+        expect(versesWithSpeakers[0].speakerLabels).toBeTruthy();
+        expect(versesWithSpeakers[0].speakerLabels![0].text).toBeTruthy();
+        expect(typeof versesWithSpeakers[0].speakerLabels![0].beforeLineIndex).toBe('number');
       } else {
         console.warn('No speaker labels found - check Song of Solomon fixture');
       }

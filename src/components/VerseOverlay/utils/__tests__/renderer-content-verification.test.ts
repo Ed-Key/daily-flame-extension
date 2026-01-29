@@ -3,15 +3,18 @@
  *
  * Strategy: Compare UnifiedChapter (parsed data) → Rendered Output
  *
- * The UnifiedChapter is the "source of truth" after parsing. Footnotes and
- * other non-rendered content have already been stripped. So we extract
- * ALL text fields from UnifiedChapter and verify they appear in rendered output.
+ * This test verifies that **every word** from parsed content appears in rendered
+ * output. No filtering of "common words" or "short words" - if it's in verse.text,
+ * it should be in the rendered HTML.
  *
- * This catches bugs where:
- * - verse.proseBefore exists but isn't rendered (the bug we fixed!)
- * - verse.heading exists but isn't rendered
- * - verse.poetryLines exist but aren't rendered
- * - verse.text exists but isn't rendered
+ * Fields checked:
+ * - verse.text: Contains ALL verse content (prose + poetry combined)
+ * - heading: Section headings rendered above verses
+ * - psalmMetadata.superscription: Psalm titles rendered at top of chapter
+ *
+ * NOT checked (parsed but not currently rendered):
+ * - speakerLabels: Song of Solomon dialogue labels with positions (future enhancement)
+ * - hebrewLetter: Psalm 119 acrostic letters (future enhancement)
  */
 
 import * as fs from 'fs';
@@ -24,7 +27,7 @@ import { UnifiedChapter, UnifiedVerse } from '../../../../types/bible-formats';
 // === TYPES ===
 
 interface ContentField {
-  source: string;      // Where it came from: 'text', 'poetryLine', 'proseBefore', 'heading'
+  source: string;      // Where it came from: 'text', 'heading', 'superscription'
   verseNum: string;    // Which verse
   text: string;        // The actual content
 }
@@ -48,53 +51,94 @@ function renderChapterToHTML(chapter: UnifiedChapter): string {
   return elements.map(el => renderToStaticMarkup(el)).join('');
 }
 
-function normalize(text: string): string {
+/**
+ * Normalize text for comparison:
+ * - Lowercase
+ * - Replace punctuation with spaces
+ * - Collapse whitespace
+ */
+function normalizeText(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[.,;:!?"'()\[\]""''—–-]/g, '') // Remove punctuation
+    .replace(/[.,;:!?"'()\[\]""''—–\-]/g, ' ')  // Punctuation → space
     .replace(/\s+/g, ' ')
     .trim();
 }
 
 /**
- * Extract significant words (skip small common words)
+ * Extract ALL words from text (no filtering)
  */
-function getSignificantWords(text: string): string[] {
-  const SKIP_WORDS = new Set([
-    'the', 'and', 'for', 'but', 'with', 'that', 'this', 'from', 'have', 'was',
-    'were', 'are', 'been', 'will', 'would', 'could', 'should', 'them', 'they',
-    'his', 'her', 'him', 'she', 'who', 'whom', 'what', 'when', 'where', 'which',
-    'their', 'there', 'then', 'than', 'you', 'your', 'into', 'unto', 'upon'
-  ]);
-
-  return normalize(text)
-    .split(' ')
-    .filter(w => w.length > 3 && !SKIP_WORDS.has(w));
+function getWords(text: string): string[] {
+  return normalizeText(text).split(' ').filter(w => w.length > 0);
 }
 
 /**
- * Extract text from rendered HTML (strip tags)
+ * Extract text from rendered HTML (strip tags, decode entities)
  */
 function extractRenderedText(html: string): string {
-  return normalize(
-    html.replace(/<[^>]+>/g, ' ')
-        .replace(/&nbsp;/g, ' ')
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-  );
+  const decoded = html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&rsquo;/g, "'")
+    .replace(/&lsquo;/g, "'")
+    .replace(/&rdquo;/g, '"')
+    .replace(/&ldquo;/g, '"')
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–');
+  return normalizeText(decoded);
 }
 
 /**
- * Extract ALL meaningful content from UnifiedChapter
- * This is our "expected" content - everything that SHOULD be rendered
+ * Verify that ALL words from expected text appear in rendered text.
+ * Returns unique missing words if any.
+ */
+function verifyAllWordsPresent(expectedText: string, renderedText: string): {
+  allPresent: boolean;
+  missingWords: string[];
+  expectedWords: string[];
+} {
+  const expectedWords = getWords(expectedText);
+  const renderedWords = new Set(getWords(renderedText));
+
+  // Find missing words and deduplicate
+  const missingSet = new Set<string>();
+  for (const word of expectedWords) {
+    if (!renderedWords.has(word)) {
+      missingSet.add(word);
+    }
+  }
+  const missingWords = Array.from(missingSet);
+
+  return {
+    allPresent: missingWords.length === 0,
+    missingWords,
+    expectedWords
+  };
+}
+
+/**
+ * Extract non-redundant content fields from UnifiedChapter.
+ *
+ * verse.text contains ALL verse content (prose + poetry combined), so we don't
+ * need to check proseBefore, poetryLines, or proseAfter separately.
+ *
+ * Fields NOT in verse.text (checked separately):
+ * - heading: Rendered above verse
+ * - psalmMetadata.superscription: Rendered at top of chapter
+ *
+ * NOT currently rendered (tracked as known limitation):
+ * - speakerLabels: Song of Solomon dialogue labels with positions
+ * - hebrewLetter: Psalm 119 acrostic letters
  */
 function extractExpectedContent(chapter: UnifiedChapter): ContentField[] {
   const fields: ContentField[] = [];
 
-  // Psalm superscription (rendered at top of chapter)
+  // Psalm superscription (NOT in verse.text - extracted separately)
   if (chapter.psalmMetadata?.superscription) {
     fields.push({
       source: 'psalmMetadata.superscription',
@@ -104,15 +148,12 @@ function extractExpectedContent(chapter: UnifiedChapter): ContentField[] {
   }
 
   for (const verse of chapter.verses) {
-    // Skip empty verses (intentionally not rendered)
+    // Skip empty verses
     if (!verse.text || verse.text.trim().length === 0) {
-      // But still check poetryLines if present
-      if (!verse.poetryLines || verse.poetryLines.length === 0) {
-        continue;
-      }
+      continue;
     }
 
-    // Section headings
+    // Section heading (NOT in verse.text - rendered above verse)
     if (verse.heading) {
       fields.push({
         source: 'heading',
@@ -121,63 +162,36 @@ function extractExpectedContent(chapter: UnifiedChapter): ContentField[] {
       });
     }
 
-    // Prose before poetry (THE BUG WE FIXED!)
-    if (verse.proseBefore) {
-      fields.push({
-        source: 'proseBefore',
-        verseNum: verse.number,
-        text: verse.proseBefore
-      });
-    }
+    // NOTE: speakerLabels and hebrewLetter are parsed but NOT currently rendered.
+    // This is a known limitation. The renderer would need to be updated to
+    // display these fields. Not checking them here to avoid false failures.
 
-    // ALWAYS check verse.text - this catches prose that might be lost
-    // when poetryLines exist (the prose-before-poetry bug!)
-    if (verse.text && verse.text.trim()) {
-      fields.push({
-        source: 'text',
-        verseNum: verse.number,
-        text: verse.text
-      });
-    }
-
-    // Also check poetry lines separately (for line-by-line verification)
-    if (verse.poetryLines && verse.poetryLines.length > 0) {
-      for (let i = 0; i < verse.poetryLines.length; i++) {
-        fields.push({
-          source: `poetryLine[${i}]`,
-          verseNum: verse.number,
-          text: verse.poetryLines[i].text
-        });
-      }
-    }
+    // verse.text contains ALL verse content (prose + poetry combined)
+    // No need to check proseBefore/poetryLines/proseAfter separately - they're subsets
+    fields.push({
+      source: 'text',
+      verseNum: verse.number,
+      text: verse.text
+    });
   }
 
   return fields;
 }
 
 /**
- * Check if a content field appears in rendered output
+ * Check if ALL words from a content field appear in rendered output.
+ * No filtering - every word must be present.
  */
 function verifyFieldRendered(field: ContentField, renderedText: string): {
   found: boolean;
   missingWords: string[];
 } {
-  const expectedWords = getSignificantWords(field.text);
-  const missingWords: string[] = [];
+  const result = verifyAllWordsPresent(field.text, renderedText);
 
-  for (const word of expectedWords) {
-    if (!renderedText.includes(word)) {
-      missingWords.push(word);
-    }
-  }
-
-  // Consider it "found" if at least 70% of significant words are present
-  // (to handle minor normalization differences)
-  const threshold = Math.ceil(expectedWords.length * 0.7);
-  const foundWords = expectedWords.length - missingWords.length;
-  const found = foundWords >= threshold || expectedWords.length === 0;
-
-  return { found, missingWords };
+  return {
+    found: result.allPresent || result.expectedWords.length === 0,
+    missingWords: result.missingWords
+  };
 }
 
 // === TESTS ===
@@ -206,6 +220,7 @@ describe('Content Verification - UnifiedChapter to Rendered', () => {
     const issues: ContentIssue[] = [];
     let totalChapters = 0;
     let totalFields = 0;
+    let totalWords = 0;
     let fieldsVerified = 0;
 
     for (const [bookName, chapters] of Object.entries(fixtures)) {
@@ -224,8 +239,11 @@ describe('Content Verification - UnifiedChapter to Rendered', () => {
           const renderedHTML = renderChapterToHTML(chapter);
           const renderedText = extractRenderedText(renderedHTML);
 
-          // 4. Verify each field appears in rendered output
+          // 4. Verify each field - ALL words must be present
           for (const field of expectedFields) {
+            const words = getWords(field.text);
+            totalWords += words.length;
+
             const result = verifyFieldRendered(field, renderedText);
 
             if (result.found) {
@@ -235,8 +253,8 @@ describe('Content Verification - UnifiedChapter to Rendered', () => {
                 reference: fixture.reference,
                 verseNum: field.verseNum,
                 source: field.source,
-                expectedText: field.text.slice(0, 60),
-                missingWords: result.missingWords.slice(0, 5)
+                expectedText: field.text.slice(0, 100),
+                missingWords: result.missingWords
               });
             }
           }
@@ -252,85 +270,53 @@ describe('Content Verification - UnifiedChapter to Rendered', () => {
       }
     }
 
-    // Report results
-    console.log('\n========== CONTENT VERIFICATION REPORT ==========');
+    // === REPORT ===
+    console.log('\n');
+    console.log('='.repeat(60));
+    console.log('CONTENT VERIFICATION REPORT (Full Word Matching)');
+    console.log('='.repeat(60));
     console.log(`Total chapters tested: ${totalChapters}`);
     console.log(`Total content fields: ${totalFields}`);
+    console.log(`Total words checked: ${totalWords}`);
     console.log(`Fields verified OK: ${fieldsVerified}`);
     console.log(`Issues found: ${issues.length}`);
+    console.log('='.repeat(60));
 
     if (issues.length > 0) {
-      console.log('\n--- Issues Found ---');
-
-      // Group by source type
+      // Group by source type for clear categorization
       const bySource: Record<string, ContentIssue[]> = {};
       for (const issue of issues) {
-        const key = issue.source.replace(/\[\d+\]/, '');
-        bySource[key] = bySource[key] || [];
-        bySource[key].push(issue);
+        bySource[issue.source] = bySource[issue.source] || [];
+        bySource[issue.source].push(issue);
       }
 
       for (const [source, sourceIssues] of Object.entries(bySource)) {
-        console.log(`\n[${source}] - ${sourceIssues.length} issues:`);
-        for (const issue of sourceIssues.slice(0, 5)) {
-          console.log(`  ${issue.reference} v${issue.verseNum}:`);
-          console.log(`    Expected: "${issue.expectedText}..."`);
-          console.log(`    Missing: ${issue.missingWords.join(', ')}`);
-        }
-        if (sourceIssues.length > 5) {
-          console.log(`  ... and ${sourceIssues.length - 5} more`);
-        }
-      }
-    }
+        console.log(`\n[${source.toUpperCase()}] - ${sourceIssues.length} issues:`);
+        console.log('-'.repeat(50));
 
-    console.log('\n=================================================\n');
-
-    // Only fail if we have actual content loss issues (not just minor word differences)
-    const significantIssues = issues.filter(i => i.missingWords.length > 2);
-    expect(significantIssues).toHaveLength(0);
-  });
-
-  it('should specifically render proseBefore content', () => {
-    if (!fixtures) return;
-
-    const proseBeforeIssues: string[] = [];
-
-    for (const [bookName, chapters] of Object.entries(fixtures)) {
-      for (const [chapterNum, fixture] of Object.entries(chapters)) {
-        const chapter = parser.parseToUnified(fixture.html, fixture.reference);
-        const renderedHTML = renderChapterToHTML(chapter);
-        const renderedText = extractRenderedText(renderedHTML);
-
-        for (const verse of chapter.verses) {
-          if (verse.proseBefore) {
-            const words = getSignificantWords(verse.proseBefore);
-            const missing = words.filter(w => !renderedText.includes(w));
-
-            if (missing.length > words.length * 0.3) {
-              proseBeforeIssues.push(
-                `${fixture.reference} v${verse.number}: "${verse.proseBefore.slice(0, 40)}..." missing: ${missing.join(', ')}`
-              );
-            }
-          }
+        // Show all issues with full detail
+        for (const issue of sourceIssues) {
+          console.log(`\n  ${issue.reference} verse ${issue.verseNum}:`);
+          console.log(`    verse.text: "${issue.expectedText}${issue.expectedText.length >= 100 ? '...' : ''}"`);
+          console.log(`    Missing words: [${issue.missingWords.join(', ')}]`);
         }
       }
     }
 
-    if (proseBeforeIssues.length > 0) {
-      console.log('\n=== PROSE BEFORE POETRY ISSUES ===');
-      proseBeforeIssues.slice(0, 10).forEach(i => console.log(i));
-      if (proseBeforeIssues.length > 10) {
-        console.log(`... and ${proseBeforeIssues.length - 10} more`);
-      }
-    }
+    console.log('\n' + '='.repeat(60) + '\n');
 
-    expect(proseBeforeIssues).toHaveLength(0);
+    // This test reports ALL issues - no filtering
+    // Review the output to categorize issues as:
+    // - Rendering bugs (fix the renderer)
+    // - Parser bugs (content shouldn't be in verse.text)
+    // - Test normalization issues (edge cases in word extraction)
+    expect(issues).toHaveLength(0);
   });
 
   it('should render all section headings', () => {
     if (!fixtures) return;
 
-    const headingIssues: string[] = [];
+    const headingIssues: { reference: string; verseNum: string; heading: string; missing: string[] }[] = [];
 
     for (const [bookName, chapters] of Object.entries(fixtures)) {
       for (const [chapterNum, fixture] of Object.entries(chapters)) {
@@ -340,13 +326,15 @@ describe('Content Verification - UnifiedChapter to Rendered', () => {
 
         for (const verse of chapter.verses) {
           if (verse.heading) {
-            const words = getSignificantWords(verse.heading);
-            const missing = words.filter(w => !renderedText.includes(w));
+            const result = verifyAllWordsPresent(verse.heading, renderedText);
 
-            if (missing.length > words.length * 0.3) {
-              headingIssues.push(
-                `${fixture.reference} v${verse.number}: "${verse.heading}" missing: ${missing.join(', ')}`
-              );
+            if (!result.allPresent) {
+              headingIssues.push({
+                reference: fixture.reference,
+                verseNum: verse.number,
+                heading: verse.heading,
+                missing: result.missingWords
+              });
             }
           }
         }
@@ -354,10 +342,61 @@ describe('Content Verification - UnifiedChapter to Rendered', () => {
     }
 
     if (headingIssues.length > 0) {
-      console.log('\n=== SECTION HEADING ISSUES ===');
-      headingIssues.slice(0, 10).forEach(i => console.log(i));
+      console.log('\n' + '='.repeat(60));
+      console.log('SECTION HEADING ISSUES');
+      console.log('='.repeat(60));
+      for (const issue of headingIssues) {
+        console.log(`\n  ${issue.reference} verse ${issue.verseNum}:`);
+        console.log(`    heading: "${issue.heading}"`);
+        console.log(`    Missing words: [${issue.missing.join(', ')}]`);
+      }
+      console.log('\n' + '='.repeat(60) + '\n');
     }
 
     expect(headingIssues).toHaveLength(0);
+  });
+
+  it('should render all psalm superscriptions', () => {
+    if (!fixtures) return;
+
+    const superscriptionIssues: { reference: string; superscription: string; missing: string[] }[] = [];
+
+    for (const [bookName, chapters] of Object.entries(fixtures)) {
+      // Only check Psalms
+      if (bookName !== 'Psalms') continue;
+
+      for (const [chapterNum, fixture] of Object.entries(chapters)) {
+        const chapter = parser.parseToUnified(fixture.html, fixture.reference);
+
+        if (chapter.psalmMetadata?.superscription) {
+          const renderedHTML = renderChapterToHTML(chapter);
+          const renderedText = extractRenderedText(renderedHTML);
+
+          const result = verifyAllWordsPresent(chapter.psalmMetadata.superscription, renderedText);
+
+          if (!result.allPresent) {
+            superscriptionIssues.push({
+              reference: fixture.reference,
+              superscription: chapter.psalmMetadata.superscription,
+              missing: result.missingWords
+            });
+          }
+        }
+      }
+    }
+
+    if (superscriptionIssues.length > 0) {
+      console.log('\n' + '='.repeat(60));
+      console.log('PSALM SUPERSCRIPTION ISSUES');
+      console.log('='.repeat(60));
+      for (const issue of superscriptionIssues) {
+        console.log(`\n  ${issue.reference}:`);
+        console.log(`    superscription: "${issue.superscription}"`);
+        console.log(`    Missing words: [${issue.missing.join(', ')}]`);
+      }
+      console.log('\n' + '='.repeat(60) + '\n');
+    }
+
+    expect(superscriptionIssues).toHaveLength(0);
   });
 });
