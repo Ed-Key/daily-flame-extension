@@ -227,7 +227,7 @@ export class StandardBibleParser extends BaseBibleParser {
                   isRedLetter: currentVerseIsRedLetter,
                   footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                   heading: currentHeading,
-                  speakerLabel: currentSpeakerLabel
+                  speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined
                 };
 
                 // Clear heading/speaker after assigning to first verse
@@ -296,7 +296,7 @@ export class StandardBibleParser extends BaseBibleParser {
               isRedLetter: currentVerseIsRedLetter,
               footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
               heading: currentHeading,
-              speakerLabel: currentSpeakerLabel
+              speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined
             };
 
             // Clear heading/speaker after assigning

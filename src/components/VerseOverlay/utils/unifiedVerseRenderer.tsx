@@ -1,5 +1,5 @@
 import React from 'react';
-import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine } from '../../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine, SpeakerLabel } from '../../../types/bible-formats';
 
 /**
  * Render poetry lines with proper indentation and spacing
@@ -10,14 +10,26 @@ function renderPoetryLines(
   verseNumber: string,
   shouldShowVerseNumber: boolean,
   isHighlighted: boolean,
-  hasSelah?: boolean
+  hasSelah?: boolean,
+  speakerLabels?: SpeakerLabel[]
 ): React.JSX.Element {
+  // Build map of lineIndex -> speakers that appear before it
+  const speakersByLineIndex = new Map<number, SpeakerLabel[]>();
+  if (speakerLabels) {
+    for (const speaker of speakerLabels) {
+      const existing = speakersByLineIndex.get(speaker.beforeLineIndex) || [];
+      existing.push(speaker);
+      speakersByLineIndex.set(speaker.beforeLineIndex, existing);
+    }
+  }
+
   return (
     <div
       key={`verse-${verseNumber}`}
       className={`verse-with-poetry ${isHighlighted ? 'highlighted-verse' : ''}`}
     >
       {poetryLines.map((line, lineIndex) => {
+        const speakersBeforeThisLine = speakersByLineIndex.get(lineIndex) || [];
         const lineClasses = [
           'poetry-line',
           `poetry-indent-${line.indentLevel}`,
@@ -25,18 +37,26 @@ function renderPoetryLines(
         ].filter(Boolean).join(' ');
 
         return (
-          <div key={`${verseNumber}-line-${lineIndex}`} className={lineClasses}>
-            {lineIndex === 0 && shouldShowVerseNumber && (
-              <sup className="context-verse-number">{verseNumber}</sup>
-            )}
-            <span className="poetry-line-text">
-              {line.isRedLetter ? (
-                <span className="words-of-jesus">{line.text}</span>
-              ) : (
-                line.text
+          <React.Fragment key={`${verseNumber}-line-${lineIndex}`}>
+            {/* Render speaker labels before this line */}
+            {speakersBeforeThisLine.map((speaker, idx) => (
+              <div key={`speaker-${verseNumber}-${lineIndex}-${idx}`} className="speaker-label">
+                {speaker.text}
+              </div>
+            ))}
+            <div className={lineClasses}>
+              {lineIndex === 0 && shouldShowVerseNumber && (
+                <sup className="context-verse-number">{verseNumber}</sup>
               )}
-            </span>
-          </div>
+              <span className="poetry-line-text">
+                {line.isRedLetter ? (
+                  <span className="words-of-jesus">{line.text}</span>
+                ) : (
+                  line.text
+                )}
+              </span>
+            </div>
+          </React.Fragment>
         );
       })}
       {hasSelah && <span className="selah-marker">Selah</span>}
@@ -178,6 +198,16 @@ function renderESVStyle(
       // New poetry format with proper spacing info (from NLT parser)
       // Check if there's prose before or after the poetry
       if (verse.proseBefore || verse.proseAfter) {
+        // Build map of lineIndex -> speakers that appear before it
+        const speakersByLineIndex = new Map<number, SpeakerLabel[]>();
+        if (verse.speakerLabels) {
+          for (const speaker of verse.speakerLabels) {
+            const existing = speakersByLineIndex.get(speaker.beforeLineIndex) || [];
+            existing.push(speaker);
+            speakersByLineIndex.set(speaker.beforeLineIndex, existing);
+          }
+        }
+
         verseElement = (
           <div key={`verse-${verse.number}`} className={`verse-with-poetry ${isHighlighted ? 'highlighted-verse' : ''}`}>
             {/* Render prose introduction with verse number (if exists) */}
@@ -189,6 +219,7 @@ function renderESVStyle(
             )}
             {/* Render poetry lines */}
             {verse.poetryLines.map((line, lineIndex) => {
+              const speakersBeforeThisLine = speakersByLineIndex.get(lineIndex) || [];
               const lineClasses = [
                 'poetry-line',
                 `poetry-indent-${line.indentLevel}`,
@@ -196,19 +227,27 @@ function renderESVStyle(
               ].filter(Boolean).join(' ');
 
               return (
-                <div key={`${verse.number}-line-${lineIndex}`} className={lineClasses}>
-                  {/* Show verse number on first poetry line only if no proseBefore */}
-                  {lineIndex === 0 && !verse.proseBefore && shouldShowVerseNumber && (
-                    <sup className="context-verse-number">{verse.number}</sup>
-                  )}
-                  <span className="poetry-line-text">
-                    {line.isRedLetter ? (
-                      <span className="words-of-jesus">{line.text}</span>
-                    ) : (
-                      line.text
+                <React.Fragment key={`${verse.number}-line-${lineIndex}`}>
+                  {/* Render speaker labels before this line */}
+                  {speakersBeforeThisLine.map((speaker, idx) => (
+                    <div key={`speaker-${verse.number}-${lineIndex}-${idx}`} className="speaker-label">
+                      {speaker.text}
+                    </div>
+                  ))}
+                  <div className={lineClasses}>
+                    {/* Show verse number on first poetry line only if no proseBefore */}
+                    {lineIndex === 0 && !verse.proseBefore && shouldShowVerseNumber && (
+                      <sup className="context-verse-number">{verse.number}</sup>
                     )}
-                  </span>
-                </div>
+                    <span className="poetry-line-text">
+                      {line.isRedLetter ? (
+                        <span className="words-of-jesus">{line.text}</span>
+                      ) : (
+                        line.text
+                      )}
+                    </span>
+                  </div>
+                </React.Fragment>
               );
             })}
             {/* Render prose after poetry (e.g., "(For the choir director...)" in Habakkuk 3:19) */}
@@ -226,7 +265,8 @@ function renderESVStyle(
           verse.number,
           shouldShowVerseNumber,
           isHighlighted,
-          verse.hasSelah || verse.isSelah
+          verse.hasSelah || verse.isSelah,
+          verse.speakerLabels
         );
       }
     } else if (verse.lines && verse.lines.length > 0) {
