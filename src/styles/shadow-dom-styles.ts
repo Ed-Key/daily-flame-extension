@@ -2216,79 +2216,100 @@ export const getShadowDomStyles = (): string => {
     }
 
 
-    /* Debug Controls for Testing NLT Fixtures */
-    .debug-controls {
+    /* Render Tester - fixed top-left, sibling to modal inside overlay */
+    .render-tester-panel {
+      position: fixed !important;
+      top: 16px !important;
+      left: 16px !important;
+      z-index: 100 !important;
       display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 10px !important;
-      margin: 0 auto 16px auto !important;
-      padding: 10px 16px !important;
-      background: rgba(255, 165, 0, 0.1) !important;
+      flex-direction: column !important;
+      gap: 8px !important;
+      padding: 12px !important;
+      background: rgba(0, 0, 0, 0.9) !important;
+      border: 1px solid rgba(100, 200, 100, 0.4) !important;
       border-radius: 8px !important;
-      border: 1px dashed rgba(255, 165, 0, 0.4) !important;
-      max-width: fit-content !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      min-width: 160px !important;
     }
 
-    .debug-btn {
-      background-color: rgba(255, 165, 0, 0.3) !important;
-      color: #ffa500 !important;
-      border: 1px solid rgba(255, 165, 0, 0.5) !important;
-      padding: 6px 12px !important;
+    .render-tester-input {
+      width: 100% !important;
+      padding: 6px 10px !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
       border-radius: 4px !important;
-      font-size: 12px !important;
+      color: white !important;
+      font-size: 13px !important;
+      font-family: inherit !important;
+      outline: none !important;
+    }
+
+    .render-tester-input::placeholder {
+      color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    .render-tester-input:focus {
+      border-color: rgba(100, 200, 100, 0.5) !important;
+      background: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .render-tester-select {
+      width: 100% !important;
+      padding: 6px 10px !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      border-radius: 4px !important;
+      color: white !important;
+      font-size: 13px !important;
+      font-family: inherit !important;
+      cursor: pointer !important;
+      outline: none !important;
+    }
+
+    .render-tester-select option {
+      background: #1a1a1a !important;
+      color: white !important;
+    }
+
+    .render-tester-btn {
+      width: 100% !important;
+      padding: 6px 16px !important;
+      background: rgba(100, 200, 100, 0.3) !important;
+      border: 1px solid rgba(100, 200, 100, 0.5) !important;
+      border-radius: 4px !important;
+      color: #90EE90 !important;
+      font-size: 13px !important;
+      font-family: inherit !important;
       font-weight: 500 !important;
       cursor: pointer !important;
-      transition: all 0.2s !important;
+      transition: background 0.2s !important;
     }
 
-    .debug-btn:hover {
-      background-color: rgba(255, 165, 0, 0.5) !important;
+    .render-tester-btn:hover:not(:disabled) {
+      background: rgba(100, 200, 100, 0.5) !important;
     }
 
-    .debug-btn.active {
-      background-color: rgba(255, 165, 0, 0.6) !important;
-      border-color: #ffa500 !important;
-    }
-
-    .debug-nav-btn {
-      background-color: rgba(100, 100, 100, 0.3) !important;
-      color: white !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
-      padding: 6px 12px !important;
-      border-radius: 4px !important;
-      font-size: 12px !important;
-      cursor: pointer !important;
-      transition: all 0.2s !important;
-    }
-
-    .debug-nav-btn:hover {
-      background-color: rgba(100, 100, 100, 0.5) !important;
-    }
-
-    .debug-nav-btn:disabled {
-      opacity: 0.4 !important;
+    .render-tester-btn:disabled {
+      opacity: 0.5 !important;
       cursor: not-allowed !important;
     }
 
-    .debug-info {
-      color: rgba(255, 165, 0, 0.8) !important;
+    .render-tester-error {
+      color: #ff6b6b !important;
       font-size: 11px !important;
-      font-weight: 500 !important;
-      min-width: 150px !important;
-      text-align: center !important;
+      max-width: 140px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
     }
 
-    .debug-badge {
-      position: absolute !important;
-      top: -5px !important;
-      right: -5px !important;
-      background-color: #ffa500 !important;
-      color: black !important;
-      font-size: 9px !important;
-      font-weight: bold !important;
-      padding: 2px 5px !important;
-      border-radius: 10px !important;
+    /* Responsive adjustments for render tester */
+    @media (max-width: 600px) {
+      .render-tester-panel {
+        max-width: calc(50% - 24px) !important;
+      }
     }
 
     /* Component-specific styles */

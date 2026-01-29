@@ -11,12 +11,7 @@ const ContextView: React.FC<ContextViewProps> = ({
   contextTranslation,
   onBack,
   onDone,
-  onTranslationChange,
-  // Debug mode props
-  debugMode,
-  onToggleDebugMode,
-  onDebugPrev,
-  onDebugNext
+  onTranslationChange
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const { contextContainerRef, setupScrollListener } = useContextScroll({ showContext: true });
@@ -56,42 +51,6 @@ const ContextView: React.FC<ContextViewProps> = ({
         </svg>
         Back
       </button>
-
-      {/* Debug Controls */}
-      {onToggleDebugMode && (
-        <div className="debug-controls">
-          <button
-            className={`debug-btn ${debugMode?.enabled ? 'active' : ''}`}
-            onClick={onToggleDebugMode}
-          >
-            {debugMode?.enabled ? '✓ Debug Mode' : 'Test Fixtures'}
-          </button>
-
-          {debugMode?.enabled && (
-            <>
-              <button
-                className="debug-nav-btn"
-                onClick={onDebugPrev}
-                disabled={debugMode.currentIndex <= 0}
-              >
-                ◀ Prev
-              </button>
-              <span className="debug-info">
-                {debugMode.allChapters[debugMode.currentIndex]?.reference || 'N/A'}
-                <br />
-                <small>({debugMode.currentIndex + 1}/{debugMode.allChapters.length})</small>
-              </span>
-              <button
-                className="debug-nav-btn"
-                onClick={onDebugNext}
-                disabled={debugMode.currentIndex >= debugMode.allChapters.length - 1}
-              >
-                Next ▶
-              </button>
-            </>
-          )}
-        </div>
-      )}
 
       {contextLoading ? (
         <div className="context-loading-container">

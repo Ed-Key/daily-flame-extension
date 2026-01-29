@@ -7,8 +7,7 @@ import { UserPreferencesService } from '../../services/user-preferences-service'
 import { useAuth } from '../AuthContext';
 import { useToast } from '../ToastContext';
 import { SignInForm, SignUpForm, VerificationReminder } from '../forms';
-import { NLTHTMLParser } from '../../services/parsers/nlt-html-parser';
-import { DebugModeState, DebugFixture } from './types';
+import { RenderTesterState } from './types';
 
 // Import modularized components
 import ProfileDropdown from './components/ProfileDropdown';
@@ -58,18 +57,14 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
   const [showSettings, setShowSettings] = useState(false);
   const [currentTranslation, setCurrentTranslation] = useState<BibleTranslation>('ESV');
 
-  // Debug mode state for testing NLT fixtures
-  const [debugMode, setDebugMode] = useState<DebugModeState>({
+  // Render Tester state for visual testing with live API
+  const [renderTester, setRenderTester] = useState<RenderTesterState>({
     enabled: false,
-    fixtures: null,
-    currentCategory: '',
-    currentChapterKey: '',
-    allChapters: [],
-    currentIndex: 0
+    inputReference: '',
+    selectedTranslation: 'KJV',
+    isLoading: false,
+    error: undefined
   });
-
-  // NLT HTML Parser instance for debug mode
-  const nltParserRef = useRef<NLTHTMLParser | null>(null);
 
   // Debug logging
   useEffect(() => {
@@ -695,130 +690,30 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
     }
   };
 
-  // Debug mode handlers
-  const loadDebugFixtures = useCallback(async (): Promise<{
-    fixtures: Record<string, Record<string, DebugFixture>>;
-    allChapters: Array<{ category: string; key: string; reference: string }>;
-  } | null> => {
-    if (debugMode.fixtures) {
-      return { fixtures: debugMode.fixtures, allChapters: debugMode.allChapters };
-    }
+  // Render Tester handler - loads chapter from live API for visual testing
+  const handleRenderTest = useCallback(async () => {
+    if (!renderTester.inputReference.trim()) return;
+
+    setRenderTester(prev => ({ ...prev, isLoading: true, error: undefined }));
 
     try {
-      const fixtureUrl = chrome.runtime.getURL('fixtures/all-nlt-responses.json');
-      const response = await fetch(fixtureUrl);
-      const fixtures = await response.json() as Record<string, Record<string, DebugFixture>>;
+      const bibleId = BIBLE_VERSIONS[renderTester.selectedTranslation];
+      const chapter = await VerseService.getChapter(
+        renderTester.inputReference.trim(),
+        bibleId
+      );
 
-      // Build flat array of all chapters
-      const allChapters: Array<{ category: string; key: string; reference: string }> = [];
-      Object.entries(fixtures).forEach(([category, chapters]) => {
-        Object.entries(chapters).forEach(([key, data]) => {
-          if (!data.error) {
-            allChapters.push({ category, key, reference: data.reference });
-          }
-        });
-      });
-
-      return { fixtures, allChapters };
+      setChapterContent(chapter);
+      setContextTranslation(renderTester.selectedTranslation);
+      setRenderTester(prev => ({ ...prev, isLoading: false, enabled: true }));
     } catch (error) {
-      console.error('Failed to load debug fixtures:', error);
-      showToast('Failed to load debug fixtures', 'error');
-      return null;
-    }
-  }, [debugMode.fixtures, debugMode.allChapters, showToast]);
-
-  const parseFixtureToChapter = useCallback((fixture: DebugFixture) => {
-    if (!nltParserRef.current) {
-      nltParserRef.current = new NLTHTMLParser();
-    }
-
-    try {
-      const unifiedChapter = nltParserRef.current.parseToUnified(fixture.html, fixture.reference);
-      return unifiedChapter;
-    } catch (error) {
-      console.error('Failed to parse fixture:', error);
-      showToast(`Failed to parse: ${fixture.reference}`, 'error');
-      return null;
-    }
-  }, [showToast]);
-
-  const handleToggleDebugMode = useCallback(async () => {
-    if (!debugMode.enabled) {
-      // Enable debug mode - load fixtures
-      const result = await loadDebugFixtures();
-      if (!result) return;
-
-      const { fixtures, allChapters } = result;
-
-      // Start with first chapter
-      const first = allChapters[0];
-      const fixture = fixtures[first.category][first.key];
-      const chapter = parseFixtureToChapter(fixture);
-
-      setDebugMode({
-        enabled: true,
-        fixtures,
-        currentCategory: first.category,
-        currentChapterKey: first.key,
-        allChapters,
-        currentIndex: 0
-      });
-
-      if (chapter) {
-        setChapterContent(chapter);
-        setContextTranslation('NLT');
-      }
-    } else {
-      // Disable debug mode - restore normal view
-      setDebugMode(prev => ({
+      setRenderTester(prev => ({
         ...prev,
-        enabled: false
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Failed to load'
       }));
-
-      // Reload actual chapter
-      if (chapterContent?.reference) {
-        setContextLoading(true);
-        try {
-          const fullChapter = await VerseService.getChapter(
-            chapterContent.reference,
-            BIBLE_VERSIONS[contextTranslation]
-          );
-          setChapterContent(fullChapter);
-        } catch (error) {
-          console.error('Error reloading chapter:', error);
-        } finally {
-          setContextLoading(false);
-        }
-      }
     }
-  }, [debugMode, loadDebugFixtures, parseFixtureToChapter, chapterContent, contextTranslation]);
-
-  const handleDebugNav = useCallback((direction: 'prev' | 'next') => {
-    if (!debugMode.enabled || !debugMode.fixtures) return;
-
-    const newIndex = direction === 'prev'
-      ? Math.max(0, debugMode.currentIndex - 1)
-      : Math.min(debugMode.allChapters.length - 1, debugMode.currentIndex + 1);
-
-    if (newIndex === debugMode.currentIndex) return;
-
-    const chapter = debugMode.allChapters[newIndex];
-    const fixture = debugMode.fixtures[chapter.category][chapter.key];
-    const parsed = parseFixtureToChapter(fixture);
-
-    if (parsed) {
-      setDebugMode(prev => ({
-        ...prev,
-        currentCategory: chapter.category,
-        currentChapterKey: chapter.key,
-        currentIndex: newIndex
-      }));
-      setChapterContent(parsed);
-    }
-  }, [debugMode, parseFixtureToChapter]);
-
-  const handleDebugPrev = useCallback(() => handleDebugNav('prev'), [handleDebugNav]);
-  const handleDebugNext = useCallback(() => handleDebugNav('next'), [handleDebugNav]);
+  }, [renderTester.inputReference, renderTester.selectedTranslation]);
 
   // Handle back from context view
   const handleBackFromContext = () => {
@@ -832,9 +727,9 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
       });
     }
 
-    // Reset debug mode when going back
-    if (debugMode.enabled) {
-      setDebugMode(prev => ({ ...prev, enabled: false }));
+    // Reset render tester when going back
+    if (renderTester.enabled) {
+      setRenderTester(prev => ({ ...prev, enabled: false }));
     }
 
     setShowContext(false);
@@ -945,10 +840,6 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
                 onBack={handleBackFromContext}
                 onDone={handleAnimatedDismiss}
                 onTranslationChange={handleContextTranslationChange}
-                debugMode={debugMode}
-                onToggleDebugMode={handleToggleDebugMode}
-                onDebugPrev={handleDebugPrev}
-                onDebugNext={handleDebugNext}
               />
             )}
             </div>
@@ -968,6 +859,50 @@ const VerseOverlay: React.FC<VerseOverlayProps> = ({
           />
           </div>
 
+        {/* Render Tester Panel - sibling to modal, positioned to left */}
+        {showContext && (
+          <div className="render-tester-panel" onClick={(e) => e.stopPropagation()}>
+            <input
+              type="text"
+              className="render-tester-input"
+              placeholder="Chapter (e.g., John 3)"
+              value={renderTester.inputReference}
+              onChange={(e) => setRenderTester(prev => ({ ...prev, inputReference: e.target.value }))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleRenderTest();
+                }
+              }}
+            />
+
+            <select
+              className="render-tester-select"
+              value={renderTester.selectedTranslation}
+              onChange={(e) => setRenderTester(prev => ({
+                ...prev,
+                selectedTranslation: e.target.value as BibleTranslation
+              }))}
+            >
+              <option value="KJV">KJV</option>
+              <option value="ASV">ASV</option>
+              <option value="ESV">ESV</option>
+              <option value="NLT">NLT</option>
+              <option value="WEB">WEB</option>
+            </select>
+
+            <button
+              className="render-tester-btn"
+              onClick={handleRenderTest}
+              disabled={renderTester.isLoading || !renderTester.inputReference.trim()}
+            >
+              {renderTester.isLoading ? 'Loading...' : 'Load'}
+            </button>
+
+            {renderTester.error && (
+              <span className="render-tester-error">{renderTester.error}</span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Auth Modals - Rendered outside verse overlay for proper layering */}

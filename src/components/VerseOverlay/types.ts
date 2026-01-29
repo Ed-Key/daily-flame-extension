@@ -28,19 +28,12 @@ export interface VerseDisplayProps {
   isAdmin?: boolean;
 }
 
-export interface DebugFixture {
-  reference: string;
-  html: string;
-  error?: string;
-}
-
-export interface DebugModeState {
+export interface RenderTesterState {
   enabled: boolean;
-  fixtures: Record<string, Record<string, DebugFixture>> | null;
-  currentCategory: string;
-  currentChapterKey: string;
-  allChapters: Array<{ category: string; key: string; reference: string }>;
-  currentIndex: number;
+  inputReference: string;      // e.g., "John 3"
+  selectedTranslation: BibleTranslation;
+  isLoading: boolean;
+  error?: string;
 }
 
 export interface ContextViewProps {
@@ -51,11 +44,6 @@ export interface ContextViewProps {
   onBack: () => void;
   onDone: () => void;
   onTranslationChange: (translation: string) => void;
-  // Debug mode props
-  debugMode?: DebugModeState;
-  onToggleDebugMode?: () => void;
-  onDebugPrev?: () => void;
-  onDebugNext?: () => void;
 }
 
 export interface ThemeToggleProps {
