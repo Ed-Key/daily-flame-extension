@@ -133,6 +133,9 @@ Always run `npm run build:dev` to verify compilation before considering work com
 ### When Debugging
 Use sequential thinking for complex parsing or animation issues. The NLT parser has 3 fallback strategies for a reason.
 
+### When Adding/Modifying Parsers
+Use the fixture-based testing pattern. Parser tests verify extraction; content verification tests verify rendering. See `@docs/testing-strategy.md` for the full pattern.
+
 ### Git Commits
 Do NOT include "Co-Authored-By: Claude" in commit messages. Just write the commit message normally.
 
@@ -142,5 +145,6 @@ For deeper context, these files are automatically imported:
 
 @docs/architecture.md - Component hierarchy, state management, GSAP animations
 @docs/css-system.md - Shadow DOM injection, theme system, component CSS patterns
+@docs/testing-strategy.md - Fixture-based parser tests, content verification pattern
 @docs/bible-apis.md - ESV/NLT/Standard API details, parser system, unified format
 @docs/firebase-schema.md - Firestore collections, security rules, auth flow
