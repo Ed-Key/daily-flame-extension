@@ -1874,24 +1874,6 @@ export const getShadowDomStyles = (): string => {
     }
 
     /* ESV-specific formatting */
-    .esv-chapter-container {
-      position: relative !important;
-      margin-bottom: 16px !important;
-    }
-
-    .esv-chapter-number {
-      float: left !important;
-      font-size: 60px !important;
-      line-height: 0.8 !important;
-      font-weight: 300 !important;
-      color: rgba(255, 255, 255, 0.7) !important;
-      margin-left: -0.5rem !important;
-      margin-right: 12px !important;
-      margin-top: -5px !important;
-      margin-bottom: -10px !important;
-      padding-right: 5px !important;
-    }
-
     .esv-content {
       display: block !important;
       text-align: left !important;
@@ -1954,14 +1936,6 @@ export const getShadowDomStyles = (): string => {
 
     /* Mobile adjustments for ESV */
     @media (max-width: 768px) {
-      .esv-chapter-number {
-        font-size: 56px !important;
-        margin-right: 16px !important;
-        margin-top: -6px !important;
-        margin-bottom: -8px !important;
-        padding-right: 4px !important;
-      }
-
       .esv-heading {
         font-size: 18px !important;
       }
@@ -1972,14 +1946,6 @@ export const getShadowDomStyles = (): string => {
     }
 
     @media (max-width: 480px) {
-      .esv-chapter-number {
-        font-size: 48px !important;
-        margin-right: 12px !important;
-        margin-top: -4px !important;
-        margin-bottom: -6px !important;
-        padding-right: 3px !important;
-      }
-
       .esv-heading {
         font-size: 16px !important;
       }
@@ -2196,11 +2162,6 @@ export const getShadowDomStyles = (): string => {
     .context-paragraph .verse-with-lines {
       display: block !important;
       margin-bottom: 1rem !important;
-    }
-    
-    /* ESV chapter container adjustments for poetry */
-    .esv-chapter-container .verse-with-lines:first-child {
-      margin-top: 0 !important;
     }
     
     /* Responsive adjustments for Psalm elements */
