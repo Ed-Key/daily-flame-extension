@@ -25,7 +25,8 @@ import {
   PoetryLine,
   PsalmMetadata,
   BibleTable,
-  BibleTableRow
+  BibleTableRow,
+  SpeakerLabel
 } from '../../types/bible-formats';
 
 export interface ParsedVerse {
@@ -37,7 +38,7 @@ export interface ParsedVerse {
   poetryIndentLevel?: number;
   stanzaBreakBefore?: boolean;
   hasSpaceBefore?: boolean;
-  speakerLabel?: string;
+  speakerLabels?: SpeakerLabel[];
   hebrewLetter?: string;
   footnotes?: Footnote[];
   poetryLines?: PoetryLine[];
@@ -149,7 +150,7 @@ export class NLTHTMLParser {
       poetryIndentLevel: verse.poetryIndentLevel,
       stanzaBreakBefore: verse.stanzaBreakBefore,
       hasSpaceBefore: verse.hasSpaceBefore,
-      speakerLabel: verse.speakerLabel,
+      speakerLabels: verse.speakerLabels,
       hebrewLetter: verse.hebrewLetter,
       footnotes: verse.footnotes,
       poetryLines: verse.poetryLines,
@@ -239,7 +240,7 @@ export class NLTHTMLParser {
     let poetryIndentLevel: number | undefined;
     let stanzaBreakBefore = false;
     let hasSpaceBefore = false;
-    let speakerLabel: string | undefined;
+    const speakerLabels: SpeakerLabel[] = [];
     let hebrewLetter: string | undefined;
     let isFirstVerse = isFirst;
     const footnotes: Footnote[] = [];
@@ -297,15 +298,33 @@ export class NLTHTMLParser {
       snTag.remove();
     }
 
-    // Extract Song of Solomon speaker label
-    const speakerEl = el.querySelector('h3.sos-speaker');
-    if (speakerEl) {
-      // Get text before any footnote markers
-      const clone = speakerEl.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll('a.a-tn, span.tn').forEach(n => n.remove());
-      speakerLabel = this.getCleanText(clone);
-      speakerEl.remove();
-    }
+    // Extract Song of Solomon speaker labels with position info
+    // We need to track which poetry line each speaker appears before
+    // Walk DOM elements in order to capture positions
+    const allSpeakersAndPoetry = el.querySelectorAll('h3.sos-speaker, [class*="poet1"], [class*="poet2"], [class*="poet3"]');
+    let poetryLineIndex = 0;
+
+    allSpeakersAndPoetry.forEach(element => {
+      if (element.classList.contains('sos-speaker')) {
+        // This is a speaker label - record its position
+        const clone = element.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll('a.a-tn, span.tn').forEach(n => n.remove());
+        const speakerText = this.getCleanText(clone);
+
+        if (speakerText) {
+          speakerLabels.push({
+            text: speakerText,
+            beforeLineIndex: poetryLineIndex
+          });
+        }
+      } else {
+        // This is a poetry line - increment counter
+        poetryLineIndex++;
+      }
+    });
+
+    // Remove ALL speaker labels from DOM to prevent leakage into verse.text
+    el.querySelectorAll('h3.sos-speaker').forEach(s => s.remove());
 
     // Extract Hebrew acrostic letter (Psalm 119)
     const hebrewEl = el.querySelector('h5.psa-hebrew');
@@ -355,7 +374,7 @@ export class NLTHTMLParser {
     if (poetryResult.hasPoetry && poetryResult.lines.length > 0) {
       // Find prose paragraphs that come BEFORE the first poetry element
       const allParagraphs = Array.from(el.querySelectorAll('p'));
-      const firstPoetryEl = el.querySelector('[class*="poet1"], [class*="poet2"]');
+      const firstPoetryEl = el.querySelector('[class*="poet1"], [class*="poet2"], [class*="poet3"]');
 
       const proseTexts: string[] = [];
       for (const p of allParagraphs) {
@@ -424,7 +443,7 @@ export class NLTHTMLParser {
       poetryIndentLevel,
       stanzaBreakBefore: stanzaBreakBefore || undefined,
       hasSpaceBefore: hasSpaceBefore || undefined,
-      speakerLabel,
+      speakerLabels: speakerLabels.length > 0 ? speakerLabels : undefined,
       hebrewLetter,
       footnotes: footnotes.length > 0 ? footnotes : undefined,
       poetryLines: poetryLines.length > 0 ? poetryLines : undefined,
@@ -491,15 +510,17 @@ export class NLTHTMLParser {
     let maxIndentLevel = 0;
     let hasSpaceBeforeFirst = false;
 
-    // Look for poetry paragraphs (poet1, poet2, etc.)
-    const poetryElements = el.querySelectorAll('[class*="poet1"], [class*="poet2"]');
+    // Look for poetry paragraphs (poet1, poet2, poet3)
+    const poetryElements = el.querySelectorAll('[class*="poet1"], [class*="poet2"], [class*="poet3"]');
 
     poetryElements.forEach((poetEl, index) => {
       const className = poetEl.className;
 
       // Determine indent level
-      let indentLevel: 1 | 2 = 1;
-      if (className.includes('poet2')) {
+      let indentLevel: 1 | 2 | 3 = 1;
+      if (className.includes('poet3')) {
+        indentLevel = 3;
+      } else if (className.includes('poet2')) {
         indentLevel = 2;
       }
       maxIndentLevel = Math.max(maxIndentLevel, indentLevel);
@@ -615,7 +636,7 @@ export class NLTHTMLParser {
    */
   private extractProseAfterPoetry(el: HTMLElement): string | null {
     // Find all poetry elements
-    const poetryElements = Array.from(el.querySelectorAll('[class*="poet1"], [class*="poet2"]'));
+    const poetryElements = Array.from(el.querySelectorAll('[class*="poet1"], [class*="poet2"], [class*="poet3"]'));
     if (poetryElements.length === 0) return null;
 
     const lastPoetryEl = poetryElements[poetryElements.length - 1];

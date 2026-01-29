@@ -2003,6 +2003,11 @@ export const getShadowDomStyles = (): string => {
       padding-left: 1.5em !important;
     }
 
+    /* Level 3 = double-indented (nested quotes, etc.) */
+    .poetry-indent-3 {
+      padding-left: 3em !important;
+    }
+
     /* New poetry structure (NLT parser) */
     .verse-with-poetry {
       display: block !important;
@@ -2047,6 +2052,10 @@ export const getShadowDomStyles = (): string => {
 
     .poetry-line.poetry-indent-2 {
       padding-left: 1.5em !important;
+    }
+
+    .poetry-line.poetry-indent-3 {
+      padding-left: 3em !important;
     }
 
     /* Stanza spacing - adds extra space before new stanzas */
@@ -2178,7 +2187,11 @@ export const getShadowDomStyles = (): string => {
       .poetry-indent-2 {
         padding-left: 2em !important;
       }
-      
+
+      .poetry-indent-3 {
+        padding-left: 3em !important;
+      }
+
       .acrostic-letter {
         font-size: 2.5em !important;
       }

@@ -45,12 +45,23 @@ export interface BibleTable {
 export interface PoetryLine {
   /** The text content of the line */
   text: string;
-  /** Indentation level (1 = poet1, 2 = poet2) */
-  indentLevel: 1 | 2;
+  /** Indentation level (1 = poet1, 2 = poet2, 3 = poet3) */
+  indentLevel: 1 | 2 | 3;
   /** Whether there should be extra space before this line (-sp class) */
   hasSpaceBefore?: boolean;
   /** Whether this line contains words of Jesus */
   isRedLetter?: boolean;
+}
+
+/**
+ * Speaker label with position for Song of Solomon dialogues
+ * Stores which poetry line index the speaker appears before
+ */
+export interface SpeakerLabel {
+  /** The speaker text (e.g., "Young Woman", "Young Women of Jerusalem") */
+  text: string;
+  /** Index into poetryLines array - this speaker appears before the line at this index */
+  beforeLineIndex: number;
 }
 
 /**
@@ -100,8 +111,8 @@ export interface UnifiedVerse {
   /** Alias for acrosticLetter - Hebrew letter heading (e.g., "Aleph", "Beth") */
   hebrewLetter?: string;
 
-  /** Speaker label for dialogue (e.g., "Young Woman" in Song of Solomon) */
-  speakerLabel?: string;
+  /** Speaker labels with positions for dialogue (e.g., Song of Solomon) */
+  speakerLabels?: SpeakerLabel[];
 
   /** Footnotes extracted from this verse */
   footnotes?: Footnote[];
