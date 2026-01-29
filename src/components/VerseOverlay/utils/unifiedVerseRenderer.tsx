@@ -160,9 +160,8 @@ function renderESVStyle(
       (verse.lines && verse.lines.length > 0)
     );
 
-    // For verse 1: show number only if poetry (no chapter number shown)
-    // For other verses: always show number
-    const shouldShowVerseNumber = verse.number !== '1' || index > 0 || isBlockLevel;
+    // Always show verse number (including verse 1)
+    const shouldShowVerseNumber = true;
     
     // Apply poetry indentation if specified
     const verseClasses = [
@@ -279,14 +278,11 @@ function renderESVStyle(
         finishParagraph();
       }
 
-      // Handle first verse being poetry - still need to show chapter number
+      // Handle first verse being poetry
       if (isFirstParagraph) {
         content.push(
-          <div key={`para-with-chapter-${paragraphKey++}`} className="esv-chapter-container">
-            {!isBlockLevel && <div className="esv-chapter-number">{chapterNumber}</div>}
-            <div className="context-paragraph esv-format esv-first-paragraph poetry-block">
-              {verseElement}
-            </div>
+          <div key={`poetry-block-${paragraphKey++}`} className="context-paragraph esv-format poetry-block">
+            {verseElement}
           </div>
         );
         isFirstParagraph = false;
@@ -334,14 +330,10 @@ function renderESVStyle(
     ].filter(Boolean).join(' ');
     
     if (isFirstParagraph) {
-      // First paragraph includes the floating chapter number
       content.push(
-        <div key={`para-with-chapter-${paragraphKey++}`} className="esv-chapter-container">
-          <div className="esv-chapter-number">{chapterNumber}</div>
-          <p className={`${paragraphClasses} esv-first-paragraph`}>
-            {currentParagraph}
-          </p>
-        </div>
+        <p key={`para-${paragraphKey++}`} className={`${paragraphClasses} esv-first-paragraph`}>
+          {currentParagraph}
+        </p>
       );
       isFirstParagraph = false;
     } else {
