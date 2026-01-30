@@ -105,21 +105,15 @@ export const renderUnifiedVerses = ({
   const { translation, verses, chapterNumber, psalmMetadata } = chapterContent;
   
   // Determine rendering style based on translation
-  const useKJVFormatting = translation === 'KJV' || translation === 'ASV';
-  const useESVFormatting = translation === 'ESV';
-  const useNLTFormatting = translation === 'NLT';
+  // All known translations now use rich formatting with poetry lines and stanza breaks
+  const useRichFormatting = ['ESV', 'NLT', 'KJV', 'ASV', 'WEB'].includes(translation);
 
-  // For ESV and NLT, use special formatting with floating chapter numbers
-  if (useESVFormatting || useNLTFormatting) {
+  // For all supported translations, use ESV-style rendering with paragraph grouping
+  if (useRichFormatting) {
     return renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
   }
 
-  // For KJV/ASV, each verse is its own paragraph
-  if (useKJVFormatting) {
-    return renderKJVStyle(verses, startVerse, endVerse, psalmMetadata);
-  }
-
-  // For other translations, group verses by natural paragraphs
+  // Fallback for unknown translations - basic paragraph grouping
   return renderStandardStyle(verses, startVerse, endVerse, psalmMetadata);
 };
 
@@ -175,9 +169,11 @@ function renderESVStyle(
     }
     
     // Determine if this verse is block-level (poetry) - needed for verse number logic
+    // Block-level elements include: poetry, multi-line verses, and verses with speaker labels
     const isBlockLevel = Boolean(
       (verse.poetryLines && verse.poetryLines.length > 0) ||
-      (verse.lines && verse.lines.length > 0)
+      (verse.lines && verse.lines.length > 0) ||
+      (verse.speakerLabels && verse.speakerLabels.length > 0)
     );
 
     // Always show verse number (including verse 1)
@@ -295,20 +291,47 @@ function renderESVStyle(
     } else {
       // Regular verse rendering (prose, no line breaks)
       const spaceBeforeClass = verse.hasSpaceBefore ? 'verse-space-before' : '';
-      verseElement = (
-        <span key={`verse-${verse.number}`} className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
-          {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
-          <span className="verse-text-content">
-            {verse.isRedLetter ? (
-              <span className="words-of-jesus">{verse.text}</span>
-            ) : (
-              verse.text
-            )}
-            {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
-            {' '}
+
+      // Check if this verse has speaker labels (Song of Solomon prose sections)
+      if (verse.speakerLabels && verse.speakerLabels.length > 0) {
+        // For prose verses with speaker labels, render as block with speaker label above
+        verseElement = (
+          <div key={`verse-${verse.number}`} className={`verse-with-speaker ${isHighlighted ? 'highlighted-verse' : ''}`}>
+            {verse.speakerLabels.map((speaker, idx) => (
+              <div key={`speaker-${verse.number}-${idx}`} className="speaker-label">
+                {speaker.text}
+              </div>
+            ))}
+            <span className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
+              {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+              <span className="verse-text-content">
+                {verse.isRedLetter ? (
+                  <span className="words-of-jesus">{verse.text}</span>
+                ) : (
+                  verse.text
+                )}
+                {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
+                {' '}
+              </span>
+            </span>
+          </div>
+        );
+      } else {
+        verseElement = (
+          <span key={`verse-${verse.number}`} className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
+            {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+            <span className="verse-text-content">
+              {verse.isRedLetter ? (
+                <span className="words-of-jesus">{verse.text}</span>
+              ) : (
+                verse.text
+              )}
+              {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
+              {' '}
+            </span>
           </span>
-        </span>
-      );
+        );
+      }
     }
     
     // isBlockLevel already calculated above for verse number logic

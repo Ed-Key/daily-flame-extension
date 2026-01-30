@@ -331,6 +331,57 @@ describe('StandardBibleParser', () => {
       });
     });
 
+    describe('Stanza Breaks', () => {
+      it('should mark verses with stanzaBreakAfter when blank paragraph follows', () => {
+        // Psalm 42 is known to have stanza breaks (blank 'b' paragraphs)
+        const fixture = getChapter(kjvFixtures, 'Psalm', 42);
+        if (!fixture) {
+          console.warn('Skipping - fixture not found');
+          return;
+        }
+
+        // Count blank (b) paragraphs in fixture
+        const hasBlankParagraphs = hasStyle(fixture.content, 'b');
+        console.log(`Psalm 42 - Has blank paragraphs: ${hasBlankParagraphs}`);
+
+        const result = parser.parse(fixture.content);
+        const versesWithStanzaBreak = result.verses.filter(v => v.stanzaBreakAfter);
+
+        console.log(`Verses with stanzaBreakAfter: ${versesWithStanzaBreak.length}`);
+        console.log(`Verse numbers: ${versesWithStanzaBreak.map(v => v.number).join(', ')}`);
+
+        // Psalm 42 has stanza breaks in all Standard Bible translations
+        expect(hasBlankParagraphs).toBe(true);
+        expect(versesWithStanzaBreak.length).toBeGreaterThan(0);
+      });
+    });
+
+    describe('Poetry Lines', () => {
+      it('should create poetryLines array for poetry verses', () => {
+        const fixture = getChapter(kjvFixtures, 'Psalm', 23);
+        if (!fixture) {
+          console.warn('Skipping - fixture not found');
+          return;
+        }
+
+        const result = parser.parse(fixture.content);
+        const versesWithPoetryLines = result.verses.filter(v => v.poetryLines && v.poetryLines.length > 0);
+
+        console.log(`Psalm 23 - Verses with poetryLines: ${versesWithPoetryLines.length}`);
+
+        // All Psalm 23 verses should have poetry lines since they're all q1/q2 style
+        expect(versesWithPoetryLines.length).toBeGreaterThan(0);
+
+        // Check structure of poetry lines
+        for (const verse of versesWithPoetryLines) {
+          expect(verse.poetryLines).toBeDefined();
+          expect(verse.poetryLines!.length).toBeGreaterThan(0);
+          expect(verse.poetryLines![0].text).toBeTruthy();
+          expect(verse.poetryLines![0].indentLevel).toBeGreaterThanOrEqual(1);
+        }
+      });
+    });
+
     describe('Psalm Metadata', () => {
       it('should extract Psalm superscription', () => {
         const fixture = getChapter(kjvFixtures, 'Psalm', 23);

@@ -1,5 +1,5 @@
 import { BaseBibleParser } from './base-parser';
-import { UnifiedChapter, UnifiedVerse, PsalmMetadata, Footnote } from '../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata, Footnote, PoetryLine } from '../../types/bible-formats';
 import { BibleTranslation } from '../../types';
 
 /**
@@ -143,6 +143,38 @@ export class StandardBibleParser extends BaseBibleParser {
   }
 
   /**
+   * Check if a paragraph style indicates poetry
+   */
+  private isPoetryStyle(style: string): boolean {
+    return ['q1', 'q2', 'q3', 'qr', 'qc', 'qm1', 'qm2'].includes(style);
+  }
+
+  /**
+   * Get poetry indent level from paragraph style
+   */
+  private getPoetryIndentLevel(style: string): 1 | 2 | 3 {
+    if (style === 'q2' || style === 'qm2') return 2;
+    if (style === 'q3') return 3;
+    return 1; // Default for q1, qr, qc, qm1
+  }
+
+  /**
+   * Create poetry lines array from verse text and paragraph style
+   */
+  private createPoetryLines(text: string, style: string, isRedLetter: boolean): PoetryLine[] {
+    const indentLevel = this.getPoetryIndentLevel(style);
+
+    // Standard API typically has one line per verse in poetry
+    // But check for semicolons which might indicate line breaks in some translations
+    return [{
+      text: text.trim(),
+      indentLevel,
+      isRedLetter,
+      hasSpaceBefore: false
+    }];
+  }
+
+  /**
    * Parse standard API JSON response into unified format
    * 
    * Expected input format:
@@ -182,6 +214,9 @@ export class StandardBibleParser extends BaseBibleParser {
     let currentHeading: string | undefined;
     let currentSpeakerLabel: string | undefined;
 
+    // Track paragraph context for stanza breaks and paragraph boundaries
+    let previousParagraphStyle: string | undefined;
+
     // Extract verses from content array - handle the actual API structure
     if (apiResponse.content && Array.isArray(apiResponse.content)) {
       apiResponse.content.forEach((paragraph: any) => {
@@ -193,6 +228,7 @@ export class StandardBibleParser extends BaseBibleParser {
           if (headingText) {
             currentHeading = headingText;
           }
+          previousParagraphStyle = paraStyle;
           return; // Don't process this paragraph further
         }
 
@@ -202,13 +238,33 @@ export class StandardBibleParser extends BaseBibleParser {
           if (speakerText) {
             currentSpeakerLabel = speakerText;
           }
+          previousParagraphStyle = paraStyle;
           return; // Don't process this paragraph further
         }
 
-        // Skip blank lines (b) and Psalm titles (d) - d is handled in extractPsalmMetadata
-        if (paraStyle === 'b' || (paraStyle === 'd' && isPsalm)) {
+        // Handle blank lines (b) - mark for stanza break on NEXT verse
+        if (paraStyle === 'b') {
+          // Mark the previous verse with stanzaBreakAfter if it exists
+          if (verses.length > 0) {
+            verses[verses.length - 1].stanzaBreakAfter = true;
+          }
+          previousParagraphStyle = paraStyle;
           return;
         }
+
+        // Skip Psalm titles (d) - handled in extractPsalmMetadata
+        if (paraStyle === 'd' && isPsalm) {
+          previousParagraphStyle = paraStyle;
+          return;
+        }
+
+        // Detect paragraph boundary - style changed from previous content paragraph
+        const isNewParagraph = previousParagraphStyle !== undefined &&
+          previousParagraphStyle !== paraStyle &&
+          !['s1', 's2', 's3', 'sp', 'b', 'd'].includes(previousParagraphStyle);
+
+        // Check if this is a poetry paragraph
+        const isPoetry = this.isPoetryStyle(paraStyle);
 
         // Each paragraph has items that contain verse tags and text
         if (paragraph.items && Array.isArray(paragraph.items)) {
@@ -216,6 +272,7 @@ export class StandardBibleParser extends BaseBibleParser {
           let currentVerseText = '';
           let currentVerseIsRedLetter = false;
           let currentVerseFootnotes: Footnote[] = [];
+          let isFirstVerseInParagraph = true;
 
           paragraph.items.forEach((item: any) => {
             // Check if this is a verse tag
@@ -227,26 +284,30 @@ export class StandardBibleParser extends BaseBibleParser {
                   isRedLetter: currentVerseIsRedLetter,
                   footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                   heading: currentHeading,
-                  speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined
+                  speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
+                  // NEW: Paragraph boundary tracking
+                  startsParagraph: isFirstVerseInParagraph && isNewParagraph
                 };
 
                 // Clear heading/speaker after assigning to first verse
                 currentHeading = undefined;
                 currentSpeakerLabel = undefined;
+                isFirstVerseInParagraph = false;
 
-                // Add Psalm-specific attributes
-                if (isPsalm) {
-                  // Check for Selah
-                  if (/\bSelah\b/i.test(currentVerseText)) {
-                    verseOptions.isSelah = true;
-                  }
+                // Add poetry-specific attributes
+                if (isPoetry) {
+                  verseOptions.poetryIndentLevel = this.getPoetryIndentLevel(paraStyle);
+                  // NEW: Create poetryLines array for poetry verses
+                  verseOptions.poetryLines = this.createPoetryLines(
+                    currentVerseText.trim(),
+                    paraStyle,
+                    currentVerseIsRedLetter
+                  );
+                }
 
-                  // Check for poetry markers in the paragraph style
-                  if (paraStyle === 'q1') {
-                    verseOptions.poetryIndentLevel = 1;
-                  } else if (paraStyle === 'q2') {
-                    verseOptions.poetryIndentLevel = 2;
-                  }
+                // Check for Selah (all books, not just Psalms)
+                if (/\bSelah\b/i.test(currentVerseText)) {
+                  verseOptions.isSelah = true;
                 }
 
                 verses.push(this.createVerse(
@@ -296,26 +357,29 @@ export class StandardBibleParser extends BaseBibleParser {
               isRedLetter: currentVerseIsRedLetter,
               footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
               heading: currentHeading,
-              speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined
+              speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
+              // NEW: Paragraph boundary tracking
+              startsParagraph: isFirstVerseInParagraph && isNewParagraph
             };
 
             // Clear heading/speaker after assigning
             currentHeading = undefined;
             currentSpeakerLabel = undefined;
 
-            // Add Psalm-specific attributes
-            if (isPsalm) {
-              // Check for Selah
-              if (/\bSelah\b/i.test(currentVerseText)) {
-                verseOptions.isSelah = true;
-              }
+            // Add poetry-specific attributes
+            if (isPoetry) {
+              verseOptions.poetryIndentLevel = this.getPoetryIndentLevel(paraStyle);
+              // NEW: Create poetryLines array for poetry verses
+              verseOptions.poetryLines = this.createPoetryLines(
+                currentVerseText.trim(),
+                paraStyle,
+                currentVerseIsRedLetter
+              );
+            }
 
-              // Check for poetry markers in the paragraph style
-              if (paraStyle === 'q1') {
-                verseOptions.poetryIndentLevel = 1;
-              } else if (paraStyle === 'q2') {
-                verseOptions.poetryIndentLevel = 2;
-              }
+            // Check for Selah (all books, not just Psalms)
+            if (/\bSelah\b/i.test(currentVerseText)) {
+              verseOptions.isSelah = true;
             }
 
             verses.push(this.createVerse(
@@ -325,6 +389,9 @@ export class StandardBibleParser extends BaseBibleParser {
             ));
           }
         }
+
+        // Update previous paragraph style for next iteration
+        previousParagraphStyle = paraStyle;
       });
     }
 
