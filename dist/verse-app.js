@@ -66863,18 +66863,13 @@ const renderUnifiedVerses = ({ chapterContent, startVerse, endVerse }) => {
     }
     const { translation, verses, chapterNumber, psalmMetadata } = chapterContent;
     // Determine rendering style based on translation
-    const useKJVFormatting = translation === 'KJV' || translation === 'ASV';
-    const useESVFormatting = translation === 'ESV';
-    const useNLTFormatting = translation === 'NLT';
-    // For ESV and NLT, use special formatting with floating chapter numbers
-    if (useESVFormatting || useNLTFormatting) {
+    // All known translations now use rich formatting with poetry lines and stanza breaks
+    const useRichFormatting = ['ESV', 'NLT', 'KJV', 'ASV', 'WEB'].includes(translation);
+    // For all supported translations, use ESV-style rendering with paragraph grouping
+    if (useRichFormatting) {
         return renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
     }
-    // For KJV/ASV, each verse is its own paragraph
-    if (useKJVFormatting) {
-        return renderKJVStyle(verses, startVerse, endVerse, psalmMetadata);
-    }
-    // For other translations, group verses by natural paragraphs
+    // Fallback for unknown translations - basic paragraph grouping
     return renderStandardStyle(verses, startVerse, endVerse, psalmMetadata);
 };
 /**
@@ -66907,8 +66902,10 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
             lastHeading = verse.heading;
         }
         // Determine if this verse is block-level (poetry) - needed for verse number logic
+        // Block-level elements include: poetry, multi-line verses, and verses with speaker labels
         const isBlockLevel = Boolean((verse.poetryLines && verse.poetryLines.length > 0) ||
-            (verse.lines && verse.lines.length > 0));
+            (verse.lines && verse.lines.length > 0) ||
+            (verse.speakerLabels && verse.speakerLabels.length > 0));
         // Always show verse number (including verse 1)
         const shouldShowVerseNumber = true;
         // Apply poetry indentation if specified
@@ -66954,7 +66951,14 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
         else {
             // Regular verse rendering (prose, no line breaks)
             const spaceBeforeClass = verse.hasSpaceBefore ? 'verse-space-before' : '';
-            verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: `${verseClasses} ${spaceBeforeClass}`.trim(), children: [shouldShowVerseNumber && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), (verse.isSelah || verse.hasSelah) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] }, `verse-${verse.number}`));
+            // Check if this verse has speaker labels (Song of Solomon prose sections)
+            if (verse.speakerLabels && verse.speakerLabels.length > 0) {
+                // For prose verses with speaker labels, render as block with speaker label above
+                verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: `verse-with-speaker ${isHighlighted ? 'highlighted-verse' : ''}`, children: [verse.speakerLabels.map((speaker, idx) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "speaker-label", children: speaker.text }, `speaker-${verse.number}-${idx}`))), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: `${verseClasses} ${spaceBeforeClass}`.trim(), children: [shouldShowVerseNumber && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), (verse.isSelah || verse.hasSelah) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] })] }, `verse-${verse.number}`));
+            }
+            else {
+                verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: `${verseClasses} ${spaceBeforeClass}`.trim(), children: [shouldShowVerseNumber && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), (verse.isSelah || verse.hasSelah) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] }, `verse-${verse.number}`));
+            }
         }
         // isBlockLevel already calculated above for verse number logic
         if (isBlockLevel) {
@@ -69782,6 +69786,36 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
             .trim();
     }
     /**
+     * Check if a paragraph style indicates poetry
+     */
+    isPoetryStyle(style) {
+        return ['q1', 'q2', 'q3', 'qr', 'qc', 'qm1', 'qm2'].includes(style);
+    }
+    /**
+     * Get poetry indent level from paragraph style
+     */
+    getPoetryIndentLevel(style) {
+        if (style === 'q2' || style === 'qm2')
+            return 2;
+        if (style === 'q3')
+            return 3;
+        return 1; // Default for q1, qr, qc, qm1
+    }
+    /**
+     * Create poetry lines array from verse text and paragraph style
+     */
+    createPoetryLines(text, style, isRedLetter) {
+        const indentLevel = this.getPoetryIndentLevel(style);
+        // Standard API typically has one line per verse in poetry
+        // But check for semicolons which might indicate line breaks in some translations
+        return [{
+                text: text.trim(),
+                indentLevel,
+                isRedLetter,
+                hasSpaceBefore: false
+            }];
+    }
+    /**
      * Parse standard API JSON response into unified format
      *
      * Expected input format:
@@ -69814,6 +69848,8 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
         // Track current heading and speaker label for assignment to verses
         let currentHeading;
         let currentSpeakerLabel;
+        // Track paragraph context for stanza breaks and paragraph boundaries
+        let previousParagraphStyle;
         // Extract verses from content array - handle the actual API structure
         if (apiResponse.content && Array.isArray(apiResponse.content)) {
             apiResponse.content.forEach((paragraph) => {
@@ -69824,6 +69860,7 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                     if (headingText) {
                         currentHeading = headingText;
                     }
+                    previousParagraphStyle = paraStyle;
                     return; // Don't process this paragraph further
                 }
                 // Check for speaker labels (sp) - Song of Solomon
@@ -69832,18 +69869,36 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                     if (speakerText) {
                         currentSpeakerLabel = speakerText;
                     }
+                    previousParagraphStyle = paraStyle;
                     return; // Don't process this paragraph further
                 }
-                // Skip blank lines (b) and Psalm titles (d) - d is handled in extractPsalmMetadata
-                if (paraStyle === 'b' || (paraStyle === 'd' && isPsalm)) {
+                // Handle blank lines (b) - mark for stanza break on NEXT verse
+                if (paraStyle === 'b') {
+                    // Mark the previous verse with stanzaBreakAfter if it exists
+                    if (verses.length > 0) {
+                        verses[verses.length - 1].stanzaBreakAfter = true;
+                    }
+                    previousParagraphStyle = paraStyle;
                     return;
                 }
+                // Skip Psalm titles (d) - handled in extractPsalmMetadata
+                if (paraStyle === 'd' && isPsalm) {
+                    previousParagraphStyle = paraStyle;
+                    return;
+                }
+                // Detect paragraph boundary - style changed from previous content paragraph
+                const isNewParagraph = previousParagraphStyle !== undefined &&
+                    previousParagraphStyle !== paraStyle &&
+                    !['s1', 's2', 's3', 'sp', 'b', 'd'].includes(previousParagraphStyle);
+                // Check if this is a poetry paragraph
+                const isPoetry = this.isPoetryStyle(paraStyle);
                 // Each paragraph has items that contain verse tags and text
                 if (paragraph.items && Array.isArray(paragraph.items)) {
                     let currentVerseNumber = '';
                     let currentVerseText = '';
                     let currentVerseIsRedLetter = false;
                     let currentVerseFootnotes = [];
+                    let isFirstVerseInParagraph = true;
                     paragraph.items.forEach((item) => {
                         // Check if this is a verse tag
                         if (item.type === 'tag' && item.name === 'verse' && item.attrs?.number) {
@@ -69854,24 +69909,23 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                                     isRedLetter: currentVerseIsRedLetter,
                                     footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                                     heading: currentHeading,
-                                    speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined
+                                    speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
+                                    // NEW: Paragraph boundary tracking
+                                    startsParagraph: isFirstVerseInParagraph && isNewParagraph
                                 };
                                 // Clear heading/speaker after assigning to first verse
                                 currentHeading = undefined;
                                 currentSpeakerLabel = undefined;
-                                // Add Psalm-specific attributes
-                                if (isPsalm) {
-                                    // Check for Selah
-                                    if (/\bSelah\b/i.test(currentVerseText)) {
-                                        verseOptions.isSelah = true;
-                                    }
-                                    // Check for poetry markers in the paragraph style
-                                    if (paraStyle === 'q1') {
-                                        verseOptions.poetryIndentLevel = 1;
-                                    }
-                                    else if (paraStyle === 'q2') {
-                                        verseOptions.poetryIndentLevel = 2;
-                                    }
+                                isFirstVerseInParagraph = false;
+                                // Add poetry-specific attributes
+                                if (isPoetry) {
+                                    verseOptions.poetryIndentLevel = this.getPoetryIndentLevel(paraStyle);
+                                    // NEW: Create poetryLines array for poetry verses
+                                    verseOptions.poetryLines = this.createPoetryLines(currentVerseText.trim(), paraStyle, currentVerseIsRedLetter);
+                                }
+                                // Check for Selah (all books, not just Psalms)
+                                if (/\bSelah\b/i.test(currentVerseText)) {
+                                    verseOptions.isSelah = true;
                                 }
                                 verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), verseOptions));
                             }
@@ -69914,28 +69968,28 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                             isRedLetter: currentVerseIsRedLetter,
                             footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                             heading: currentHeading,
-                            speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined
+                            speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
+                            // NEW: Paragraph boundary tracking
+                            startsParagraph: isFirstVerseInParagraph && isNewParagraph
                         };
                         // Clear heading/speaker after assigning
                         currentHeading = undefined;
                         currentSpeakerLabel = undefined;
-                        // Add Psalm-specific attributes
-                        if (isPsalm) {
-                            // Check for Selah
-                            if (/\bSelah\b/i.test(currentVerseText)) {
-                                verseOptions.isSelah = true;
-                            }
-                            // Check for poetry markers in the paragraph style
-                            if (paraStyle === 'q1') {
-                                verseOptions.poetryIndentLevel = 1;
-                            }
-                            else if (paraStyle === 'q2') {
-                                verseOptions.poetryIndentLevel = 2;
-                            }
+                        // Add poetry-specific attributes
+                        if (isPoetry) {
+                            verseOptions.poetryIndentLevel = this.getPoetryIndentLevel(paraStyle);
+                            // NEW: Create poetryLines array for poetry verses
+                            verseOptions.poetryLines = this.createPoetryLines(currentVerseText.trim(), paraStyle, currentVerseIsRedLetter);
+                        }
+                        // Check for Selah (all books, not just Psalms)
+                        if (/\bSelah\b/i.test(currentVerseText)) {
+                            verseOptions.isSelah = true;
                         }
                         verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), verseOptions));
                     }
                 }
+                // Update previous paragraph style for next iteration
+                previousParagraphStyle = paraStyle;
             });
         }
         // Also check the old format for backward compatibility
