@@ -71,6 +71,20 @@ main (production - clean, shipped code)
 **Why Cherry-Pick Instead of Merge:**
 Since `dev` contains debug UI and large test fixtures that shouldn't be in production, we cherry-pick specific commits to `main` rather than merging the entire branch.
 
+**Commit Message Conventions:**
+
+| Content Type | Commit Prefix | Goes to `main`? |
+|--------------|---------------|-----------------|
+| Production code (features, fixes) | `feat:`, `fix:`, `refactor:` | ✅ Yes (cherry-pick) |
+| Tests & fixtures | `test(dev):` | ❌ No |
+| Debug tools/UI | `feat(dev):`, `fix(dev):` | ❌ No |
+| Build artifacts | `chore: Update build artifacts` | ✅ Yes |
+| Dev-only chores | `chore(dev):` | ❌ No |
+
+**Important:** When a commit contains BOTH production code and test code, split it into separate commits:
+1. Production code commit (no `(dev)` suffix) - can be cherry-picked to `main`
+2. Test/fixture commit with `(dev)` suffix - stays on `dev` only
+
 **Quick Commands:**
 ```bash
 # Start new feature
