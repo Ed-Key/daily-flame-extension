@@ -67084,6 +67084,18 @@ function renderStandardStyle(verses, startVerse, endVerse, psalmMetadata) {
             verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
             verse.isSelah ? 'verse-with-selah' : ''
         ].filter(Boolean).join(' ');
+        // Render speaker labels before the verse (Song of Solomon dialogues)
+        if (verse.speakerLabels && verse.speakerLabels.length > 0) {
+            // Finish current paragraph before speaker labels
+            if (currentParagraph.length > 0) {
+                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, `para-${paragraphKey++}`));
+                currentParagraph = [];
+            }
+            // Render each speaker label
+            for (const speaker of verse.speakerLabels) {
+                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "speaker-label", children: speaker.text }, `speaker-${verse.number}-${speaker.beforeLineIndex}`));
+            }
+        }
         // Add verse to current paragraph
         currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), verse.isSelah && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] }, `verse-${verse.number}`));
         // Use semantic paragraph breaks from API (next verse starts a new paragraph)
