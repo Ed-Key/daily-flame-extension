@@ -510,6 +510,28 @@ function renderStandardStyle(verses: UnifiedVerse[], startVerse: number | null, 
       verse.isSelah ? 'verse-with-selah' : ''
     ].filter(Boolean).join(' ');
     
+    // Render speaker labels before the verse (Song of Solomon dialogues)
+    if (verse.speakerLabels && verse.speakerLabels.length > 0) {
+      // Finish current paragraph before speaker labels
+      if (currentParagraph.length > 0) {
+        paragraphs.push(
+          <p key={`para-${paragraphKey++}`} className="context-paragraph">
+            {currentParagraph}
+          </p>
+        );
+        currentParagraph = [];
+      }
+
+      // Render each speaker label
+      for (const speaker of verse.speakerLabels) {
+        paragraphs.push(
+          <div key={`speaker-${verse.number}-${speaker.beforeLineIndex}`} className="speaker-label">
+            {speaker.text}
+          </div>
+        );
+      }
+    }
+
     // Add verse to current paragraph
     currentParagraph.push(
       <span key={`verse-${verse.number}`} className={verseClasses}>
