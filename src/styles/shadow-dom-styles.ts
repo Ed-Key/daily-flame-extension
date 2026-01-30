@@ -1685,11 +1685,13 @@ export const getShadowDomStyles = (): string => {
       text-indent: 0 !important;
     }
     
+    /* KJV verse numbers use same light style as unified format */
     .context-paragraph.kjv-verse .context-verse-number {
-      font-weight: bold !important;
-      font-size: inherit !important;
-      vertical-align: baseline !important;
-      margin-right: 8px !important;
+      font-size: 0.65em !important;
+      vertical-align: super !important;
+      font-weight: 400 !important;
+      margin-right: 3px !important;
+      opacity: 0.8 !important;
     }
 
     /* Poetry formatting styles */
@@ -1778,7 +1780,7 @@ export const getShadowDomStyles = (): string => {
       color: white !important;
     }
 
-    /* Highlighted verse for poetry lines (ESV) */
+    /* Highlighted verse for poetry lines */
     .highlighted-verse .verse-line {
       background-color: rgba(255, 255, 255, 0.15) !important;
       padding: 2px 4px !important;
@@ -1873,21 +1875,19 @@ export const getShadowDomStyles = (): string => {
       transform: translateX(-2px) !important;
     }
 
-    /* ESV-specific formatting */
-    .esv-content {
+    /* Unified verse formatting (used by all translations) */
+    .unified-content {
       display: block !important;
       text-align: left !important;
     }
     
-    /* First paragraph in ESV needs special handling */
-    .esv-first-paragraph {
-      /* Text will wrap around the floated chapter number */
-      text-indent: 0 !important; /* No indent for first paragraph with chapter number */
+    /* First paragraph in unified format */
+    .unified-first-paragraph {
       display: block !important;
     }
 
-    /* ESV section headings */
-    .esv-heading {
+    /* Unified section headings */
+    .unified-heading {
       font-style: italic !important;
       font-size: 20px !important;
       color: rgba(255, 255, 255, 0.8) !important;
@@ -1898,25 +1898,22 @@ export const getShadowDomStyles = (): string => {
       text-align: left !important; /* Left align headings */
     }
 
-    .esv-heading:first-child {
+    .unified-heading:first-child {
       margin-top: 0 !important;
     }
 
-    /* ESV paragraph formatting */
-    .context-paragraph.esv-format {
+    /* Unified paragraph formatting */
+    .context-paragraph.unified-format {
       text-align: left !important;
       text-indent: 2em !important;
       margin-bottom: 16px !important;
       line-height: 1.8 !important;
     }
     
-    /* First paragraph should not be indented (it has the chapter number) */
-    .esv-content .context-paragraph.esv-format:first-of-type {
-      text-indent: 0 !important;
-    }
+    /* All paragraphs are indented uniformly (YouVersion style) */
 
-    /* ESV verse numbers - smaller superscript */
-    .esv-format .context-verse-number {
+    /* Unified verse numbers - smaller superscript */
+    .unified-format .context-verse-number {
       font-size: 0.65em !important;
       vertical-align: super !important;
       font-weight: 400 !important;
@@ -1924,39 +1921,39 @@ export const getShadowDomStyles = (): string => {
       opacity: 0.8 !important;
     }
     
-    /* First verse in ESV format - hide the "1" since it's part of chapter number */
-    .esv-format .context-paragraph:first-of-type .context-verse-number:first-child {
+    /* First verse in unified format - hide the "1" since it's part of chapter number */
+    .unified-format .context-paragraph:first-of-type .context-verse-number:first-child {
       display: none !important;
     }
 
-    /* Remove ESV format from KJV-style verses */
-    .context-paragraph.kjv-verse.esv-format {
+    /* Remove unified format from KJV-style verses */
+    .context-paragraph.kjv-verse.unified-format {
       text-align: left !important;
     }
 
-    /* Mobile adjustments for ESV */
+    /* Mobile adjustments for unified format */
     @media (max-width: 768px) {
-      .esv-heading {
+      .unified-heading {
         font-size: 18px !important;
       }
       
-      .context-paragraph.esv-format {
+      .context-paragraph.unified-format {
         text-indent: 1.5em !important;
       }
     }
 
     @media (max-width: 480px) {
-      .esv-heading {
+      .unified-heading {
         font-size: 16px !important;
       }
       
-      .context-paragraph.esv-format {
+      .context-paragraph.unified-format {
         text-indent: 1.2em !important;
       }
     }
 
-    /* ESV/NLT shared heading styles */
-    .esv-content .esv-heading {
+    /* Unified heading styles */
+    .unified-content .unified-heading {
       display: block !important;
       clear: both !important;
     }
@@ -2032,7 +2029,7 @@ export const getShadowDomStyles = (): string => {
       opacity: 0.9 !important;
     }
 
-    /* Poetry verse numbers should match ESV prose style for consistency */
+    /* Poetry verse numbers should match unified prose style for consistency */
     .verse-with-poetry .context-verse-number {
       font-size: 0.65em !important;
       font-weight: 400 !important;
@@ -2087,14 +2084,47 @@ export const getShadowDomStyles = (): string => {
       text-align: left !important;
     }
 
-    /* Poetry verse numbers should match ESV prose style for consistency */
+    /* Poetry verse numbers should match unified prose style for consistency */
     .poetry-block .context-verse-number {
       font-size: 0.65em !important;
       font-weight: 400 !important;
       opacity: 0.8 !important;
       margin-right: 3px !important;
     }
-    
+
+    /* Multi-paragraph prose verses (e.g., James 1:1 NLT with 3 paragraphs) */
+    .verse-with-prose-lines {
+      display: block !important;
+      margin-bottom: 0.5rem !important;
+      text-align: left !important;
+      font-size: 18px !important;
+    }
+
+    .verse-with-prose-lines .prose-line {
+      display: block !important;
+      line-height: 1.6 !important;
+      margin-bottom: 0.3em !important;
+    }
+
+    .verse-with-prose-lines .prose-line.continuation-line {
+      text-indent: 1.5em !important;
+    }
+
+    .verse-with-prose-lines .prose-line:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .verse-with-prose-lines .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
+    }
+
+    .prose-line-text {
+      display: inline !important;
+    }
+
     /* Section headings within Psalms */
     .psalm-section-heading {
       font-weight: 600 !important;
@@ -2167,7 +2197,7 @@ export const getShadowDomStyles = (): string => {
     }
     
     /* When verse has lines, don't use paragraph grouping */
-    .esv-first-paragraph .verse-with-lines,
+    .unified-first-paragraph .verse-with-lines,
     .context-paragraph .verse-with-lines {
       display: block !important;
       margin-bottom: 1rem !important;

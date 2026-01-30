@@ -66865,17 +66865,18 @@ const renderUnifiedVerses = ({ chapterContent, startVerse, endVerse }) => {
     // Determine rendering style based on translation
     // All known translations now use rich formatting with poetry lines and stanza breaks
     const useRichFormatting = ['ESV', 'NLT', 'KJV', 'ASV', 'WEB'].includes(translation);
-    // For all supported translations, use ESV-style rendering with paragraph grouping
+    // For all supported translations, use unified rendering with paragraph grouping
     if (useRichFormatting) {
-        return renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
+        return renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
     }
     // Fallback for unknown translations - basic paragraph grouping
     return renderStandardStyle(verses, startVerse, endVerse, psalmMetadata);
 };
 /**
- * Render ESV/NLT style with floating chapter number and grouped paragraphs
+ * Render unified style with floating chapter number and grouped paragraphs
+ * Used by all translations (ESV, NLT, KJV, ASV, WEB)
  */
-function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata) {
+function renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata) {
     const content = [];
     // Add Psalm superscription if present
     if (psalmMetadata?.superscription) {
@@ -66898,12 +66899,13 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
             if (currentParagraph.length > 0) {
                 finishParagraph();
             }
-            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "esv-heading", children: verse.heading }, `heading-${verse.headingId || index}`));
+            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "unified-heading", children: verse.heading }, `heading-${verse.headingId || index}`));
             lastHeading = verse.heading;
         }
-        // Determine if this verse is block-level (poetry) - needed for verse number logic
-        // Block-level elements include: poetry, multi-line verses, and verses with speaker labels
+        // Determine if this verse is block-level (poetry, prose lines, etc.) - needed for verse number logic
+        // Block-level elements include: poetry, multi-line verses, multi-paragraph prose, and verses with speaker labels
         const isBlockLevel = Boolean((verse.poetryLines && verse.poetryLines.length > 0) ||
+            (verse.proseLines && verse.proseLines.length > 1) ||
             (verse.lines && verse.lines.length > 0) ||
             (verse.speakerLabels && verse.speakerLabels.length > 0));
         // Always show verse number (including verse 1)
@@ -66948,6 +66950,10 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
             // Legacy format: verse.lines is string[] (for ESV compatibility)
             verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `verse-with-lines ${verseClasses}`, children: verse.lines.map((line, lineIndex) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-line-wrapper", children: [lineIndex === 0 && shouldShowVerseNumber && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: `verse-line ${lineIndex === 1 ? 'continuation-line' : ''}`, children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: line })) : (line), verse.lines && lineIndex === verse.lines.length - 1 && verse.isSelah && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }))] })] }, `${verse.number}-line-${lineIndex}`))) }, `verse-${verse.number}`));
         }
+        else if (verse.proseLines && verse.proseLines.length > 1) {
+            // Multi-paragraph prose format (e.g., James 1:1 NLT has 3 separate paragraphs)
+            verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `verse-with-prose-lines ${isHighlighted ? 'highlighted-verse' : ''}`, children: verse.proseLines.map((line, idx) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: `prose-line ${idx > 0 ? 'continuation-line' : ''}`, children: [idx === 0 && shouldShowVerseNumber && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "prose-line-text", children: line.isRedLetter ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: line.text }) : line.text })] }, `${verse.number}-prose-${idx}`))) }, `verse-${verse.number}`));
+        }
         else {
             // Regular verse rendering (prose, no line breaks)
             const spaceBeforeClass = verse.hasSpaceBefore ? 'verse-space-before' : '';
@@ -66968,7 +66974,7 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
             }
             // Handle first verse being poetry
             if (isFirstParagraph) {
-                content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-paragraph esv-format poetry-block", children: verseElement }, `poetry-block-${paragraphKey++}`));
+                content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "context-paragraph unified-format poetry-block", children: verseElement }, `poetry-block-${paragraphKey++}`));
                 isFirstParagraph = false;
             }
             else {
@@ -67004,11 +67010,11 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
             return;
         const paragraphClasses = [
             'context-paragraph',
-            'esv-format',
+            'unified-format',
             hasStanzaBreak ? 'stanza-break' : ''
         ].filter(Boolean).join(' ');
         if (isFirstParagraph) {
-            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: `${paragraphClasses} esv-first-paragraph`, children: currentParagraph }, `para-${paragraphKey++}`));
+            content.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: `${paragraphClasses} unified-first-paragraph`, children: currentParagraph }, `para-${paragraphKey++}`));
             isFirstParagraph = false;
         }
         else {
@@ -67017,7 +67023,7 @@ function renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation
         currentParagraph = [];
     }
     return [
-        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "esv-content", children: content }, `${translation.toLowerCase()}-chapter`)
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "unified-content", children: content }, `${translation.toLowerCase()}-chapter`)
     ];
 }
 /**
@@ -67037,7 +67043,7 @@ function renderKJVStyle(verses, startVerse, endVerse, psalmMetadata) {
         // Handle section headings
         const elements = [];
         if (verse.heading) {
-            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "esv-heading", children: verse.heading }, `heading-${verse.number}`));
+            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "unified-heading", children: verse.heading }, `heading-${verse.number}`));
         }
         // Apply poetry indentation and other Psalm-specific classes
         const verseClasses = [
@@ -67079,7 +67085,7 @@ function renderStandardStyle(verses, startVerse, endVerse, psalmMetadata) {
                 paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, `para-${paragraphKey++}`));
                 currentParagraph = [];
             }
-            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "esv-heading", children: verse.heading }, `heading-${verse.number}`));
+            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "unified-heading", children: verse.heading }, `heading-${verse.number}`));
         }
         // Apply poetry indentation and other Psalm-specific classes
         const verseClasses = [
@@ -68977,6 +68983,7 @@ class NLTHTMLParser {
             startsParagraph: verse.startsParagraph,
             proseBefore: verse.proseBefore,
             proseAfter: verse.proseAfter,
+            proseLines: verse.proseLines,
         }));
         return {
             reference,
@@ -69216,6 +69223,42 @@ class NLTHTMLParser {
         stanzaBreakBefore = hasSpaceBefore;
         // Get the final clean text
         const plainText = this.getCleanText(el);
+        // Extract multi-paragraph prose for non-poetry verses (e.g., James 1:1 has 3 paragraphs)
+        // This handles epistle greetings and similar multi-paragraph prose content
+        // NOTE: We must verify that proseLines captures ALL content - if not, fallback to verse.text
+        let proseLines;
+        if (poetryLines.length === 0) {
+            // Only extract for non-poetry verses
+            const proseParagraphs = el.querySelectorAll('p.body, p.body-hd, p.body-ch-hd, p.body-sp, p.body-fl');
+            if (proseParagraphs.length > 1) {
+                const tempProseLines = [];
+                let proseLinesWordCount = 0;
+                proseParagraphs.forEach(p => {
+                    const clone = p.cloneNode(true);
+                    // Remove verse numbers and footnotes from the clone
+                    clone.querySelectorAll('span.vn, a.a-tn, span.tn').forEach(n => n.remove());
+                    const text = this.getCleanText(clone);
+                    const lineIsRedLetter = p.querySelector('span.red, span.red-sc') !== null;
+                    if (text) {
+                        tempProseLines.push({
+                            text,
+                            isRedLetter: lineIsRedLetter || undefined
+                        });
+                        // Count words (simple split on spaces after normalizing)
+                        proseLinesWordCount += text.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 2).length;
+                    }
+                });
+                // Only use proseLines if we have more than 1 line and it captures most of the content
+                // This prevents using proseLines for dialogue verses where some text may be outside <p> tags
+                if (tempProseLines.length > 1) {
+                    const fullTextWordCount = plainText.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 2).length;
+                    // If proseLines captures at least 90% of the words, use it
+                    if (fullTextWordCount > 0 && (proseLinesWordCount / fullTextWordCount) >= 0.9) {
+                        proseLines = tempProseLines;
+                    }
+                }
+            }
+        }
         return {
             verseNumber,
             text: plainText,
@@ -69233,7 +69276,8 @@ class NLTHTMLParser {
             rawHtml,
             startsParagraph: startsParagraph || undefined,
             proseBefore: proseBefore || undefined,
-            proseAfter: proseAfter || undefined
+            proseAfter: proseAfter || undefined,
+            proseLines: proseLines
         };
     }
     /**
@@ -69850,6 +69894,9 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
         let currentSpeakerLabel;
         // Track paragraph context for stanza breaks and paragraph boundaries
         let previousParagraphStyle;
+        // Track content paragraph index for prose paragraph breaks
+        // This counts only content paragraphs (not headings, speaker labels, blank lines)
+        let contentParagraphIndex = 0;
         // Extract verses from content array - handle the actual API structure
         if (apiResponse.content && Array.isArray(apiResponse.content)) {
             apiResponse.content.forEach((paragraph) => {
@@ -69886,10 +69933,9 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                     previousParagraphStyle = paraStyle;
                     return;
                 }
-                // Detect paragraph boundary - style changed from previous content paragraph
-                const isNewParagraph = previousParagraphStyle !== undefined &&
-                    previousParagraphStyle !== paraStyle &&
-                    !['s1', 's2', 's3', 'sp', 'b', 'd'].includes(previousParagraphStyle);
+                // Track if this is a new content paragraph (for prose paragraph breaks)
+                // First verse of every content paragraph after the first gets startsParagraph: true
+                const isNewContentParagraph = contentParagraphIndex > 0;
                 // Check if this is a poetry paragraph
                 const isPoetry = this.isPoetryStyle(paraStyle);
                 // Each paragraph has items that contain verse tags and text
@@ -69910,8 +69956,8 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                                     footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                                     heading: currentHeading,
                                     speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
-                                    // NEW: Paragraph boundary tracking
-                                    startsParagraph: isFirstVerseInParagraph && isNewParagraph
+                                    // Paragraph boundary tracking - first verse of every content paragraph after the first
+                                    startsParagraph: isFirstVerseInParagraph && isNewContentParagraph
                                 };
                                 // Clear heading/speaker after assigning to first verse
                                 currentHeading = undefined;
@@ -69969,8 +70015,8 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                             footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                             heading: currentHeading,
                             speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
-                            // NEW: Paragraph boundary tracking
-                            startsParagraph: isFirstVerseInParagraph && isNewParagraph
+                            // Paragraph boundary tracking - first verse of every content paragraph after the first
+                            startsParagraph: isFirstVerseInParagraph && isNewContentParagraph
                         };
                         // Clear heading/speaker after assigning
                         currentHeading = undefined;
@@ -69987,6 +70033,8 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
                         }
                         verses.push(this.createVerse(currentVerseNumber, currentVerseText.trim(), verseOptions));
                     }
+                    // Increment content paragraph index after processing this paragraph
+                    contentParagraphIndex++;
                 }
                 // Update previous paragraph style for next iteration
                 previousParagraphStyle = paraStyle;
@@ -73763,11 +73811,13 @@ const getShadowDomStyles = () => {
       text-indent: 0 !important;
     }
     
+    /* KJV verse numbers use same light style as unified format */
     .context-paragraph.kjv-verse .context-verse-number {
-      font-weight: bold !important;
-      font-size: inherit !important;
-      vertical-align: baseline !important;
-      margin-right: 8px !important;
+      font-size: 0.65em !important;
+      vertical-align: super !important;
+      font-weight: 400 !important;
+      margin-right: 3px !important;
+      opacity: 0.8 !important;
     }
 
     /* Poetry formatting styles */
@@ -73856,7 +73906,7 @@ const getShadowDomStyles = () => {
       color: white !important;
     }
 
-    /* Highlighted verse for poetry lines (ESV) */
+    /* Highlighted verse for poetry lines */
     .highlighted-verse .verse-line {
       background-color: rgba(255, 255, 255, 0.15) !important;
       padding: 2px 4px !important;
@@ -73951,21 +74001,19 @@ const getShadowDomStyles = () => {
       transform: translateX(-2px) !important;
     }
 
-    /* ESV-specific formatting */
-    .esv-content {
+    /* Unified verse formatting (used by all translations) */
+    .unified-content {
       display: block !important;
       text-align: left !important;
     }
     
-    /* First paragraph in ESV needs special handling */
-    .esv-first-paragraph {
-      /* Text will wrap around the floated chapter number */
-      text-indent: 0 !important; /* No indent for first paragraph with chapter number */
+    /* First paragraph in unified format */
+    .unified-first-paragraph {
       display: block !important;
     }
 
-    /* ESV section headings */
-    .esv-heading {
+    /* Unified section headings */
+    .unified-heading {
       font-style: italic !important;
       font-size: 20px !important;
       color: rgba(255, 255, 255, 0.8) !important;
@@ -73976,25 +74024,22 @@ const getShadowDomStyles = () => {
       text-align: left !important; /* Left align headings */
     }
 
-    .esv-heading:first-child {
+    .unified-heading:first-child {
       margin-top: 0 !important;
     }
 
-    /* ESV paragraph formatting */
-    .context-paragraph.esv-format {
+    /* Unified paragraph formatting */
+    .context-paragraph.unified-format {
       text-align: left !important;
       text-indent: 2em !important;
       margin-bottom: 16px !important;
       line-height: 1.8 !important;
     }
     
-    /* First paragraph should not be indented (it has the chapter number) */
-    .esv-content .context-paragraph.esv-format:first-of-type {
-      text-indent: 0 !important;
-    }
+    /* All paragraphs are indented uniformly (YouVersion style) */
 
-    /* ESV verse numbers - smaller superscript */
-    .esv-format .context-verse-number {
+    /* Unified verse numbers - smaller superscript */
+    .unified-format .context-verse-number {
       font-size: 0.65em !important;
       vertical-align: super !important;
       font-weight: 400 !important;
@@ -74002,39 +74047,39 @@ const getShadowDomStyles = () => {
       opacity: 0.8 !important;
     }
     
-    /* First verse in ESV format - hide the "1" since it's part of chapter number */
-    .esv-format .context-paragraph:first-of-type .context-verse-number:first-child {
+    /* First verse in unified format - hide the "1" since it's part of chapter number */
+    .unified-format .context-paragraph:first-of-type .context-verse-number:first-child {
       display: none !important;
     }
 
-    /* Remove ESV format from KJV-style verses */
-    .context-paragraph.kjv-verse.esv-format {
+    /* Remove unified format from KJV-style verses */
+    .context-paragraph.kjv-verse.unified-format {
       text-align: left !important;
     }
 
-    /* Mobile adjustments for ESV */
+    /* Mobile adjustments for unified format */
     @media (max-width: 768px) {
-      .esv-heading {
+      .unified-heading {
         font-size: 18px !important;
       }
       
-      .context-paragraph.esv-format {
+      .context-paragraph.unified-format {
         text-indent: 1.5em !important;
       }
     }
 
     @media (max-width: 480px) {
-      .esv-heading {
+      .unified-heading {
         font-size: 16px !important;
       }
       
-      .context-paragraph.esv-format {
+      .context-paragraph.unified-format {
         text-indent: 1.2em !important;
       }
     }
 
-    /* ESV/NLT shared heading styles */
-    .esv-content .esv-heading {
+    /* Unified heading styles */
+    .unified-content .unified-heading {
       display: block !important;
       clear: both !important;
     }
@@ -74110,7 +74155,7 @@ const getShadowDomStyles = () => {
       opacity: 0.9 !important;
     }
 
-    /* Poetry verse numbers should match ESV prose style for consistency */
+    /* Poetry verse numbers should match unified prose style for consistency */
     .verse-with-poetry .context-verse-number {
       font-size: 0.65em !important;
       font-weight: 400 !important;
@@ -74165,14 +74210,47 @@ const getShadowDomStyles = () => {
       text-align: left !important;
     }
 
-    /* Poetry verse numbers should match ESV prose style for consistency */
+    /* Poetry verse numbers should match unified prose style for consistency */
     .poetry-block .context-verse-number {
       font-size: 0.65em !important;
       font-weight: 400 !important;
       opacity: 0.8 !important;
       margin-right: 3px !important;
     }
-    
+
+    /* Multi-paragraph prose verses (e.g., James 1:1 NLT with 3 paragraphs) */
+    .verse-with-prose-lines {
+      display: block !important;
+      margin-bottom: 0.5rem !important;
+      text-align: left !important;
+      font-size: 18px !important;
+    }
+
+    .verse-with-prose-lines .prose-line {
+      display: block !important;
+      line-height: 1.6 !important;
+      margin-bottom: 0.3em !important;
+    }
+
+    .verse-with-prose-lines .prose-line.continuation-line {
+      text-indent: 1.5em !important;
+    }
+
+    .verse-with-prose-lines .prose-line:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .verse-with-prose-lines .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
+    }
+
+    .prose-line-text {
+      display: inline !important;
+    }
+
     /* Section headings within Psalms */
     .psalm-section-heading {
       font-weight: 600 !important;
@@ -74245,7 +74323,7 @@ const getShadowDomStyles = () => {
     }
     
     /* When verse has lines, don't use paragraph grouping */
-    .esv-first-paragraph .verse-with-lines,
+    .unified-first-paragraph .verse-with-lines,
     .context-paragraph .verse-with-lines {
       display: block !important;
       margin-bottom: 1rem !important;

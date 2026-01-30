@@ -23,6 +23,7 @@ import {
   UnifiedVerse,
   Footnote,
   PoetryLine,
+  ProseLine,
   PsalmMetadata,
   BibleTable,
   BibleTableRow,
@@ -49,6 +50,8 @@ export interface ParsedVerse {
   proseBefore?: string;
   /** Prose text that appears after poetry in the same verse (e.g., "(For the choir director...)") */
   proseAfter?: string;
+  /** Multi-paragraph prose lines for verses with multiple paragraphs (e.g., James 1:1 NLT) */
+  proseLines?: ProseLine[];
 }
 
 /**
@@ -160,6 +163,7 @@ export class NLTHTMLParser {
       startsParagraph: verse.startsParagraph,
       proseBefore: verse.proseBefore,
       proseAfter: verse.proseAfter,
+      proseLines: verse.proseLines,
     }));
 
     return {
@@ -434,6 +438,46 @@ export class NLTHTMLParser {
     // Get the final clean text
     const plainText = this.getCleanText(el);
 
+    // Extract multi-paragraph prose for non-poetry verses (e.g., James 1:1 has 3 paragraphs)
+    // This handles epistle greetings and similar multi-paragraph prose content
+    // NOTE: We must verify that proseLines captures ALL content - if not, fallback to verse.text
+    let proseLines: ProseLine[] | undefined;
+    if (poetryLines.length === 0) {
+      // Only extract for non-poetry verses
+      const proseParagraphs = el.querySelectorAll('p.body, p.body-hd, p.body-ch-hd, p.body-sp, p.body-fl');
+
+      if (proseParagraphs.length > 1) {
+        const tempProseLines: ProseLine[] = [];
+        let proseLinesWordCount = 0;
+
+        proseParagraphs.forEach(p => {
+          const clone = p.cloneNode(true) as HTMLElement;
+          // Remove verse numbers and footnotes from the clone
+          clone.querySelectorAll('span.vn, a.a-tn, span.tn').forEach(n => n.remove());
+          const text = this.getCleanText(clone);
+          const lineIsRedLetter = p.querySelector('span.red, span.red-sc') !== null;
+          if (text) {
+            tempProseLines.push({
+              text,
+              isRedLetter: lineIsRedLetter || undefined
+            });
+            // Count words (simple split on spaces after normalizing)
+            proseLinesWordCount += text.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 2).length;
+          }
+        });
+
+        // Only use proseLines if we have more than 1 line and it captures most of the content
+        // This prevents using proseLines for dialogue verses where some text may be outside <p> tags
+        if (tempProseLines.length > 1) {
+          const fullTextWordCount = plainText.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 2).length;
+          // If proseLines captures at least 90% of the words, use it
+          if (fullTextWordCount > 0 && (proseLinesWordCount / fullTextWordCount) >= 0.9) {
+            proseLines = tempProseLines;
+          }
+        }
+      }
+    }
+
     return {
       verseNumber,
       text: plainText,
@@ -451,7 +495,8 @@ export class NLTHTMLParser {
       rawHtml,
       startsParagraph: startsParagraph || undefined,
       proseBefore: proseBefore || undefined,
-      proseAfter: proseAfter || undefined
+      proseAfter: proseAfter || undefined,
+      proseLines: proseLines
     };
   }
 

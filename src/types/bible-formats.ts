@@ -54,6 +54,17 @@ export interface PoetryLine {
 }
 
 /**
+ * Represents a single prose paragraph line for multi-paragraph verses
+ * (e.g., James 1:1 NLT has 3 separate paragraphs in one verse)
+ */
+export interface ProseLine {
+  /** The text content of the prose paragraph */
+  text: string;
+  /** Whether this line contains words of Jesus */
+  isRedLetter?: boolean;
+}
+
+/**
  * Speaker label with position for Song of Solomon dialogues
  * Stores which poetry line index the speaker appears before
  */
@@ -134,6 +145,9 @@ export interface UnifiedVerse {
 
   /** Prose text that appears after poetry in the same verse (e.g., "(For the choir director...)") */
   proseAfter?: string;
+
+  /** Multi-paragraph prose lines for verses with multiple separate paragraphs (e.g., James 1:1 NLT) */
+  proseLines?: ProseLine[];
 }
 
 /**

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine, SpeakerLabel } from '../../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine, ProseLine, SpeakerLabel } from '../../../types/bible-formats';
 
 /**
  * Render poetry lines with proper indentation and spacing
@@ -108,9 +108,9 @@ export const renderUnifiedVerses = ({
   // All known translations now use rich formatting with poetry lines and stanza breaks
   const useRichFormatting = ['ESV', 'NLT', 'KJV', 'ASV', 'WEB'].includes(translation);
 
-  // For all supported translations, use ESV-style rendering with paragraph grouping
+  // For all supported translations, use unified rendering with paragraph grouping
   if (useRichFormatting) {
-    return renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
+    return renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
   }
 
   // Fallback for unknown translations - basic paragraph grouping
@@ -118,9 +118,10 @@ export const renderUnifiedVerses = ({
 };
 
 /**
- * Render ESV/NLT style with floating chapter number and grouped paragraphs
+ * Render unified style with floating chapter number and grouped paragraphs
+ * Used by all translations (ESV, NLT, KJV, ASV, WEB)
  */
-function renderESVStyle(
+function renderUnifiedStyle(
   verses: UnifiedVerse[],
   chapterNumber: string,
   startVerse: number | null,
@@ -161,17 +162,18 @@ function renderESVStyle(
       }
       
       content.push(
-        <h3 key={`heading-${verse.headingId || index}`} className="esv-heading">
+        <h3 key={`heading-${verse.headingId || index}`} className="unified-heading">
           {verse.heading}
         </h3>
       );
       lastHeading = verse.heading;
     }
     
-    // Determine if this verse is block-level (poetry) - needed for verse number logic
-    // Block-level elements include: poetry, multi-line verses, and verses with speaker labels
+    // Determine if this verse is block-level (poetry, prose lines, etc.) - needed for verse number logic
+    // Block-level elements include: poetry, multi-line verses, multi-paragraph prose, and verses with speaker labels
     const isBlockLevel = Boolean(
       (verse.poetryLines && verse.poetryLines.length > 0) ||
+      (verse.proseLines && verse.proseLines.length > 1) ||
       (verse.lines && verse.lines.length > 0) ||
       (verse.speakerLabels && verse.speakerLabels.length > 0)
     );
@@ -288,6 +290,22 @@ function renderESVStyle(
           ))}
         </div>
       );
+    } else if (verse.proseLines && verse.proseLines.length > 1) {
+      // Multi-paragraph prose format (e.g., James 1:1 NLT has 3 separate paragraphs)
+      verseElement = (
+        <div key={`verse-${verse.number}`} className={`verse-with-prose-lines ${isHighlighted ? 'highlighted-verse' : ''}`}>
+          {verse.proseLines.map((line, idx) => (
+            <div key={`${verse.number}-prose-${idx}`} className={`prose-line ${idx > 0 ? 'continuation-line' : ''}`}>
+              {idx === 0 && shouldShowVerseNumber && (
+                <sup className="context-verse-number">{verse.number}</sup>
+              )}
+              <span className="prose-line-text">
+                {line.isRedLetter ? <span className="words-of-jesus">{line.text}</span> : line.text}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
     } else {
       // Regular verse rendering (prose, no line breaks)
       const spaceBeforeClass = verse.hasSpaceBefore ? 'verse-space-before' : '';
@@ -344,7 +362,7 @@ function renderESVStyle(
       // Handle first verse being poetry
       if (isFirstParagraph) {
         content.push(
-          <div key={`poetry-block-${paragraphKey++}`} className="context-paragraph esv-format poetry-block">
+          <div key={`poetry-block-${paragraphKey++}`} className="context-paragraph unified-format poetry-block">
             {verseElement}
           </div>
         );
@@ -388,13 +406,13 @@ function renderESVStyle(
     
     const paragraphClasses = [
       'context-paragraph',
-      'esv-format',
+      'unified-format',
       hasStanzaBreak ? 'stanza-break' : ''
     ].filter(Boolean).join(' ');
     
     if (isFirstParagraph) {
       content.push(
-        <p key={`para-${paragraphKey++}`} className={`${paragraphClasses} esv-first-paragraph`}>
+        <p key={`para-${paragraphKey++}`} className={`${paragraphClasses} unified-first-paragraph`}>
           {currentParagraph}
         </p>
       );
@@ -410,7 +428,7 @@ function renderESVStyle(
   }
   
   return [
-    <div key={`${translation.toLowerCase()}-chapter`} className="esv-content">
+    <div key={`${translation.toLowerCase()}-chapter`} className="unified-content">
       {content}
     </div>
   ];
@@ -442,7 +460,7 @@ function renderKJVStyle(verses: UnifiedVerse[], startVerse: number | null, endVe
     const elements: React.JSX.Element[] = [];
     if (verse.heading) {
       elements.push(
-        <h3 key={`heading-${verse.number}`} className="esv-heading">
+        <h3 key={`heading-${verse.number}`} className="unified-heading">
           {verse.heading}
         </h3>
       );
@@ -519,7 +537,7 @@ function renderStandardStyle(verses: UnifiedVerse[], startVerse: number | null, 
       }
       
       paragraphs.push(
-        <h3 key={`heading-${verse.number}`} className="esv-heading">
+        <h3 key={`heading-${verse.number}`} className="unified-heading">
           {verse.heading}
         </h3>
       );
