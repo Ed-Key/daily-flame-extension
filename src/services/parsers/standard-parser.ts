@@ -217,6 +217,10 @@ export class StandardBibleParser extends BaseBibleParser {
     // Track paragraph context for stanza breaks and paragraph boundaries
     let previousParagraphStyle: string | undefined;
 
+    // Track content paragraph index for prose paragraph breaks
+    // This counts only content paragraphs (not headings, speaker labels, blank lines)
+    let contentParagraphIndex = 0;
+
     // Extract verses from content array - handle the actual API structure
     if (apiResponse.content && Array.isArray(apiResponse.content)) {
       apiResponse.content.forEach((paragraph: any) => {
@@ -258,10 +262,9 @@ export class StandardBibleParser extends BaseBibleParser {
           return;
         }
 
-        // Detect paragraph boundary - style changed from previous content paragraph
-        const isNewParagraph = previousParagraphStyle !== undefined &&
-          previousParagraphStyle !== paraStyle &&
-          !['s1', 's2', 's3', 'sp', 'b', 'd'].includes(previousParagraphStyle);
+        // Track if this is a new content paragraph (for prose paragraph breaks)
+        // First verse of every content paragraph after the first gets startsParagraph: true
+        const isNewContentParagraph = contentParagraphIndex > 0;
 
         // Check if this is a poetry paragraph
         const isPoetry = this.isPoetryStyle(paraStyle);
@@ -285,8 +288,8 @@ export class StandardBibleParser extends BaseBibleParser {
                   footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
                   heading: currentHeading,
                   speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
-                  // NEW: Paragraph boundary tracking
-                  startsParagraph: isFirstVerseInParagraph && isNewParagraph
+                  // Paragraph boundary tracking - first verse of every content paragraph after the first
+                  startsParagraph: isFirstVerseInParagraph && isNewContentParagraph
                 };
 
                 // Clear heading/speaker after assigning to first verse
@@ -358,8 +361,8 @@ export class StandardBibleParser extends BaseBibleParser {
               footnotes: currentVerseFootnotes.length > 0 ? currentVerseFootnotes : undefined,
               heading: currentHeading,
               speakerLabels: currentSpeakerLabel ? [{ text: currentSpeakerLabel, beforeLineIndex: 0 }] : undefined,
-              // NEW: Paragraph boundary tracking
-              startsParagraph: isFirstVerseInParagraph && isNewParagraph
+              // Paragraph boundary tracking - first verse of every content paragraph after the first
+              startsParagraph: isFirstVerseInParagraph && isNewContentParagraph
             };
 
             // Clear heading/speaker after assigning
@@ -388,6 +391,9 @@ export class StandardBibleParser extends BaseBibleParser {
               verseOptions
             ));
           }
+
+          // Increment content paragraph index after processing this paragraph
+          contentParagraphIndex++;
         }
 
         // Update previous paragraph style for next iteration

@@ -570,7 +570,7 @@ export const renderContextVerses = ({
         const headingText = section.items?.[0]?.text || '';
         if (headingText) {
           esvContent.push(
-            <h3 key={`heading-${sectionIndex}`} className="esv-heading">
+            <h3 key={`heading-${sectionIndex}`} className="unified-heading">
               {headingText}
             </h3>
           );
@@ -644,7 +644,7 @@ export const renderContextVerses = ({
             esvContent.push(
               <div key={`para-with-chapter-${sectionIndex}`} className="esv-chapter-container">
                 <div className="esv-chapter-number">{chapterContent.chapterNumber}</div>
-                <p className="context-paragraph esv-format esv-first-paragraph">
+                <p className="context-paragraph unified-format unified-first-paragraph">
                   {paragraphElements}
                 </p>
               </div>
@@ -653,7 +653,7 @@ export const renderContextVerses = ({
             isFirstParagraph = false;
           } else {
             esvContent.push(
-              <p key={`para-${sectionIndex}`} className="context-paragraph esv-format">
+              <p key={`para-${sectionIndex}`} className="context-paragraph unified-format">
                 {paragraphElements}
               </p>
             );
@@ -664,7 +664,7 @@ export const renderContextVerses = ({
     
     // Return the content without wrapping in additional containers
     return [
-      <div key="esv-chapter" className="esv-content">
+      <div key="esv-chapter" className="unified-content">
         {esvContent}
       </div>
     ];
@@ -700,9 +700,9 @@ export const renderContextVerses = ({
                 <div className="esv-chapter-number">{parsedContent.chapterNumber}</div>
                 <div className="nlt-first-verse-content">
                   {verse.heading && (
-                    <h3 className="esv-heading">{verse.heading}</h3>
+                    <h3 className="unified-heading">{verse.heading}</h3>
                   )}
-                  <p className="context-paragraph esv-format esv-first-paragraph">
+                  <p className="context-paragraph unified-format unified-first-paragraph">
                     <span className={isHighlighted ? 'highlighted-verse' : ''}>
                       {/* Don't show verse number 1 for first verse as chapter number is already shown */}
                       {renderNLTVerseContent(verse.content)}
@@ -715,7 +715,7 @@ export const renderContextVerses = ({
             // Add heading if present
             if (verse.heading) {
               nltContent.push(
-                <h3 key={`heading-${index}`} className="esv-heading">
+                <h3 key={`heading-${index}`} className="unified-heading">
                   {verse.heading}
                 </h3>
               );
@@ -736,7 +736,7 @@ export const renderContextVerses = ({
         });
         
         return [
-          <div key="nlt-chapter" className="esv-content">
+          <div key="nlt-chapter" className="unified-content">
             {nltContent}
           </div>
         ];
@@ -752,7 +752,7 @@ export const renderContextVerses = ({
       const headingText = section.items?.[0]?.text || '';
       if (headingText) {
         paragraphs.push(
-          <h3 key={`heading-${paragraphs.length}`} className="esv-heading">
+          <h3 key={`heading-${paragraphs.length}`} className="unified-heading">
             {headingText}
           </h3>
         );
