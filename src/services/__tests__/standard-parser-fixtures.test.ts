@@ -400,6 +400,54 @@ describe('StandardBibleParser', () => {
         }
       });
     });
+
+    describe('Prose Paragraph Breaks', () => {
+      it('should set startsParagraph for first verse of each prose paragraph after the first', () => {
+        // James 1 has 3 paragraphs, all with style 'p' (prose):
+        // - Paragraph 0: verse 1
+        // - Paragraph 1: verses 2-18
+        // - Paragraph 2: verses 19-27
+        const fixture = getChapter(kjvFixtures, 'James', 1);
+        if (!fixture) {
+          console.warn('Skipping - fixture not found');
+          return;
+        }
+
+        const result = parser.parse(fixture.content);
+        const versesWithStartsParagraph = result.verses.filter(v => v.startsParagraph);
+
+        console.log(`James 1 - Verses with startsParagraph: ${versesWithStartsParagraph.map(v => v.number).join(', ')}`);
+
+        // Verses 2 and 19 should have startsParagraph=true (first verse of paragraphs 2 and 3)
+        expect(versesWithStartsParagraph.length).toBe(2);
+        expect(versesWithStartsParagraph.map(v => v.number)).toContain('2');
+        expect(versesWithStartsParagraph.map(v => v.number)).toContain('19');
+
+        // Verse 1 should NOT have startsParagraph (it's in the first paragraph)
+        const verse1 = result.verses.find(v => v.number === '1');
+        expect(verse1?.startsParagraph).toBeFalsy();
+      });
+
+      it('should set startsParagraph for Romans 1 prose paragraphs', () => {
+        const fixture = getChapter(kjvFixtures, 'Romans', 1);
+        if (!fixture) {
+          console.warn('Skipping - fixture not found');
+          return;
+        }
+
+        const result = parser.parse(fixture.content);
+        const versesWithStartsParagraph = result.verses.filter(v => v.startsParagraph);
+
+        console.log(`Romans 1 - Verses with startsParagraph: ${versesWithStartsParagraph.map(v => v.number).join(', ')}`);
+
+        // Romans 1 has multiple prose paragraphs, so should have startsParagraph markers
+        expect(versesWithStartsParagraph.length).toBeGreaterThan(0);
+
+        // First verse should NOT have startsParagraph
+        const verse1 = result.verses.find(v => v.number === '1');
+        expect(verse1?.startsParagraph).toBeFalsy();
+      });
+    });
   });
 
   describe('ASV Parser', () => {
