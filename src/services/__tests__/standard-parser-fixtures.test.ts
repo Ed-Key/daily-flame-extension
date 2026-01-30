@@ -1,7 +1,7 @@
 /**
  * Standard Bible Parser Tests (KJV, ASV, WEB)
  *
- * Tests the standard parser against fixture data.
+ * Tests the standard parser against full Bible fixture data.
  * Validates extraction of:
  * 1. Red letters (style: "wj") - Words of Jesus
  * 2. Footnotes (note style: "f") - Hebrew/Greek notes
@@ -19,8 +19,8 @@ import { Footnote } from '../../types/bible-formats';
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Fixture types
-interface FixtureEntry {
+// Full Bible fixture types (flat structure by book)
+interface FullBibleChapterEntry {
   reference: string;
   bookName: string;
   chapter: number;
@@ -29,23 +29,31 @@ interface FixtureEntry {
   fetchedAt: string;
 }
 
-interface CategoryFixtures {
-  [key: string]: FixtureEntry;
+interface FullBibleBookChapters {
+  [chapter: string]: FullBibleChapterEntry;
 }
 
-interface TranslationFixtures {
-  [category: string]: CategoryFixtures;
+interface FullBibleFixtures {
+  [bookName: string]: FullBibleBookChapters;
 }
 
-// Load all fixtures
-const fixturesBasePath = path.join(__dirname, 'fixtures', 'standard-api-responses');
+// Load full Bible fixtures (flat structure)
+const fixturesBasePath = path.join(__dirname, 'fixtures');
 
-function loadTranslationFixtures(translation: string): TranslationFixtures | null {
-  const allPath = path.join(fixturesBasePath, `all-${translation.toLowerCase()}-responses.json`);
-  if (fs.existsSync(allPath)) {
-    return JSON.parse(fs.readFileSync(allPath, 'utf-8'));
+function loadFullBibleFixtures(translation: string): FullBibleFixtures | null {
+  const fullPath = path.join(fixturesBasePath, `full-bible-${translation.toLowerCase()}.json`);
+  if (fs.existsSync(fullPath)) {
+    return JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
   }
   return null;
+}
+
+// Helper to get chapter from flat structure
+function getChapter(fixtures: FullBibleFixtures | null, book: string, chapter: number): FullBibleChapterEntry | null {
+  if (!fixtures || !fixtures[book] || !fixtures[book][chapter]) {
+    return null;
+  }
+  return fixtures[book][chapter];
 }
 
 // Helper: Count occurrences of a style in raw fixture content
@@ -106,10 +114,10 @@ function hasStyle(content: any, styleName: string): boolean {
 // Note: extractUniqueStyles helper available for debugging if needed:
 // Traverses content and returns Set of all style names found
 
-// Load fixtures for each translation
-const kjvFixtures = loadTranslationFixtures('kjv');
-const asvFixtures = loadTranslationFixtures('asv');
-const webFixtures = loadTranslationFixtures('web');
+// Load full Bible fixtures for each translation
+const kjvFixtures = loadFullBibleFixtures('kjv');
+const asvFixtures = loadFullBibleFixtures('asv');
+const webFixtures = loadFullBibleFixtures('web');
 
 describe('StandardBibleParser', () => {
   describe('KJV Parser', () => {
@@ -121,12 +129,12 @@ describe('StandardBibleParser', () => {
 
     describe('Basic Parsing', () => {
       it('should parse a simple chapter', () => {
-        if (!kjvFixtures?.pentateuch?.Genesis_1) {
+        const fixture = getChapter(kjvFixtures, 'Genesis', 1);
+        if (!fixture) {
           console.warn('Skipping - KJV Genesis 1 fixture not found');
           return;
         }
 
-        const fixture = kjvFixtures.pentateuch.Genesis_1;
         const result = parser.parse(fixture.content);
 
         expect(result).toBeDefined();
@@ -138,12 +146,12 @@ describe('StandardBibleParser', () => {
       });
 
       it('should extract correct verse count for Genesis 1', () => {
-        if (!kjvFixtures?.pentateuch?.Genesis_1) {
+        const fixture = getChapter(kjvFixtures, 'Genesis', 1);
+        if (!fixture) {
           console.warn('Skipping - fixture not found');
           return;
         }
 
-        const fixture = kjvFixtures.pentateuch.Genesis_1;
         const result = parser.parse(fixture.content);
 
         // Genesis 1 has 31 verses
@@ -153,12 +161,11 @@ describe('StandardBibleParser', () => {
 
     describe('Red Letter Extraction', () => {
       it('should extract red letters from Matthew 5', () => {
-        if (!kjvFixtures?.gospels?.Matthew_5) {
+        const fixture = getChapter(kjvFixtures, 'Matthew', 5);
+        if (!fixture) {
           console.warn('Skipping - KJV Matthew 5 fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.gospels.Matthew_5;
 
         // Count expected red letter tags from raw fixture
         const expectedRedLetterCount = countStyleOccurrences(fixture.content, 'wj');
@@ -177,12 +184,11 @@ describe('StandardBibleParser', () => {
       });
 
       it('should mark correct verses as red letter in John 1', () => {
-        if (!kjvFixtures?.gospels?.John_1) {
+        const fixture = getChapter(kjvFixtures, 'John', 1);
+        if (!fixture) {
           console.warn('Skipping - KJV John 1 fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.gospels.John_1;
         const hasRedLetters = hasStyle(fixture.content, 'wj');
 
         const result = parser.parse(fixture.content);
@@ -204,12 +210,11 @@ describe('StandardBibleParser', () => {
 
     describe('Footnote Extraction', () => {
       it('should extract footnotes from Job 38', () => {
-        if (!kjvFixtures?.poetryWisdom?.Job_38) {
+        const fixture = getChapter(kjvFixtures, 'Job', 38);
+        if (!fixture) {
           console.warn('Skipping - KJV Job 38 fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.poetryWisdom.Job_38;
 
         // Count expected footnotes from raw fixture
         const expectedFootnoteCount = countNotes(fixture.content, 'f');
@@ -232,12 +237,11 @@ describe('StandardBibleParser', () => {
       });
 
       it('should classify footnote types correctly', () => {
-        if (!kjvFixtures?.poetryWisdom?.Job_38) {
+        const fixture = getChapter(kjvFixtures, 'Job', 38);
+        if (!fixture) {
           console.warn('Skipping - fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.poetryWisdom.Job_38;
         const result = parser.parse(fixture.content);
 
         const allFootnotes: Footnote[] = [];
@@ -264,12 +268,11 @@ describe('StandardBibleParser', () => {
 
     describe('Poetry Structure', () => {
       it('should extract poetry indentation from Psalm 23', () => {
-        if (!kjvFixtures?.poetryWisdom?.Psalms_23) {
+        const fixture = getChapter(kjvFixtures, 'Psalm', 23);
+        if (!fixture) {
           console.warn('Skipping - KJV Psalm 23 fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.poetryWisdom.Psalms_23;
 
         // Check for poetry styles in fixture
         const hasQ1 = hasStyle(fixture.content, 'q1');
@@ -288,17 +291,17 @@ describe('StandardBibleParser', () => {
 
       it('should detect Selah markers', () => {
         // Check multiple Psalms for Selah
-        const psalmsToCheck = ['Psalms_23'];
+        const psalmsToCheck = [23, 46, 67];
 
-        for (const psalmKey of psalmsToCheck) {
-          const fixture = kjvFixtures?.poetryWisdom?.[psalmKey];
+        for (const psalmNum of psalmsToCheck) {
+          const fixture = getChapter(kjvFixtures, 'Psalm', psalmNum);
           if (!fixture) continue;
 
           const result = parser.parse(fixture.content);
           const selahVerses = result.verses.filter(v => v.isSelah);
 
           if (selahVerses.length > 0) {
-            console.log(`Found Selah in ${psalmKey}: ${selahVerses.map(v => v.number).join(', ')}`);
+            console.log(`Found Selah in Psalm ${psalmNum}: ${selahVerses.map(v => v.number).join(', ')}`);
           }
         }
       });
@@ -306,12 +309,11 @@ describe('StandardBibleParser', () => {
 
     describe('Section Headings', () => {
       it('should extract section headings', () => {
-        if (!kjvFixtures?.gospels?.Matthew_5) {
+        const fixture = getChapter(kjvFixtures, 'Matthew', 5);
+        if (!fixture) {
           console.warn('Skipping - fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.gospels.Matthew_5;
 
         // Check for heading styles in fixture
         const hasS1 = hasStyle(fixture.content, 's1');
@@ -331,12 +333,11 @@ describe('StandardBibleParser', () => {
 
     describe('Psalm Metadata', () => {
       it('should extract Psalm superscription', () => {
-        if (!kjvFixtures?.poetryWisdom?.Psalms_23) {
+        const fixture = getChapter(kjvFixtures, 'Psalm', 23);
+        if (!fixture) {
           console.warn('Skipping - fixture not found');
           return;
         }
-
-        const fixture = kjvFixtures.poetryWisdom.Psalms_23;
         const result = parser.parse(fixture.content);
 
         expect(result.psalmMetadata).toBeDefined();
@@ -358,12 +359,12 @@ describe('StandardBibleParser', () => {
     });
 
     it('should parse ASV fixtures correctly', () => {
-      if (!asvFixtures?.pentateuch?.Genesis_1) {
+      const fixture = getChapter(asvFixtures, 'Genesis', 1);
+      if (!fixture) {
         console.warn('Skipping - ASV Genesis 1 fixture not found');
         return;
       }
 
-      const fixture = asvFixtures.pentateuch.Genesis_1;
       const result = parser.parse(fixture.content);
 
       expect(result.translation).toBe('ASV');
@@ -371,12 +372,11 @@ describe('StandardBibleParser', () => {
     });
 
     it('should NOT have red letters (ASV does not support red letters)', () => {
-      if (!asvFixtures?.gospels?.Matthew_5) {
+      const fixture = getChapter(asvFixtures, 'Matthew', 5);
+      if (!fixture) {
         console.warn('Skipping - ASV Matthew 5 fixture not found');
         return;
       }
-
-      const fixture = asvFixtures.gospels.Matthew_5;
 
       // ASV should have NO red letter tags
       const redLetterCount = countStyleOccurrences(fixture.content, 'wj');
@@ -397,12 +397,12 @@ describe('StandardBibleParser', () => {
     });
 
     it('should parse WEB fixtures correctly', () => {
-      if (!webFixtures?.pentateuch?.Genesis_1) {
+      const fixture = getChapter(webFixtures, 'Genesis', 1);
+      if (!fixture) {
         console.warn('Skipping - WEB Genesis 1 fixture not found');
         return;
       }
 
-      const fixture = webFixtures.pentateuch.Genesis_1;
       const result = parser.parse(fixture.content);
 
       expect(result.translation).toBe('WEB');
@@ -410,12 +410,11 @@ describe('StandardBibleParser', () => {
     });
 
     it('should extract red letters from WEB Gospels', () => {
-      if (!webFixtures?.gospels?.Matthew_5) {
+      const fixture = getChapter(webFixtures, 'Matthew', 5);
+      if (!fixture) {
         console.warn('Skipping - WEB Matthew 5 fixture not found');
         return;
       }
-
-      const fixture = webFixtures.gospels.Matthew_5;
       const expectedRedLetterCount = countStyleOccurrences(fixture.content, 'wj');
       console.log(`WEB Matthew 5 red letter tags: ${expectedRedLetterCount}`);
 
@@ -428,12 +427,11 @@ describe('StandardBibleParser', () => {
     });
 
     it('should extract cross-references (WEB-specific)', () => {
-      if (!webFixtures?.gospels?.Matthew_5) {
+      const fixture = getChapter(webFixtures, 'Matthew', 5);
+      if (!fixture) {
         console.warn('Skipping - fixture not found');
         return;
       }
-
-      const fixture = webFixtures.gospels.Matthew_5;
 
       // Count cross-reference notes
       const crossRefCount = countNotes(fixture.content, 'x');
@@ -476,8 +474,9 @@ describe('StandardBibleParser', () => {
       let totalRedLetterVerses = 0;
       let totalFootnotes = 0;
 
-      for (const [_categoryName, category] of Object.entries(fixtures)) {
-        for (const [_chapterKey, fixture] of Object.entries(category as CategoryFixtures)) {
+      // Iterate over flat structure: fixtures[bookName][chapter]
+      for (const [_bookName, chapters] of Object.entries(fixtures)) {
+        for (const [_chapterNum, fixture] of Object.entries(chapters as FullBibleBookChapters)) {
           expect(() => {
             const result = parser.parse(fixture.content);
             expect(result.verses.length).toBeGreaterThan(0);
@@ -514,8 +513,9 @@ describe('StandardBibleParser', () => {
       for (const { name, fixtures } of allFixtures) {
         if (!fixtures) continue;
 
-        for (const [_, category] of Object.entries(fixtures)) {
-          for (const [_, fixture] of Object.entries(category as CategoryFixtures)) {
+        // Iterate over flat structure: fixtures[bookName][chapter]
+        for (const [_, chapters] of Object.entries(fixtures)) {
+          for (const [_, fixture] of Object.entries(chapters as FullBibleBookChapters)) {
             summary[name].chapters++;
             summary[name].redLetterTags += countStyleOccurrences(fixture.content, 'wj');
             summary[name].footnotes += countNotes(fixture.content, 'f');
@@ -527,10 +527,10 @@ describe('StandardBibleParser', () => {
       console.log('\n=== Feature Availability Summary ===');
       console.table(summary);
 
-      // Basic assertions
-      expect(summary.KJV.chapters).toBe(66);
-      expect(summary.ASV.chapters).toBe(66);
-      expect(summary.WEB.chapters).toBe(66);
+      // Full Bible: 1,189 chapters
+      expect(summary.KJV.chapters).toBe(1189);
+      expect(summary.ASV.chapters).toBe(1189);
+      expect(summary.WEB.chapters).toBe(1189);
     });
   });
 });
