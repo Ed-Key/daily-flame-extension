@@ -74144,6 +74144,7 @@ const getShadowDomStyles = () => {
       display: block !important;
       margin-bottom: 8px !important;
       line-height: 1.6 !important;
+      color: rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Prose after poetry (e.g., "(For the choir director...)" in Habakkuk 3:19) */
@@ -74192,6 +74193,7 @@ const getShadowDomStyles = () => {
 
     .poetry-line-text {
       display: inline !important;
+      color: rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Stanza break - extra spacing between stanzas */
@@ -74249,6 +74251,7 @@ const getShadowDomStyles = () => {
 
     .prose-line-text {
       display: inline !important;
+      color: rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Section headings within Psalms */
@@ -74359,6 +74362,13 @@ const getShadowDomStyles = () => {
       .verse-line-wrapper .context-verse-number {
         min-width: 1.2em !important;
       }
+    }
+
+    /* Light theme overrides for verse text colors */
+    :host([data-theme="light"]) .verse-prose-intro,
+    :host([data-theme="light"]) .prose-line-text,
+    :host([data-theme="light"]) .poetry-line-text {
+      color: rgba(0, 0, 0, 0.9) !important;
     }
 
 
