@@ -112,7 +112,7 @@ export function verifyFieldRendered(field: ContentField, renderedText: string): 
   const result = verifyAllWordsPresent(field.text, renderedText);
 
   return {
-    found: result.allPresent || result.expectedWords.length === 0,
+    found: result.allPresent && result.expectedWords.length > 0,
     missingWords: result.missingWords
   };
 }
