@@ -1,5 +1,5 @@
 import React from 'react';
-import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine, SpeakerLabel } from '../../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine, ProseLine, SpeakerLabel, MixedContentBlock } from '../../../types/bible-formats';
 
 /**
  * Render poetry lines with proper indentation and spacing
@@ -104,29 +104,16 @@ export const renderUnifiedVerses = ({
 
   const { translation, verses, chapterNumber, psalmMetadata } = chapterContent;
   
-  // Determine rendering style based on translation
-  const useKJVFormatting = translation === 'KJV' || translation === 'ASV';
-  const useESVFormatting = translation === 'ESV';
-  const useNLTFormatting = translation === 'NLT';
-
-  // For ESV and NLT, use special formatting with floating chapter numbers
-  if (useESVFormatting || useNLTFormatting) {
-    return renderESVStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
-  }
-
-  // For KJV/ASV, each verse is its own paragraph
-  if (useKJVFormatting) {
-    return renderKJVStyle(verses, startVerse, endVerse, psalmMetadata);
-  }
-
-  // For other translations, group verses by natural paragraphs
-  return renderStandardStyle(verses, startVerse, endVerse, psalmMetadata);
+  // All translations use unified rendering with paragraph grouping
+  // This handles ESV, NLT, KJV, ASV, WEB, and any future translations
+  return renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
 };
 
 /**
- * Render ESV/NLT style with floating chapter number and grouped paragraphs
+ * Render unified style with floating chapter number and grouped paragraphs
+ * Used by all translations (ESV, NLT, KJV, ASV, WEB)
  */
-function renderESVStyle(
+function renderUnifiedStyle(
   verses: UnifiedVerse[],
   chapterNumber: string,
   startVerse: number | null,
@@ -167,17 +154,20 @@ function renderESVStyle(
       }
       
       content.push(
-        <h3 key={`heading-${verse.headingId || index}`} className="esv-heading">
+        <h3 key={`heading-${verse.headingId || index}`} className="unified-heading">
           {verse.heading}
         </h3>
       );
       lastHeading = verse.heading;
     }
     
-    // Determine if this verse is block-level (poetry) - needed for verse number logic
+    // Determine if this verse is block-level (poetry, prose lines, etc.) - needed for verse number logic
+    // Block-level elements include: poetry, multi-line verses, multi-paragraph prose, and verses with speaker labels
     const isBlockLevel = Boolean(
       (verse.poetryLines && verse.poetryLines.length > 0) ||
-      (verse.lines && verse.lines.length > 0)
+      (verse.proseLines && verse.proseLines.length > 1) ||
+      (verse.lines && verse.lines.length > 0) ||
+      (verse.speakerLabels && verse.speakerLabels.length > 0)
     );
 
     // Always show verse number (including verse 1)
@@ -194,7 +184,47 @@ function renderESVStyle(
     // Create verse element - prioritize new poetryLines structure, fall back to old lines format
     let verseElement: React.JSX.Element;
 
-    if (verse.poetryLines && verse.poetryLines.length > 0) {
+    // Handle mixed prose/poetry content (e.g., Hebrews 1:5 with prose between quotes)
+    if (verse.mixedContent && verse.mixedContent.length > 0) {
+      verseElement = (
+        <div
+          key={`verse-${verse.number}`}
+          className={`verse-with-mixed-content ${isHighlighted ? 'highlighted-verse' : ''}`}
+        >
+          {/* Render prose introduction if exists (e.g., "For we know the one who said," in Hebrews 10:30) */}
+          {verse.proseBefore && (
+            <div className="verse-prose-intro">
+              {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+              <span className="verse-text-content">{verse.proseBefore}</span>
+            </div>
+          )}
+          {verse.mixedContent.map((block, idx) => {
+            const blockClasses = [
+              block.type === 'poetry' ? 'poetry-line' : 'verse-prose-block',
+              block.type === 'poetry' ? `poetry-indent-${block.indentLevel || 1}` : '',
+              block.hasSpaceBefore ? 'stanza-space-before' : ''
+            ].filter(Boolean).join(' ');
+
+            return (
+              <div key={`${verse.number}-block-${idx}`} className={blockClasses}>
+                {/* Only show verse number on first block if no proseBefore */}
+                {idx === 0 && !verse.proseBefore && shouldShowVerseNumber && (
+                  <sup className="context-verse-number">{verse.number}</sup>
+                )}
+                <span className={block.type === 'poetry' ? 'poetry-line-text' : 'verse-text-content'}>
+                  {block.isRedLetter ? (
+                    <span className="words-of-jesus">{block.text}</span>
+                  ) : (
+                    block.text
+                  )}
+                </span>
+              </div>
+            );
+          })}
+          {(verse.hasSelah || verse.isSelah) && <span className="selah-marker">Selah</span>}
+        </div>
+      );
+    } else if (verse.poetryLines && verse.poetryLines.length > 0) {
       // New poetry format with proper spacing info (from NLT parser)
       // Check if there's prose before or after the poetry
       if (verse.proseBefore || verse.proseAfter) {
@@ -292,23 +322,66 @@ function renderESVStyle(
           ))}
         </div>
       );
+    } else if (verse.proseLines && verse.proseLines.length > 1) {
+      // Multi-paragraph prose format (e.g., James 1:1 NLT has 3 separate paragraphs)
+      verseElement = (
+        <div key={`verse-${verse.number}`} className={`verse-with-prose-lines ${isHighlighted ? 'highlighted-verse' : ''}`}>
+          {verse.proseLines.map((line, idx) => (
+            <div key={`${verse.number}-prose-${idx}`} className={`prose-line ${idx > 0 ? 'continuation-line' : ''}`}>
+              {idx === 0 && shouldShowVerseNumber && (
+                <sup className="context-verse-number">{verse.number}</sup>
+              )}
+              <span className="prose-line-text">
+                {line.isRedLetter ? <span className="words-of-jesus">{line.text}</span> : line.text}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
     } else {
       // Regular verse rendering (prose, no line breaks)
       const spaceBeforeClass = verse.hasSpaceBefore ? 'verse-space-before' : '';
-      verseElement = (
-        <span key={`verse-${verse.number}`} className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
-          {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
-          <span className="verse-text-content">
-            {verse.isRedLetter ? (
-              <span className="words-of-jesus">{verse.text}</span>
-            ) : (
-              verse.text
-            )}
-            {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
-            {' '}
+
+      // Check if this verse has speaker labels (Song of Solomon prose sections)
+      if (verse.speakerLabels && verse.speakerLabels.length > 0) {
+        // For prose verses with speaker labels, render as block with speaker label above
+        verseElement = (
+          <div key={`verse-${verse.number}`} className={`verse-with-speaker ${isHighlighted ? 'highlighted-verse' : ''}`}>
+            {verse.speakerLabels.map((speaker, idx) => (
+              <div key={`speaker-${verse.number}-${idx}`} className="speaker-label">
+                {speaker.text}
+              </div>
+            ))}
+            <span className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
+              {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+              <span className="verse-text-content">
+                {verse.isRedLetter ? (
+                  <span className="words-of-jesus">{verse.text}</span>
+                ) : (
+                  verse.text
+                )}
+                {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
+                {' '}
+              </span>
+            </span>
+          </div>
+        );
+      } else {
+        verseElement = (
+          <span key={`verse-${verse.number}`} className={`${verseClasses} ${spaceBeforeClass}`.trim()}>
+            {shouldShowVerseNumber && <sup className="context-verse-number">{verse.number}</sup>}
+            <span className="verse-text-content">
+              {verse.isRedLetter ? (
+                <span className="words-of-jesus">{verse.text}</span>
+              ) : (
+                verse.text
+              )}
+              {(verse.isSelah || verse.hasSelah) && <span className="selah-marker">Selah</span>}
+              {' '}
+            </span>
           </span>
-        </span>
-      );
+        );
+      }
     }
     
     // isBlockLevel already calculated above for verse number logic
@@ -321,7 +394,7 @@ function renderESVStyle(
       // Handle first verse being poetry
       if (isFirstParagraph) {
         content.push(
-          <div key={`poetry-block-${paragraphKey++}`} className="context-paragraph esv-format poetry-block">
+          <div key={`poetry-block-${paragraphKey++}`} className="context-paragraph unified-format poetry-block">
             {verseElement}
           </div>
         );
@@ -365,13 +438,13 @@ function renderESVStyle(
     
     const paragraphClasses = [
       'context-paragraph',
-      'esv-format',
+      'unified-format',
       hasStanzaBreak ? 'stanza-break' : ''
     ].filter(Boolean).join(' ');
     
     if (isFirstParagraph) {
       content.push(
-        <p key={`para-${paragraphKey++}`} className={`${paragraphClasses} esv-first-paragraph`}>
+        <p key={`para-${paragraphKey++}`} className={`${paragraphClasses} unified-first-paragraph`}>
           {currentParagraph}
         </p>
       );
@@ -387,196 +460,13 @@ function renderESVStyle(
   }
   
   return [
-    <div key={`${translation.toLowerCase()}-chapter`} className="esv-content">
+    <div key={`${translation.toLowerCase()}-chapter`} className="unified-content">
       {content}
     </div>
   ];
 }
 
-/**
- * Render KJV/ASV style where each verse is its own paragraph
- */
-function renderKJVStyle(verses: UnifiedVerse[], startVerse: number | null, endVerse: number | null, psalmMetadata?: PsalmMetadata): React.JSX.Element[] {
-  const elements: React.JSX.Element[] = [];
-  
-  // Add Psalm superscription if present
-  if (psalmMetadata?.superscription) {
-    elements.push(
-      <div key="psalm-superscription" className="psalm-superscription">
-        {psalmMetadata.superscription}
-      </div>
-    );
-  }
-  
-  // Filter out empty verses (textual variants, list sections)
-  const filteredVerses = verses.filter(verse => !shouldSkipVerse(verse));
-
-  const verseElements = filteredVerses.map(verse => {
-    const verseNum = parseInt(verse.number);
-    const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
-
-    // Handle section headings
-    const elements: React.JSX.Element[] = [];
-    if (verse.heading) {
-      elements.push(
-        <h3 key={`heading-${verse.number}`} className="esv-heading">
-          {verse.heading}
-        </h3>
-      );
-    }
-    
-    // Apply poetry indentation and other Psalm-specific classes
-    const verseClasses = [
-      'context-paragraph',
-      'kjv-verse',
-      isHighlighted ? 'highlighted-verse' : '',
-      verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
-      verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
-      verse.isSelah ? 'verse-with-selah' : '',
-      verse.stanzaBreakAfter ? 'stanza-break' : ''
-    ].filter(Boolean).join(' ');
-    
-    elements.push(
-      <p key={`verse-${verse.number}`} className={verseClasses}>
-        <strong className="context-verse-number">{verse.number}</strong>
-        <span className="verse-text-content">
-          {verse.isRedLetter ? (
-            <span className="words-of-jesus">{verse.text}</span>
-          ) : (
-            verse.text
-          )}
-          {verse.isSelah && <span className="selah-marker">Selah</span>}
-        </span>
-      </p>
-    );
-    
-    return elements;
-  }).flat();
-  
-  return elements.concat(verseElements);
-}
-
-/**
- * Render standard style with verses grouped in paragraphs
- */
-function renderStandardStyle(verses: UnifiedVerse[], startVerse: number | null, endVerse: number | null, psalmMetadata?: PsalmMetadata): React.JSX.Element[] {
-  const paragraphs: React.JSX.Element[] = [];
-  
-  // Add Psalm superscription if present
-  if (psalmMetadata?.superscription) {
-    paragraphs.push(
-      <div key="psalm-superscription" className="psalm-superscription">
-        {psalmMetadata.superscription}
-      </div>
-    );
-  }
-  
-  let currentParagraph: React.JSX.Element[] = [];
-  let paragraphKey = 0;
-
-  verses.forEach((verse, index) => {
-    // Skip empty verses (textual variants, list sections)
-    if (shouldSkipVerse(verse)) {
-      return;
-    }
-
-    const verseNum = parseInt(verse.number);
-    const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
-
-    // Handle section headings
-    if (verse.heading) {
-      // Finish current paragraph
-      if (currentParagraph.length > 0) {
-        paragraphs.push(
-          <p key={`para-${paragraphKey++}`} className="context-paragraph">
-            {currentParagraph}
-          </p>
-        );
-        currentParagraph = [];
-      }
-      
-      paragraphs.push(
-        <h3 key={`heading-${verse.number}`} className="esv-heading">
-          {verse.heading}
-        </h3>
-      );
-    }
-    
-    // Apply poetry indentation and other Psalm-specific classes
-    const verseClasses = [
-      isHighlighted ? 'highlighted-verse' : '',
-      verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
-      verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
-      verse.isSelah ? 'verse-with-selah' : ''
-    ].filter(Boolean).join(' ');
-    
-    // Render speaker labels before the verse (Song of Solomon dialogues)
-    if (verse.speakerLabels && verse.speakerLabels.length > 0) {
-      // Finish current paragraph before speaker labels
-      if (currentParagraph.length > 0) {
-        paragraphs.push(
-          <p key={`para-${paragraphKey++}`} className="context-paragraph">
-            {currentParagraph}
-          </p>
-        );
-        currentParagraph = [];
-      }
-
-      // Render each speaker label
-      for (const speaker of verse.speakerLabels) {
-        paragraphs.push(
-          <div key={`speaker-${verse.number}-${speaker.beforeLineIndex}`} className="speaker-label">
-            {speaker.text}
-          </div>
-        );
-      }
-    }
-
-    // Add verse to current paragraph
-    currentParagraph.push(
-      <span key={`verse-${verse.number}`} className={verseClasses}>
-        <sup className="context-verse-number">{verse.number}</sup>
-        <span className="verse-text-content">
-          {verse.isRedLetter ? (
-            <span className="words-of-jesus">{verse.text}</span>
-          ) : (
-            verse.text
-          )}
-          {verse.isSelah && <span className="selah-marker">Selah</span>}
-          {' '}
-        </span>
-      </span>
-    );
-    
-    // Use semantic paragraph breaks from API (next verse starts a new paragraph)
-    // or stanza breaks for poetry sections
-    const nextVerse = verses[index + 1];
-    const shouldBreakParagraph = verse.stanzaBreakAfter ||
-                                 (nextVerse && nextVerse.startsParagraph);
-    
-    if (shouldBreakParagraph) {
-      const paragraphClasses = [
-        'context-paragraph',
-        verse.stanzaBreakAfter ? 'stanza-break' : ''
-      ].filter(Boolean).join(' ');
-      
-      paragraphs.push(
-        <p key={`para-${paragraphKey++}`} className={paragraphClasses}>
-          {currentParagraph}
-        </p>
-      );
-      currentParagraph = [];
-    }
-  });
-  
-  // Add remaining verses
-  if (currentParagraph.length > 0) {
-    paragraphs.push(
-      <p key={`para-${paragraphKey++}`} className="context-paragraph">
-        {currentParagraph}
-      </p>
-    );
-  }
-  
-  return paragraphs;
-}
+// NOTE: renderKJVStyle() and renderStandardStyle() were removed as dead code.
+// All translations (ESV, NLT, KJV, ASV, WEB) now use renderUnifiedStyle() which
+// provides the same functionality with paragraph grouping, poetry indentation,
+// section headings, and all other features.

@@ -346,11 +346,6 @@ border-left: 1px solid rgba(0, 0, 0, 0.1);
 
 ---
 
-#### `verseRenderer.tsx`
-**Purpose**: Legacy verse rendering utilities.
-
----
-
 ## /forms Subdirectory
 
 ### Form Components
