@@ -16,8 +16,15 @@ const ContextView: React.FC<ContextViewProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const { contextContainerRef, setupScrollListener } = useContextScroll({ showContext: true });
 
+  // Normalize reference to handle Unicode dashes (en-dash, em-dash, etc.)
+  // This ensures verse range extraction works regardless of data source
+  const normalizedRef = verse.reference
+    .replace(/[\u2010-\u2015\u2212]/g, '-')  // Unicode dashes to ASCII hyphen
+    .replace(/\s+/g, ' ')
+    .trim();
+
   // Extract verse range from reference (e.g., "Psalm 3:3-4" -> startVerse=3, endVerse=4)
-  const currentVerseMatch = verse.reference.match(/:(\d+)(?:-(\d+))?/);
+  const currentVerseMatch = normalizedRef.match(/:(\d+)(?:-(\d+))?/);
   const startVerse = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
   const endVerse = currentVerseMatch?.[2] ? parseInt(currentVerseMatch[2]) : startVerse;
 
