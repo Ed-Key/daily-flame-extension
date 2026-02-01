@@ -66,23 +66,23 @@ export const themeVariables = `
     --profile-menu-hover: rgba(255, 255, 255, 0.25); /* More visible white overlay on hover */
   }
   
-  /* Light Theme */
+  /* Light Theme - "Sacred Reading" aesthetic */
   :host([data-theme="light"]) {
-    --bg-primary: rgba(255, 255, 255, 0.98);
-    --bg-overlay: rgba(0, 0, 0, 0.8);  /* Keep same as dark mode for consistency */
-    --bg-secondary: rgba(255, 255, 255, 0.9);
+    --bg-primary: #faf9f7;  /* Warm cream - easier on eyes than pure white */
+    --bg-overlay: rgba(0, 0, 0, 0.6);
+    --bg-secondary: #f5f4f2;
+
+    --text-primary: #2c2825;  /* Warm charcoal - softer than pure black */
+    --text-secondary: #5c5652;
+    --text-muted: #7a756f;
     
-    --text-primary: #1a1a1a;
-    --text-secondary: rgba(0, 0, 0, 0.7);
-    --text-muted: rgba(0, 0, 0, 0.6);
-    
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-bg-hover: rgba(0, 0, 0, 0.08);
-    --glass-bg-active: rgba(0, 0, 0, 0.1);
-    
-    --border-primary: rgba(0, 0, 0, 0.15);
-    --border-secondary: rgba(0, 0, 0, 0.1);
-    --border-active: rgba(0, 0, 0, 0.2);
+    --glass-bg: transparent;  /* No background tint - use borders/shadows instead */
+    --glass-bg-hover: rgba(0, 0, 0, 0.03);
+    --glass-bg-active: rgba(0, 0, 0, 0.05);
+
+    --border-primary: rgba(0, 0, 0, 0.12);
+    --border-secondary: rgba(0, 0, 0, 0.08);
+    --border-active: rgba(0, 0, 0, 0.18);
     
     --button-bg: #1a1a1a;
     --button-text: white;
@@ -99,17 +99,17 @@ export const themeVariables = `
     --input-text: #1a1a1a;
     --input-placeholder: rgba(0, 0, 0, 0.4);
     
-    --dropdown-bg: rgba(255, 255, 255, 0.98);
-    --dropdown-border: rgba(0, 0, 0, 0.15);
-    --dropdown-item-hover: rgba(0, 0, 0, 0.05);
-    
-    --red-letter: #cc0000;
-    --error-color: #dc2626;
-    --success-color: #059669;
-    
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.2);
+    --dropdown-bg: #faf9f7;
+    --dropdown-border: rgba(0, 0, 0, 0.12);
+    --dropdown-item-hover: rgba(0, 0, 0, 0.04);
+
+    --red-letter: #b33a3a;  /* Warmer red for light mode */
+    --error-color: #c53030;
+    --success-color: #2d8a5f;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
     
     --avatar-bg: white;
     --avatar-border: #1a1a1a;

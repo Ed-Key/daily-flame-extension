@@ -1534,7 +1534,7 @@ export const getShadowDomStyles = (): string => {
       border-radius: 6px !important;
       font-size: 14px !important;
       cursor: pointer !important;
-      transition: all 0.2s !important;
+      transition: all 0.3s ease-out !important;
       outline: none !important;
     }
     
@@ -1588,19 +1588,19 @@ export const getShadowDomStyles = (): string => {
     
     /* Light theme adjustments for settings dropdown */
     :host([data-theme="light"]) .settings-translation-select {
-      background-color: rgba(0, 0, 0, 0.05) !important;
-      border-color: rgba(0, 0, 0, 0.2) !important;
-      color: #333 !important;
+      background-color: transparent !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-secondary) !important;
     }
-    
+
     :host([data-theme="light"]) .settings-translation-select:hover {
-      background-color: rgba(0, 0, 0, 0.08) !important;
-      border-color: rgba(0, 0, 0, 0.3) !important;
+      background-color: var(--glass-bg-hover) !important;
+      border-color: var(--border-active) !important;
     }
-    
+
     :host([data-theme="light"]) .settings-translation-select option {
-      background-color: white !important;
-      color: #333 !important;
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
     }
 
     .context-title {
@@ -1608,6 +1608,7 @@ export const getShadowDomStyles = (): string => {
       font-weight: 300 !important;
       color: white !important;
       margin-bottom: 12px !important;
+      transition: color 0.3s ease-out !important;
     }
 
     /* Animated underline for context title */
@@ -1616,7 +1617,7 @@ export const getShadowDomStyles = (): string => {
       height: 1px !important;
       background-color: rgba(255, 255, 255, 0.3) !important;
       margin: 0 auto 16px auto !important;
-      transition: width 0.8s ease-out !important;
+      transition: width 0.8s ease-out, background 0.3s ease-out !important;
     }
 
     .context-title-underline.animate {
@@ -1627,6 +1628,7 @@ export const getShadowDomStyles = (): string => {
       font-size: 20px !important;
       color: rgba(255, 255, 255, 0.8) !important;
       font-style: italic !important;
+      transition: color 0.3s ease-out !important;
     }
 
     /* Scroll container wrapper */
@@ -1673,6 +1675,7 @@ export const getShadowDomStyles = (): string => {
       color: rgba(255, 255, 255, 0.9) !important;
       font-size: 18px !important;
       text-align: left !important;
+      transition: color 0.3s ease-out !important;
     }
 
     .context-paragraph:last-child {
@@ -1792,11 +1795,12 @@ export const getShadowDomStyles = (): string => {
     .context-button-fixed {
       position: sticky !important;
       bottom: 0 !important;
-      background-color: rgba(0, 0, 0, 0.95) !important;
+      background-color: var(--bg-primary) !important;
       padding: 16px 0 0 0 !important;
       text-align: center !important;
       z-index: 10 !important;
       flex-shrink: 0 !important;
+      transition: background-color 0.3s ease-out !important;
     }
 
     /* Loading state */
@@ -1864,7 +1868,7 @@ export const getShadowDomStyles = (): string => {
       border-radius: 6px !important;
       font-size: 14px !important;
       cursor: pointer !important;
-      transition: all 0.2s !important;
+      transition: all 0.3s ease-out !important;
       display: flex !important;
       align-items: center !important;
       gap: 6px !important;
@@ -2018,6 +2022,7 @@ export const getShadowDomStyles = (): string => {
       display: block !important;
       margin-bottom: 8px !important;
       line-height: 1.6 !important;
+      font-size: 18px !important;
       color: rgba(255, 255, 255, 0.9) !important;
     }
 
@@ -2028,6 +2033,30 @@ export const getShadowDomStyles = (): string => {
       line-height: 1.6 !important;
       font-style: italic !important;
       opacity: 0.9 !important;
+    }
+
+    /* Mixed prose/poetry content (e.g., Hebrews 1:5 with prose between quotes) */
+    .verse-with-mixed-content {
+      display: block !important;
+      font-size: 18px !important;
+      line-height: 1.6 !important;
+    }
+
+    /* Verse numbers in mixed content - match unified style */
+    .verse-with-mixed-content .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
+    }
+
+    /* Prose blocks within mixed content */
+    .verse-prose-block {
+      display: block !important;
+      margin: 0.5em 0 !important;
+      line-height: 1.6 !important;
+      font-size: 18px !important;
+      color: rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Poetry verse numbers should match unified prose style for consistency */
@@ -2174,8 +2203,18 @@ export const getShadowDomStyles = (): string => {
     .verse-with-lines {
       display: block !important;
       margin-bottom: 0.5rem !important;
+      font-size: 18px !important;
+      line-height: 1.6 !important;
     }
-    
+
+    /* Verse numbers in lines - match unified style */
+    .verse-with-lines .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
+    }
+
     .verse-line-wrapper {
       display: flex !important;
       align-items: baseline !important;
@@ -2240,11 +2279,146 @@ export const getShadowDomStyles = (): string => {
 
     /* Light theme overrides for verse text colors */
     :host([data-theme="light"]) .verse-prose-intro,
+    :host([data-theme="light"]) .verse-prose-block,
     :host([data-theme="light"]) .prose-line-text,
     :host([data-theme="light"]) .poetry-line-text {
       color: rgba(0, 0, 0, 0.9) !important;
     }
 
+    :host([data-theme="light"]) .verse-with-mixed-content .context-verse-number {
+      color: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    :host([data-theme="light"]) .context-verse-number {
+      color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* ==============================================
+       CONTEXTVIEW LIGHT THEME - "Sacred Reading"
+       Design: Warm cream background, border-only controls,
+       shadow-based depth, no jarring gray boxes
+       ============================================== */
+
+    /* Typography - warm charcoal tones */
+    :host([data-theme="light"]) .context-title {
+      color: var(--text-primary) !important;
+      font-weight: 350 !important;
+    }
+
+    :host([data-theme="light"]) .context-title-underline {
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.15), transparent) !important;
+    }
+
+    :host([data-theme="light"]) .context-subtitle {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .context-paragraph {
+      color: var(--text-primary) !important;
+    }
+
+    /* Back button - border-only, no fill */
+    :host([data-theme="light"]) .context-back-btn {
+      background-color: transparent !important;
+      border: 1px solid var(--border-primary) !important;
+      color: var(--text-secondary) !important;
+      box-shadow: none !important;
+    }
+
+    :host([data-theme="light"]) .context-back-btn:hover {
+      background-color: var(--glass-bg-hover) !important;
+      border-color: var(--border-active) !important;
+      color: var(--text-primary) !important;
+    }
+
+    /* Translation dropdown - border-only, subtle shadow on focus */
+    :host([data-theme="light"]) .context-translation-select {
+      background-color: transparent !important;
+      border: 1px solid var(--border-primary) !important;
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .context-translation-select:hover:not(:disabled) {
+      background-color: var(--glass-bg-hover) !important;
+      border-color: var(--border-active) !important;
+    }
+
+    :host([data-theme="light"]) .context-translation-select:focus {
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    :host([data-theme="light"]) .context-translation-select option {
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
+    }
+
+    /* Done button container - matches modal background for seamless look */
+    :host([data-theme="light"]) .context-button-fixed {
+      background-color: var(--bg-primary) !important;
+    }
+
+    /* Scrollbar - subtle warm tone */
+    :host([data-theme="light"]) .context-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12) !important;
+      border-radius: 4px !important;
+    }
+
+    :host([data-theme="light"]) .context-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Section headings - warm secondary color */
+    :host([data-theme="light"]) .unified-heading {
+      color: var(--text-secondary) !important;
+    }
+
+    /* Loading states */
+    :host([data-theme="light"]) .context-loading {
+      color: var(--text-muted) !important;
+    }
+
+    :host([data-theme="light"]) .context-spinner {
+      border-color: var(--border-secondary) !important;
+      border-top-color: var(--text-secondary) !important;
+    }
+
+    /* Psalm and poetry elements - warm muted tones */
+    :host([data-theme="light"]) .psalm-superscription {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .selah-marker {
+      color: var(--text-muted) !important;
+      font-style: italic !important;
+    }
+
+    :host([data-theme="light"]) .psalm-section-heading {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .acrostic-letter {
+      color: var(--text-muted) !important;
+    }
+
+    :host([data-theme="light"]) .speaker-label {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .musical-notation {
+      color: var(--text-muted) !important;
+    }
+
+    /* Highlighted verse - slightly emphasized */
+    :host([data-theme="light"]) .highlighted-verse {
+      background-color: rgba(0, 0, 0, 0.03) !important;
+      border-radius: 4px !important;
+    }
+
+    :host([data-theme="light"]) .highlighted-verse .verse-text-content,
+    :host([data-theme="light"]) .highlighted-verse .poetry-line-text,
+    :host([data-theme="light"]) .highlighted-verse .verse-line {
+      color: var(--text-primary) !important;
+    }
 
     /* Render Tester - fixed top-left, sibling to modal inside overlay */
     .render-tester-panel {
