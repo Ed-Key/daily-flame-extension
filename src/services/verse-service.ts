@@ -106,11 +106,11 @@ export class VerseService {
       text = text.replace(/[\r\n]+/g, ' ').trim();
       text = text.replace(/\s+/g, ' ');
       
-      // For verse requests, always use the original reference
-      // The API sometimes returns incomplete references (e.g., "2 Chronicles" instead of "2 Chronicles 7:14")
+      // Use the normalized reference (with ASCII hyphens) so that verse range
+      // parsing works correctly in ContextView and other components
       return {
         text: text,
-        reference: reference,  // Always use the original reference for verses
+        reference: normalizedReference,
         bibleId: bibleId
       };
       

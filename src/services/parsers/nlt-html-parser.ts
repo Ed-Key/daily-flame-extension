@@ -23,10 +23,12 @@ import {
   UnifiedVerse,
   Footnote,
   PoetryLine,
+  ProseLine,
   PsalmMetadata,
   BibleTable,
   BibleTableRow,
-  SpeakerLabel
+  SpeakerLabel,
+  MixedContentBlock
 } from '../../types/bible-formats';
 
 export interface ParsedVerse {
@@ -49,6 +51,10 @@ export interface ParsedVerse {
   proseBefore?: string;
   /** Prose text that appears after poetry in the same verse (e.g., "(For the choir director...)") */
   proseAfter?: string;
+  /** Multi-paragraph prose lines for verses with multiple paragraphs (e.g., James 1:1 NLT) */
+  proseLines?: ProseLine[];
+  /** Mixed prose/poetry content in DOM order for interspersed content (e.g., Hebrews 1:5) */
+  mixedContent?: MixedContentBlock[];
 }
 
 /**
@@ -160,6 +166,8 @@ export class NLTHTMLParser {
       startsParagraph: verse.startsParagraph,
       proseBefore: verse.proseBefore,
       proseAfter: verse.proseAfter,
+      proseLines: verse.proseLines,
+      mixedContent: verse.mixedContent,
     }));
 
     return {
@@ -422,6 +430,31 @@ export class NLTHTMLParser {
       }
     }
 
+    // Check for mixed prose/poetry content (e.g., Hebrews 1:5)
+    // This handles verses where prose appears BETWEEN poetry blocks
+    let mixedContent: MixedContentBlock[] | undefined;
+    if (poetryResult.hasPoetry) {
+      const mixed = this.extractMixedContent(el);
+      // Only use mixedContent if there's prose between poetry (not just before/after)
+      // Check if there's a prose block that has poetry both before AND after it
+      let hasProseBetweenPoetry = false;
+      for (let i = 1; i < mixed.length - 1; i++) {
+        if (mixed[i].type === 'prose') {
+          // Check if there's poetry before and after this prose
+          const hasPoetryBefore = mixed.slice(0, i).some(b => b.type === 'poetry');
+          const hasPoetryAfter = mixed.slice(i + 1).some(b => b.type === 'poetry');
+          if (hasPoetryBefore && hasPoetryAfter) {
+            hasProseBetweenPoetry = true;
+            break;
+          }
+        }
+      }
+
+      if (hasProseBetweenPoetry) {
+        mixedContent = mixed;
+      }
+    }
+
     // Check for -sp class on any element (space before)
     if (!hasSpaceBefore) {
       const spElements = el.querySelectorAll('[class*="-sp"]');
@@ -433,6 +466,46 @@ export class NLTHTMLParser {
 
     // Get the final clean text
     const plainText = this.getCleanText(el);
+
+    // Extract multi-paragraph prose for non-poetry verses (e.g., James 1:1 has 3 paragraphs)
+    // This handles epistle greetings and similar multi-paragraph prose content
+    // NOTE: We must verify that proseLines captures ALL content - if not, fallback to verse.text
+    let proseLines: ProseLine[] | undefined;
+    if (poetryLines.length === 0) {
+      // Only extract for non-poetry verses
+      const proseParagraphs = el.querySelectorAll('p.body, p.body-hd, p.body-ch-hd, p.body-sp, p.body-fl');
+
+      if (proseParagraphs.length > 1) {
+        const tempProseLines: ProseLine[] = [];
+        let proseLinesWordCount = 0;
+
+        proseParagraphs.forEach(p => {
+          const clone = p.cloneNode(true) as HTMLElement;
+          // Remove verse numbers and footnotes from the clone
+          clone.querySelectorAll('span.vn, a.a-tn, span.tn').forEach(n => n.remove());
+          const text = this.getCleanText(clone);
+          const lineIsRedLetter = p.querySelector('span.red, span.red-sc') !== null;
+          if (text) {
+            tempProseLines.push({
+              text,
+              isRedLetter: lineIsRedLetter || undefined
+            });
+            // Count words (simple split on spaces after normalizing)
+            proseLinesWordCount += text.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 2).length;
+          }
+        });
+
+        // Only use proseLines if we have more than 1 line and it captures most of the content
+        // This prevents using proseLines for dialogue verses where some text may be outside <p> tags
+        if (tempProseLines.length > 1) {
+          const fullTextWordCount = plainText.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 2).length;
+          // If proseLines captures at least 90% of the words, use it
+          if (fullTextWordCount > 0 && (proseLinesWordCount / fullTextWordCount) >= 0.9) {
+            proseLines = tempProseLines;
+          }
+        }
+      }
+    }
 
     return {
       verseNumber,
@@ -451,7 +524,9 @@ export class NLTHTMLParser {
       rawHtml,
       startsParagraph: startsParagraph || undefined,
       proseBefore: proseBefore || undefined,
-      proseAfter: proseAfter || undefined
+      proseAfter: proseAfter || undefined,
+      proseLines: proseLines,
+      mixedContent: mixedContent
     };
   }
 
@@ -553,6 +628,58 @@ export class NLTHTMLParser {
       maxIndentLevel,
       hasSpaceBeforeFirst
     };
+  }
+
+  /**
+   * Extract mixed prose/poetry content preserving DOM order.
+   * Handles verses like Hebrews 1:5 where prose appears between poetry blocks.
+   */
+  private extractMixedContent(el: HTMLElement): MixedContentBlock[] {
+    const blocks: MixedContentBlock[] = [];
+
+    // Get all prose and poetry paragraphs in DOM order
+    const allParagraphs = el.querySelectorAll('p');
+
+    allParagraphs.forEach(p => {
+      const className = p.className || '';
+
+      // Skip special elements (handled elsewhere)
+      if (className.includes('psa-title') || className.includes('selah') ||
+          className.includes('subhead') || className.includes('chapter')) {
+        return;
+      }
+
+      // Clone and clean the paragraph
+      const pClone = p.cloneNode(true) as HTMLElement;
+      pClone.querySelectorAll('span.vn, a.a-tn, span.tn').forEach(n => n.remove());
+      const text = this.getCleanText(pClone);
+      if (!text) return;
+
+      if (className.includes('poet')) {
+        // Poetry block
+        let indentLevel: 1 | 2 | 3 = 1;
+        if (className.includes('poet3')) indentLevel = 3;
+        else if (className.includes('poet2')) indentLevel = 2;
+
+        blocks.push({
+          type: 'poetry',
+          text,
+          indentLevel,
+          hasSpaceBefore: className.includes('-sp') || undefined,
+          isRedLetter: p.querySelector('span.red, span.red-sc') !== null || undefined
+        });
+      } else if (className.includes('body')) {
+        // Prose block
+        blocks.push({
+          type: 'prose',
+          text,
+          hasSpaceBefore: className.includes('-sp') || undefined,
+          isRedLetter: p.querySelector('span.red, span.red-sc') !== null || undefined
+        });
+      }
+    });
+
+    return blocks;
   }
 
   /**

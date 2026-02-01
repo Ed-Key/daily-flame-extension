@@ -44,9 +44,10 @@ export class ESVService {
       // Clean up extra whitespace
       text = text.trim();
       
+      // Use normalized reference for consistent parsing (API canonical is preferred but normalize fallback)
       return {
         text: text,
-        reference: data.canonical || reference,
+        reference: data.canonical || normalizedReference,
         bibleId: 'ESV'
       };
       
