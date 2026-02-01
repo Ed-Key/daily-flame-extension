@@ -15,3 +15,8 @@ CLAUDE.md.save
 
 # Test files
 test.html
+
+# Firebase debug logs
+firebase-debug.log
+validation-report.json
+watch.log
