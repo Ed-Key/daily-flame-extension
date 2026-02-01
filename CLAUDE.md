@@ -136,6 +136,76 @@ Use sequential thinking for complex parsing or animation issues. The NLT parser 
 ### Git Commits
 Do NOT include "Co-Authored-By: Claude" in commit messages. Just write the commit message normally.
 
+## Proactive Subagent Usage (IMPORTANT)
+
+**Always use subagents to research, verify, and understand before acting.** This produces better solutions and catches issues early.
+
+### When to Spawn Explore Agents
+Use `Task` with `subagent_type: "Explore"` proactively for:
+
+| Situation | Why Spawn Agent |
+|-----------|-----------------|
+| **Bug reports** | Trace the code path before proposing fixes |
+| **"Why doesn't X work?"** | Investigate actual behavior vs expected |
+| **Feature requests** | Understand existing patterns before adding new code |
+| **Before any fix** | Verify the root cause, not just symptoms |
+| **API/data issues** | Check fixtures, actual responses, data flow |
+
+**Example prompts:**
+```
+"Trace the data flow from API response to rendered output for KJV chapters"
+"Find all places where section headings are extracted and rendered"
+"Investigate why X isn't appearing - check parser, renderer, and CSS"
+```
+
+### When to Spawn Plan Agents
+Use `Task` with `subagent_type: "Plan"` for:
+- Multi-file changes
+- Architectural decisions
+- Features touching parser → renderer → CSS pipeline
+
+### Parallel Agent Patterns
+Spawn multiple agents simultaneously when investigating:
+
+```
+// Good: Parallel investigation
+Agent 1: "Check what the API actually returns for Luke 1 KJV"
+Agent 2: "Find where section headings are parsed in StandardParser"
+Agent 3: "Check fixture data for s1/s2 style markers"
+```
+
+### Verification Agents
+After implementing fixes, spawn verification:
+- `subagent_type: "feature-dev:code-reviewer"` - Review for bugs
+- `subagent_type: "Explore"` - Verify the fix addresses root cause
+
+### Research Before Answering
+When asked about behavior or "why" questions:
+1. **Don't guess** - spawn an Explore agent first
+2. **Check fixtures** - they contain real API data
+3. **Trace the pipeline** - parser → unified format → renderer → CSS
+4. **Report findings** - summarize what was discovered
+
+### Agent Thoroughness Levels
+Specify in prompts:
+- `"quick"` - Basic file/pattern search
+- `"medium"` - Moderate exploration, multiple locations
+- `"very thorough"` - Comprehensive analysis across the codebase
+
+### Example: Investigating a Bug
+```
+User: "Section headings don't show in KJV Luke 1"
+
+Claude should:
+1. Spawn Explore agent: "Check KJV Luke 1 fixture for s1/s2/s3 style paragraphs"
+2. Spawn Explore agent: "Trace section heading extraction in StandardParser"
+3. Analyze results before proposing solution
+4. If it's a data issue (not code), report that finding
+```
+
+### Key Principle
+**Investigate first, implement second.** Spawning 2-3 research agents takes seconds but prevents hours of wrong-direction work.
+
 ## Detailed Documentation
 
 For deeper context, these files are automatically imported:
