@@ -65607,8 +65607,14 @@ __webpack_require__.r(__webpack_exports__);
 const ContextView = ({ verse, chapterContent, contextLoading, contextTranslation, onBack, onDone, onTranslationChange }) => {
     const modalRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
     const { contextContainerRef, setupScrollListener } = (0,_hooks_useContextScroll__WEBPACK_IMPORTED_MODULE_3__.useContextScroll)({ showContext: true });
+    // Normalize reference to handle Unicode dashes (en-dash, em-dash, etc.)
+    // This ensures verse range extraction works regardless of data source
+    const normalizedRef = verse.reference
+        .replace(/[\u2010-\u2015\u2212]/g, '-') // Unicode dashes to ASCII hyphen
+        .replace(/\s+/g, ' ')
+        .trim();
     // Extract verse range from reference (e.g., "Psalm 3:3-4" -> startVerse=3, endVerse=4)
-    const currentVerseMatch = verse.reference.match(/:(\d+)(?:-(\d+))?/);
+    const currentVerseMatch = normalizedRef.match(/:(\d+)(?:-(\d+))?/);
     const startVerse = currentVerseMatch ? parseInt(currentVerseMatch[1]) : null;
     const endVerse = currentVerseMatch?.[2] ? parseInt(currentVerseMatch[2]) : startVerse;
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
@@ -66862,15 +66868,9 @@ const renderUnifiedVerses = ({ chapterContent, startVerse, endVerse }) => {
         return [];
     }
     const { translation, verses, chapterNumber, psalmMetadata } = chapterContent;
-    // Determine rendering style based on translation
-    // All known translations now use rich formatting with poetry lines and stanza breaks
-    const useRichFormatting = ['ESV', 'NLT', 'KJV', 'ASV', 'WEB'].includes(translation);
-    // For all supported translations, use unified rendering with paragraph grouping
-    if (useRichFormatting) {
-        return renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
-    }
-    // Fallback for unknown translations - basic paragraph grouping
-    return renderStandardStyle(verses, startVerse, endVerse, psalmMetadata);
+    // All translations use unified rendering with paragraph grouping
+    // This handles ESV, NLT, KJV, ASV, WEB, and any future translations
+    return renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, translation, psalmMetadata);
 };
 /**
  * Render unified style with floating chapter number and grouped paragraphs
@@ -66919,7 +66919,18 @@ function renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, transla
         ].filter(Boolean).join(' ');
         // Create verse element - prioritize new poetryLines structure, fall back to old lines format
         let verseElement;
-        if (verse.poetryLines && verse.poetryLines.length > 0) {
+        // Handle mixed prose/poetry content (e.g., Hebrews 1:5 with prose between quotes)
+        if (verse.mixedContent && verse.mixedContent.length > 0) {
+            verseElement = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: `verse-with-mixed-content ${isHighlighted ? 'highlighted-verse' : ''}`, children: [verse.proseBefore && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "verse-prose-intro", children: [shouldShowVerseNumber && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "verse-text-content", children: verse.proseBefore })] })), verse.mixedContent.map((block, idx) => {
+                        const blockClasses = [
+                            block.type === 'poetry' ? 'poetry-line' : 'verse-prose-block',
+                            block.type === 'poetry' ? `poetry-indent-${block.indentLevel || 1}` : '',
+                            block.hasSpaceBefore ? 'stanza-space-before' : ''
+                        ].filter(Boolean).join(' ');
+                        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: blockClasses, children: [idx === 0 && !verse.proseBefore && shouldShowVerseNumber && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: block.type === 'poetry' ? 'poetry-line-text' : 'verse-text-content', children: block.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: block.text })) : (block.text) })] }, `${verse.number}-block-${idx}`));
+                    }), (verse.hasSelah || verse.isSelah) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" })] }, `verse-${verse.number}`));
+        }
+        else if (verse.poetryLines && verse.poetryLines.length > 0) {
             // New poetry format with proper spacing info (from NLT parser)
             // Check if there's prose before or after the poetry
             if (verse.proseBefore || verse.proseAfter) {
@@ -67025,108 +67036,6 @@ function renderUnifiedStyle(verses, chapterNumber, startVerse, endVerse, transla
     return [
         (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "unified-content", children: content }, `${translation.toLowerCase()}-chapter`)
     ];
-}
-/**
- * Render KJV/ASV style where each verse is its own paragraph
- */
-function renderKJVStyle(verses, startVerse, endVerse, psalmMetadata) {
-    const elements = [];
-    // Add Psalm superscription if present
-    if (psalmMetadata?.superscription) {
-        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "psalm-superscription", children: psalmMetadata.superscription }, "psalm-superscription"));
-    }
-    // Filter out empty verses (textual variants, list sections)
-    const filteredVerses = verses.filter(verse => !shouldSkipVerse(verse));
-    const verseElements = filteredVerses.map(verse => {
-        const verseNum = parseInt(verse.number);
-        const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
-        // Handle section headings
-        const elements = [];
-        if (verse.heading) {
-            elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "unified-heading", children: verse.heading }, `heading-${verse.number}`));
-        }
-        // Apply poetry indentation and other Psalm-specific classes
-        const verseClasses = [
-            'context-paragraph',
-            'kjv-verse',
-            isHighlighted ? 'highlighted-verse' : '',
-            verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
-            verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
-            verse.isSelah ? 'verse-with-selah' : '',
-            verse.stanzaBreakAfter ? 'stanza-break' : ''
-        ].filter(Boolean).join(' ');
-        elements.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), verse.isSelah && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" })] })] }, `verse-${verse.number}`));
-        return elements;
-    }).flat();
-    return elements.concat(verseElements);
-}
-/**
- * Render standard style with verses grouped in paragraphs
- */
-function renderStandardStyle(verses, startVerse, endVerse, psalmMetadata) {
-    const paragraphs = [];
-    // Add Psalm superscription if present
-    if (psalmMetadata?.superscription) {
-        paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "psalm-superscription", children: psalmMetadata.superscription }, "psalm-superscription"));
-    }
-    let currentParagraph = [];
-    let paragraphKey = 0;
-    verses.forEach((verse, index) => {
-        // Skip empty verses (textual variants, list sections)
-        if (shouldSkipVerse(verse)) {
-            return;
-        }
-        const verseNum = parseInt(verse.number);
-        const isHighlighted = isVerseInRange(verseNum, startVerse, endVerse);
-        // Handle section headings
-        if (verse.heading) {
-            // Finish current paragraph
-            if (currentParagraph.length > 0) {
-                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, `para-${paragraphKey++}`));
-                currentParagraph = [];
-            }
-            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { className: "unified-heading", children: verse.heading }, `heading-${verse.number}`));
-        }
-        // Apply poetry indentation and other Psalm-specific classes
-        const verseClasses = [
-            isHighlighted ? 'highlighted-verse' : '',
-            verse.poetryIndentLevel === 1 ? 'poetry-indent-1' : '',
-            verse.poetryIndentLevel === 2 ? 'poetry-indent-2' : '',
-            verse.isSelah ? 'verse-with-selah' : ''
-        ].filter(Boolean).join(' ');
-        // Render speaker labels before the verse (Song of Solomon dialogues)
-        if (verse.speakerLabels && verse.speakerLabels.length > 0) {
-            // Finish current paragraph before speaker labels
-            if (currentParagraph.length > 0) {
-                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, `para-${paragraphKey++}`));
-                currentParagraph = [];
-            }
-            // Render each speaker label
-            for (const speaker of verse.speakerLabels) {
-                paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "speaker-label", children: speaker.text }, `speaker-${verse.number}-${speaker.beforeLineIndex}`));
-            }
-        }
-        // Add verse to current paragraph
-        currentParagraph.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: verseClasses, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("sup", { className: "context-verse-number", children: verse.number }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { className: "verse-text-content", children: [verse.isRedLetter ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "words-of-jesus", children: verse.text })) : (verse.text), verse.isSelah && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "selah-marker", children: "Selah" }), ' '] })] }, `verse-${verse.number}`));
-        // Use semantic paragraph breaks from API (next verse starts a new paragraph)
-        // or stanza breaks for poetry sections
-        const nextVerse = verses[index + 1];
-        const shouldBreakParagraph = verse.stanzaBreakAfter ||
-            (nextVerse && nextVerse.startsParagraph);
-        if (shouldBreakParagraph) {
-            const paragraphClasses = [
-                'context-paragraph',
-                verse.stanzaBreakAfter ? 'stanza-break' : ''
-            ].filter(Boolean).join(' ');
-            paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: paragraphClasses, children: currentParagraph }, `para-${paragraphKey++}`));
-            currentParagraph = [];
-        }
-    });
-    // Add remaining verses
-    if (currentParagraph.length > 0) {
-        paragraphs.push((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { className: "context-paragraph", children: currentParagraph }, `para-${paragraphKey++}`));
-    }
-    return paragraphs;
 }
 
 
@@ -67690,9 +67599,10 @@ class ESVService {
             text = text.replace(/\s*\(ESV\)\s*$/, '');
             // Clean up extra whitespace
             text = text.trim();
+            // Use normalized reference for consistent parsing (API canonical is preferred but normalize fallback)
             return {
                 text: text,
-                reference: data.canonical || reference,
+                reference: data.canonical || normalizedReference,
                 bibleId: 'ESV'
             };
         }
@@ -67952,6 +67862,14 @@ class FirestoreService {
                 return null;
             }
             const verseData = verseDoc.data();
+            // Normalize the reference to use ASCII hyphens for consistent parsing
+            // This handles any stored data that may have Unicode en-dashes (–)
+            if (verseData.reference) {
+                verseData.reference = verseData.reference
+                    .replace(/[\u2010-\u2015\u2212]/g, '-')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+            }
             // Update cache
             this.cachedVerses.set(date, {
                 data: verseData,
@@ -67980,8 +67898,16 @@ class FirestoreService {
             const snapshot = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getDocs)(versesQuery);
             const verses = [];
             snapshot.forEach((doc) => {
+                const verseData = doc.data();
+                // Normalize the reference to use ASCII hyphens for consistent parsing
+                if (verseData.reference) {
+                    verseData.reference = verseData.reference
+                        .replace(/[\u2010-\u2015\u2212]/g, '-')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                }
                 verses.push({
-                    ...doc.data(),
+                    ...verseData,
                     // Ensure the date is included if it's the document ID
                     date: doc.id
                 });
@@ -68002,7 +67928,15 @@ class FirestoreService {
             const snapshot = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getDocs)(versesQuery);
             const verses = [];
             snapshot.forEach((doc) => {
-                verses.push(doc.data());
+                const verseData = doc.data();
+                // Normalize the reference to use ASCII hyphens for consistent parsing
+                if (verseData.reference) {
+                    verseData.reference = verseData.reference
+                        .replace(/[\u2010-\u2015\u2212]/g, '-')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                }
+                verses.push(verseData);
             });
             return verses;
         }
@@ -68166,9 +68100,10 @@ class NLTService {
             }
             // Join all verses with a space
             const fullText = allVerseTexts.join(' ').trim();
+            // Use normalized reference so verse range parsing works correctly
             return {
                 text: fullText,
-                reference: reference,
+                reference: normalizedReference,
                 bibleId: 'NLT'
             };
         }
@@ -68595,8 +68530,9 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                     break;
                 }
             }
-            // For Psalms with line-based structure, we need to handle span.line elements
-            if (isPsalm && paragraphHtml.includes('class="line"')) {
+            // For paragraphs with line-based structure (poetry in Psalms, Luke, Hebrews, etc.)
+            // NOT limited to Psalms - many books have poetry sections
+            if (paragraphHtml.includes('class="line"')) {
                 // Parse line-based Psalm structure
                 const linePattern = /<span[^>]*class="[^"]*line[^"]*"[^>]*>(.*?)<\/span>/gs;
                 const lines = Array.from(paragraphHtml.matchAll(linePattern));
@@ -68640,14 +68576,27 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                         // Get text after verse number
                         const textAfterVerseNum = lineHtml.substring(lineHtml.indexOf(fullMatch) + fullMatch.length);
                         let verseText = this.stripHtmlTags(textAfterVerseNum).trim();
-                        // Only add initial text to verseLines if it's not empty
-                        const verseLines = verseText ? [verseText] : [];
+                        // Build poetryLines array with proper structure (like NLT)
+                        const poetryLines = [];
+                        if (verseText) {
+                            poetryLines.push({
+                                text: verseText,
+                                indentLevel: isIndentLine ? 2 : 1,
+                                hasSpaceBefore: false
+                            });
+                        }
                         // If this is an indent line without a verse number, it's continuation of previous verse
                         // We need to append it to the previous verse
                         if (verses.length > 0 && !verseNumber && isIndentLine) {
                             const lastVerse = verses[verses.length - 1];
-                            if (lastVerse.lines) {
-                                lastVerse.lines.push(verseText);
+                            if (lastVerse.poetryLines) {
+                                lastVerse.poetryLines.push({
+                                    text: verseText,
+                                    indentLevel: 2,
+                                    hasSpaceBefore: false
+                                });
+                                // Update combined text
+                                lastVerse.text = lastVerse.poetryLines.map(l => l.text).join(' ');
                             }
                             else {
                                 lastVerse.text += ' ' + verseText;
@@ -68666,7 +68615,11 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                                 !/<b[^>]*class="[^"]*chapter-num/.test(nextLineHtml)) {
                                 const lineText = this.stripHtmlTags(nextLineHtml).trim();
                                 if (lineText) {
-                                    verseLines.push(lineText);
+                                    poetryLines.push({
+                                        text: lineText,
+                                        indentLevel: isNextLineIndented ? 2 : 1,
+                                        hasSpaceBefore: false
+                                    });
                                 }
                                 // Mark this line as processed
                                 processedLines.add(nextLineIndex);
@@ -68680,11 +68633,10 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                         // Mark current line as processed
                         processedLines.add(lineIndex);
                         // Combine text for backward compatibility
-                        verseText = verseLines.join(' ');
+                        verseText = poetryLines.map(l => l.text).join(' ');
                         // Create verse if we have a verse number and any text (initial or collected)
-                        if (verseNumber && (verseText || verseLines.length > 0)) {
+                        if (verseNumber && (verseText || poetryLines.length > 0)) {
                             const isFirstVerse = verseNumber === '1';
-                            const poetryIndentLevel = isIndentLine ? 1 : 0;
                             // Check for Selah
                             const isSelah = /\bSelah\b/i.test(verseText);
                             // Add heading only to the first verse after a heading
@@ -68692,14 +68644,13 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                                 !verses.some(v => v.heading === currentHeading.heading);
                             verses.push(this.createVerse(verseNumber, verseText, {
                                 isFirstVerse,
-                                isRedLetter: false, // ESV HTML doesn't include red letter in Psalms
+                                isRedLetter: false, // ESV HTML doesn't include red letter in poetry sections
                                 heading: shouldAddHeading && currentHeading ? currentHeading.heading : undefined,
                                 headingId: shouldAddHeading && currentHeading ? currentHeading.headingId : undefined,
                                 isSelah: isSelah || undefined,
-                                poetryIndentLevel: poetryIndentLevel || undefined,
                                 // Check if this verse ends a stanza
                                 stanzaBreakAfter: stanzaBreakPositions.has(lineIndex) ? true : undefined,
-                                lines: verseLines.length > 0 ? verseLines : undefined
+                                poetryLines: poetryLines.length > 0 ? poetryLines : undefined
                             }));
                         }
                     }
@@ -68708,11 +68659,15 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
                         const lastVerse = verses[verses.length - 1];
                         const additionalText = this.stripHtmlTags(lineHtml).trim();
                         if (additionalText) {
-                            // If the verse has lines array, add to it; otherwise append to text
-                            if (lastVerse.lines) {
-                                lastVerse.lines.push(additionalText);
+                            // If the verse has poetryLines array, add to it; otherwise append to text
+                            if (lastVerse.poetryLines) {
+                                lastVerse.poetryLines.push({
+                                    text: additionalText,
+                                    indentLevel: isIndentLine ? 2 : 1,
+                                    hasSpaceBefore: false
+                                });
                                 // Also update the combined text for backward compatibility
-                                lastVerse.text = lastVerse.lines.join(' ');
+                                lastVerse.text = lastVerse.poetryLines.map(l => l.text).join(' ');
                             }
                             else {
                                 lastVerse.text += ' ' + additionalText;
@@ -68799,20 +68754,36 @@ class ESVBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.BaseBible
             psalmNumber: chapterNumber,
             hasSelah: /\bSelah\b/i.test(html)
         };
-        // Look for superscription in h3 tag at the beginning
-        // ESV puts Psalm titles in h3 tags with specific formatting
-        const superscriptionMatch = html.match(/<h3[^>]*>(.*?)<\/h3>/);
-        if (superscriptionMatch) {
-            const superscriptionText = this.stripHtmlTags(superscriptionMatch[1]).trim();
-            // Check if this is actually a superscription (not a section heading)
-            // Superscriptions typically mention "Psalm" or start with "To the" or "A" or "Of"
-            if (/^(To the|A |Of |When |For |In |The )/i.test(superscriptionText) ||
-                /Psalm/i.test(superscriptionText)) {
+        // ESV uses <h4 class="psalm-title"> for the actual Psalm superscription
+        // (e.g., "A Psalm of David.")
+        const psalmTitleMatch = html.match(/<h4[^>]*class="psalm-title"[^>]*>(.*?)<\/h4>/i);
+        if (psalmTitleMatch) {
+            const superscriptionText = this.stripHtmlTags(psalmTitleMatch[1]).trim();
+            if (superscriptionText) {
                 metadata.superscription = superscriptionText;
                 // Extract musical notation if present
                 const musicalMatch = superscriptionText.match(/(To the choirmaster[^.]*)/i);
                 if (musicalMatch) {
                     metadata.musicalNotation = musicalMatch[1];
+                }
+            }
+        }
+        // Fallback: Look for superscription in h3 tag at the beginning
+        // Some Psalms may use h3 tags with specific formatting
+        if (!metadata.superscription) {
+            const superscriptionMatch = html.match(/<h3[^>]*>(.*?)<\/h3>/);
+            if (superscriptionMatch) {
+                const superscriptionText = this.stripHtmlTags(superscriptionMatch[1]).trim();
+                // Check if this is actually a superscription (not a section heading)
+                // Superscriptions typically mention "Psalm" or start with "To the" or "A" or "Of"
+                if (/^(To the|A |Of |When |For |In |The )/i.test(superscriptionText) ||
+                    /Psalm/i.test(superscriptionText)) {
+                    metadata.superscription = superscriptionText;
+                    // Extract musical notation if present
+                    const musicalMatch = superscriptionText.match(/(To the choirmaster[^.]*)/i);
+                    if (musicalMatch) {
+                        metadata.musicalNotation = musicalMatch[1];
+                    }
                 }
             }
         }
@@ -68984,6 +68955,7 @@ class NLTHTMLParser {
             proseBefore: verse.proseBefore,
             proseAfter: verse.proseAfter,
             proseLines: verse.proseLines,
+            mixedContent: verse.mixedContent,
         }));
         return {
             reference,
@@ -69214,6 +69186,29 @@ class NLTHTMLParser {
                 proseAfter = afterText;
             }
         }
+        // Check for mixed prose/poetry content (e.g., Hebrews 1:5)
+        // This handles verses where prose appears BETWEEN poetry blocks
+        let mixedContent;
+        if (poetryResult.hasPoetry) {
+            const mixed = this.extractMixedContent(el);
+            // Only use mixedContent if there's prose between poetry (not just before/after)
+            // Check if there's a prose block that has poetry both before AND after it
+            let hasProseBetweenPoetry = false;
+            for (let i = 1; i < mixed.length - 1; i++) {
+                if (mixed[i].type === 'prose') {
+                    // Check if there's poetry before and after this prose
+                    const hasPoetryBefore = mixed.slice(0, i).some(b => b.type === 'poetry');
+                    const hasPoetryAfter = mixed.slice(i + 1).some(b => b.type === 'poetry');
+                    if (hasPoetryBefore && hasPoetryAfter) {
+                        hasProseBetweenPoetry = true;
+                        break;
+                    }
+                }
+            }
+            if (hasProseBetweenPoetry) {
+                mixedContent = mixed;
+            }
+        }
         // Check for -sp class on any element (space before)
         if (!hasSpaceBefore) {
             const spElements = el.querySelectorAll('[class*="-sp"]');
@@ -69277,7 +69272,8 @@ class NLTHTMLParser {
             startsParagraph: startsParagraph || undefined,
             proseBefore: proseBefore || undefined,
             proseAfter: proseAfter || undefined,
-            proseLines: proseLines
+            proseLines: proseLines,
+            mixedContent: mixedContent
         };
     }
     /**
@@ -69364,6 +69360,54 @@ class NLTHTMLParser {
             maxIndentLevel,
             hasSpaceBeforeFirst
         };
+    }
+    /**
+     * Extract mixed prose/poetry content preserving DOM order.
+     * Handles verses like Hebrews 1:5 where prose appears between poetry blocks.
+     */
+    extractMixedContent(el) {
+        const blocks = [];
+        // Get all prose and poetry paragraphs in DOM order
+        const allParagraphs = el.querySelectorAll('p');
+        allParagraphs.forEach(p => {
+            const className = p.className || '';
+            // Skip special elements (handled elsewhere)
+            if (className.includes('psa-title') || className.includes('selah') ||
+                className.includes('subhead') || className.includes('chapter')) {
+                return;
+            }
+            // Clone and clean the paragraph
+            const pClone = p.cloneNode(true);
+            pClone.querySelectorAll('span.vn, a.a-tn, span.tn').forEach(n => n.remove());
+            const text = this.getCleanText(pClone);
+            if (!text)
+                return;
+            if (className.includes('poet')) {
+                // Poetry block
+                let indentLevel = 1;
+                if (className.includes('poet3'))
+                    indentLevel = 3;
+                else if (className.includes('poet2'))
+                    indentLevel = 2;
+                blocks.push({
+                    type: 'poetry',
+                    text,
+                    indentLevel,
+                    hasSpaceBefore: className.includes('-sp') || undefined,
+                    isRedLetter: p.querySelector('span.red, span.red-sc') !== null || undefined
+                });
+            }
+            else if (className.includes('body')) {
+                // Prose block
+                blocks.push({
+                    type: 'prose',
+                    text,
+                    hasSpaceBefore: className.includes('-sp') || undefined,
+                    isRedLetter: p.querySelector('span.red, span.red-sc') !== null || undefined
+                });
+            }
+        });
+        return blocks;
     }
     /**
      * Get clean text content from an element
@@ -69818,16 +69862,30 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
         return { text, isRedLetter, footnotes };
     }
     /**
+     * Recursively extract text from an items array
+     * Handles nested char tags that contain text (e.g., Hebrew alphabet headings in Psalm 119)
+     */
+    extractTextFromItems(items) {
+        let text = '';
+        for (const item of items) {
+            if (item.type === 'text' && item.text) {
+                text += item.text;
+            }
+            else if (item.name === 'char' && item.items) {
+                // Recursively extract text from nested char tags
+                text += this.extractTextFromItems(item.items);
+            }
+        }
+        return text;
+    }
+    /**
      * Extract text from a paragraph (for headings, speaker labels)
+     * Uses recursive extraction to handle nested char tags
      */
     extractParagraphText(paragraph) {
         if (!paragraph.items)
             return '';
-        return paragraph.items
-            .filter((item) => item.type === 'text')
-            .map((item) => item.text || '')
-            .join('')
-            .trim();
+        return this.extractTextFromItems(paragraph.items).trim();
     }
     /**
      * Check if a paragraph style indicates poetry
@@ -70140,17 +70198,10 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
         if (apiResponse.content && apiResponse.content.length > 0) {
             const firstPara = apiResponse.content[0];
             if (firstPara.attrs?.style === 's1' || firstPara.attrs?.style === 'd') {
-                // Extract title text
-                let titleText = '';
-                if (firstPara.items && Array.isArray(firstPara.items)) {
-                    firstPara.items.forEach((item) => {
-                        if (item.type === 'text' && item.text) {
-                            titleText += item.text;
-                        }
-                    });
-                }
-                if (titleText.trim()) {
-                    metadata.superscription = titleText.trim();
+                // Extract title text using recursive extraction to handle nested char tags
+                const titleText = this.extractParagraphText(firstPara);
+                if (titleText) {
+                    metadata.superscription = titleText;
                     // Check for musical notation
                     const musicalMatch = titleText.match(/(To the (?:chief )?Musician[^.]*)/i);
                     if (musicalMatch) {
@@ -70166,18 +70217,12 @@ class StandardBibleParser extends _base_parser__WEBPACK_IMPORTED_MODULE_0__.Base
             apiResponse.content.forEach((paragraph) => {
                 // Check if this is a heading (style="s2" or similar)
                 if (paragraph.attrs?.style === 's2' || paragraph.attrs?.style === 's3') {
-                    let headingText = '';
-                    if (paragraph.items && Array.isArray(paragraph.items)) {
-                        paragraph.items.forEach((item) => {
-                            if (item.type === 'text' && item.text) {
-                                headingText += item.text;
-                            }
-                        });
-                    }
-                    if (headingText.trim() && lastVerseNumber !== '0') {
+                    // Use recursive extraction to handle nested char tags (e.g., Hebrew alphabet in Psalm 119)
+                    const headingText = this.extractParagraphText(paragraph);
+                    if (headingText && lastVerseNumber !== '0') {
                         sectionHeadings.push({
                             afterVerse: lastVerseNumber,
-                            heading: headingText.trim()
+                            heading: headingText
                         });
                     }
                 }
@@ -70656,11 +70701,11 @@ class VerseService {
             let text = data.data.content;
             text = text.replace(/[\r\n]+/g, ' ').trim();
             text = text.replace(/\s+/g, ' ');
-            // For verse requests, always use the original reference
-            // The API sometimes returns incomplete references (e.g., "2 Chronicles" instead of "2 Chronicles 7:14")
+            // Use the normalized reference (with ASCII hyphens) so that verse range
+            // parsing works correctly in ContextView and other components
             return {
                 text: text,
-                reference: reference, // Always use the original reference for verses
+                reference: normalizedReference,
                 bibleId: bibleId
             };
         }
@@ -73660,7 +73705,7 @@ const getShadowDomStyles = () => {
       border-radius: 6px !important;
       font-size: 14px !important;
       cursor: pointer !important;
-      transition: all 0.2s !important;
+      transition: all 0.3s ease-out !important;
       outline: none !important;
     }
     
@@ -73714,19 +73759,19 @@ const getShadowDomStyles = () => {
     
     /* Light theme adjustments for settings dropdown */
     :host([data-theme="light"]) .settings-translation-select {
-      background-color: rgba(0, 0, 0, 0.05) !important;
-      border-color: rgba(0, 0, 0, 0.2) !important;
-      color: #333 !important;
+      background-color: transparent !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-secondary) !important;
     }
-    
+
     :host([data-theme="light"]) .settings-translation-select:hover {
-      background-color: rgba(0, 0, 0, 0.08) !important;
-      border-color: rgba(0, 0, 0, 0.3) !important;
+      background-color: var(--glass-bg-hover) !important;
+      border-color: var(--border-active) !important;
     }
-    
+
     :host([data-theme="light"]) .settings-translation-select option {
-      background-color: white !important;
-      color: #333 !important;
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
     }
 
     .context-title {
@@ -73734,6 +73779,7 @@ const getShadowDomStyles = () => {
       font-weight: 300 !important;
       color: white !important;
       margin-bottom: 12px !important;
+      transition: color 0.3s ease-out !important;
     }
 
     /* Animated underline for context title */
@@ -73742,7 +73788,7 @@ const getShadowDomStyles = () => {
       height: 1px !important;
       background-color: rgba(255, 255, 255, 0.3) !important;
       margin: 0 auto 16px auto !important;
-      transition: width 0.8s ease-out !important;
+      transition: width 0.8s ease-out, background 0.3s ease-out !important;
     }
 
     .context-title-underline.animate {
@@ -73753,6 +73799,7 @@ const getShadowDomStyles = () => {
       font-size: 20px !important;
       color: rgba(255, 255, 255, 0.8) !important;
       font-style: italic !important;
+      transition: color 0.3s ease-out !important;
     }
 
     /* Scroll container wrapper */
@@ -73799,6 +73846,7 @@ const getShadowDomStyles = () => {
       color: rgba(255, 255, 255, 0.9) !important;
       font-size: 18px !important;
       text-align: left !important;
+      transition: color 0.3s ease-out !important;
     }
 
     .context-paragraph:last-child {
@@ -73918,11 +73966,12 @@ const getShadowDomStyles = () => {
     .context-button-fixed {
       position: sticky !important;
       bottom: 0 !important;
-      background-color: rgba(0, 0, 0, 0.95) !important;
+      background-color: var(--bg-primary) !important;
       padding: 16px 0 0 0 !important;
       text-align: center !important;
       z-index: 10 !important;
       flex-shrink: 0 !important;
+      transition: background-color 0.3s ease-out !important;
     }
 
     /* Loading state */
@@ -73990,7 +74039,7 @@ const getShadowDomStyles = () => {
       border-radius: 6px !important;
       font-size: 14px !important;
       cursor: pointer !important;
-      transition: all 0.2s !important;
+      transition: all 0.3s ease-out !important;
       display: flex !important;
       align-items: center !important;
       gap: 6px !important;
@@ -74144,6 +74193,7 @@ const getShadowDomStyles = () => {
       display: block !important;
       margin-bottom: 8px !important;
       line-height: 1.6 !important;
+      font-size: 18px !important;
       color: rgba(255, 255, 255, 0.9) !important;
     }
 
@@ -74154,6 +74204,30 @@ const getShadowDomStyles = () => {
       line-height: 1.6 !important;
       font-style: italic !important;
       opacity: 0.9 !important;
+    }
+
+    /* Mixed prose/poetry content (e.g., Hebrews 1:5 with prose between quotes) */
+    .verse-with-mixed-content {
+      display: block !important;
+      font-size: 18px !important;
+      line-height: 1.6 !important;
+    }
+
+    /* Verse numbers in mixed content - match unified style */
+    .verse-with-mixed-content .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
+    }
+
+    /* Prose blocks within mixed content */
+    .verse-prose-block {
+      display: block !important;
+      margin: 0.5em 0 !important;
+      line-height: 1.6 !important;
+      font-size: 18px !important;
+      color: rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Poetry verse numbers should match unified prose style for consistency */
@@ -74300,8 +74374,18 @@ const getShadowDomStyles = () => {
     .verse-with-lines {
       display: block !important;
       margin-bottom: 0.5rem !important;
+      font-size: 18px !important;
+      line-height: 1.6 !important;
     }
-    
+
+    /* Verse numbers in lines - match unified style */
+    .verse-with-lines .context-verse-number {
+      font-size: 0.65em !important;
+      font-weight: 400 !important;
+      opacity: 0.8 !important;
+      margin-right: 3px !important;
+    }
+
     .verse-line-wrapper {
       display: flex !important;
       align-items: baseline !important;
@@ -74366,11 +74450,146 @@ const getShadowDomStyles = () => {
 
     /* Light theme overrides for verse text colors */
     :host([data-theme="light"]) .verse-prose-intro,
+    :host([data-theme="light"]) .verse-prose-block,
     :host([data-theme="light"]) .prose-line-text,
     :host([data-theme="light"]) .poetry-line-text {
       color: rgba(0, 0, 0, 0.9) !important;
     }
 
+    :host([data-theme="light"]) .verse-with-mixed-content .context-verse-number {
+      color: rgba(0, 0, 0, 0.7) !important;
+    }
+
+    :host([data-theme="light"]) .context-verse-number {
+      color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* ==============================================
+       CONTEXTVIEW LIGHT THEME - "Sacred Reading"
+       Design: Warm cream background, border-only controls,
+       shadow-based depth, no jarring gray boxes
+       ============================================== */
+
+    /* Typography - warm charcoal tones */
+    :host([data-theme="light"]) .context-title {
+      color: var(--text-primary) !important;
+      font-weight: 350 !important;
+    }
+
+    :host([data-theme="light"]) .context-title-underline {
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.15), transparent) !important;
+    }
+
+    :host([data-theme="light"]) .context-subtitle {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .context-paragraph {
+      color: var(--text-primary) !important;
+    }
+
+    /* Back button - border-only, no fill */
+    :host([data-theme="light"]) .context-back-btn {
+      background-color: transparent !important;
+      border: 1px solid var(--border-primary) !important;
+      color: var(--text-secondary) !important;
+      box-shadow: none !important;
+    }
+
+    :host([data-theme="light"]) .context-back-btn:hover {
+      background-color: var(--glass-bg-hover) !important;
+      border-color: var(--border-active) !important;
+      color: var(--text-primary) !important;
+    }
+
+    /* Translation dropdown - border-only, subtle shadow on focus */
+    :host([data-theme="light"]) .context-translation-select {
+      background-color: transparent !important;
+      border: 1px solid var(--border-primary) !important;
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .context-translation-select:hover:not(:disabled) {
+      background-color: var(--glass-bg-hover) !important;
+      border-color: var(--border-active) !important;
+    }
+
+    :host([data-theme="light"]) .context-translation-select:focus {
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    :host([data-theme="light"]) .context-translation-select option {
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
+    }
+
+    /* Done button container - matches modal background for seamless look */
+    :host([data-theme="light"]) .context-button-fixed {
+      background-color: var(--bg-primary) !important;
+    }
+
+    /* Scrollbar - subtle warm tone */
+    :host([data-theme="light"]) .context-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12) !important;
+      border-radius: 4px !important;
+    }
+
+    :host([data-theme="light"]) .context-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Section headings - warm secondary color */
+    :host([data-theme="light"]) .unified-heading {
+      color: var(--text-secondary) !important;
+    }
+
+    /* Loading states */
+    :host([data-theme="light"]) .context-loading {
+      color: var(--text-muted) !important;
+    }
+
+    :host([data-theme="light"]) .context-spinner {
+      border-color: var(--border-secondary) !important;
+      border-top-color: var(--text-secondary) !important;
+    }
+
+    /* Psalm and poetry elements - warm muted tones */
+    :host([data-theme="light"]) .psalm-superscription {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .selah-marker {
+      color: var(--text-muted) !important;
+      font-style: italic !important;
+    }
+
+    :host([data-theme="light"]) .psalm-section-heading {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .acrostic-letter {
+      color: var(--text-muted) !important;
+    }
+
+    :host([data-theme="light"]) .speaker-label {
+      color: var(--text-secondary) !important;
+    }
+
+    :host([data-theme="light"]) .musical-notation {
+      color: var(--text-muted) !important;
+    }
+
+    /* Highlighted verse - slightly emphasized */
+    :host([data-theme="light"]) .highlighted-verse {
+      background-color: rgba(0, 0, 0, 0.03) !important;
+      border-radius: 4px !important;
+    }
+
+    :host([data-theme="light"]) .highlighted-verse .verse-text-content,
+    :host([data-theme="light"]) .highlighted-verse .poetry-line-text,
+    :host([data-theme="light"]) .highlighted-verse .verse-line {
+      color: var(--text-primary) !important;
+    }
 
     /* Render Tester - fixed top-left, sibling to modal inside overlay */
     .render-tester-panel {
@@ -74590,23 +74809,23 @@ const themeVariables = `
     --profile-menu-hover: rgba(255, 255, 255, 0.25); /* More visible white overlay on hover */
   }
   
-  /* Light Theme */
+  /* Light Theme - "Sacred Reading" aesthetic */
   :host([data-theme="light"]) {
-    --bg-primary: rgba(255, 255, 255, 0.98);
-    --bg-overlay: rgba(0, 0, 0, 0.8);  /* Keep same as dark mode for consistency */
-    --bg-secondary: rgba(255, 255, 255, 0.9);
+    --bg-primary: #faf9f7;  /* Warm cream - easier on eyes than pure white */
+    --bg-overlay: rgba(0, 0, 0, 0.6);
+    --bg-secondary: #f5f4f2;
+
+    --text-primary: #2c2825;  /* Warm charcoal - softer than pure black */
+    --text-secondary: #5c5652;
+    --text-muted: #7a756f;
     
-    --text-primary: #1a1a1a;
-    --text-secondary: rgba(0, 0, 0, 0.7);
-    --text-muted: rgba(0, 0, 0, 0.6);
-    
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-bg-hover: rgba(0, 0, 0, 0.08);
-    --glass-bg-active: rgba(0, 0, 0, 0.1);
-    
-    --border-primary: rgba(0, 0, 0, 0.15);
-    --border-secondary: rgba(0, 0, 0, 0.1);
-    --border-active: rgba(0, 0, 0, 0.2);
+    --glass-bg: transparent;  /* No background tint - use borders/shadows instead */
+    --glass-bg-hover: rgba(0, 0, 0, 0.03);
+    --glass-bg-active: rgba(0, 0, 0, 0.05);
+
+    --border-primary: rgba(0, 0, 0, 0.12);
+    --border-secondary: rgba(0, 0, 0, 0.08);
+    --border-active: rgba(0, 0, 0, 0.18);
     
     --button-bg: #1a1a1a;
     --button-text: white;
@@ -74623,17 +74842,17 @@ const themeVariables = `
     --input-text: #1a1a1a;
     --input-placeholder: rgba(0, 0, 0, 0.4);
     
-    --dropdown-bg: rgba(255, 255, 255, 0.98);
-    --dropdown-border: rgba(0, 0, 0, 0.15);
-    --dropdown-item-hover: rgba(0, 0, 0, 0.05);
-    
-    --red-letter: #cc0000;
-    --error-color: #dc2626;
-    --success-color: #059669;
-    
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.2);
+    --dropdown-bg: #faf9f7;
+    --dropdown-border: rgba(0, 0, 0, 0.12);
+    --dropdown-item-hover: rgba(0, 0, 0, 0.04);
+
+    --red-letter: #b33a3a;  /* Warmer red for light mode */
+    --error-color: #c53030;
+    --success-color: #2d8a5f;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
     
     --avatar-bg: white;
     --avatar-border: #1a1a1a;
