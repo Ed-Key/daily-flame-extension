@@ -51,7 +51,16 @@ export class FirestoreService {
       }
 
       const verseData = verseDoc.data() as FirestoreVerse;
-      
+
+      // Normalize the reference to use ASCII hyphens for consistent parsing
+      // This handles any stored data that may have Unicode en-dashes (–)
+      if (verseData.reference) {
+        verseData.reference = verseData.reference
+          .replace(/[\u2010-\u2015\u2212]/g, '-')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
       // Update cache
       this.cachedVerses.set(date, {
         data: verseData,
@@ -87,13 +96,23 @@ export class FirestoreService {
       const verses: FirestoreVerse[] = [];
       
       snapshot.forEach((doc) => {
+        const verseData = doc.data() as FirestoreVerse;
+
+        // Normalize the reference to use ASCII hyphens for consistent parsing
+        if (verseData.reference) {
+          verseData.reference = verseData.reference
+            .replace(/[\u2010-\u2015\u2212]/g, '-')
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+
         verses.push({
-          ...doc.data() as FirestoreVerse,
+          ...verseData,
           // Ensure the date is included if it's the document ID
           date: doc.id
         } as FirestoreVerse & { date: string });
       });
-      
+
       return verses;
     } catch (error) {
       console.error('Error fetching all verses from Firestore:', error);
@@ -117,9 +136,19 @@ export class FirestoreService {
       const verses: FirestoreVerse[] = [];
       
       snapshot.forEach((doc) => {
-        verses.push(doc.data() as FirestoreVerse);
+        const verseData = doc.data() as FirestoreVerse;
+
+        // Normalize the reference to use ASCII hyphens for consistent parsing
+        if (verseData.reference) {
+          verseData.reference = verseData.reference
+            .replace(/[\u2010-\u2015\u2212]/g, '-')
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+
+        verses.push(verseData);
       });
-      
+
       return verses;
     } catch (error) {
       console.error('Error fetching verses in range:', error);
