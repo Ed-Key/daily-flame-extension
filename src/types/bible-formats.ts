@@ -65,6 +65,24 @@ export interface ProseLine {
 }
 
 /**
+ * Represents a content block that can be either prose or poetry.
+ * Used for verses with interspersed prose and poetry (e.g., Hebrews 1:5 NLT).
+ * Preserves DOM order so content renders correctly.
+ */
+export interface MixedContentBlock {
+  /** Type of content block */
+  type: 'prose' | 'poetry';
+  /** The text content */
+  text: string;
+  /** Indentation level (only for poetry: 1 = poet1, 2 = poet2, 3 = poet3) */
+  indentLevel?: 1 | 2 | 3;
+  /** Whether there should be extra space before this block (-sp class) */
+  hasSpaceBefore?: boolean;
+  /** Whether this block contains words of Jesus */
+  isRedLetter?: boolean;
+}
+
+/**
  * Speaker label with position for Song of Solomon dialogues
  * Stores which poetry line index the speaker appears before
  */
@@ -148,6 +166,9 @@ export interface UnifiedVerse {
 
   /** Multi-paragraph prose lines for verses with multiple separate paragraphs (e.g., James 1:1 NLT) */
   proseLines?: ProseLine[];
+
+  /** Mixed prose/poetry content in DOM order for verses with interspersed content (e.g., Hebrews 1:5) */
+  mixedContent?: MixedContentBlock[];
 }
 
 /**

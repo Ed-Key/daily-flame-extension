@@ -94,9 +94,10 @@ export class NLTService {
       // Join all verses with a space
       const fullText = allVerseTexts.join(' ').trim();
 
+      // Use normalized reference so verse range parsing works correctly
       return {
         text: fullText,
-        reference: reference,
+        reference: normalizedReference,
         bibleId: 'NLT'
       };
 

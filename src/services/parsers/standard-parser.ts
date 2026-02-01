@@ -130,16 +130,29 @@ export class StandardBibleParser extends BaseBibleParser {
   }
 
   /**
+   * Recursively extract text from an items array
+   * Handles nested char tags that contain text (e.g., Hebrew alphabet headings in Psalm 119)
+   */
+  private extractTextFromItems(items: any[]): string {
+    let text = '';
+    for (const item of items) {
+      if (item.type === 'text' && item.text) {
+        text += item.text;
+      } else if (item.name === 'char' && item.items) {
+        // Recursively extract text from nested char tags
+        text += this.extractTextFromItems(item.items);
+      }
+    }
+    return text;
+  }
+
+  /**
    * Extract text from a paragraph (for headings, speaker labels)
+   * Uses recursive extraction to handle nested char tags
    */
   private extractParagraphText(paragraph: any): string {
     if (!paragraph.items) return '';
-
-    return paragraph.items
-      .filter((item: any) => item.type === 'text')
-      .map((item: any) => item.text || '')
-      .join('')
-      .trim();
+    return this.extractTextFromItems(paragraph.items).trim();
   }
 
   /**
@@ -517,18 +530,11 @@ export class StandardBibleParser extends BaseBibleParser {
     if (apiResponse.content && apiResponse.content.length > 0) {
       const firstPara = apiResponse.content[0];
       if (firstPara.attrs?.style === 's1' || firstPara.attrs?.style === 'd') {
-        // Extract title text
-        let titleText = '';
-        if (firstPara.items && Array.isArray(firstPara.items)) {
-          firstPara.items.forEach((item: any) => {
-            if (item.type === 'text' && item.text) {
-              titleText += item.text;
-            }
-          });
-        }
-        
-        if (titleText.trim()) {
-          metadata.superscription = titleText.trim();
+        // Extract title text using recursive extraction to handle nested char tags
+        const titleText = this.extractParagraphText(firstPara);
+
+        if (titleText) {
+          metadata.superscription = titleText;
           
           // Check for musical notation
           const musicalMatch = titleText.match(/(To the (?:chief )?Musician[^.]*)/i);
@@ -547,19 +553,13 @@ export class StandardBibleParser extends BaseBibleParser {
       apiResponse.content.forEach((paragraph: any) => {
         // Check if this is a heading (style="s2" or similar)
         if (paragraph.attrs?.style === 's2' || paragraph.attrs?.style === 's3') {
-          let headingText = '';
-          if (paragraph.items && Array.isArray(paragraph.items)) {
-            paragraph.items.forEach((item: any) => {
-              if (item.type === 'text' && item.text) {
-                headingText += item.text;
-              }
-            });
-          }
-          
-          if (headingText.trim() && lastVerseNumber !== '0') {
+          // Use recursive extraction to handle nested char tags (e.g., Hebrew alphabet in Psalm 119)
+          const headingText = this.extractParagraphText(paragraph);
+
+          if (headingText && lastVerseNumber !== '0') {
             sectionHeadings.push({
               afterVerse: lastVerseNumber,
-              heading: headingText.trim()
+              heading: headingText
             });
           }
         }

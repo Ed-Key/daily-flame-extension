@@ -1,5 +1,5 @@
 import { BaseBibleParser } from './base-parser';
-import { UnifiedChapter, UnifiedVerse, PsalmMetadata } from '../../types/bible-formats';
+import { UnifiedChapter, UnifiedVerse, PsalmMetadata, PoetryLine } from '../../types/bible-formats';
 
 /**
  * Parser for ESV (English Standard Version) Bible API
@@ -262,8 +262,9 @@ export class ESVBibleParser extends BaseBibleParser {
         }
       }
       
-      // For Psalms with line-based structure, we need to handle span.line elements
-      if (isPsalm && paragraphHtml.includes('class="line"')) {
+      // For paragraphs with line-based structure (poetry in Psalms, Luke, Hebrews, etc.)
+      // NOT limited to Psalms - many books have poetry sections
+      if (paragraphHtml.includes('class="line"')) {
         // Parse line-based Psalm structure
         const linePattern = /<span[^>]*class="[^"]*line[^"]*"[^>]*>(.*?)<\/span>/gs;
         const lines = Array.from(paragraphHtml.matchAll(linePattern));
@@ -314,21 +315,35 @@ export class ESVBibleParser extends BaseBibleParser {
             // Get text after verse number
             const textAfterVerseNum = lineHtml.substring(lineHtml.indexOf(fullMatch) + fullMatch.length);
             let verseText = this.stripHtmlTags(textAfterVerseNum).trim();
-            // Only add initial text to verseLines if it's not empty
-            const verseLines: string[] = verseText ? [verseText] : [];
-            
+
+            // Build poetryLines array with proper structure (like NLT)
+            const poetryLines: PoetryLine[] = [];
+            if (verseText) {
+              poetryLines.push({
+                text: verseText,
+                indentLevel: isIndentLine ? 2 : 1,
+                hasSpaceBefore: false
+              });
+            }
+
             // If this is an indent line without a verse number, it's continuation of previous verse
             // We need to append it to the previous verse
             if (verses.length > 0 && !verseNumber && isIndentLine) {
               const lastVerse = verses[verses.length - 1];
-              if (lastVerse.lines) {
-                lastVerse.lines.push(verseText);
+              if (lastVerse.poetryLines) {
+                lastVerse.poetryLines.push({
+                  text: verseText,
+                  indentLevel: 2,
+                  hasSpaceBefore: false
+                });
+                // Update combined text
+                lastVerse.text = lastVerse.poetryLines.map(l => l.text).join(' ');
               } else {
                 lastVerse.text += ' ' + verseText;
               }
               return;
             }
-            
+
             // For verses with both regular and indent lines, we need to collect all lines
             // Look ahead to collect all lines belonging to this verse
             let nextLineIndex = lineIndex + 1;
@@ -336,13 +351,17 @@ export class ESVBibleParser extends BaseBibleParser {
               const nextLine = lines[nextLineIndex];
               const nextLineHtml = nextLine[1];
               const isNextLineIndented = nextLine[0].includes('indent line');
-              
+
               // Check if this line belongs to the current verse (no verse number)
-              if (!/<b[^>]*class="[^"]*verse-num/.test(nextLineHtml) && 
+              if (!/<b[^>]*class="[^"]*verse-num/.test(nextLineHtml) &&
                   !/<b[^>]*class="[^"]*chapter-num/.test(nextLineHtml)) {
                 const lineText = this.stripHtmlTags(nextLineHtml).trim();
                 if (lineText) {
-                  verseLines.push(lineText);
+                  poetryLines.push({
+                    text: lineText,
+                    indentLevel: isNextLineIndented ? 2 : 1,
+                    hasSpaceBefore: false
+                  });
                 }
                 // Mark this line as processed
                 processedLines.add(nextLineIndex);
@@ -352,35 +371,33 @@ export class ESVBibleParser extends BaseBibleParser {
                 break;
               }
             }
-            
+
             // Mark current line as processed
             processedLines.add(lineIndex);
-            
+
             // Combine text for backward compatibility
-            verseText = verseLines.join(' ');
-            
+            verseText = poetryLines.map(l => l.text).join(' ');
+
             // Create verse if we have a verse number and any text (initial or collected)
-            if (verseNumber && (verseText || verseLines.length > 0)) {
+            if (verseNumber && (verseText || poetryLines.length > 0)) {
               const isFirstVerse = verseNumber === '1';
-              const poetryIndentLevel = isIndentLine ? 1 : 0;
-              
+
               // Check for Selah
               const isSelah = /\bSelah\b/i.test(verseText);
-              
+
               // Add heading only to the first verse after a heading
-              const shouldAddHeading = currentHeading && 
+              const shouldAddHeading = currentHeading &&
                 !verses.some(v => v.heading === currentHeading.heading);
-              
+
               verses.push(this.createVerse(verseNumber, verseText, {
                 isFirstVerse,
-                isRedLetter: false, // ESV HTML doesn't include red letter in Psalms
+                isRedLetter: false, // ESV HTML doesn't include red letter in poetry sections
                 heading: shouldAddHeading && currentHeading ? currentHeading.heading : undefined,
                 headingId: shouldAddHeading && currentHeading ? currentHeading.headingId : undefined,
                 isSelah: isSelah || undefined,
-                poetryIndentLevel: poetryIndentLevel || undefined,
                 // Check if this verse ends a stanza
                 stanzaBreakAfter: stanzaBreakPositions.has(lineIndex) ? true : undefined,
-                lines: verseLines.length > 0 ? verseLines : undefined
+                poetryLines: poetryLines.length > 0 ? poetryLines : undefined
               }));
             }
           } else if (verses.length > 0) {
@@ -388,11 +405,15 @@ export class ESVBibleParser extends BaseBibleParser {
             const lastVerse = verses[verses.length - 1];
             const additionalText = this.stripHtmlTags(lineHtml).trim();
             if (additionalText) {
-              // If the verse has lines array, add to it; otherwise append to text
-              if (lastVerse.lines) {
-                lastVerse.lines.push(additionalText);
+              // If the verse has poetryLines array, add to it; otherwise append to text
+              if (lastVerse.poetryLines) {
+                lastVerse.poetryLines.push({
+                  text: additionalText,
+                  indentLevel: isIndentLine ? 2 : 1,
+                  hasSpaceBefore: false
+                });
                 // Also update the combined text for backward compatibility
-                lastVerse.text = lastVerse.lines.join(' ');
+                lastVerse.text = lastVerse.poetryLines.map(l => l.text).join(' ');
               } else {
                 lastVerse.text += ' ' + additionalText;
               }
@@ -493,23 +514,41 @@ export class ESVBibleParser extends BaseBibleParser {
       psalmNumber: chapterNumber,
       hasSelah: /\bSelah\b/i.test(html)
     };
-    
-    // Look for superscription in h3 tag at the beginning
-    // ESV puts Psalm titles in h3 tags with specific formatting
-    const superscriptionMatch = html.match(/<h3[^>]*>(.*?)<\/h3>/);
-    if (superscriptionMatch) {
-      const superscriptionText = this.stripHtmlTags(superscriptionMatch[1]).trim();
-      
-      // Check if this is actually a superscription (not a section heading)
-      // Superscriptions typically mention "Psalm" or start with "To the" or "A" or "Of"
-      if (/^(To the|A |Of |When |For |In |The )/i.test(superscriptionText) ||
-          /Psalm/i.test(superscriptionText)) {
+
+    // ESV uses <h4 class="psalm-title"> for the actual Psalm superscription
+    // (e.g., "A Psalm of David.")
+    const psalmTitleMatch = html.match(/<h4[^>]*class="psalm-title"[^>]*>(.*?)<\/h4>/i);
+    if (psalmTitleMatch) {
+      const superscriptionText = this.stripHtmlTags(psalmTitleMatch[1]).trim();
+      if (superscriptionText) {
         metadata.superscription = superscriptionText;
-        
+
         // Extract musical notation if present
         const musicalMatch = superscriptionText.match(/(To the choirmaster[^.]*)/i);
         if (musicalMatch) {
           metadata.musicalNotation = musicalMatch[1];
+        }
+      }
+    }
+
+    // Fallback: Look for superscription in h3 tag at the beginning
+    // Some Psalms may use h3 tags with specific formatting
+    if (!metadata.superscription) {
+      const superscriptionMatch = html.match(/<h3[^>]*>(.*?)<\/h3>/);
+      if (superscriptionMatch) {
+        const superscriptionText = this.stripHtmlTags(superscriptionMatch[1]).trim();
+
+        // Check if this is actually a superscription (not a section heading)
+        // Superscriptions typically mention "Psalm" or start with "To the" or "A" or "Of"
+        if (/^(To the|A |Of |When |For |In |The )/i.test(superscriptionText) ||
+            /Psalm/i.test(superscriptionText)) {
+          metadata.superscription = superscriptionText;
+
+          // Extract musical notation if present
+          const musicalMatch = superscriptionText.match(/(To the choirmaster[^.]*)/i);
+          if (musicalMatch) {
+            metadata.musicalNotation = musicalMatch[1];
+          }
         }
       }
     }
